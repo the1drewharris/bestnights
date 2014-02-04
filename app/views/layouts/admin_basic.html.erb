@@ -1,0 +1,41 @@
+<!doctype html>
+
+<!--[if lt IE 7 ]> <html class="ie ie6 ie-lt10 ie-lt9 ie-lt8 ie-lt7 no-js" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie ie7 ie-lt10 ie-lt9 ie-lt8 no-js" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie ie8 ie-lt10 ie-lt9 no-js" lang="en"> <![endif]-->
+<!--[if IE 9 ]>    <html class="ie ie9 ie-lt10 no-js" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<!-- the "no-js" class is for Modernizr. --> 
+
+	<%= render :partial => "common/head" %>
+	<body>
+		<p class="notice"><%= notice %></p>
+		<p class="alert"><%= alert %></p>
+		<div id="adminwrapper">
+			<div id="eyebrow">
+				<%= image_tag("logo.png") %>
+				<%= render :partial => "common/admin_nav_tab" %>
+			</div>
+						
+		  <%= yield %>
+		  
+			<footer>
+				<div>
+					<p id="copyright"><small>&copy; Copyright BestNights.com 2014. All Rights Reserved.</small></p>
+					<nav></nav>
+				</div>
+			</footer>
+		</div>
+		<!-- Prompt IE 6 users to install Chrome Frame. Remove this if you support IE 6.
+				 http://chromium.org/developers/how-tos/chrome-frame-getting-started -->
+		<!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
+		
+		<!-- Grab Google CDN's jQuery. fall back to local if necessary -->
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script>window.jQuery || document.write("<script src='./js/jquery-1.10.2.min.js'>\x3C/script>")</script>
+		
+		<!-- this is where we put our custom functions -->
+		<!-- don't forget to concatenate and minify if needed -->
+		<script src="/js/functions.js"></script>
+	</body>
+</html>

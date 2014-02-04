@@ -1,0 +1,19 @@
+<% content_for :title, "BestNights.com - Add Bed Type" %>
+
+<header>
+	<h1>Add Bed Type</h1>
+</header>
+
+<div id="container-main">
+	<%= form_for @bed_type do |f| %>
+		
+		<div class="input-box">
+		  <div class="input-align"><%= f.label :bedtype %></div>
+		  <div class="input-align"><%= f.text_field :bedtype %></div>
+		</div>
+		 
+		<div class="input-box">
+		  <%= f.submit %>
+		</div>
+	<% end %>
+</div>

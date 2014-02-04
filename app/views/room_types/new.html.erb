@@ -1,0 +1,22 @@
+<% content_for :title, "BestNights.com - Add Room Type" %>
+
+<header>
+	<h1>Add Room Type</h1>
+</header>
+
+<div id="container-main">
+	<%= form_for @room_type do |f| %>
+		
+		<div class="input-box">
+			<div class="input-align" style="margin-right:50px;"><%= f.label :hotel %></div>
+	  	<div class="input-align"><%= f.select :hotel_id, options_for_select(Hotel.all.map{|s|[s.name, s.id]}) %></div>
+		</div>				
+		<div class="input-box">
+		  <div class="input-align"><%= f.label :type %></div>
+		  <div class="input-align"><%= f.text_field :type %></div>
+		</div>		 
+		<div class="input-box">
+		  <%= f.submit %>
+		</div>
+	<% end %>
+</div>

@@ -1,0 +1,29 @@
+<% content_for :title, "BestNights.com - Add Manager" %>
+
+<header>
+	<h1>Add Manager</h1>
+</header>
+
+<div id="container-main">
+	<%= form_for @manager, url: new_manager_path do |f| %>
+		
+		<div class="input-box">
+		  <div class="input-align"><%= f.label :email %></div>
+		  <div class="input-align"><%= f.text_field :email %></div>
+		</div>
+		
+		<div class="input-box">
+			<div class="input-align"><%= f.label :password %></div>
+		  <div class="input-align"><%= f.password_field :password %></div>
+		</div>
+		
+		<div class="input-box">
+			<div class="input-align"><%= f.label :password_confirmation %></div>
+			<div class="input-align"><%= f.password_field :password_confirmation %></div>
+		</div>
+		 
+		<div class="input-box">
+		  <%= f.submit %>
+		</div>
+	<% end %>
+</div>

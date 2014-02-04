@@ -1,0 +1,16 @@
+<ul class="nav">
+  <% if user_signed_in? %>
+    <li>
+    <%= link_to 'Logout', destroy_user_session_path, :method=>'delete' %>
+    </li>
+    <li>
+    <%= link_to 'Edit account', edit_user_registration_path %>
+    </li>  
+  <% end %>
+</ul>
+
+<p>This is the dashboard for authenticated user!</p>
+
+<% if can? :new, Hotel %>
+  <%= link_to "Add Hotel", new_hotel_path %>
+<% end %>

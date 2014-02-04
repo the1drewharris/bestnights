@@ -1,0 +1,38 @@
+<% content_for :title, "BestNights.com - Add Hotel" %>
+
+<header>
+	<h1>Add Hotel</h1>
+</header>
+
+<div id="container-main">
+	<%= form_for @hotel do |f| %>
+		<div class="input-box">
+		  <div class="input-align"><%= f.label :name %></div>
+		  <div class="input-align"><%= f.text_field :name %></div>
+		</div>
+		
+		<div class="input-box">
+		  <div class="input-align"><%= f.label :description %></div>
+		  <div class="input-align"><%= f.text_field :description %></div>
+		</div>
+		  
+		<div class="input-box">  
+		  <div class="input-align"><%= f.label :address1 %></div>
+		  <div class="input-align"><%= f.text_field :address1 %></div>
+		</div>
+		  
+		<div class="input-box">  
+		  <div class="input-align"><%= f.label :city %></div>
+		  <div class="input-align"><%= f.text_field :city %></div>
+		</div>
+		  
+		<div class="input-box">  
+		  <div class="input-align"><%= f.label :zip %></div>
+		  <div class="input-align"><%= f.text_field :zip %></div>
+		</div>
+		
+		<div class="input-box">
+		  <%= f.submit %>
+		</div>
+	<% end %>
+</div>

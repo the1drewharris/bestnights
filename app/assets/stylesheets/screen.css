@@ -1,0 +1,195 @@
+
+/*********************************************
+ ****  ELEMENTS
+ ********************************************/
+
+body {
+	background: url(bg_body.jpg);
+	text-align: center;
+}
+
+fieldset {
+	clear: both;
+	padding: 0 21px;
+}
+
+footer,
+#eyebrow {
+	background: #272727;
+	color: #888;
+}
+
+footer {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+	footer > div {
+		overflow: hidden;
+		padding: 12px 27px;
+		border-top: 1px solid #888;
+	}
+	
+
+h1 {
+	font-size: 4.01em;
+	font-weight: 200;
+}
+
+h1,
+input,
+label,
+nav {
+	font-family: 'Raleway', sans-serif;
+}
+
+header {
+	margin: 35px 21px;
+	text-align: left;
+}
+
+input {
+	border: 1px solid #c8b68c;
+	padding: 3px;
+}
+
+	input[type="text"] {
+		width: 250px;
+		font-weight: 500;
+		position: absolute;
+		left: 150px;
+		margin: -3px 0 0 0;
+	}
+	
+	input[type="submit"] {
+		display: inline-block;
+		text-transform: uppercase;
+		font-size: 0.81em;
+		color: #c8b68c;
+		background: #fff;
+		padding: 7px 21px;
+	}
+
+	input[type="submit"]:hover {
+		color: #fff;
+		background: #c8b68c;
+	}
+	
+label {
+	display: block;
+	position: relative;
+	margin: 0 0 21px;
+	height: 28px;
+	padding: 3px 0;
+}
+
+nav {
+	
+}
+
+	nav a,
+	nav a:hover {
+		font-weight: 200;
+		color: #969696;
+		text-decoration: none;
+		margin: 0 12px 0 0;
+	}
+	
+	nav a:hover {
+		color: #fff;
+	}
+	
+	nav a.active,
+	nav a.active:hover {
+		font-weight: 500;
+		color: #fff;
+	}
+
+
+
+
+
+
+
+
+/*********************************************
+ ****  IDs
+ ********************************************/
+
+
+
+#container-main {
+	padding: 21px;
+}
+
+
+#copyright {
+	float: right;
+}
+
+#eyebrow {
+	padding: 17px 27px 9px;
+}
+
+
+
+#footerSect2 {
+
+}
+
+#adminwrapper,
+#tempwrapper,
+#wrapper {
+	width: 1024px;
+	min-height: 900px;
+	margin: 0 auto 12px auto;
+	position: relative;
+	text-align: left;
+}
+
+#tempwrapper {
+	background: #fff url(bg_comingsoon.jpg) 0px 21px;
+}
+
+	#tempwrapper header {
+		padding: 256px 12px 0px;
+	}
+
+#adminwrapper,
+#wrapper {
+	background: #fff;
+}
+
+	#adminwrapper nav {
+		margin: 14px 0 7px;
+	}
+
+
+
+
+	
+/*********************************************
+ ****  CLASSes
+ ********************************************/
+
+
+.formactions {
+	background: #eaeaea;
+	margin: 28px 0;
+	height: 56px;
+	padding: 14px;
+	clear: both;
+}
+
+/*********************************************
+ ****  Miss.Jong
+ ********************************************/
+.input-align{
+	float:left;
+}
+.input-box{	
+	clear:both;
+}
+

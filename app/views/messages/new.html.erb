@@ -1,0 +1,49 @@
+<% content_for :title, "BestNights.com - Add Message" %>
+
+<header>
+	<h1>Add Message</h1>
+</header>
+
+<div id="container-main">
+	<%= form_for @message do |f| %>
+		
+		<div class="input-box">
+		  <div class="input-align"><%= f.label :message %></div>
+		  <div class="input-align"><%= f.text_field :message %></div>
+		</div>
+		
+		<div class="input-box">
+		  <div class="input-align"><%= f.label :sender %></div>
+		  <div class="input-align"><%= f.text_field :sender_id %></div>
+		</div>
+		
+		<div class="input-box">
+		  <div class="input-align"><%= f.label :sender_type %></div>
+		  <div class="input-align"><%= f.text_field :sender_type %></div>
+		</div>
+		
+		<div class="input-box">
+		  <div class="input-align"><%= f.label :to %></div>
+		  <div class="input-align"><%= f.text_field :to_id %></div>
+		</div>
+		
+		<div class="input-box">
+		  <div class="input-align"><%= f.label :to_type %></div>
+		  <div class="input-align"><%= f.text_field :to_type %></div>
+		</div>
+		
+		<div class="input-box">
+		  <div class="input-align"><%= f.label :type %></div>
+		  <div class="input-align"><%= f.text_field :type %></div>
+		</div>
+		
+		<div class="input-box">
+		  <div class="input-align"><%= f.label :status %></div>
+		  <div class="input-align"><%= f.text_field :status %></div>
+		</div>
+		 
+		<div class="input-box">
+		  <%= f.submit %>
+		</div>
+	<% end %>
+</div>
