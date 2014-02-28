@@ -6,14 +6,18 @@
 
 <div id="container-main">
 	<%= form_for @hotel_attribute do |f| %>
-				
-		<div class="input-box">
-		  <div class="input-align"><%= f.label :attribute %></div>
-		  <div class="input-align"><%= f.text_field :attr %></div>
-		</div>
-		 
-		<div class="input-box">
-		  <%= f.submit %>
-		</div>
+		<fieldset>
+		  <ul>
+		  	<li>
+		  		<%= f.label :attribute %>
+		  		<%= f.text_field :attr %>
+		  	</li>
+		  </ul>	
+		</fieldset>
+		<fieldset class="formactions">
+			<%= f.submit %>
+		</fieldset>
 	<% end %>
 </div>
+
+<%= javascript_include_tag :jquery_ujs %>

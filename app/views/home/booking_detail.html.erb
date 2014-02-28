@@ -1,0 +1,134 @@
+<div id="wrapper" class="bookingdetail">
+	<div id="eyebrow">
+		<div class="logo">
+			<%= image_tag("logo.png") %>
+		</div>
+		<%= render :partial => "common/home_nav_tab" %>
+	</div>
+	
+	<header>
+		<div class="headdetails">
+			<span class="starrating">
+				<% @hotel.star.to_i.times do %>
+		  		&#10029;
+		  	<% end %>
+		  </span><br>
+		  <span class="price">BestNights.com Price <b><sup>$</sup><%= @hotel.lowest_price %><sup>.15</sup></b></span>
+		</div>
+		<h1><%= @hotel.name %></h1>
+		<address><%= @hotel.address1 %></address>
+	</header>	
+	
+	<%= session[:checkin] %>
+	<%= session[:checkout] %>
+	
+	<section id="gallery">
+		<div class="album" data-jgallery-album-title="Hotel Name">
+			<% @hotel.hotel_photos.each do |photo| %>
+				<a href=<%= photo.picture.url %>><img src=<%= photo.picture.url %> size="75x75" alt=""  data-jgallery-bg-color="#d1d2c3" data-jgallery-text-color="#272727" /></a>
+			<% end %>			
+		</div>
+	</section>
+	
+	<a href="/checkout" class="button5" onclick="scrollToAnchor('book');">Book Now</a>
+	<section class="description">
+		<p>Conveniently located off Interstate 40, this hotel offers free Wi-Fi in every room. A continental breakfast is served each morning.</p>
+		<p>Rooms at the Oklahoma City Howard Johnson Express include cable TV, a microwave and a fridge. A hairdryer is also provided.</p>
+		<p>This Howard Johnson Express is a 5 minute drive from downtown Oklahoma City, Will Rogers World Airport, Myriad Convention Center, Oklahoma City Zoo, and Frontier City.</p>
+		<p>Hotel Rooms: 96, Hotel Chain: Howard Johnson.</p>
+		<div class="details">
+			<h6>Room Features</h6>
+			<p>
+				<% @room_attrs.each do |room_attr| %>
+					<%= room_attr.first + ', ' %>
+				<% end %>
+			</p>
+			<h6>Hotel Features</h6>
+			<p>
+				<% @hotel.hotel_attributes.each do |ha| %>
+				  <%= ha.attr + ', ' %>
+				<% end %>
+			</p>
+			<h6>Description</h6>
+			<p><%= @hotel.description %></p>
+		</div>
+	</section>
+	
+	<div id="searchdates">
+		<h4 class="check_availability" style="cursor: pointer;">Check Availability</h4>
+		<form method="get" action="/hotels/search" accept-charset="UTF-8">
+			<input type="hidden" id="checkindate" name="date[checkin]">
+			<input type="hidden" id="checkoutdate" name="date[checkout]">
+			<input type="hidden" id="roomtype" name="roomtype">
+			<div id="checkin"></div>
+			<div id="checkout"></div>
+			<!--<div id="checkin"><span>Check in</span><span>Wednesday, 26th<br>February 2014</span></div>-->
+			<!--<div id="checkout"><span>Check out</span><span>Friday, 28th<br>February 2014</span></div>-->
+			<div id="jrange" class="dates">
+				<input>
+				<div></div>
+			</div>
+			<ul id="roomtypes">
+				<li value="1"><a>Single Room</a></li>
+				<li value="2"><a>Double Room</a></li>
+				<li value="3"><a>Groups</a></li>
+			</ul>
+			<div id="groupopts">
+				<label for="roomqty">Number of Rooms</label>
+				<input name="group[roomqty]" id="roomqty" type="number" min="1" value="1">
+				<ul>
+					<li>
+						<h5>Room 1</h5>
+						<ul>
+							<li>
+								<label>Adults</label>
+								<input class="adults" name="group[beds][1][adultqty]" type="number" min="0" value="1">
+							</li>
+							<li>
+								<label>Children</label>
+								<input class="children" name="group[beds][1][childqty]" type="number" min="0" value="0">
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</form>
+	</div>
+	
+	<h5 id="available_notification"></h5>	
+	<div id="bookingoptions">
+		<table>
+			<tr>
+				<th scope="col">Room Type</th>
+				<th scope="col">Conditions</th>
+				<th scope="col">Max</th>
+				<th scope="col">BestNights.com Price</th>
+				<th scope="col">Number of Rooms</th>
+				<th scope="col">Reservation</th>
+			</tr>
+						
+			<form action="/checkout" method="get">
+				<% @hotel.rooms.each do |room| %>
+					<tr>
+						<td><%= room.room_type.room_type %></td>
+						<td>
+							<% room.room_attributes.each do |ra| %>
+							  <%= ra.attr + ', ' %>
+							<% end %>	
+						</td>
+						<td>&nbsp;</td>
+						<td class="price"><sup>$</sup><%= room.price %><sup>.15</sup><br><span>Not included: 13.88% tax</span></td>
+						<td><input type="number" min="0" max=<%= room.available_max(@from_date, @to_date) %> value="0" name="number[<%= room.id %>]"></td>
+						<% if room == @hotel.rooms.first %>
+							<td rowspan=<%= @hotel.rooms.count %> ><input type="submit" value="book now" <%= "disabled" unless room.available?(@from_date, @to_date) %> ></td>
+						<% end %>
+					</tr>
+				<% end %>			
+			</form>
+		</table>
+	<!-- </form> -->
+	</div>
+	
+	<%= render :partial => "common/home_footer" %>
+	
+</div>

@@ -1,0 +1,30 @@
+<% content_for :title, "BestNights.com - Room Type" %>
+
+<%= link_to "Rooms", rooms_path(:hotel_id => @room.hotel.id) %>
+
+<header>
+	<h1><%= @room.name %></h1>
+</header>
+
+<div id="container-main">
+	<h4>Hotel</h4>
+	<span><%= @room.hotel.name %></span>	
+	<br />
+	
+	<h4>Room Description</h4>
+	<span><%= @room.description %></span>	
+	<br />
+	
+	<h4>Room Specification</h4>
+	<span>Room Type: </span>
+	<span><%= @room.room_type.room_type %></span>	
+	<br />
+	
+	<h4>Room Attributes</h4>
+	<span>
+		<% @room.room_attributes.each do |ra| %>
+		  <%= ra.attr %>
+		<% end %>
+	</span>	
+	
+</div>

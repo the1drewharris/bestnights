@@ -1,0 +1,38 @@
+<% content_for :title, "BestNights.com - Traveler" %>
+
+<header>
+	<h1>Traveler</h1>
+</header>
+
+<div id="container-main">
+	<div class="formactions">
+		<%= link_to "Add", new_traveler_path %>
+  </div>
+	<table class="admintablelist">
+		<tr>
+			<th>Name</th>
+			<th>City</th>
+			<th>State</th>
+			<th>Phone</th>
+			<th>Action</th>
+		</tr>
+		<% @travelers.each do |traveler| %>
+		  <tr>
+		  	<td><%= traveler.name %></td>
+				<td><%= traveler.city %></td>
+				<td><%= traveler.state.state_province unless traveler.state.nil? %></td>
+				<% if can? :show, traveler %>
+					<td><%= link_to "Show", traveler_path(traveler) %></td>
+				<% end %>
+				<% if can? :edit, traveler %>
+					<td><%= link_to "Edit", edit_traveler_path(traveler) %></td>
+				<% end %>
+				<% if can? :delete, traveler %>
+					<td><%= link_to "Delete", traveler_path(traveler), :method => :delete %></td>
+				<% end %>	
+		  </tr>
+		<% end %>
+	</table>
+</div>
+
+<%= javascript_include_tag :jquery_ujs %>

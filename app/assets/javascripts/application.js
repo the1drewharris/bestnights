@@ -12,7 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery-1.10.2.min
+//= require jquery-ui-1.10.4.custom.min
 //= require modernizr-2.7.0.dev
 //= require prefixfree.min
+//= require jquery.uniform.min
+//= require dropzone
+//= require functions
 //= require_tree .

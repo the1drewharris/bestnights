@@ -1,0 +1,34 @@
+
+<header>
+	<h1>Hotels</h1>
+</header>
+
+<%= form_tag hotels_path, :id => "search_form", :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+<% end %>
+
+<div id="container-main">
+	<table class="admintablelist">
+		<tr>
+			<th>Name</th>
+			<th>City</th>
+			<th>State</th>
+			<th>Address</th>
+			<th>Status</th>
+		</tr>
+		<% @hotels.each do |hotel| %>
+		  <tr>
+		  	<td><%= link_to hotel.name, new_room_path(:hotel_id => hotel.id) %></td>
+				<td><%= hotel.city %></td>
+				<td><%= hotel.state.state_province unless hotel.state.nil? %></td>
+				<td><%= hotel.address1 %></td>
+				<td><%= hotel.status %></td>
+		  </tr>
+		<% end %>
+	</table>
+</div>
+
+<%= javascript_include_tag :jquery_ujs %>

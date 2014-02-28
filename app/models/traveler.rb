@@ -1,5 +1,20 @@
 class Traveler < ActiveRecord::Base
-  attr_accessible :firstname, :lastname, :address1, :address2, :city, :zip, :email, :phone_number
+  
+  devise :database_authenticatable, :trackable, :validatable
+         
+  attr_accessible :firstname, :lastname, :address1, :address2, :city, :zip, :email,
+                  :phone_number, :state_id, :country_id, :password, :password_confirmation
+  
+  validates :firstname, :lastname, :address1, :city, :state_id, :country_id, :zip, presence: true
+  validates :email, presence: true, uniqueness: true
+  
   belongs_to :country
   belongs_to :state
+  
+  has_many :bookings
+  has_many :traveler_payments
+  
+  def name
+    "#{firstname} #{lastname}"
+  end
 end

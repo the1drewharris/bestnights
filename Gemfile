@@ -13,3 +13,10 @@ end
 gem 'jquery-rails'
 gem 'devise'
 gem 'cancan'
+gem "paperclip"
+gem "dynamic_form"
+gem 'dropzonejs-rails'
+gem 'simple_form'
+gem 'authorize-net'
+gem 'nokogiri'
+gem 'jbuilder'

@@ -1,0 +1,19 @@
+<% 
+	role = "Administrator" if current_user.admin?
+	role = "Manager" if current_user.manager?
+	role = "Front Desk" if current_user.front_desk?
+	role = "Traveler" if current_user.traveler?
+%>
+
+<div id="profileInfo">
+	<% unless current_user.new_signup? %>
+		You are logged in as 
+		<%= link_to "Site #{role}" , '#' %>
+		<%= link_to "Dashboard" , '#' %>
+		<%= link_to "Profile" , edit_user_path(current_user) %>
+	<% end %>
+	
+	<%= link_to "Logout" , destroy_user_session_path, :method => :delete %>
+</div>
+
+<%= javascript_include_tag :jquery_ujs %>

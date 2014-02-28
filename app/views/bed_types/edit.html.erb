@@ -1,0 +1,23 @@
+<% content_for :title, "BestNights.com - Edit Bed Type" %>
+
+<header>
+	<h1>Edit Bed Type</h1>
+</header>
+
+<div id="container-main">
+	<%= form_for @bed_type do |f| %>
+		<fieldset>
+		  <ul>
+		  	<li>
+		  		<%= f.label 'Bed Type' %>
+		  		<%= f.text_field :bedtype %>
+		  	</li>
+		  </ul>	
+		</fieldset>
+		<fieldset class="formactions">
+			<%= f.submit %>
+		</fieldset>
+	<% end %>
+</div>
+
+<%= javascript_include_tag :jquery_ujs %>

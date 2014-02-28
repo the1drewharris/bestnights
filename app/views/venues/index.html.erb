@@ -1,0 +1,39 @@
+<% content_for :title, "BestNights.com - Venue" %>
+
+<header>
+	<h1>Venue</h1>
+</header>
+
+<div id="container-main">
+	<div class="formactions">
+		<%= link_to "Add", new_venue_path %>
+  </div>
+	<table class="admintablelist">
+		<tr>
+			<th>Name</th>
+			<th>Address1</th>
+			<th>Address2</th>
+			<th>City</th>
+			<th>Action</th>
+		</tr>
+		<% @venues.each do |venue| %>
+		  <tr>
+		  	<td><%= venue.name %></td>
+				<td><%= venue.address1 %></td>
+				<td><%= venue.address2 %></td>
+				<td><%= venue.city %></td>
+				<% if can? :show, venue %>
+					<td><%= link_to "Show", venue_path(venue) %></td>
+				<% end %>
+				<% if can? :edit, venue %>
+					<td><%= link_to "Edit", edit_venue_path(venue) %></td>
+				<% end %>
+				<% if can? :delete, venue %>
+					<td><%= link_to "Delete", venue_path(venue), :method => :delete %></td>
+				<% end %>	
+		  </tr>
+		<% end %>
+	</table>
+</div>
+
+<%= javascript_include_tag :jquery_ujs %>

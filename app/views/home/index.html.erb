@@ -1,27 +1,127 @@
-<div id="wrapper">
+<div id="wrapper" class="home">
 	<div id="eyebrow">
 		<div class="logo">
 			<%= image_tag("logo.png") %>
 		</div>
 		<%= render :partial => "common/home_nav_tab" %>
 	</div>
+	
+	<div id="features">
+		<ul>
+			<li data-row="1" data-col="1" data-sizex="2" data-sizey="1" style="background:url(assets/siteimages/grid-1_1.jpg) no-repeat top left;"></li>
+			<li data-row="2" data-col="1" data-sizex="2" data-sizey="1"><span>Save with <br>every stay</span></li>
+			<li data-row="3" data-col="1" data-sizex="1" data-sizey="1" style="background:url(assets/siteimages/grid-1_3.jpg) no-repeat top left;"></li>
+			<li data-row="4" data-col="1" data-sizex="1" data-sizey="1" style="background:url(assets/siteimages/grid-1_4.jpg) no-repeat top left;"></li>
+	 
+			<li data-row="3" data-col="2" data-sizex="1" data-sizey="2" style="background:url(assets/siteimages/grid-2_3.jpg) no-repeat top left;"></li>
+	 
+			<li data-row="1" data-col="3" data-sizex="3" data-sizey="3" style="background:url(assets/siteimages/grid-3_1.jpg) no-repeat top left;"><span>Deal of the Day<br>Save up to 50%</span></li>
+			<li data-row="4" data-col="3" data-sizex="1" data-sizey="1" style="background:url(assets/siteimages/grid-3_4.jpg) no-repeat top left;"></li>
+	 
+			<li data-row="4" data-col="4" data-sizex="1" data-sizey="1" style="background:url(assets/siteimages/grid-4_4.jpg) no-repeat top left;"></li>
+	 
+			<li data-row="4" data-col="5" data-sizex="2" data-sizey="1"><span>Last Minute Deals<br>Don&rsquo;t Wait to Get Away</span></li>
+	 
+			<li data-row="1" data-col="6" data-sizex="1" data-sizey="1" style="background:url(assets/siteimages/grid-6_1.jpg) no-repeat top left;"></li>
+			<li data-row="2" data-col="6" data-sizex="1" data-sizey="1" style="background:url(assets/siteimages/grid-6_2.jpg) no-repeat top left;"></li>
+			<li data-row="3" data-col="6" data-sizex="1" data-sizey="1" style="background:url(assets/siteimages/grid-6_3.jpg) no-repeat top left;"></li>
+	 
+		</ul>
+	</div>
 	<header>
-		<h1>Amazing Hotel Deals Coming Soon!</h1>
+		<h1>Discover<br>the Latest Hotel Deals</h1>
+		<ul id="latestdeals">
+			<% @grouped_hotels.first(4).each do |group_hotel| %>
+			  <% city = group_hotel.first %>
+			  <% hotels = group_hotel.last %>
+			  <li>
+					<h4><%= city %></h4>
+					<p>7,254 Deals are available today</p>
+					<ul>
+						<% hotels.each do |hotel| %>
+						  <li>
+						  	<%= link_to hotel.name, booking_detail_path(:hotel_id => hotel.id) %><br>
+						  	<% hotel.star.to_i.times do %>
+						  		&#10029;
+						  	<% end %>							  	
+						  </li>
+						<% end %>
+					</ul>
+				</li>
+			<% end %>
+			
+		</ul>
+		<a class="button2">More</a>
 	</header>
-	<footer>
-		<div>
-			<p id="copyright"><small>&copy; Copyright BestNights.ca 2014. All Rights Reserved.</small></p>
-			<nav></nav>
+	<section>
+		<h3>Hotel Search</h3>
+		<div id="searchdates">
+			<form method="get" action="/hotels/search" accept-charset="UTF-8" >
+				<input type="hidden" id="checkindate" name="date[checkin]">
+				<input type="hidden" id="checkoutdate" name="date[checkout]">
+				<input type="hidden" id="roomtype" name="roomtype">
+				<input type="text" placeholder="Enter Destination, City, or Postal/Zip Code..." name="search">
+				<input type="submit" class="demo_button_submit" style="visibility: hidden;"/>
+				<div id="checkin"></div>
+				<div id="checkout"></div>
+				<!--<div id="checkin"><span>Check in</span><span>Wednesday, 26th<br>February 2014</span></div>-->
+				<!--<div id="checkout"><span>Check out</span><span>Friday, 28th<br>February 2014</span></div>-->
+				<div id="jrange" class="dates">
+					<input>
+					<div></div>
+				</div>
+				<ul id="roomtypes">
+					<li value="1"><a>Single Room</a></li>
+					<li value="2"><a>Double Room</a></li>
+					<li value="3"><a>Groups</a></li>
+				</ul>
+				<div id="groupopts">
+					<label for="roomqty">Number of Rooms</label>
+					<input name="group[roomqty]" id="roomqty" type="number" min="1" value="1">
+					<ul>
+						<li>
+							<h5>Room 1</h5>
+							<ul>
+								<li>
+									<label>Adults</label>
+									<input name="group[beds][1][adultqty]" type="number" min="0" value="1">
+								</li>
+								<li>
+									<label>Children</label>
+									<input name="group[beds][1][childqty]" type="number" min="0" value="0">
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</form>
 		</div>
-	</footer>
+		<div id="searchresults">
+			<h5>Top Results</h5>
+			<ul>
+				<li><a href="#"><%= image_tag("siteimages/hotelthumb.jpg") %><b>Central Park New York</b><br><span class="starrating">&#10029;&#10029;&#10029;&#10029;&#10029;</span><br>New York, NY</a></li>
+				<li><a href="#"><%= image_tag("siteimages/hotelthumb.jpg") %><b>Central Park New York</b><br><span class="starrating">&#10029;&#10029;&#10029;&#10029;&#10029;</span><br>New York, NY</a></li>
+				<li><a href="#"><%= image_tag("siteimages/hotelthumb.jpg") %><b>Central Park New York</b><br><span class="starrating">&#10029;&#10029;&#10029;&#10029;&#10029;</span><br>New York, NY</a></li>
+			</ul>
+			<p><a class="button4" href="#">See More Results</a></p>
+		</div>
+	</section>
+	<section id="latesthotels">
+		<p class="options"><a href="#">Newest</a> &bull; <a href="#">Featured</a> &bull; <a href="#">Active</a> &bull; <a href="#">Popular</a></p>
+		<h3>Take a look at the latest hotels who just joined.</h3>
+		<p>
+			<% @latest_joined_hotels.each do |hotel| %>
+				<a><%= image_tag hotel.hotel_photos.first.picture.url, size: "72x72" %></a>
+			<% end %>
+		</p>
+		<a href="#">View all new hotels</a>
+	</section>
+	<section class="callout">
+		<h3>Get the latest deals on your hotel bookings.</h3>
+		<p>Registering will keep you up-to-date with the latest deals available!</p>
+		<a class="button3">Register Now, It&rsquo;s Free!</a>
+	</section>
+	
+	<%= render :partial => "common/home_footer" %>
+	
 </div>
-
-<!-- Prompt IE 6 users to install Chrome Frame. Remove this if you support IE 6.
-		 http://chromium.org/developers/how-tos/chrome-frame-getting-started -->
-<!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
-
-<!-- Grab Google CDN's jQuery. fall back to local if necessary -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script>window.jQuery || document.write("<script src='./js/jquery-1.10.2.min.js'>\x3C/script>")</script>
-<script src="/js/functions.js"></script>
-		

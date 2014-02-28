@@ -1,0 +1,33 @@
+<% content_for :title, "BestNights.com - Hotel Attributes" %>
+
+<header>
+	<h1>Hotel Attributes</h1>
+</header>
+
+<div id="container-main">
+	<div class="formactions">
+		<%= link_to "Add", new_hotel_attribute_path %>
+  </div>
+	<table class="admintablelist">
+		<tr>
+			<th>Attribute</th>
+			<th>Action</th>
+		</tr>
+		<% @hotel_attributes.each do |ha| %>
+		  <tr>
+		  	<td><%= ha.attr %></td>
+		  	<% if can? :show, ha %>
+					<td><%= link_to "Show", hotel_attribute_path(ha) %></td>
+				<% end %>
+				<% if can? :edit, ha %>
+					<td><%= link_to "Edit", edit_hotel_attribute_path(ha) %></td>
+				<% end %>	
+				<% if can? :delete, ha %>
+					<td><%= link_to "Delete", hotel_attribute_path(ha), :method => :delete %></td>
+				<% end %>	
+		  </tr>
+		<% end %>
+	</table>
+</div>
+
+<%= javascript_include_tag :jquery_ujs %>

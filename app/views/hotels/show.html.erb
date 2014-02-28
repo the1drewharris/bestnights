@@ -1,0 +1,42 @@
+<% content_for :title, "BestNights.com - Hotel" %>
+
+<header>
+	<h1><%= @hotel.name %></h1>
+</header>
+
+<div id="container-main">
+	<span>
+		<%= @hotel.description %>
+	</span>
+	
+	<br />
+	
+	<span>
+		<%= @hotel.address1 %>
+	</span>
+	
+	<br />
+	
+	<span>
+		<%= @hotel.city %>
+	</span>
+	
+	<% @hotel_attributes.each do |ha| %>
+		<span>
+	    <%= ha.attr %>
+	  </span>
+	<% end %>
+	
+	<% @hotel_photos.each do |photo| %>
+	  <span>
+	    <%= image_tag photo.picture.url %>
+	  </span>
+	  <br />
+	<% end %>
+	
+	<br />
+	
+	<% if current_user.front_desk? and current_user.new_signup? %>
+		<%= link_to "Register", register_hotel_path(@hotel), :method => :post %>
+	<% end %>
+</div>

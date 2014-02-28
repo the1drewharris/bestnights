@@ -1,0 +1,52 @@
+<% content_for :title, "BestNights.com - Room" %>
+
+<% if current_user.new_signup? %>
+	<%= link_to "Hotels", hotels_path %>
+<% end %>
+
+<header>
+	<h1>Room</h1>
+</header>
+
+<div id="container-main">
+	<div class="formactions">
+		<% if current_user.new_signup? %>
+			<%= link_to "Add", new_room_path(:hotel_id => @hotel.id) %>
+		<% else %>
+			<%= link_to "Add", new_room_path %>
+		<% end %>
+		
+  </div>
+	<table class="admintablelist">
+		<tr>
+			<th>Name</th>
+			<th>Description</th>
+			<th>Price</th>
+			<th>Original Price</th>
+			<th>Hotel</th>
+			<th>Room Type</th>
+			<th>Action</th>
+		</tr>
+		<% @rooms.each do |room| %>
+		  <tr>
+		  	<td><%= room.name %></td>
+				<td><%= room.description %></td>
+				<td><%= room.price %></td>
+				<td><%= room.original_price %></td>
+				<td><%= room.hotel.name unless room.hotel.nil? %></td>
+				<td><%= room.room_type.room_type unless room.room_type.nil? %></td>
+				<% if can? :show, room %>
+					<td><%= link_to "Show", room_path(room) %></td>
+				<% end %>
+				<% if can? :edit, room %>
+					<td><%= link_to "Edit", edit_room_path(room) %></td>
+				<% end %>
+				<% if can? :delete, room %>
+					<td><%= link_to "Delete", room_path(room), :method => :delete %></td>
+				<% end %>	
+		  </tr>
+		<% end %>
+	</table>
+</div>
+
+<%= javascript_include_tag :jquery_ujs %>

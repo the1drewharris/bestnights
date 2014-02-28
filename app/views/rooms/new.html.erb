@@ -1,0 +1,60 @@
+<% content_for :title, "BestNights.com - Add Room" %>
+
+<% if current_user.new_signup? %>
+	<%= link_to "Rooms", rooms_path(:hotel_id => @hotel.id) %>
+<% end %>
+
+<header>
+	<h1>Add Room</h1>
+</header>
+
+<div id="container-main">
+	<%= form_for @room do |f| %>
+		<fieldset>
+		  <ul>
+		  	<li>
+		  		<%= f.label :name %>
+		  		<%= f.text_field :name %>
+		  	</li>
+		  	<li>
+		  		<%= f.label :price %>
+		  		<%= f.text_field :price %>
+		  	</li>
+		  	<li>
+		  		<%= f.label :original_price %>
+		  		<%= f.text_field :original_price %>
+		  	</li>
+		  	<li>
+		  		<%= f.label :additionaladultfee %>
+		  		<%= f.text_field :additionaladultfee %>
+		  	</li>
+		  	<li>
+		  		<%= f.label :starting_inventory %>
+		  		<%= f.text_field :starting_inventory %>
+		  	</li>
+		  	<% if current_user.new_signup? %>
+		  		<%= f.hidden_field :hotel_id, :value => @hotel.id %>
+		  	<% else %>
+			  	<li>
+			  		<%= f.label :hotel %>
+			  		<%= f.select :hotel_id, options_for_select(@hotels.map{|s|[s.name, s.id]}) %>
+			  	</li>
+		  	<% end %>
+		  		
+		  	<li>
+		  		<%= f.label "Room Type" %>
+		  		<%= f.select :room_type_id, options_for_select(@room_types.map{|s|[s.room_type, s.id]}) %>
+		  	</li>	
+		  	<li>
+		  		<%= f.label :description %>
+		  		<%= f.text_area :description %>
+		  	</li>
+		  </ul>	
+		</fieldset>
+		<fieldset class="formactions">
+			<%= f.submit %>
+		</fieldset>
+	<% end %>
+</div>
+
+<%= javascript_include_tag :jquery_ujs %>

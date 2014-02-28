@@ -1,11 +1,38 @@
 <nav>	
-	<%= link_to "Add Hotel", new_hotel_path %>
-	<%= link_to "Add Manager", new_manager_path %>
-	<%= link_to "Add Room Type", new_room_type_path %>
-	<%= link_to "Add Bed Type", new_bed_type_path %>
-	<%= link_to "Add Hotel Attribute", new_hotel_attribute_path %>
-	<%= link_to "Add Room Attribute", new_room_attribute_path %>
-	<%= link_to "Add Promotion", '#' %>
-	<%= link_to "Add Message", new_message_path %>
-	<%= link_to "Add Traveler", new_traveler_path %>
+	<% if can? :index, Hotel %>
+		<%= link_to "Hotels", hotels_path %>
+	<% end %>
+	<% if can? :index, HotelAttribute %>	
+		<%= link_to "Hotel Attributes", hotel_attributes_path %>
+	<% end %>
+	<% if can? :index, RoomType %>
+		<%= link_to "Room Types", room_types_path %>
+	<% end %>
+	<% if can? :index, Room %>
+		<%= link_to "Rooms", rooms_path %>
+	<% end %>
+	<% if can? :index, Availability %>
+		<%= link_to "Availabilities", availabilities_path %>
+	<% end %>
+	<% if can? :index, RoomAttribute %>	
+		<%= link_to "Room Attributes", room_attributes_path %>
+	<% end %>
+	<% if can? :index, Promotion %>	
+		<%= link_to "Promotions", promotions_path %>
+	<% end %>
+	<% if can? :index, Venue %>	
+		<%= link_to "Venues", venues_path %>
+	<% end %>
+	<% if can? :index, Card %>	
+		<%= link_to "Cards", cards_path %>
+	<% end %>
+	<% if can? :index, DefaultMessage %>	
+		<%= link_to "Default Messages", default_messages_path %>
+	<% end %>
+	<% if can? :index, User %>	
+		<%= link_to "Users", users_path %>
+	<% end %>	
+	<% if can? :index, Traveler %>	
+		<%= link_to "Travelers", travelers_path %>
+	<% end %>	
 </nav>

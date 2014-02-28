@@ -1,0 +1,27 @@
+<%= devise_error_messages! %>
+
+<h2>Sign up</h2>
+<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => 'form-vertical' }) do |f| %>  
+  <%= f.input :firstname, :autofocus => true %>
+  <%= f.input :lastname, :autofocus => true %>
+  <%= f.input :email, :required => true %>
+  <%= f.input :password, :required => true %>
+  <%= f.input :password_confirmation, :required => true %>
+  <%= f.input :address1, :autofocus => true %>
+  <%= f.input :city, :autofocus => true %>
+  <div>
+  	<%= f.label :state %>
+		<%= f.select :state_id, options_for_select(State.all.map{|s|[s.state_province, s.id]}) %>
+  </div>
+   <div>
+  	<%= f.label "Country" %>
+		<%= f.select :country_id, options_for_select(Country.all.map{|s|[s.country, s.id]}) %>
+  </div>
+  <div>
+  	<%= f.label :type %>
+  	<%= f.select :role, options_for_select(User::ROLE) %>
+		
+  </div>
+  <%= f.button :submit, 'Sign up', :class => 'btn-primary' %>
+<% end %>
+<%= render "devise/shared/links" %>

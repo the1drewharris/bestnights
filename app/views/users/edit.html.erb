@@ -1,0 +1,39 @@
+<% content_for :title, "BestNights.com - Edit User" %>
+
+<header>
+	<h1>Edit User</h1>
+</header>
+
+<div id="container-main">
+	<%= form_for @user do |f| %>
+		<fieldset>
+		  <ul>
+		  	<li>
+		  		<%= f.label :email %>
+		  		<%= f.text_field :email %>
+		  	</li>
+		  	<li>
+		  		<%= f.label "Old Password" %>
+		  		<%= password_field_tag "old_password" %>
+		  	</li>
+		  	<li>
+		  		<%= f.label :password %>
+		  		<%= f.password_field :password %>
+		  	</li>
+		  	<li>
+		  		<%= f.label :password_confirmation %>
+		  		<%= f.password_field :password_confirmation %>
+		  	</li>
+		  	<li>
+		  		<%= f.label :role %>
+		  		<%= select_tag "role", "<option>admin</option><option>manager</option>".html_safe %>
+		  	</li>		  	
+		  </ul>	
+		</fieldset>
+		<fieldset class="formactions">
+			<%= f.submit %>
+		</fieldset>
+	<% end %>
+</div>
+
+<%= javascript_include_tag :jquery_ujs %>

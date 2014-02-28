@@ -9,14 +9,22 @@
 
 	<%= render :partial => "common/head" %>
 	<body>
-		<p class="notice"><%= notice %></p>
-		<p class="alert"><%= alert %></p>
+		<p class="success"><%= flash[:success] %></p>
+		
 		<div id="adminwrapper">
 			<div id="eyebrow">
+				<%= render :partial => "common/profile_info_nav" %>
 				<%= image_tag("logo.png") %>
-				<%= render :partial => "common/admin_nav_tab" %>
+				<% unless current_user.new_signup? %>
+					<%= render :partial => "common/admin_nav_tab" %>
+			  <% end %>
 			</div>
-						
+			<% if current_user and !current_user.activated? %>
+			  <p>Your account is pending now</p>
+			<% end %>
+
+			<%= render :partial => "common/notifications" %>
+								
 		  <%= yield %>
 		  
 			<footer>
@@ -26,16 +34,5 @@
 				</div>
 			</footer>
 		</div>
-		<!-- Prompt IE 6 users to install Chrome Frame. Remove this if you support IE 6.
-				 http://chromium.org/developers/how-tos/chrome-frame-getting-started -->
-		<!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
-		
-		<!-- Grab Google CDN's jQuery. fall back to local if necessary -->
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-		<script>window.jQuery || document.write("<script src='./js/jquery-1.10.2.min.js'>\x3C/script>")</script>
-		
-		<!-- this is where we put our custom functions -->
-		<!-- don't forget to concatenate and minify if needed -->
-		<script src="/js/functions.js"></script>
 	</body>
 </html>

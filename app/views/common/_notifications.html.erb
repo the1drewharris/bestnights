@@ -1,0 +1,14 @@
+<p class="success" style="text-align:center;">
+	<%= flash[:success] %>
+</p>
+
+<p class="errors" style="text-align:center;color: red;">
+	<% if flash[:errors] %>
+		<% flash[:errors].each do |error| %>
+		  <%= error %>
+		  <br />
+		<% end %>
+	<% end %>
+</p>	
+
+

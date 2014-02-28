@@ -1,0 +1,32 @@
+<% content_for :title, "BestNights.com - User" %>
+
+<header>
+	<h1>User</h1>
+</header>
+
+<div id="container-main">
+	<div class="formactions">
+		<%= link_to "Add", new_user_path %>
+  </div>
+	<table class="admintablelist">
+		<tr>
+			<th>Email</th>
+			<th>Role</th>
+			<th>Action</th>
+		</tr>
+		<% @users.each do |user| %>
+		  <tr>
+		  	<td><%= user.email %></td>
+				<td><%= user.role %></td>
+				<% if can? :show, user %>
+					<td><%= link_to "Show", user_path(user) %></td>
+				<% end %>
+				<% if can? :edit, user %>
+					<td><%= link_to "Edit", edit_user_path(user) %></td>
+				<% end %>
+		  </tr>
+		<% end %>
+	</table>
+</div>
+
+<%= javascript_include_tag :jquery_ujs %>

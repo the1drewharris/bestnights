@@ -1,0 +1,38 @@
+<% content_for :title, "BestNights.com - Add Availability" %>
+
+<header>
+	<h1>Add Availability</h1>
+</header>
+
+<div id="container-main">
+	<%= form_for @availability do |f| %>
+		<fieldset>
+		  <ul>
+		  	<li>
+		  		<%= f.label 'Room' %>
+		  		<%= f.select :room_id, options_for_select(@rooms.map{|s|[s.name, s.id]}) %>
+		  	</li>
+		  	<li>
+		  		<label for="startdate">This Date</label>					
+					<input id="thisdate" name="availability[this_date]" type="date" value="">
+		  	</li>
+		  	<li>
+		  		<%= f.label :count %>
+		  		<%= f.text_field :count %>
+		  	</li>
+		  	<li>
+		  		<%= f.label 'Starting Inventory' %>
+		  		<%= f.text_field :starting_inventory %>
+		  	</li>
+		  	<li>
+		  		<%= file_field_tag 'attachment' %>
+		  	</li>
+		  </ul>	
+		</fieldset>
+		<fieldset class="formactions">
+			<%= f.submit %>
+		</fieldset>
+	<% end %>
+</div>
+
+<%= javascript_include_tag :jquery_ujs %>

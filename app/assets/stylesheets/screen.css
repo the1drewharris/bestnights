@@ -4,14 +4,32 @@
  ********************************************/
 
 body {
-	background: url(bg_body.jpg);
+	background: url(siteimages/bg_body.jpg);
 	text-align: center;
 }
+
+	body a {
+		color: #c8b68c;
+		font-weight: 700;
+		text-decoration: none;
+	}
+	
+	body a:hover {
+		text-decoration: underline;
+		color: #c8b68c;
+	}
 
 fieldset {
 	clear: both;
 	padding: 0 21px;
+	border-top: 1px #ccc solid;
+	padding: 21px 0 7px;
 }
+
+	fieldset:first-child,
+	fieldset:last-child {
+		border-top: none;
+	}
 
 footer,
 #eyebrow {
@@ -25,23 +43,57 @@ footer {
 	left: 0;
 	right: 0;
 }
-
-	footer > div {
-		overflow: hidden;
-		padding: 12px 27px;
-		border-top: 1px solid #888;
-	}
 	
+form {
+	
+}
 
-h1 {
-	font-size: 4.01em;
+h1,h2,h3,h4,h5,h6 {
 	font-weight: 200;
 }
 
+h2,h3,h4,h5,h6 {
+	text-transform: uppercase;
+}
+
+h4,h5,h6 {
+	font-weight: 700;
+}
+
+h1 {
+	font-size: 4.01em;
+	margin: 0 0 28px;
+}
+
+h2 {
+	font-size: 2.51em;
+}
+
+h3 {
+	font-size: 2.01em;
+	margin: 0 0 7px;
+}
+
+h4 {
+	font-size: 1.51em;
+}
+
+h5 {
+	font-size: 1.31em;
+}
+
+h6 {
+	margin: 7px 0 14px;
+	padding: 3px 0 0 0;
+	border-top: 1px #ccc solid;
+}
+
+div,
 h1,
-input,
 label,
-nav {
+nav,
+th,
+td {
 	font-family: 'Raleway', sans-serif;
 }
 
@@ -50,54 +102,204 @@ header {
 	text-align: left;
 }
 
-input {
+	header address {
+		font-style: normal;
+		font-size: 1.31em;
+	}
+
+input, {
+	font-family: Helvetica, Arial, sans-serif;
 	border: 1px solid #c8b68c;
 	padding: 3px;
+	vertical-align: top;
 }
 
+input,
+select,
+textarea {
+	margin: -3px 0 0 0;
+	transition: box-shadow 0.5s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+	outline: none;
+	box-shadow: 0px 0px 7px rgba(135,191,41,0.75);
+}
+
+input,
+select {
+	font-weight: 500;
+}
+
+
+
 	input[type="text"] {
-		width: 250px;
+		font-size: 0.91em;
 		font-weight: 500;
-		position: absolute;
-		left: 150px;
-		margin: -3px 0 0 0;
 	}
 	
-	input[type="submit"] {
+	input[type="text"],
+	input[type="date"],
+	input[type="number"] {
+		margin: 0 3px 0 0;
+	}
+	
+	input[type="date"],
+	input[type="number"] {
+		width: 100px;
+	}
+	
+	input[type="text"],
+	input[type="file"] {
+		width: 250px;
+	}
+	
+	button,
+	input[type="submit"],
+	textarea,
+	.admintablelist a,
+	.formactions a,
+	.button,
+	.button2,
+	.button3,
+	.button4,
+	.button5 {
 		display: inline-block;
-		text-transform: uppercase;
 		font-size: 0.81em;
 		color: #c8b68c;
 		background: #fff;
 		padding: 7px 21px;
+		margin: 0 7px 0 0;
+		border: 1px solid #c8b68c;
+		cursor: pointer;
 	}
 
-	input[type="submit"]:hover {
+	button,
+	input[type="submit"],
+	.admintablelist a,
+	.formactions a {
+		text-transform: uppercase;
+		position: relative;
+		left: 0;
+		text-decoration: none;
+	}
+
+	button,
+	input[type="submit"],
+	.admintablelist a:hover {
+		color: #c8b68c;
+		background: #fff;
+	}
+
+	button:hover,
+	input[type="submit"]:hover,
+	.admintablelist a,
+	.formactions a:hover,
+	a.button4:hover,
+	a.button5:hover {
 		color: #fff;
 		background: #c8b68c;
 	}
 	
-label {
-	display: block;
+	a.button2,
+	a.button3 {
+		color: #fff;
+		background: #87bf29;
+		border: 1px solid #fff;
+		font-weight: 500;
+	}
+	
+	a.button2:hover,
+	a.button3:hover {
+		color: #87bf29;
+		background: #fff;
+		text-decoration: none;
+	}
+	
+	a.button3,
+	a.button5 {
+		font-size: 1.41em;
+		text-transform: uppercase;
+	}
+	
+	body a.button4 {
+		display: block;
+		text-transform: uppercase;
+		text-align: center;
+		text-decoration: none;
+	}
+	
+	a.button5 {
+		font-size: 2.01em;
+		padding: 14px 21px;
+		float: right;
+		margin: 21px 42px 0 0;
+		font-weight: 200;
+	}
+	
+	a.button5:hover {
+		text-decoration: none;
+	}
+	
+	
+	
+label,
+.formLabel {
+	display: inline-block;
 	position: relative;
 	margin: 0 0 21px;
-	height: 28px;
 	padding: 3px 0;
+	width: 260px;
 }
+
+	label span {
+		display: inline-block;
+		float: right;
+		color: #acada1;
+	}
+	
+	label small,
+	label span {
+		font-style: italic;
+		font-size: 0.81em; 
+	}
+	
+	label[for="startdate"] input + select,
+	label[for="enddate"] input + select {
+		position: absolute;
+		left: 365px;
+	}
+	
+	label[for="startdate"] select + select,
+	label[for="enddate"] select + select {
+		position: absolute;
+		left: 425px;
+	}
+	
+	label[for="startdate"] select:last-child,
+	label[for="enddate"] select:last-child {
+		position: absolute;
+		left: 485px;
+	}
+
 
 nav {
 	
 }
 
 	nav a,
-	nav a:hover {
+	nav a:hover,
+	#profileInfo a {
 		font-weight: 200;
 		color: #969696;
 		text-decoration: none;
 		margin: 0 12px 0 0;
 	}
 	
-	nav a:hover {
+	nav a:hover,
+	#profileInfo a:hover {
 		color: #fff;
 	}
 	
@@ -107,9 +309,31 @@ nav {
 		color: #fff;
 	}
 
+p {
+	margin: 0 0 18px;
+}
 
+section {
+	padding: 28px;
+	border-top: 1px solid #ccc;
+}
 
+sup {
+	font-size: 0.41em;
+	position: relative;
+	top: -2.11em;;
+}
 
+textarea {
+	min-width: 500px;
+	min-height: 250px;
+	vertical-align: top;
+	margin: 0 0 21px;
+}
+
+ul li {
+
+}
 
 
 
@@ -120,8 +344,105 @@ nav {
 
 
 
-#container-main {
+#bookingoptions {
 	padding: 21px;
+}
+
+	#bookingoptions table {
+		width: 100%;
+	}
+	
+		#bookingoptions table th,
+		#bookingoptions table td {
+			padding: 7px;
+			border: 1px #d9eeab solid;
+		}
+		
+		#bookingoptions table th {
+			background: #87bf29;
+			color: #fff;
+		}
+	
+		#bookingoptions table td {
+			vertical-align: middle;
+		}
+		
+		#bookingoptions table th:nth-child(3),
+		#bookingoptions table td:nth-child(3),
+		#bookingoptions table th:nth-child(4),
+		#bookingoptions table td:nth-child(4),
+		#bookingoptions table th:nth-child(5),
+		#bookingoptions table td:nth-child(5) {
+			text-align: right;
+		}
+		
+		#bookingoptions table th:nth-child(6),
+		#bookingoptions table td:nth-child(6) {
+			text-align: center;
+			vertical-align: top;
+		}
+		
+		#bookingoptions table td:nth-child(6) {
+			padding: 21px 7px;
+		}
+		
+		#bookingoptions table td:nth-child(6) input {
+			margin: 0;
+		}
+		
+	#bookingoptions .price {
+		text-align: right;
+		font-size: 0.81em;
+	}
+	
+	#bookingoptions .price:first-line {
+		font-size: 3.01em;
+		line-height: 1.51em;
+	}
+	
+		#bookingoptions .price sup {
+		}
+
+
+#bookingtotal {
+	top: 185px;
+}
+
+	#bookingtotal table {
+		width: 100%;
+		margin: 0 0 21px;
+	}
+		
+		#bookingtotal table tr:last-child {
+			border-top: 1px #fff solid;
+		}
+			
+			#bookingtotal table tr td {
+				padding: 7px 0;
+			}
+			
+			#bookingtotal table tr td:last-child {
+				text-align: right;
+				font-size: 1.31em;
+				font-weight: 700;
+			}
+			
+			#bookingtotal table tr td span.currency {
+				text-align: right;
+				font-weight: 200;
+			}
+			
+	#bookingtotal ul {
+		list-style: disc;
+	}
+	
+		#bookingtotal ul li {
+			margin: 0 0 7px 21px;
+			font-size: 0.91em;
+		}
+
+#container-main {
+	padding: 21px 21px 42px 21px;
 }
 
 
@@ -130,32 +451,231 @@ nav {
 }
 
 #eyebrow {
-	padding: 17px 27px 9px;
+	padding: 18px 27px;
+	border-bottom: 1px solid #fff;
 }
 
+#features {
+	width: 1024px;
+	overflow: hidden;
+}
 
+	#features ul {
+		margin: 0 0 0 -1px;
+	}
+	
+		#features ul li {
+			background: #FF0004;
+			border: 1px solid #fff;
+			position: absolute;
+			background: rgb(255,99,99); /* Old browsers */
+			background: -moz-radial-gradient(center, ellipse cover,  rgba(255,99,99,1) 0%, rgba(211,84,82,1) 100%); /* FF3.6+ */
+			background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(255,99,99,1)), color-stop(100%,rgba(211,84,82,1))); /* Chrome,Safari4+ */
+			background: -webkit-radial-gradient(center, ellipse cover,  rgba(255,99,99,1) 0%,rgba(211,84,82,1) 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-radial-gradient(center, ellipse cover,  rgba(255,99,99,1) 0%,rgba(211,84,82,1) 100%); /* Opera 12+ */
+			background: -ms-radial-gradient(center, ellipse cover,  rgba(255,99,99,1) 0%,rgba(211,84,82,1) 100%); /* IE10+ */
+			background: radial-gradient(ellipse at center,  rgba(255,99,99,1) 0%,rgba(211,84,82,1) 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff6363', endColorstr='#d35452',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+		}
+		
+			#features ul li span {
+				color: #fff;
+				position: absolute;
+				bottom: 14px;
+				left: 14px;
+				font-size: 1.51em;
+				text-transform: uppercase;
+			}
+
+			#features ul li span:first-line {
+				color: #fff;
+				font-weight: 700;
+			}
 
 #footerSect2 {
 
 }
 
+footer #footer1 {
+	padding: 27px;
+	
+}
+
+	footer #footer1 nav {
+		display: inline-block;
+		width: 60%;
+		float: none;
+		vertical-align: top;
+	}
+	
+		footer #footer1 nav ul {
+			display: inline-block;
+			width: 30%;
+			vertical-align: top;
+			margin: 0 0 27px;
+			list-style: none;
+		}
+		
+			footer #footer1 nav ul li {
+				margin: 0 0 3px;
+			}
+			
+			footer #footer1 nav ul li:first-child,
+			footer #footer1 ul li:first-child {
+				margin: 0 0 9px;
+				text-transform: uppercase;
+			}
+			
+			footer #footer1 nav ul li:first-child,
+			footer #footer1 ul li:first-child {
+				list-style: none;
+			}
+			
+			footer #footer1 ul li ul li,
+			footer #footer1 ul li ul li ul li,
+			footer #footer1 ul li ul li:first-child {
+				width: auto;
+				display: list-item;
+			}
+			
+	footer #footer1 ul {
+		display: inline-block;
+		margin: 0 0 27px;
+		width: 30%;
+		list-style: disc;
+	}
+	
+		footer #footer1 ul li {
+			display: list-item;
+			margin: 0 0 3px 14px;
+		}
+		
+				
+
+
+footer #footerend {
+	text-transform: uppercase;
+	font-size: 0.81em;
+	overflow: hidden;
+	padding: 12px 27px;
+	border-top: 1px solid #888;
+}
+
+	footer #footerend nav {
+		float: none;
+	}
+	
+		footer #footerend nav a {
+			margin: 0;
+			color: #fff;
+		}
+		
+		footer #footerend nav a:hover {
+			color: #f2b33d;
+		}
+		
+	footer #footerend p {
+		margin: 0;
+	}
+	
+	
+#groupopts {
+	display: none;
+	padding: 21px 0;
+}
+
+	#searchdates #groupopts h5 {
+		border-bottom: 1px #ccc solid;
+		padding: 0 0 7px;
+		margin: 0 0 14px;
+	}
+	
+	#searchdates #groupopts input {
+		font-size: 1.01em;
+		width: 50px;
+		display: inline-block;
+		padding: 3px;
+	}
+	
+	#searchdates #groupopts label {
+		font-size: 1.01em;
+		width: 125px;
+	}
+	
+	#searchdates #groupopts ul li {
+		display: inline-block;
+		width: 300px;
+	}
+	
+
+#latestdeals {
+	margin: 21px 0;
+}
+
+
+	#latestdeals li {
+		padding: 21px 0;
+		width: 23%;
+		margin: 0 14px 0 0;
+		display: inline-block;
+	}
+	
+	#latestdeals li:first-child {
+		border-top: 1px solid #fcd700;
+	}
+	
+		#latestdeals li ul li,
+		#latestdeals li ul li:first-child {
+			margin: 0 0 14px;
+			padding: 0;
+			width: auto;
+			display: list-item;
+			border-top: none;
+		}
+		
+		#latestdeals li ul li a {
+			color: #fff;
+			text-decoration: none;
+			font-weight: 500;
+		}
+		
+		#latestdeals li ul li a:hover {
+			color: #87bf29;
+			background: #fff;
+		}
+		
+#latesthotels {
+	
+}
+
+	#latesthotels h3 {
+		text-transform: none;
+		margin: 0 0 21px;
+	}
+	
+	#latesthotels p {
+		line-height: 1.51em;
+	}
+	
+		#latesthotels p a {
+			margin: 0 6px 0 0;
+			cursor: pointer;
+		}
+		
+		#latesthotels p a {
+
+		}
+
+
 #adminwrapper,
 #tempwrapper,
 #wrapper {
 	width: 1024px;
-	min-height: 900px;
+	min-height: 700px;
 	margin: 0 auto 12px auto;
 	position: relative;
 	text-align: left;
 }
-
-#tempwrapper {
-	background: #fff url(bg_comingsoon.jpg) 0px 21px;
-}
-
-	#tempwrapper header {
-		padding: 256px 12px 0px;
-	}
 
 #adminwrapper,
 #wrapper {
@@ -163,8 +683,419 @@ nav {
 }
 
 	#adminwrapper nav {
-		margin: 14px 0 7px;
+		margin: 21px 0 7px;
 	}
+
+#wrapper {
+	background: #fff;
+	padding: 0 0 500px;
+}
+
+	
+	#wrapper nav {
+		float: right;
+	}
+	
+		#wrapper nav a:last-child {
+			margin: 0;
+		}
+
+#tempwrapper {
+	background: #fff url(siteimages/bg_comingsoon.jpg) 0px 21px;
+}
+
+	#tempwrapper header {
+		padding: 220px 12px 0px;
+	}
+	
+		#tempwrapper header h1 {
+			text-align: center;
+		}
+
+
+
+
+
+#profileInfo {
+	float: right;
+	text-align: right;
+}
+
+	#profileInfo a {
+		display: inline-block;
+		margin: 0 7px;
+	}
+	
+	#profileInfo a:first-child {
+		margin: 0 7px 0 0;
+	}
+	
+	
+.checkout section + input[type="submit"] {
+	margin: 35px 0;
+}
+	
+#roomlist .resultoptions {
+	display: inline-block;
+	float: right;
+}
+
+#roomtypes {
+	
+}
+
+	#roomtypes li a {
+		background: #fff;
+		background: rgba(255,255,255,0.5);
+		border: 1px #ccc solid;
+		color: #aaa;
+		display: block;
+		width: 200px;
+		padding: 21px;
+		text-transform: uppercase;
+		text-decoration: none;
+		cursor: pointer;
+	}
+	
+	#roomtypes li a:hover {
+		color: #000;
+	}
+	
+	#roomtypes li.selected a {
+		border: 3px #de5756 solid;
+		color: #000;
+		padding: 17px;
+		box-shadow: 0px 0px 7px rgba(135,191,41,0.75);
+	}
+	
+	#roomtypes li {
+		display: inline-block;
+		margin: 0 4px 0 0;
+	}
+	
+	#roomtypes li:last-child {
+		margin: 0;
+	}
+	
+	
+
+
+	
+#searchdates,
+#searchresults {
+	display: inline-block;
+}
+
+#searchdates {
+	width: 658px;
+	padding: 21px;
+	margin: 0 28px 0 0;
+	min-height: 370px;
+	background: #e0e0d3;
+}
+
+	#searchdates div#checkin,
+	#searchdates div#checkout {
+		width: 300px;
+		border: 1px solid #272727;
+		display: inline-block;
+		margin: 14px 0;
+		vertical-align: top;
+	}
+		
+	#searchdates div#checkin {
+		text-align: right
+	}
+		
+	#searchdates div#searchdatescal {
+		border: none;
+		display: block;
+	}
+	
+	#searchdates div#checkin {
+		margin: 14px 12px 14px 0;
+	}
+	
+	#searchdates div#checkin span:first-child,
+	#searchdates div#checkout span:first-child {
+		display: inline-block;
+		float: left;
+		padding: 18px 9px;
+		background: #272727;
+		color: #fff;
+		text-transform: uppercase;
+		font-size: 0.81em;
+	}
+	
+	#searchdates div#checkout span:first-child {
+		float: right;
+	}
+	
+	#searchdates div#checkin span:first-child ~ span,
+	#searchdates div#checkout span:first-child ~ span {
+		display: inline-block;
+		font-family: Helvetica, Arial, sans-serif;
+	}
+	
+	#searchdates div#checkin span:nth-child(2),
+	#searchdates div#checkin span:nth-child(3),
+	#searchdates div#checkout span:nth-child(2),
+	#searchdates div#checkout span:nth-child(3) {
+		font-size: 1.31em;
+		text-transform: none;
+		font-weight: 700;
+	}
+	
+	#searchdates div#checkin span:nth-child(2),
+	#searchdates div#checkout span:nth-child(2) {
+		text-transform: uppercase;
+	}
+	
+	#searchdates div#checkin span:nth-child(3) {
+		padding: 7px 14px 0 7px;
+	}
+	
+	#searchdates div#checkout span:nth-child(2) {
+		padding: 7px 7px 0 14px;
+	}
+	
+	#searchdates div#checkin span:first-child ~ span:last-child,
+	#searchdates div#checkout span:first-child ~ span:last-child {
+		font-size: 1.01em;
+		text-transform: uppercase;
+		font-weight: 500;
+		padding: 2px 14px 0;
+	}
+	
+	#searchdates form input {
+		width: 100%;
+		padding: 9px;
+		font-size: 2.01em;
+		text-align: center;
+	}
+	
+	
+	
+#searchfilters {
+	top: 253px;
+}
+
+	#searchfilters div#slider-price,
+	#searchfilters div#slider-rating {
+		margin: 35px 0;
+	}
+
+	#searchfilters fieldset {
+		position: relative;
+		margin: 0 0 21px;
+	}
+
+		#searchfilters fieldset legend {
+			text-transform: uppercase;
+		}
+		
+		#searchfilters fieldset input {
+			border: none;
+			background: none;
+			color: #fff;
+			font-size: 1.31em;
+			display: inline-block;
+			position: absolute;
+			font-weight: 100;
+			width: 100px;
+		}
+		
+		#searchfilters fieldset input:last-of-type {
+			right: 0;
+			text-align: right;
+		}
+		
+		#searchfilters fieldset input[name="name"] {
+			font-family: Helvetica, Arial, sans-serif;
+			border: 1px solid #c8b68c;
+			background: #fff;
+			width: 100%;
+			text-align: left;
+			color: #000;
+			padding: 3px;
+		}
+		
+		#searchfilters .ui-slider {
+			background: #dd5656;
+		}
+		
+		#searchfilters .ui-slider-handle {
+			background: #fff;
+		}
+		
+		#searchfilters label.ui-state-default {
+			display: inline-block;
+			width: auto;
+			margin: 0 1px 3px 0;
+			color: #c15757;
+			background: #fff;
+		}
+		
+		#searchfilters label.ui-state-active {
+			color: #fff;
+			background-color: #c15757;
+		}
+		
+		#searchfilters label[for="star1"],
+		#searchfilters label[for="star2"],
+		#searchfilters label[for="star3"],
+		#searchfilters label[for="star4"],
+		#searchfilters label[for="star5"] {
+			background-image: url(siteimages/sprite_stars.png);
+			background-repeat: no-repeat;
+			width: 44px;
+			height: 44px;
+		}
+		
+		#searchfilters label[for="star1"] {
+			background-position: -13px -12px;
+		}
+		
+		#searchfilters label[for="star2"] {
+			background-position: -71px -12px;
+		}
+		
+		#searchfilters label[for="star3"] {
+			background-position: -130px -12px;
+		}
+		
+		#searchfilters label[for="star4"] {
+			background-position: -190px -12px;
+		}
+		
+		#searchfilters label[for="star5"] {
+			background-position: -250px -12px;
+		}
+		
+		#searchfilters label.ui-state-active[for="star1"] {
+			background-position: -13px -76px;
+		}
+		
+		#searchfilters label.ui-state-active[for="star2"] {
+			background-position: -71px -76px;
+		}
+		
+		#searchfilters label.ui-state-active[for="star3"] {
+			background-position: -130px -76px;
+		}
+		
+		#searchfilters label.ui-state-active[for="star4"] {
+			background-position: -190px -76px;
+		}
+		
+		#searchfilters label.ui-state-active[for="star5"] {
+			background-position: -250px -76px;
+		}
+		
+			#searchfilters label[for="star1"] span,
+			#searchfilters label[for="star2"] span,
+			#searchfilters label[for="star3"] span,
+			#searchfilters label[for="star4"] span,
+			#searchfilters label[for="star5"] span {
+				display: none;
+			}
+
+
+
+#searchresults {
+	width: 270px;
+	vertical-align: top;
+	line-height: 1.81em;
+}
+
+	#searchresults ul,
+	.ui-accordion ul {
+		margin: 0 0 14px;
+		padding: 7px 0;
+	}
+	
+	#searchresults ul li {
+		border-top: 1px solid #ccc;
+		overflow: visible;
+	}
+	
+	#searchresults ul li:first-child,
+	.ui-accordion ul li:first-child {
+		border-top: none;
+	}
+	
+		#searchresults ul li a,
+		.ui-accordion ul li a {
+			color: #000;
+			text-decoration: none;
+			display: block;
+			padding: 9px 7px 14px 7px;
+			transition: background 0.5s;
+		}
+		
+		#searchresults ul li a:hover,
+		.ui-accordion ul li a:hover {
+			color: #fff;
+			text-decoration: none;
+			display: block;
+			background: #c8b68c;
+		}
+	
+			#searchresults ul li a img,
+			.ui-accordion ul li a img,
+			.ui-accordion h5.ui-accordion-header img {
+					float: left;
+					background: rgb(255,255,255); /* Old browsers */
+					background: -moz-radial-gradient(center, ellipse cover,  rgba(255,255,255,1) 0%, rgba(200,182,140,1) 100%); /* FF3.6+ */
+					background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(200,182,140,1))); /* Chrome,Safari4+ */
+					background: -webkit-radial-gradient(center, ellipse cover,  rgba(255,255,255,1) 0%,rgba(200,182,140,1) 100%); /* Chrome10+,Safari5.1+ */
+					background: -o-radial-gradient(center, ellipse cover,  rgba(255,255,255,1) 0%,rgba(200,182,140,1) 100%); /* Opera 12+ */
+					background: -ms-radial-gradient(center, ellipse cover,  rgba(255,255,255,1) 0%,rgba(200,182,140,1) 100%); /* IE10+ */
+					background: radial-gradient(ellipse at center,  rgba(255,255,255,1) 0%,rgba(200,182,140,1) 100%); /* W3C */
+					filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#c8b68c',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+					padding: 7px;
+					margin: 0 14px 0 0;
+					box-shadow: 0px 0px 7px rgba(0,0,0,0.5);
+					vertical-align: center;
+					width: 97px;
+				}
+
+#searchresultslist h5.ui-accordion-header {
+	height: 144px;
+}
+
+#userdetails {
+	border-bottom: 1px #ccc solid;
+	margin: 0 0 21px;
+}
+
+#userdetails h5 {
+	transition: background 0.5s, padding 0.5s;
+	margin: 0 0 14px;
+}
+
+#userdetails h5.ui-accordion-header {
+	background: #d3d4c4;
+	padding: 7px;
+}
+
+#userdetails h5.ui-accordion-header-active {
+	background: #fff;
+	padding: 14px 0;
+}
+
+#userdetails .ui-accordion-content {
+	border-top: none;
+	border-bottom: none;
+}
+
+#userdetails label {
+	width: 200px;
+}
+
+#userdetails input {
+	vertical-align: top;
+}
 
 
 
@@ -175,6 +1106,60 @@ nav {
  ********************************************/
 
 
+.admintablelist {
+	width: 100%;
+}
+
+	.admintablelist tr {
+		margin: 0 0 7px 0;
+		border-bottom: 1px #ccc solid;
+	}
+	
+	.admintablelist tr:hover {
+		background: #eaeaea;
+		padding: 3px;
+	}
+	
+	.admintablelist th,
+	.admintablelist td {
+		padding: 7px 14px;
+		text-align: left;
+		vertical-align: middle;
+	}
+	
+	.admintablelist th {
+		background: #eaeaea;
+	}
+	
+.checklist {
+	width: 500px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+	.checklist ul li {
+		display: inline-block;
+		width: 30%;
+		margin: 0 0 7px 0;
+	}
+	
+		.checklist ul li label {
+			width: auto;
+			margin: 0;
+		}
+		
+		.checklist ul li input {
+			margin: 0 7px 0 0;
+			vertical-align: middle;
+		}
+	
+.dropzone {
+	display: inline-block;
+	width: 500px;
+	vertical-align: top;
+	margin: 0 0 21px;
+}
+
 .formactions {
 	background: #eaeaea;
 	margin: 28px 0;
@@ -183,13 +1168,385 @@ nav {
 	clear: both;
 }
 
-/*********************************************
- ****  Miss.Jong
- ********************************************/
-.input-align{
-	float:left;
-}
-.input-box{	
-	clear:both;
+.bookingdetail section.fullsection {
+	width: 100%;
 }
 
+.headdetails {
+	float: right;
+	text-align: right;
+	font-size: 1.01em;
+	font-weight: 200;
+	margin: 0 0 0 35px;
+}
+
+	.headdetails b {
+		font-weight: 500;
+		font-size: 3.01em;
+		margin: 0 0 0 9px;
+	}
+	
+	.headdetails .starrating {
+		font-size: 2.01em;
+		margin: 0 0 14px;
+	}
+	
+	.headdetails sup {
+		top: -0.71em;
+	}
+
+.home header,
+.callout {
+	background: #87bf29;
+	padding: 27px;
+	margin: 0;
+	color: #fff;
+}
+
+	.home header h1:first-line {
+		font-weight: 500;
+	}
+	
+	.callout {
+		text-align: center;
+		margin: 28px 0;
+	}
+	
+	.callout h3 {
+		text-transform: uppercase;
+	}
+	
+	.callout p {
+		font-size: 1.11em;
+	}
+	
+.jgallery .nav-bottom {
+	display: none;
+}
+	
+.options {
+	float: right;
+	text-transform: uppercase;
+}
+
+	.options a {
+		font-size: 0.91em;
+		font-weight: 300;
+	}
+	
+	.options a:hover {
+		text-decoration: none;
+		color: #fcd700;
+	}
+
+.roomdetail {
+	margin: 11px 0 0 0;
+	text-transform: none;
+}
+
+.sidesticky {
+	width: 270px;
+	position: absolute;
+	right: 21px;
+	padding: 14px;
+	background: #87bf29;
+	color: #FFF;
+}
+
+.subpage section,
+.checkout section,
+.checkout_confirm section,
+.bookingdetail section {
+	width: 714px;
+	margin: 0 28px 0 0;
+}
+
+	.subpage section section,
+	.checkout section section,
+	.checkout_confirm section section,
+	.bookingdetail section section {
+		width: auto;
+	}
+
+
+
+
+
+.ui-accordion {
+	font-family: 'Raleway', sans-serif;
+}
+
+	.ui-accordion h5.ui-accordion-header,
+	.ui-accordion .ui-accordion-content {
+		background: none;
+		border-top: 1px #ccc solid;
+		border-left: none;
+		border-bottom: none;
+		border-right: none;
+		border-radius: 0;
+		padding-left: 0;
+		overflow: visible;
+		padding: 14px 0;
+	}
+	
+	.ui-accordion .ui-accordion-content {
+		padding: 14px 0;
+		margin: 14px 0;
+		border-top: 7px solid #cecfc0;
+		border-bottom: 7px solid #cecfc0;
+	}
+	
+	.ui-accordion h5.ui-accordion-header:first-child {
+		border-top: none;
+	}
+	
+		.ui-accordion h5 a.booknow {
+			display: inline-block;
+			float: right;
+			width: 120px;
+			height: 120px;
+			background-color: #87bf29;
+			position: relative;
+		}
+		
+			.ui-accordion h5 a.booknow span {
+				display: block;
+				text-align: center;
+				font-weight: 200;
+				color: #fff;
+				text-transform: none;
+			}
+			
+			.ui-accordion h5 a.booknow span:nth-child(1) {
+				margin: 7px 0 0 0;
+			}
+			
+			.ui-accordion h5 a.booknow span:nth-child(2) {
+				font-size: 2.51em;
+				font-weight: 200;
+			}
+			
+			.ui-accordion h5 a.booknow span:nth-child(3) {
+				margin: 0;
+				position: absolute;
+				bottom: 0;
+				background: #fff;
+				color: #a68f5b;
+				width: 100%;
+				border: 1px #a68f5b solid;
+				padding: 3px 0;
+			}
+		
+	
+	.ui-accordion .ui-accordion-header-icon {
+		display: none;
+	}
+	
+		.ui-accordion .ui-accordion-content h6 {
+			margin: 7px 0 14px;
+			padding: 3px 0 0 0;
+			border-top: 1px #ccc solid;
+		}
+		
+		.ui-accordion div.resultoptions {
+			margin: 14px 0 0;
+		}
+		
+		.ui-accordion div.resultoptions span.ratingindex {
+			display: inline-block;
+			border: 1px solid #c8b68c;
+			padding: 6px 14px;
+			margin: 0 5px 0 0;
+		}
+		
+		.ui-accordion div.resultoptions a.button {
+			margin: -2px 0 0 0;
+		}
+
+
+
+
+#jrange {
+	overflow: hidden;
+	
+}
+
+	#jrange div {
+	   font-size: 9pt;
+	}
+	
+		div#jrange div.hasDatepicker {
+			border-radius: 0;
+			top: -39px !important;
+		}
+		
+		div#jrange div.hasDatepicker div {
+			border-radius: 0;
+		}
+		
+		.ui-datepicker-inline,
+		.ui-datepicker-header {
+			background: none;
+			border: none;
+		}
+		
+		.ui-datepicker-inline {
+			height: 270px;
+		}
+		
+		
+		.ui-datepicker .ui-datepicker-header,
+		.ui-datepicker .ui-datepicker-header .ui-datepicker-prev {
+			position: absolute;
+			height: 100%;
+		}
+		
+		.ui-datepicker .ui-datepicker-header {
+			width: 100%;
+			
+		}
+		
+		.ui-datepicker .ui-datepicker-header .ui-datepicker-prev,
+		.ui-datepicker .ui-datepicker-header .ui-datepicker-next {
+			border: 1px solid #aaa;
+			top: 54px;
+			width: 27px;
+			height: 205px;
+			border-radius: 0;
+			cursor: pointer;
+		}
+		
+		.ui-datepicker .ui-datepicker-header .ui-datepicker-prev {
+			
+		}
+		
+		.ui-datepicker .ui-datepicker-header .ui-datepicker-next {
+			right: 0;
+		}
+		
+		
+		
+		div.ui-datepicker-inline {
+			border-top: 1px solid #aaa;
+			padding: 7px 0;
+			
+		}
+		
+			div#jrange div.hasDatepicker div.ui-datepicker {
+				width: 100% !important;
+			}
+			
+			.ui-datepicker .ui-datepicker-group {
+				width: 300px;
+				height: 259px;
+				position: absolute;
+				border-bottom: 1px #ccc solid;
+			}
+			
+			
+		
+			.ui-datepicker .ui-datepicker-group-first {
+				
+			}
+			
+			.ui-datepicker .ui-datepicker-group-last {
+				right: 0;
+			}
+			
+				#jrange div.ui-datepicker div.ui-datepicker-title {
+					font-size: 1.51em;
+					width: 300px;
+					margin: 0;
+				}
+		
+				.ui-datepicker .ui-datepicker-group-first .ui-datepicker-title {
+					padding: 0 0 0 30px;
+				}
+		
+				.ui-datepicker .ui-datepicker-group-last .ui-datepicker-title {
+					padding: 0 30px 0 0;
+				}
+		
+				.ui-datepicker table.ui-datepicker-calendar {
+					position: absolute;
+					top: 27px;
+					margin: 0;
+					width: 273px;
+				}
+				
+				.ui-datepicker .ui-datepicker-group-first table.ui-datepicker-calendar {
+					position: absolute;
+					left: 28px;
+				}
+				
+				.ui-datepicker .ui-datepicker-group-last table.ui-datepicker-calendar {
+					position: absolute;
+					right: 27px;
+				}
+				
+				
+				
+					#jrange .ui-datepicker tr > td.date-range-selected a {
+					   background: #fff;
+					   border-top: 4px solid #87bf29;
+					   border-bottom: 4px solid #87bf29;
+					   font-weight: 500;
+					   padding: 3px 7px;
+					}
+					
+					table.ui-datepicker-calendar tr th {
+						background: none;
+					}
+					
+					.ui-datepicker td {
+						background: #e0e0e0;
+						padding: 0;
+						font-size: 1.51em;
+						border-bottom: 1px solid #ccc;
+						border-right: 1px solid #ccc;
+					}
+					
+					.ui-datepicker tr:first-child td,
+					.ui-datepicker td:first-child {
+						padding: 0;
+						font-size: 1.51em;
+						border-top: 1px solid #ccc;
+						border-left: 1px solid #ccc;
+					}
+					
+						.ui-datepicker td a.ui-state-default {
+							border: none;
+						}
+						
+						.ui-datepicker td span.ui-state-default {
+							padding: 7px;
+							border: none;
+						}
+						
+						.ui-datepicker td a:hover {
+							text-decoration: none;
+						}
+					
+	#jrange input {
+		top: -49px;
+		position: relative;
+	}
+
+.ui-datepicker td.date-range-selected > .ui-state-active,
+.ui-datepicker td.date-range-selected > .ui-state-default {
+   background: none;
+}
+
+
+.ui-datepicker td.date-range-selected > .ui-state-active {
+	
+}
+
+tr > td.date-range-selected ~ td.date-range-selected {
+	
+}
+
+.ui-datepicker td a.ui-state-default {
+	background: none;
+	padding: 7px;
+}

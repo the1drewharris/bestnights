@@ -1,7 +1,16 @@
 class RoomType < ActiveRecord::Base
-  attr_accessible :hotel_id, :type
-  belongs_to :hotel
-  has_many :room_prices
-  has_many :availabilities
+  attr_accessible :room_type, :status
+  
+  validates :room_type, presence: true, uniqueness: { case_sensitive: false }
+  
+  after_initialize :init
+  
   has_many :bookings
+  has_many :rooms
+  
+  scope :activated, -> { where(status: "active") }
+  
+  def init
+    self.status ||= "non-active"
+  end
 end

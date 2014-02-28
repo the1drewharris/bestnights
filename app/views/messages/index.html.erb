@@ -1,0 +1,30 @@
+<% content_for :title, "BestNights.com - Messages" %>
+
+<header>
+	<h1>Messages</h1>
+</header>
+
+<div id="container-main">
+	<div class="formactions">
+		<%= link_to "Add", new_message_path %>
+  </div>
+	<table class="admintablelist">
+		<tr>
+			<th>From</th>
+			<th>Subject</th>
+			<th>Actions</th>
+		</tr>
+		<% @messages.each do |msg| %>
+		  <tr>
+		  	<td><%= msg.sender_id %></td>
+		  	<td><%= msg.message %></td>
+				<td><%= link_to "View", message_path(msg) %></td>
+				<td><%= link_to "Reply", '#' %></td>
+				<td><%= link_to "Forward", '#' %></td>
+				<td><%= link_to "Delete", '#' %></td>
+		  </tr>
+		<% end %>
+	</table>
+</div>
+
+<%= javascript_include_tag :jquery_ujs %>

@@ -1,0 +1,239 @@
+<div id="wrapper" class="checkout">
+	<div id="eyebrow">
+		<div class="logo">
+			<%= image_tag("logo.png") %>
+		</div>
+		<%= render :partial => "common/home_nav_tab" %>
+	</div>
+	
+	<header>
+		<h1>Complete Your Booking</h1>
+	</header>
+	
+	<%= link_to "Edit Your Booking Options", booking_detail_path(:hotel_id => session[:hotel_id]) %>
+	
+	<%= session[:checkin] %>
+	<%= session[:checkout] %>
+	<%= session[:booking_rooms] %>
+    
+	<section>
+		<div id="userdetails">
+		
+			<h5>Book Faster by Signing In</h5>
+			<div>
+				<form id="traveler_sign_in_booking" action="/traveler_signin_book">
+					<ul>
+						<li>
+							<label for="email">Email Address</label>
+							<input type="text" name="email" placeholder="email address" >
+						</li>
+						<li>
+							<label for="password">Password</label>
+							<input type="password" name="password" placeholder="password">
+						</li>
+					</ul>
+					<input id="traveler_sign_in_booking_btn" type="input" value="sign in" class="button4">
+				</form>
+			</div>
+				
+			<h5>Your Details</h5>
+			<div>
+				<%= form_for @traveler, :url => checkout_confirm_path, :method => :post do |f| %>
+					<ul>
+						<li>
+							<%= f.label :firstname %>
+		  				<%= f.text_field :firstname %>
+						</li>
+						<li>
+							<%= f.label :lastname %>
+		  				<%= f.text_field :lastname %>
+						</li>
+						<li>
+							<%= f.label :email %>
+		  				<%= f.text_field :email %>
+						</li>
+						<li>
+							<label for="emailconfirm">Confirm Email Address</label>
+							<input id="email_confirm" type="text" name="emailconfirm" placeholder="confirm email address" >
+						</li>						
+						<li>
+				  		<%= f.label :password %>
+				  		<%= f.password_field :password %>
+				  	</li>
+				  	<li>
+				  		<%= f.label :password_confirmation %>
+				  		<%= f.password_field :password_confirmation %>
+				  	</li>
+						<li>
+							<label for="address">Address</label>
+							<%= f.text_field :address1 %>
+						</li>
+						<li>
+							<%= f.label :city %>
+		  				<%= f.text_field :city %>
+						</li>
+						<% if session[:traveler_signin]
+							state_id = @traveler.state.id
+							country_id = @traveler.country.id
+						else
+							state_id = nil
+							country_id = nil
+						end
+						%>
+						<li>
+				  		<%= f.label :state %>
+				  		<%= f.select :state_id, options_for_select(State.all.map{|s|[s.state_province, s.id]}, state_id ) %>
+				  	</li>						
+						<li>
+							<label for="country">Country</label>
+							<%= f.select :country_id, options_for_select(Country.all.map{|s|[s.country, s.id]}, country_id ) %>
+						</li>
+						<li>
+							<label for="zip">Zip/Postal Code</label>
+							<%= f.text_field :zip %>
+						</li>
+						<li>
+							<label for="phone">Phone</label>
+							<%= f.text_field :phone_number %>
+						</li>
+					</ul>
+					<h5>Payment Information</h5>
+					<fieldset>
+						<ul>
+							<li>
+								<label for="cardtype">Credit Card Type</label>
+								<select id="cardtype" name="cardtype">
+									<optgroup label="Credit Card Type">
+										<option value="visa">Visa</option>
+										<option value="mc">Mastercard</option>
+										<option value="diners">Diners Club</option>
+										<option value="amex">American Express</option>
+										<option value="discover">Discover</option>
+									</optgroup>
+								</select>
+							</li>
+							<li><label for="ccnumber">Credit Card Number</label><input id="ccnumber" name="ccnumber" size="30" type="text"></li>
+							<li>
+								<label for="ccexpiry">Credit Card Expiration Date</label>
+								<select id="ccexpirym" name="ccexpirym">
+									<optgroup label="Month">
+										<% (1..12).each do |v| %>
+											<option value=<%= v.to_s.rjust(2, '0') %> ><%= v.to_s.rjust(2, '0') %></option>
+										<% end %>
+									</optgroup>
+								</select>
+								/
+								<select id="ccexpiryy" name="ccexpiryy">
+									<optgroup label="Year">
+										<% (14..25).each do |v| %>
+											<option value=<%= v.to_s %> ><%= v %></option>
+										<% end %>
+									</optgroup>
+								</select>
+							</li>
+						</ul>
+					</fieldset>
+					<%= f.submit "Continue Booking", :class => "button4" %>
+				<% end %>	
+			</div>
+		</div>			
+		
+		<h3>Where You&rsquo;ll Be Staying</h3>
+		
+		<section id="roomlist">		
+			<h5><div class="resultoptions"><a href="#" class="button">More Info</a></div><a href="#"><%= image_tag("siteimages/hotelthumb3.jpg") %><b>Central Park New York</b><br><span class="starrating">&#10029;&#10029;&#10029;&#10029;&#10029;</span><br>New York, NY</a><div class="roomdetail"><b>Room:</b> Queen Room <br><b>Check in:</b> Tuesday, February 25, 2014 &bull; <b>Check out:</b> Friday, February 28, 2014</div></h5>
+			<div>
+				<h6>Contact</h6>
+				<p>3730 Las Vegas Boulevard, Las Vegas, 89158, USA<br>Telephone: +1(702)5907757 | <a href="#">Official Homepage</a></p>
+				<h6>Room Features</h6>
+				<p>Bathroom with bathtub, Bathroom with shower, Television, Hairdryer, Central heating, Tea/ coffeemaker, Air conditioning, Soundproof windows, Minibar, Pay-TV, Radio, Desk, Small lounge, Telephone, Room safe, DVD player/ Video recorder, Stereo system/ CD player, Computer games, Cable TV, Internet, WiFi in the rooms</p>
+				<h6>Hotel Features</h6>
+				<p>Beauty Salon, Stage for shows, Business center, Cafe, Steam room, Disco/ Nightclub, Entrance hall/ lobby, Express check-in/ out, Elevator, TV lounge, Gym, Hairdresser, Parking lot, Terrace,   Porter service, Hotel bar, Hotel bar with a view, Pool bar, Outdoor swimming pool, Hotel safe, Child/ Baby Cot, Conference rooms, Massage, Non-smoking rooms, PC with Internet, Casino, Restaurant, 24-hour reception, Wheelchair accessible, Sauna, Shops on site, Snack bar, Beach umbrellas, Deck chairs/ Sun loungers, Laundry service, Wellness Center/ Spa, Whirlpool/ Jacuzzi/ Spa tub, WiFi in Lobby, Room Service, 24-hour Room Service, Shoe cleaning service, Organized activities, Car rental at the hotel, Concierge</p>
+				<h6>Description</h6>
+				<p>The 5-star Aria Resort & Casino is located directly on the strip in Las Vegas and attractions such as the fountains of the Bellagio, the roller-coaster of the New York New York Hotel and the Eiffel Tower replica of the Paris Hotel can all be reached by a short walk. Las Vegas - McCarran International Airport is 4 km away and the hotel can arrange...</p>
+				<div><label for="specialrequests">Special Requests</label><textarea></textarea></div>
+			</div>
+			
+			<h5><div class="resultoptions"><a href="#" class="button">More Info</a></div><a href="#"><%= image_tag("siteimages/hotelthumb3.jpg") %><b>Central Park New York</b><br><span class="starrating">&#10029;&#10029;&#10029;&#10029;&#10029;</span><br>New York, NY</a><div class="roomdetail"><b>Room:</b> Queen Room <br><b>Check in:</b> Tuesday, February 25, 2014 &bull; <b>Check out:</b> Friday, February 28, 2014</div></h5>
+			<div>
+				<h6>Contact</h6>
+				<p>3730 Las Vegas Boulevard, Las Vegas, 89158, USA<br>Telephone: +1(702)5907757 | <a href="#">Official Homepage</a></p>
+				<h6>Room Features</h6>
+				<p>Bathroom with bathtub, Bathroom with shower, Television, Hairdryer, Central heating, Tea/ coffeemaker, Air conditioning, Soundproof windows, Minibar, Pay-TV, Radio, Desk, Small lounge, Telephone, Room safe, DVD player/ Video recorder, Stereo system/ CD player, Computer games, Cable TV, Internet, WiFi in the rooms</p>
+				<h6>Hotel Features</h6>
+				<p>Beauty Salon, Stage for shows, Business center, Cafe, Steam room, Disco/ Nightclub, Entrance hall/ lobby, Express check-in/ out, Elevator, TV lounge, Gym, Hairdresser, Parking lot, Terrace,   Porter service, Hotel bar, Hotel bar with a view, Pool bar, Outdoor swimming pool, Hotel safe, Child/ Baby Cot, Conference rooms, Massage, Non-smoking rooms, PC with Internet, Casino, Restaurant, 24-hour reception, Wheelchair accessible, Sauna, Shops on site, Snack bar, Beach umbrellas, Deck chairs/ Sun loungers, Laundry service, Wellness Center/ Spa, Whirlpool/ Jacuzzi/ Spa tub, WiFi in Lobby, Room Service, 24-hour Room Service, Shoe cleaning service, Organized activities, Car rental at the hotel, Concierge</p>
+				<h6>Description</h6>
+				<p>The 5-star Aria Resort & Casino is located directly on the strip in Las Vegas and attractions such as the fountains of the Bellagio, the roller-coaster of the New York New York Hotel and the Eiffel Tower replica of the Paris Hotel can all be reached by a short walk. Las Vegas - McCarran International Airport is 4 km away and the hotel can arrange...</p>
+				<div><label for="specialrequests">Special Requests</label><textarea></textarea></div>
+			</div>
+			
+			<h5><div class="resultoptions"><a href="#" class="button">More Info</a></div><a href="#"><%= image_tag("siteimages/hotelthumb3.jpg") %><b>Central Park New York</b><br><span class="starrating">&#10029;&#10029;&#10029;&#10029;&#10029;</span><br>New York, NY</a><div class="roomdetail"><b>Room:</b> Queen Room <br><b>Check in:</b> Tuesday, February 25, 2014 &bull; <b>Check out:</b> Friday, February 28, 2014</div></h5>
+			<div>
+				<h6>Contact</h6>
+				<p>3730 Las Vegas Boulevard, Las Vegas, 89158, USA<br>Telephone: +1(702)5907757 | <a href="#">Official Homepage</a></p>
+				<h6>Room Features</h6>
+				<p>Bathroom with bathtub, Bathroom with shower, Television, Hairdryer, Central heating, Tea/ coffeemaker, Air conditioning, Soundproof windows, Minibar, Pay-TV, Radio, Desk, Small lounge, Telephone, Room safe, DVD player/ Video recorder, Stereo system/ CD player, Computer games, Cable TV, Internet, WiFi in the rooms</p>
+				<h6>Hotel Features</h6>
+				<p>Beauty Salon, Stage for shows, Business center, Cafe, Steam room, Disco/ Nightclub, Entrance hall/ lobby, Express check-in/ out, Elevator, TV lounge, Gym, Hairdresser, Parking lot, Terrace,   Porter service, Hotel bar, Hotel bar with a view, Pool bar, Outdoor swimming pool, Hotel safe, Child/ Baby Cot, Conference rooms, Massage, Non-smoking rooms, PC with Internet, Casino, Restaurant, 24-hour reception, Wheelchair accessible, Sauna, Shops on site, Snack bar, Beach umbrellas, Deck chairs/ Sun loungers, Laundry service, Wellness Center/ Spa, Whirlpool/ Jacuzzi/ Spa tub, WiFi in Lobby, Room Service, 24-hour Room Service, Shoe cleaning service, Organized activities, Car rental at the hotel, Concierge</p>
+				<h6>Description</h6>
+				<p>The 5-star Aria Resort & Casino is located directly on the strip in Las Vegas and attractions such as the fountains of the Bellagio, the roller-coaster of the New York New York Hotel and the Eiffel Tower replica of the Paris Hotel can all be reached by a short walk. Las Vegas - McCarran International Airport is 4 km away and the hotel can arrange...</p>
+				<div><label for="specialrequests">Special Requests</label><textarea></textarea></div>
+			</div>
+			
+			<h5><div class="resultoptions"><a href="#" class="button">More Info</a></div><a href="#"><%= image_tag("siteimages/hotelthumb3.jpg") %><b>Central Park New York</b><br><span class="starrating">&#10029;&#10029;&#10029;&#10029;&#10029;</span><br>New York, NY</a><div class="roomdetail"><b>Room:</b> Queen Room <br><b>Check in:</b> Tuesday, February 25, 2014 &bull; <b>Check out:</b> Friday, February 28, 2014</div></h5>
+			<div>
+				<h6>Contact</h6>
+				<p>3730 Las Vegas Boulevard, Las Vegas, 89158, USA<br>Telephone: +1(702)5907757 | <a href="#">Official Homepage</a></p>
+				<h6>Room Features</h6>
+				<p>Bathroom with bathtub, Bathroom with shower, Television, Hairdryer, Central heating, Tea/ coffeemaker, Air conditioning, Soundproof windows, Minibar, Pay-TV, Radio, Desk, Small lounge, Telephone, Room safe, DVD player/ Video recorder, Stereo system/ CD player, Computer games, Cable TV, Internet, WiFi in the rooms</p>
+				<h6>Hotel Features</h6>
+				<p>Beauty Salon, Stage for shows, Business center, Cafe, Steam room, Disco/ Nightclub, Entrance hall/ lobby, Express check-in/ out, Elevator, TV lounge, Gym, Hairdresser, Parking lot, Terrace,   Porter service, Hotel bar, Hotel bar with a view, Pool bar, Outdoor swimming pool, Hotel safe, Child/ Baby Cot, Conference rooms, Massage, Non-smoking rooms, PC with Internet, Casino, Restaurant, 24-hour reception, Wheelchair accessible, Sauna, Shops on site, Snack bar, Beach umbrellas, Deck chairs/ Sun loungers, Laundry service, Wellness Center/ Spa, Whirlpool/ Jacuzzi/ Spa tub, WiFi in Lobby, Room Service, 24-hour Room Service, Shoe cleaning service, Organized activities, Car rental at the hotel, Concierge</p>
+				<h6>Description</h6>
+				<p>The 5-star Aria Resort & Casino is located directly on the strip in Las Vegas and attractions such as the fountains of the Bellagio, the roller-coaster of the New York New York Hotel and the Eiffel Tower replica of the Paris Hotel can all be reached by a short walk. Las Vegas - McCarran International Airport is 4 km away and the hotel can arrange...</p>
+				<div><label for="specialrequests">Special Requests</label><textarea></textarea></div>
+			</div>
+			
+			<h5><div class="resultoptions"><a href="#" class="button">More Info</a></div><a href="#"><%= image_tag("siteimages/hotelthumb3.jpg") %><b>Central Park New York</b><br><span class="starrating">&#10029;&#10029;&#10029;&#10029;&#10029;</span><br>New York, NY</a><div class="roomdetail"><b>Room:</b> Queen Room <br><b>Check in:</b> Tuesday, February 25, 2014 &bull; <b>Check out:</b> Friday, February 28, 2014</div></h5>
+			<div>
+				<h6>Contact</h6>
+				<p>3730 Las Vegas Boulevard, Las Vegas, 89158, USA<br>Telephone: +1(702)5907757 | <a href="#">Official Homepage</a></p>
+				<h6>Room Features</h6>
+				<p>Bathroom with bathtub, Bathroom with shower, Television, Hairdryer, Central heating, Tea/ coffeemaker, Air conditioning, Soundproof windows, Minibar, Pay-TV, Radio, Desk, Small lounge, Telephone, Room safe, DVD player/ Video recorder, Stereo system/ CD player, Computer games, Cable TV, Internet, WiFi in the rooms</p>
+				<h6>Hotel Features</h6>
+				<p>Beauty Salon, Stage for shows, Business center, Cafe, Steam room, Disco/ Nightclub, Entrance hall/ lobby, Express check-in/ out, Elevator, TV lounge, Gym, Hairdresser, Parking lot, Terrace,   Porter service, Hotel bar, Hotel bar with a view, Pool bar, Outdoor swimming pool, Hotel safe, Child/ Baby Cot, Conference rooms, Massage, Non-smoking rooms, PC with Internet, Casino, Restaurant, 24-hour reception, Wheelchair accessible, Sauna, Shops on site, Snack bar, Beach umbrellas, Deck chairs/ Sun loungers, Laundry service, Wellness Center/ Spa, Whirlpool/ Jacuzzi/ Spa tub, WiFi in Lobby, Room Service, 24-hour Room Service, Shoe cleaning service, Organized activities, Car rental at the hotel, Concierge</p>
+				<h6>Description</h6>
+				<p>The 5-star Aria Resort & Casino is located directly on the strip in Las Vegas and attractions such as the fountains of the Bellagio, the roller-coaster of the New York New York Hotel and the Eiffel Tower replica of the Paris Hotel can all be reached by a short walk. Las Vegas - McCarran International Airport is 4 km away and the hotel can arrange...</p>
+				<div><label for="specialrequests">Special Requests</label><textarea></textarea></div>
+			</div>
+		</section>
+	</section>
+		
+	<div id="bookingtotal" class="sidesticky">
+		<h3>Your BestNights.com Total</h3>
+		<table>
+			<tr>
+				<td>BestNights.com Rate</td>
+				<td>157.50 <span class="currency">US$</span></td>
+			</tr>
+			<tr>
+				<td>Tax (included)</td>
+				<td>19.69 <span class="currency">US$</span></td>
+			</tr>
+			<tr>
+				<td>Total Price</td>
+				<td>177.19 <span class="currency">US$</span></td>
+			</tr>
+		</table>
+		
+		<h5>We Guarantee</h5>
+		<ul>
+			<li>Booking is safe. When you book with us your details are protected by a secure connection.</li>
+			<li>Your privacy is protected. Your details will only be used to guarantee your booking.</li>
+			<li>No booking fees. Booking.com services are always free, so you save money.</li>
+			<li>Best Price Guarantee. Found your room online at a lower price? We'll match it.</li>
+		</ul>	
+	</div>
+	
+	<%= render :partial => "common/home_footer" %>
+	
+</div>

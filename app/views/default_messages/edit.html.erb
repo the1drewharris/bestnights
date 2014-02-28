@@ -1,0 +1,23 @@
+<% content_for :title, "BestNights.com - Edit Default Message" %>
+
+<header>
+	<h1>Edit Default Message</h1>
+</header>
+
+<div id="container-main">
+	<%= form_for @default_message do |f| %>
+		<fieldset>
+		  <ul>
+		  	<li>
+		  		<%= f.label :message %>
+		  		<%= f.text_field :message %>
+		  	</li>
+		  </ul>	
+		</fieldset>
+		<fieldset class="formactions">
+			<%= f.submit %>
+		</fieldset>
+	<% end %>
+</div>
+
+<%= javascript_include_tag :jquery_ujs %>

@@ -18,8 +18,24 @@
 	<link href='http://fonts.googleapis.com/css?family=Raleway:400,500,200' rel='stylesheet' type='text/css'>
 	
 	<!-- Lea Verou's Prefix Free, lets you use only un-prefixed properties in yuor CSS files -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<%= javascript_include_tag :application %>
 	
+	<%= javascript_include_tag "jquery-ui-1.10.4.custom.min" %>
+	<%= javascript_include_tag "modernizr-2.7.0.dev" %>
+	<%= javascript_include_tag "prefixfree.min" %>
+	<%= javascript_include_tag "jquery.uniform.min" %>
+	<%= javascript_include_tag "dropzone" %>	
+	<%= javascript_include_tag "jquery.gridster.min" %>
+	<%= javascript_include_tag "jquery.stickyfloat" %>
+	<%= javascript_include_tag "tinycolor-0.9.16.min" %>
+	<%= javascript_include_tag "jgallery.min" %>
+	<%= javascript_include_tag "ICanHaz.min" %>
+	<%= javascript_include_tag "functions" %>
+	
+	
+	<script>window.jQuery || document.write("<script src='./js/jquery-1.10.2.min.js'>\x3C/script>")</script>
+		
 	<!-- This is an un-minified, complete version of Modernizr. 
 		 Before you move to production, you should generate a custom build that only has the detects you need. -->
 	

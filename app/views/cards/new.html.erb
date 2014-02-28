@@ -1,0 +1,31 @@
+<% content_for :title, "BestNights.com - Add Card" %>
+
+<header>
+	<h1>Add Card</h1>
+</header>
+
+<div id="container-main">
+	<%= form_for @card do |f| %>
+		<fieldset>
+		  <ul>
+		  	<li>
+		  		<%= f.label 'Type' %>
+		  		<%= f.text_field :card_type %>
+		  	</li>
+		  	<li>
+		  		<%= f.label 'Number' %>
+		  		<%= f.text_field :card_number %>
+		  	</li>
+		  	<li>
+		  		<%= f.label :ccid %>
+		  		<%= f.text_field :ccid %>
+		  	</li>
+		  </ul>	
+		</fieldset>
+		<fieldset class="formactions">
+			<%= f.submit %>
+		</fieldset>
+	<% end %>
+</div>
+
+<%= javascript_include_tag :jquery_ujs %>

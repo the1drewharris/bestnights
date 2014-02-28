@@ -1,0 +1,41 @@
+<% content_for :title, "BestNights.com - Promotions" %>
+
+<header>
+	<h1>Promotions</h1>
+</header>
+
+<div id="container-main">
+	<div class="formactions">
+		<%= link_to "Add", new_promotion_path %>
+  </div>
+	<table class="admintablelist">
+		<tr>
+			<th>Name</th>
+			<th>Dates</th>
+			<th>Max Usage</th>
+			<th>Discount Amount</th>
+			<th>Hotel</th>
+			<th>Actions</th>
+		</tr>
+		<% @promotions.each do |promotion| %>
+		  <tr>
+		  	<td><%= promotion.coupon_code %></td>
+				<td><%= promotion.start_date.strftime("%m/%d/%y") %> - <%= promotion.expiry_date.strftime("%m/%d/%y") %></td>
+				<td><%= promotion.times_allowed %></td>
+				<td><%= promotion.discount %></td>
+				<td><%= promotion.hotel.name unless promotion.hotel.nil? %></td>
+				<% if can? :show, promotion %>
+					<td><%= link_to "Show", promotion_path(promotion) %></td>
+				<% end %>
+				<% if can? :edit, promotion %>
+					<td><%= link_to "Edit", edit_promotion_path(promotion) %></td>
+				<% end %>	
+				<% if can? :delete, promotion %>
+					<td><%= link_to "Delete", promotion_path(promotion), :method => :delete %></td>
+				<% end %>	
+		  </tr>
+		<% end %>
+	</table>
+</div>
+
+<%= javascript_include_tag :jquery_ujs %>

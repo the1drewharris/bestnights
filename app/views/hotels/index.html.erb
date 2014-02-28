@@ -1,4 +1,60 @@
-<h1>Hotels</h1>
-<% @hotels.each do |hotel| %>
-  <p><%= hotel.name %></p>
+<% content_for :title, "BestNights.com - Hotel" %>
+
+<header>
+	<h1>Hotels</h1>
+</header>
+
+<%= form_tag hotels_path, :id => "search_form", :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
 <% end %>
+
+<div id="container-main">
+	<% if can? :add, Hotel %>
+	<div class="formactions">
+		<%= link_to "Add", new_hotel_path %>
+  </div>
+  <% end %>
+	<table class="admintablelist">
+		<tr>
+			<th>Name</th>
+			<th>City</th>
+			<th>State</th>
+			<th>Address</th>
+			<th>Status</th>
+			<% if current_user.admin? %>
+				<th>User</th>
+			<% end %>
+			<th>Actions</th>
+		</tr>
+		<% @hotels.each do |hotel| %>
+		  <tr>
+		  	<% if current_user.manager? and current_user.new_signup? %>
+		  		<td><%= link_to hotel.name, new_room_path(:hotel_id => hotel.id) %></td>
+		  	<% else %>
+		  		<td><%= hotel.name %></td>
+		  	<% end %>		  	
+				<td><%= hotel.city %></td>
+				<td><%= hotel.state.state_province unless hotel.state.nil? %></td>
+				<td><%= hotel.address1 %></td>
+				<td><%= hotel.status %></td>
+				<% if current_user.admin? %>
+				  <td><%= hotel.user.email %></td>
+				<% end %>
+				<% if can? :show, hotel %>
+					<td><%= link_to "Show", hotel_path(hotel) %></td>
+				<% end %>
+				<% if can? :edit, hotel %>
+					<td><%= link_to "Edit", edit_hotel_path(hotel) %></td>
+				<% end %>	
+				<% if can? :delete, hotel %>
+					<td><%= link_to "Delete", hotel_path(hotel), :method => :delete %></td>
+				<% end %>	
+		  </tr>
+		<% end %>
+	</table>
+</div>
+
+<%= javascript_include_tag :jquery_ujs %>

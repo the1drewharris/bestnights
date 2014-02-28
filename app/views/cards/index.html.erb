@@ -1,0 +1,39 @@
+<% content_for :title, "BestNights.com - Card" %>
+
+<header>
+	<h1>Card</h1>
+</header>
+
+<div id="container-main">
+	<div class="formactions">
+		<%= link_to "Add", new_card_path %>
+  </div>
+	<table class="admintablelist">
+		<tr>
+			<th>Type</th>
+			<th>Number</th>
+			<th>Ccid</th>
+			<th>Expiration</th>
+			<th>Action</th>
+		</tr>
+		<% @cards.each do |card| %>
+		  <tr>
+		  	<td><%= card.card_type %></td>
+				<td><%= card.card_number %></td>
+				<td><%= card.ccid %></td>
+				<td><%= card.expiration %></td>
+				<% if can? :show, card %>
+					<td><%= link_to "Show", card_path(card) %></td>
+				<% end %>
+				<% if can? :edit, card %>
+					<td><%= link_to "Edit", edit_card_path(card) %></td>
+				<% end %>
+				<% if can? :delete, card %>
+					<td><%= link_to "Delete", card_path(card), :method => :delete %></td>
+				<% end %>	
+		  </tr>
+		<% end %>
+	</table>
+</div>
+
+<%= javascript_include_tag :jquery_ujs %>

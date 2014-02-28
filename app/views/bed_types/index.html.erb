@@ -1,0 +1,30 @@
+<% content_for :title, "BestNights.com - Bed Types" %>
+
+<header>
+	<h1>Bed Types</h1>
+</header>
+
+<div id="container-main">
+	<div class="formactions">
+		<%= link_to "Add", new_bed_type_path %>
+  </div>
+	<table class="admintablelist">
+		<tr>
+			<th>Type</th>
+			<th>Action</th>
+		</tr>
+		<% @bed_types.each do |bt| %>
+		  <tr>
+		  	<td><%= bt.bedtype %></td>
+		  	<% if can? :show, bt %>
+					<td><%= link_to "Show", bed_type_path(bt) %></td>
+				<% end %>
+				<% if can? :edit, bt %>
+					<td><%= link_to "Edit", edit_bed_type_path(bt) %></td>
+				<% end %>	
+		  </tr>
+		<% end %>
+	</table>
+</div>
+
+<%= javascript_include_tag :jquery_ujs %>

@@ -1,0 +1,39 @@
+<% content_for :title, "BestNights.com - Availabilities" %>
+
+<header>
+	<h1>Availabilities</h1>
+</header>
+
+<div id="container-main">
+	<div class="formactions">
+		<%= link_to "Add", new_availability_path %>
+  </div>
+	<table class="admintablelist">
+		<tr>
+			<th>Room</th>
+			<th>Date</th>
+			<th>Count</th>
+			<th>Starting Inventory</th>
+			<th>Action</th>
+		</tr>
+		<% @availabilities.each do |availability| %>
+		  <tr>
+		  	<td><%= availability.room.name %></td>
+		  	<td><%= availability.this_date %></td>
+		  	<td><%= availability.count %></td>
+		  	<td><%= availability.starting_inventory %></td>
+		  	<% if can? :show, availability %>
+					<td><%= link_to "Show", availability_path(availability) %></td>
+				<% end %>
+				<% if can? :edit, availability %>
+					<td><%= link_to "Edit", edit_availability_path(availability) %></td>
+				<% end %>	
+				<% if can? :delete, availability %>
+					<td><%= link_to "Delete", availability_path(availability), :method => :delete %></td>
+				<% end %>	
+		  </tr>
+		<% end %>
+	</table>
+</div>
+
+<%= javascript_include_tag :jquery_ujs %>

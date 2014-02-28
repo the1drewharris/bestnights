@@ -1,0 +1,91 @@
+<% content_for :title, "BestNights.com - Add Promotion" %>
+
+<header>
+	<h1>Add Promotion</h1>
+</header>
+
+<div id="container-main">
+	<%= form_for @promotion do |f| %>
+		<fieldset>
+			<input type="hidden" name="coupon" value="">
+		  <ul>
+		  	<li>
+		  		<%= f.label :hotel %>
+		  		<%= f.select :hotel_id, options_for_select(@hotels.map{|s|[s.name, s.id]}) %>
+		  	</li>		
+				<li>
+					<label for="noofcoupon">No. of Coupons to Generate</label>
+					<%= f.text_field :transaction_item %>
+				</li>
+				<li>
+					<label for="couponCode">Custom Coupon Name<br><small>(only if creating 1 coupon)</small></label>
+					<%= f.text_field :coupon_code %>
+					<span>*Must be unique</span>
+				</li>
+				<li>
+					<label for="startdate">Start Date</label>					
+					<input id="startdate" name="startdate" type="date" value="">
+					<select name="starthour">
+						<optgroup label="Hour">
+							<% (1..12).each do |v| %>
+								<option value=<%= v.to_s %> ><%= v %></option>
+							<% end %>
+						</optgroup>
+					</select>
+					<select name="startminute">
+						<optgroup label="Min">
+							<% (0..59).each do |v| %>
+								<option value=<%= v.to_s %> ><%= v %></option>
+							<% end %>
+						</optgroup>
+					</select>
+					<select name="startampm">
+						<optgroup label="am/pm">
+							<option value="AM">AM</option>
+							<option value="PM">PM</option>
+						</optgroup>
+					</select>
+				</li>
+				<li>
+					<label for="enddate">End Date</label>
+					<input id="enddate" name="enddate" type="date" value="">
+					<select name="endhour">
+						<optgroup label="hour">
+							<% (1..12).each do |v| %>
+								<option value=<%= v.to_s %> ><%= v %></option>
+							<% end %>
+						</optgroup>
+					</select>
+					<select name="endminute">
+						<optgroup label="min">
+							<% (0..59).each do |v| %>
+								<option value=<%= v.to_s %> ><%= v %></option>
+							<% end %>
+						</optgroup>
+					</select>
+					<select name="endampm">
+						<optgroup label="am/pm">
+							<option value="AM">AM</option>
+							<option value="PM">PM</option>
+						</optgroup>
+					</select>
+				</li>
+				<li>
+					<label for="nooftimesallowed">No. of times the coupon can be used</label>
+					<%= f.text_field :times_allowed %>
+				</li>
+				<li>
+					<label for="discountpercent">Discount Percent</label>
+					<%= f.text_field :percent %>
+				</li>
+				<li>
+					<label for="discount">Discount Amount</label>
+					<%= f.text_field :discount %>
+				</li>
+			</ul>
+		</fieldset>
+		<fieldset class="formactions">
+			<%= f.submit %>
+		</fieldset>
+	<% end %>
+</div>
