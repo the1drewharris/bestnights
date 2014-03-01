@@ -20,3 +20,10 @@ gem 'simple_form'
 gem 'authorize-net'
 gem 'nokogiri'
 gem 'jbuilder'
+
+# Deploy with Capistrano
+group :development do
+  gem 'capistrano', '~> 3.0.0' 
+  gem 'capistrano-rails', '~> 1.0.0'
+  gem 'capistrano-bundler', '~> 1.0.0'
+end

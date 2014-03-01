@@ -1,27 +1,71 @@
-<%= devise_error_messages! %>
-
-<h2>Sign up</h2>
-<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => 'form-vertical' }) do |f| %>  
-  <%= f.input :firstname, :autofocus => true %>
-  <%= f.input :lastname, :autofocus => true %>
-  <%= f.input :email, :required => true %>
-  <%= f.input :password, :required => true %>
-  <%= f.input :password_confirmation, :required => true %>
-  <%= f.input :address1, :autofocus => true %>
-  <%= f.input :city, :autofocus => true %>
-  <div>
-  	<%= f.label :state %>
-		<%= f.select :state_id, options_for_select(State.all.map{|s|[s.state_province, s.id]}) %>
-  </div>
-   <div>
-  	<%= f.label "Country" %>
-		<%= f.select :country_id, options_for_select(Country.all.map{|s|[s.country, s.id]}) %>
-  </div>
-  <div>
-  	<%= f.label :type %>
-  	<%= f.select :role, options_for_select(User::ROLE) %>
+<div id="wrapper">
+	<div id="eyebrow">
+		<div class="logo">
+			<%= image_tag("logo.png") %>
+		</div>
+		<%= render :partial => "common/home_nav_tab" %>
+	</div>
+	
+	<section>
 		
-  </div>
-  <%= f.button :submit, 'Sign up', :class => 'btn-primary' %>
-<% end %>
-<%= render "devise/shared/links" %>
+		<%= devise_error_messages! %>
+	
+		<h2>Sign up</h2>
+		
+		<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => 'form-vertical' }) do |f| %>
+		  <fieldset>  
+		  	<ul>
+		  		<li>
+		  			<%= f.label 'First Name*' %>
+				  	<%= f.text_field :firstname, :autofocus => true %>
+				  </li>
+				  <li>
+				  	<%= f.label 'Last Name*' %>
+				  	<%= f.text_field :lastname, :autofocus => true %>
+				  </li>
+				  <li>
+				  	<%= f.label 'Email*' %>
+			  		<%= f.text_field :email, :autofocus => true %>
+					</li>
+				  <li>
+				  	<%= f.label 'Password*' %>
+			  		<%= f.password_field :password %>
+					</li>
+				  <li>
+				  	<%= f.label 'Password confirmation*' %>
+			  		<%= f.password_field :password_confirmation %>
+					</li>
+				  <li>
+				  	<%= f.label 'Address*' %>
+				  	<%= f.text_field :address1, :autofocus => true %>
+					</li>
+				  <li>
+				  	<%= f.label 'City*' %>
+				  	<%= f.text_field :city, :autofocus => true %>
+					</li>
+				  <li>
+				  	<%= f.label :state %>
+						<%= f.select :state_id, options_for_select(State.all.map{|s|[s.state_province, s.id]}) %>
+				  </li>
+				  <li>
+				  	<%= f.label "Country" %>
+						<%= f.select :country_id, options_for_select(Country.all.map{|s|[s.country, s.id]}) %>
+				  </li>
+				  <li>
+				  	<%= f.label :type %>
+				  	<%= f.select :role, options_for_select(User::ROLE) %>					
+				  </li>
+			  </ul>
+		  </fieldset>
+		  <fieldset class="formactions">
+		  	<%= f.submit 'Sign Up' %>
+		  </fieldset>
+		<% end %>
+		
+		<%= render "devise/shared/links" %>
+		
+	</section>
+	
+	<%= render :partial => "common/home_footer" %>
+	
+</div>

@@ -1,10 +1,42 @@
-<%= devise_error_messages! %>
-
-<h2>Sign in</h2>
-<%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'form-vertical' }) do |f| %>
-  <%= f.input :email, :autofocus => true %>
-  <%= f.input :password %>
-  <%= f.input :remember_me, :as => :boolean if devise_mapping.rememberable? %>
-  <%= f.button :submit, "Sign in", :class => 'btn-primary' %>
-<% end %>
-<%= render "devise/shared/links" %>
+<div id="wrapper">
+	<div id="eyebrow">
+		<div class="logo">
+			<%= image_tag("logo.png") %>
+		</div>
+		<%= render :partial => "common/home_nav_tab" %>
+	</div>
+	
+	<section>
+		
+		<%= devise_error_messages! %>
+		
+		<h2>Sign in</h2>
+		
+		<%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'form-vertical' }) do |f| %>
+			<fieldset>  
+		  	<ul>
+		  		<li>
+				  	<%= f.label 'Email' %>
+			  		<%= f.text_field :email, :autofocus => true %>
+					</li>
+					<li>
+				  	<%= f.label 'Password' %>
+			  		<%= f.password_field :password %>
+					</li>
+	  		</ul>
+	  	</fieldset>
+	  	<fieldset class="formactions">
+		  	<%= f.submit 'Sign In' %>
+		  </fieldset>
+		  <!-- <%= f.label :remember_me %> -->
+		  <!-- <%= f.check_box :remember_me, :as => :boolean if devise_mapping.rememberable? %> -->
+		  
+		<% end %>
+		
+		<%= render "devise/shared/links" %>
+	
+	</section>
+	
+	<%= render :partial => "common/home_footer" %>
+	
+</div>

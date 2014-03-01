@@ -1,7 +1,10 @@
 class ApplicationController < ActionController::Base
   # protect_from_forgery 
+  layout :layout_by_resource
   skip_before_filter :protect_from_forgery, :only => [:destroy]
 
+  protected 
+  
   def after_sign_in_path_for(resource)
     if resource.is_a?(User)
       if resource.admin?
@@ -21,6 +24,14 @@ class ApplicationController < ActionController::Base
       root_url
     else
       super
+    end
+  end
+  
+  def layout_by_resource
+    if devise_controller?
+      "application"
+    else
+      "application"
     end
   end
 end
