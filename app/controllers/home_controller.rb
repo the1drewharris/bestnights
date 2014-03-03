@@ -1,6 +1,9 @@
 class HomeController < ApplicationController
   
   def index  
+    
+    reset_session
+    
     latest_rooms = Room.latest_rooms  
     
     ## Group rooms by hotel id
@@ -19,15 +22,18 @@ class HomeController < ApplicationController
     ## the latest hotels who just joined
     @latest_joined_hotels = Hotel.latest_joined_hotels
     
-    @from_date = session[:checkin]
-    @to_date = session[:checkout]
+    gon.group = session[:group] # passing rails variable to js object variable
+    
   end
   
   def search
     
     if request.xhr?
       # hotels = session[:hotels]
-      hotels = Hotel.all      
+      hotels = [] 
+      session[:hotel_ids].each do |hotel_id|
+        hotels << Hotel.find(hotel_id)
+      end     
       hotel = HotelSearch.new(params)
       @hotels = hotel.filter(hotels)  
     else
@@ -35,18 +41,25 @@ class HomeController < ApplicationController
       @startdate = params[:date][:checkin] unless params[:date].nil? || session[:checkin]
       @enddate = params[:date][:checkout]  unless params[:date].nil? || session[:checkout]
       
-      reset_session
+      # reset_session
       
       session[:checkin] = params[:date][:checkin]  unless params[:date].nil?
       session[:checkout] = params[:date][:checkout]  unless params[:date].nil?
       session[:search] = params[:search]
+      session[:roomtype] = params[:roomtype]
+      
+      session[:group] = params[:group]
+      gon.group = session[:group] # passing rails variable to js object variable
       
       hotel = HotelSearch.new(params)
       
       @hotels = hotel.search
       # @hotels = Hotel.all
       
-      # session[:hotels] = @hotels
+      session[:hotel_ids] = []
+      @hotels.each do |h|
+        session[:hotel_ids] << h.id
+      end
     end
     
     respond_to do |format|
@@ -65,29 +78,68 @@ class HomeController < ApplicationController
     @from_date = session[:checkin]
     @to_date = session[:checkout]
     
+    gon.group = session[:group] # passing rails variable to js object variable
+    
     session[:hotels] = nil
     session[:hotel_id] = params[:hotel_id]
   end
   
+  ## POST JSON
+  def check_availability
+    
+    hotel = Hotel.find(session[:hotel_id])
+    checkin = params[:checkin]
+    checkout = params[:checkout]
+    roomtype = params[:roomtype]
+    
+    ## set room numbers with room type
+    if roomtype == "1"
+      room_numbers = 1
+    elsif roomtype == "2"
+      room_numbers = 2
+    elsif roomtype == "3"
+      room_numbers = params[:roomqty]
+    end
+    
+    ## set bed numbers array with group type
+    bed_numbers = []
+    if roomtype == "3"
+      params[:rooms].each do |room_beds|
+        bed_numbers << room_beds.last.collect {|s| s.to_i}.sum
+      end
+    end
+    
+    ## check availability of the hotel
+    result = hotel.available?(checkin, checkout, room_numbers, bed_numbers)
+    
+    render :json => result
+  end
+  
   def checkout
     @traveler = Traveler.new
-    
+    @hotel = Hotel.find(session[:hotel_id])
     session[:booking_rooms] = params
+    gon.group = session[:group] # passing rails variable to js object variable
     
-    # @room_id = params[:room_id]
-    # @number = params[:number]
-    # session[:room_id] = params[:room_id]
-    # session[:number] = params[:number]
+    @amount = 0
+    session[:booking_rooms][:number].each do |room_number|
+      room = Room.find(room_number.first)
+      numbers = room_number.last.to_i
+      @amount = @amount + room.price.to_f * numbers
+    end
+    
   end
   
   ## POST JSON
   def traveler_signin_book    
     @traveler = Traveler.find_by_email(params[:email])
-    unless @traveler.valid_password?(params[:password])
-      @traveler = Traveler.new
+    
+    if @traveler and @traveler.valid_password?(params[:password])
+      render :json => @traveler, :status => 200
+    else
+      render :nothing => true, :status => 404
     end
     
-    render :json => @traveler
   end
   
   ## POST
@@ -106,7 +158,7 @@ class HomeController < ApplicationController
     from_date = session[:checkin]
     to_date = session[:checkout]
     
-    amount = 0;
+    amount = 0
     session[:booking_rooms][:number].each do |room_number|
       room = Room.find(room_number.first)
       numbers = room_number.last.to_i

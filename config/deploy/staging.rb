@@ -1,7 +1,5 @@
 set :stage, :staging
 set :branch, 'master'
-set :user, "dev"
-set :scm_passphrase, "the1Drewharri$"
 set :use_sudo, false
 set :rails_env, "development"
 set :deploy_via, :copy
@@ -38,6 +36,7 @@ role :web, %w{dev@208.65.113.216}
 server '208.65.113.216',
   user: 'dev',
   roles: %w{web app},
+  scm_passphrase: "the1Drewharri$"
 #   ssh_options: {
 #     user: 'user_name', # overrides user setting above
 #     keys: %w(/home/user_name/.ssh/id_rsa),

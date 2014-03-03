@@ -65,6 +65,9 @@ GEM
     dynamic_form (1.1.4)
     erubis (2.7.0)
     execjs (2.0.2)
+    gon (5.0.4)
+      actionpack (>= 2.3.0)
+      json
     hike (1.2.3)
     i18n (0.6.9)
     jbuilder (2.0.3)
@@ -166,6 +169,7 @@ DEPENDENCIES
   devise
   dropzonejs-rails
   dynamic_form
+  gon
   jbuilder
   jquery-rails
   mysql2 (~> 0.3.11)

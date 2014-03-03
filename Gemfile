@@ -20,6 +20,7 @@ gem 'simple_form'
 gem 'authorize-net'
 gem 'nokogiri'
 gem 'jbuilder'
+gem 'gon'
 
 # Deploy with Capistrano
 group :development do

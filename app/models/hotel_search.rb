@@ -84,32 +84,36 @@ class HotelSearch
   
   def filter(hotels)
     filtered_hotels = []
-    unless stars.nil?
-      filtered_hotels = hotels.select { |h| stars.include?(h.star) }  
+    if stars.nil?
+      p 'stars nil'
+      filtered_hotels = hotels
+    else      
+      filtered_hotels = hotels.select { |h| stars.include?(h.star) }
     end
     
+    p filtered_hotels
+    
     unless features.nil?
-      filtered_hotels = hotels.select { |h| (features & h.hotel_attributes.collect{|ha| ha.id.to_s}) == features }  
+      filtered_hotels = filtered_hotels.select { |h| (features & h.hotel_attributes.collect{|ha| ha.id.to_s}) == features }  
     end
     
     unless prices.nil? 
       price_min = prices.first.to_f
       price_max = prices.last.to_f
       
-      hotels.each do |hotel|
+      price_hotels = []
+      filtered_hotels.each do |hotel|
         if hotel.lowest_price >= price_min and hotel.lowest_price <= price_max
-          filtered_hotels << hotel
+          price_hotels << hotel
         end 
       end
+      filtered_hotels = price_hotels
     end
     
     unless search_name.nil?
-      filtered_hotels = hotels.select { |h| h.name.downcase.include?(search_name.downcase) }
+      filtered_hotels = filtered_hotels.select { |h| h.name.downcase.include?(search_name.downcase) }
     end
     
     filtered_hotels
   end
-  
-  
-  
 end

@@ -29,6 +29,7 @@ class Hotel < ActiveRecord::Base
   has_many :users # front desks, not admin and manager
   
   scope :activated, -> { where(status: "active") }
+  scope :top5, -> { order("star DESC").limit(5) }
   
   def self.latest_joined_hotels
     find :all, :order => "created_at DESC"

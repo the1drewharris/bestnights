@@ -55,12 +55,13 @@
 	</header>
 	<section>
 		<h3>Hotel Search</h3>
+	
 		<div id="searchdates">
 			<form method="get" action="/hotels/search" accept-charset="UTF-8" >
-				<input type="hidden" id="checkindate" name="date[checkin]">
-				<input type="hidden" id="checkoutdate" name="date[checkout]">
-				<input type="hidden" id="roomtype" name="roomtype">
-				<input type="text" placeholder="Enter Destination, City, or Postal/Zip Code..." name="search">
+				<input type="hidden" id="checkindate" name="date[checkin]" value=<%= session[:checkin] %> >
+				<input type="hidden" id="checkoutdate" name="date[checkout]" value=<%= session[:checkout] %> >
+				<input type="hidden" id="roomtype" name="roomtype" value="2">
+				<input type="text" placeholder="Enter Destination, City, or Postal/Zip Code..." name="search" value=<%= session[:search] %>>
 				<input type="submit" class="demo_button_submit" style="visibility: hidden;"/>
 				<div id="checkin"></div>
 				<div id="checkout"></div>
@@ -72,7 +73,7 @@
 				</div>
 				<ul id="roomtypes">
 					<li value="1"><a>Single Room</a></li>
-					<li value="2"><a>Double Room</a></li>
+					<li value="2" class="selected"><a>Double Room</a></li>
 					<li value="3"><a>Groups</a></li>
 				</ul>
 				<div id="groupopts">
@@ -99,9 +100,20 @@
 		<div id="searchresults">
 			<h5>Top Results</h5>
 			<ul>
-				<li><a href="#"><%= image_tag("siteimages/hotelthumb.jpg") %><b>Central Park New York</b><br><span class="starrating">&#10029;&#10029;&#10029;&#10029;&#10029;</span><br>New York, NY</a></li>
-				<li><a href="#"><%= image_tag("siteimages/hotelthumb.jpg") %><b>Central Park New York</b><br><span class="starrating">&#10029;&#10029;&#10029;&#10029;&#10029;</span><br>New York, NY</a></li>
-				<li><a href="#"><%= image_tag("siteimages/hotelthumb.jpg") %><b>Central Park New York</b><br><span class="starrating">&#10029;&#10029;&#10029;&#10029;&#10029;</span><br>New York, NY</a></li>
+				<% Hotel.top5.each do |hotel| %>
+					<li>
+						
+						<%= link_to booking_detail_path(:hotel_id => hotel.id) do %>
+							<img src=<%= hotel.hotel_photos.first.picture.url %> size="97x74" alt="" />
+							<b><%= hotel.name %></b><br>
+							<span class="starrating">
+								<% hotel.star.to_i.times do %>
+						  		&#10029;
+						  	<% end %>
+						  </span><br><%= hotel.city %>, <%= hotel.state.abbreviation %>
+						<% end %>
+					</li>
+				<% end %>
 			</ul>
 			<p><a class="button4" href="#">See More Results</a></p>
 		</div>
@@ -119,9 +131,19 @@
 	<section class="callout">
 		<h3>Get the latest deals on your hotel bookings.</h3>
 		<p>Registering will keep you up-to-date with the latest deals available!</p>
-		<a class="button3">Register Now, It&rsquo;s Free!</a>
+		<a class="button3" href="/users/sign_up">Register Now, It&rsquo;s Free!</a>
 	</section>
 	
 	<%= render :partial => "common/home_footer" %>
 	
 </div>
+
+<script>
+	var kept_prv = (new Date("<%= session[:checkin] %>")).getTime(); // kept date
+	var kept_cur = (new Date("<%= session[:checkout] %>")).getTime(); // kept date
+	var kept_roomtype = "<%= session[:roomtype] %>";
+	var kept_group = gon.group;	
+	
+	console.log(kept_roomtype);
+	console.log(kept_group);
+</script>

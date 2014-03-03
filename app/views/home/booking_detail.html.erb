@@ -57,8 +57,8 @@
 	<div id="searchdates">
 		<h4 class="check_availability" style="cursor: pointer;">Check Availability</h4>
 		<form method="get" action="/hotels/search" accept-charset="UTF-8">
-			<input type="hidden" id="checkindate" name="date[checkin]">
-			<input type="hidden" id="checkoutdate" name="date[checkout]">
+			<input type="hidden" id="checkindate" name="date[checkin]" value=<%= session[:checkin] %> >
+			<input type="hidden" id="checkoutdate" name="date[checkout]" value=<%= session[:checkout] %> >
 			<input type="hidden" id="roomtype" name="roomtype">
 			<div id="checkin"></div>
 			<div id="checkout"></div>
@@ -82,11 +82,11 @@
 						<ul>
 							<li>
 								<label>Adults</label>
-								<input class="adults" name="group[beds][1][adultqty]" type="number" min="0" value="1">
+								<input name="group[beds][1][adultqty]" type="number" min="0" value="1">
 							</li>
 							<li>
 								<label>Children</label>
-								<input class="children" name="group[beds][1][childqty]" type="number" min="0" value="0">
+								<input name="group[beds][1][childqty]" type="number" min="0" value="0">
 							</li>
 						</ul>
 					</li>
@@ -132,3 +132,10 @@
 	<%= render :partial => "common/home_footer" %>
 	
 </div>
+
+<script>
+	var kept_prv = (new Date("<%= session[:checkin] %>")).getTime(); // kept date
+	var kept_cur = (new Date("<%= session[:checkout] %>")).getTime(); // kept date
+	var kept_roomtype = "<%= session[:roomtype] %>";
+	var kept_group = gon.group;
+</script>

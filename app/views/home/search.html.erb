@@ -9,17 +9,14 @@
 		<h1>Search Results</h1>
 	</header>
 	
-	<%= session[:checkin] %>
-	<%= session[:checkout] %>
-	
 	<section>
 		<h3>Hotel Search</h3>
 		<div id="searchdates">
 			<form method="get" action="/hotels/search" accept-charset="UTF-8">
-				<input type="hidden" id="checkindate" name="date[checkin]">
-				<input type="hidden" id="checkoutdate" name="date[checkout]">
+				<input type="hidden" id="checkindate" name="date[checkin]" value=<%= session[:checkin] %> >
+				<input type="hidden" id="checkoutdate" name="date[checkout]" value=<%= session[:checkout] %> >
 				<input type="hidden" id="roomtype" name="roomtype">
-				<input type="text" class="ajax_submit" placeholder="Enter Destination, City, or Postal/Zip Code..." name="search" value=<%= @search %> >
+				<input type="text" class="ajax_submit" placeholder="Enter Destination, City, or Postal/Zip Code..." name="search" value=<%= session[:search] %> >
 				<input type="submit" class="demo_button_submit" style="visibility: hidden;"/>
 				<div id="checkin"></div>
 				<div id="checkout"></div>
@@ -150,7 +147,7 @@
 
 <script id="hotel_detail" type="text/html">  
 	<h5>
-		<a href="#">
+		<a href="#" class="booknow">
 			<span>BestNights.com Price</span>
 			<span>${{lowest_price}}</span>
 			<span>Book Now</span>
@@ -192,3 +189,9 @@
 </div>
 </script>
 
+<script>
+	var kept_prv = (new Date("<%= session[:checkin] %>")).getTime(); // kept date
+	var kept_cur = (new Date("<%= session[:checkout] %>")).getTime(); // kept date
+	var kept_roomtype = "<%= session[:roomtype] %>";
+	var kept_group = gon.group;	
+</script>
