@@ -11,8 +11,8 @@ class Traveler < ActiveRecord::Base
   belongs_to :country
   belongs_to :state
   
-  has_many :bookings
-  has_many :traveler_payments
+  has_many :bookings, dependent: :destroy
+  has_many :traveler_payments, dependent: :destroy
   
   def name
     "#{firstname} #{lastname}"

@@ -17,16 +17,16 @@ class Hotel < ActiveRecord::Base
   belongs_to :state
   belongs_to :user
   belongs_to :card
-  has_many :rooms
-  has_many :reviews
-  has_many :bookings
-  has_many :hotel_photos
-  has_many :room_photos
-  has_many :promotions
+  has_many :rooms, dependent: :destroy
+  has_many :reviews, dependent: :destroy
+  has_many :bookings, dependent: :destroy
+  has_many :hotel_photos, dependent: :destroy
+  has_many :room_photos, dependent: :destroy
+  has_many :promotions, dependent: :destroy
   
-  has_many :hotel_attribute_joins
+  has_many :hotel_attribute_joins, dependent: :destroy
   has_many :hotel_attributes, through: :hotel_attribute_joins
-  has_many :users # front desks, not admin and manager
+  has_many :users, dependent: :destroy # front desks, not admin and manager
   
   scope :activated, -> { where(status: "active") }
   scope :top5, -> { order("star DESC").limit(5) }

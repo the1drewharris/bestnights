@@ -144,6 +144,9 @@ class HomeController < ApplicationController
   
   ## POST
   def checkout_confirm
+    
+    @hotel = Hotel.find(session[:hotel_id])
+    
     if params[:traveler][:email] != params[:emailconfirm]
       flash[:errors] = ["confirm your email address"]
       redirect_to :back and return
@@ -178,13 +181,12 @@ class HomeController < ApplicationController
       session[:booking_rooms][:number].each do |room_number|
         room = Room.find(room_number.first)
         numbers = room_number.last.to_i
-        p "booking save start"
+        
         booking = Booking.new(hotel_id: room.hotel.id, room_id: room.id, from_date: from_date, to_date: to_date, 
                         adults: numbers, traveler_id: @traveler.id)
-        p booking
-        p 'ok' if booking.save
-        p booking.errors
-        p "booking save end"
+        
+        booking.save
+        
         (from_date..to_date).each do |date|
           if availability = Availability.find_by_room_id_and_this_date(room.id, date)
             availability.update_attributes(count: availability.count - numbers)

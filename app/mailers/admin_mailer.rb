@@ -41,8 +41,16 @@ class AdminMailer < ActionMailer::Base
     @hotel = hotel
     subject = "Room type changed"    
     
-    mail(:subject => subject, :to => owner.email)
+    mail(:subject => subject, :to => owner.email)    
+  end
+  
+  ## when the admin changes the user info
+  def user_changed_notify(admin, user)
+    @admin = admin.email
+    @user = user
+    subject = "User info has been changed"
     
+    mail(:subject => subject, :to => user.email)
   end
   
   def registered_frontdesk_request(front_desk, hotel)

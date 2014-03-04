@@ -39,15 +39,22 @@ class UsersController < ApplicationController
     if current_user == user
       is_current_user = true
     end
-    if user.valid_password?(params[:old_password])
-      attr = params[:user].merge("role" => params[:role])
-      
-      user.update_attributes!(attr)
-      
-      sign_in(user, :bypass => true) if is_current_user
+    
+    if current_user.admin? and !is_current_user
+      user.update_attributes!(params[:user])
+      AdminMailer.user_changed_notify(current_user, user).deliver
       redirect_to users_path and return
     else
-      redirect_to :back
+      if user.valid_password?(params[:old_password])
+        attr = params[:user].merge("role" => params[:role])
+        
+        user.update_attributes!(attr)
+        
+        sign_in(user, :bypass => true) if is_current_user
+        redirect_to users_path and return
+      else
+        redirect_to :back
+      end      
     end
   end
   

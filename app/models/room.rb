@@ -12,9 +12,9 @@ class Room < ActiveRecord::Base
   belongs_to :hotel
   belongs_to :room_type
   
-  has_many :availabilities
-  has_many :room_photos
-  has_many :room_attribute_joins
+  has_many :availabilities, dependent: :destroy
+  has_many :room_photos, dependent: :destroy
+  has_many :room_attribute_joins, dependent: :destroy
   has_many :room_attributes, through: :room_attribute_joins
   
   def self.latest_rooms

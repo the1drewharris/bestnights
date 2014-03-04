@@ -18,7 +18,7 @@ class RoomTypesController < ApplicationController
   def create
     @room_type = RoomType.new(params[:room_type])
     if @room_type.save
-      # AdminMailer.new_room_type_request(User.admins, @room_type, current_user).deliver if current_user.manager?
+      AdminMailer.new_room_type_request(User.admins, @room_type, current_user).deliver if current_user.manager?
       flash[:success] = "The room type saved successfully!"
       redirect_to room_types_path
     else
@@ -34,7 +34,7 @@ class RoomTypesController < ApplicationController
   def update
     room_type = RoomType.find(params[:id])
     if room_type.update_attributes(params[:room_type])
-      # AdminMailer.room_type_changed_notify(User.managers, room_type, current_user).deliver if current_user.admin?
+      AdminMailer.room_type_changed_notify(User.managers, room_type, current_user).deliver if current_user.admin?
       flash[:success] = "The room type saved successfully!"
       redirect_to room_types_path
     else

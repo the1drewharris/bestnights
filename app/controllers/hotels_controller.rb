@@ -26,9 +26,7 @@ class HotelsController < ApplicationController
   end
 
   def new
-    @hotel = Hotel.new  
-    
-    # render :layout => 'admin_basic' unless current_user.new_signup?
+    @hotel = Hotel.new 
   end
 
   def create
@@ -43,9 +41,9 @@ class HotelsController < ApplicationController
     if @hotel.save
       
       if current_user.admin?
-        # AdminMailer.new_hotel_request([@hotel.user], @hotel, current_user).deliver
+        AdminMailer.new_hotel_request([@hotel.user], @hotel, current_user).deliver
       elsif current_user.manager?
-        # AdminMailer.new_hotel_request(User.admins, @hotel, current_user).deliver
+        AdminMailer.new_hotel_request(User.admins, @hotel, current_user).deliver
       end
       
       flash[:success] = "The hotel saved successfully!"
@@ -66,7 +64,7 @@ class HotelsController < ApplicationController
     hotel = Hotel.find(params[:id])
     if hotel.update_attributes(params[:hotel])
       if current_user.admin?
-        # AdminMailer.hotel_changed_notify(hotel.user, hotel, current_user).deliver
+        AdminMailer.hotel_changed_notify(hotel.user, hotel, current_user).deliver
       end  
       
       if params[:client] and params[:client][:attributes]
@@ -100,7 +98,7 @@ class HotelsController < ApplicationController
     current_user.update_attributes({:hotel_id => params[:id]})
     hotel = Hotel.find(params[:id])
     
-    # AdminMailer.registered_frontdesk_request(current_user, hotel).deliver
+    AdminMailer.registered_frontdesk_request(current_user, hotel).deliver
     
     flash[:success] = "The hotel was registered successfully!"
     redirect_to hotels_path

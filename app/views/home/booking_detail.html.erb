@@ -19,9 +19,6 @@
 		<address><%= @hotel.address1 %></address>
 	</header>	
 	
-	<%= session[:checkin] %>
-	<%= session[:checkout] %>
-	
 	<section id="gallery">
 		<div class="album" data-jgallery-album-title="Hotel Name">
 			<% @hotel.hotel_photos.each do |photo| %>

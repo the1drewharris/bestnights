@@ -18,8 +18,9 @@ class User < ActiveRecord::Base
   
   belongs_to :country
   belongs_to :state
-  has_many :hotels
   belongs_to :hotel # must belong to the hotel when only front desk
+  
+  has_many :hotels, dependent: :destroy
   
   scope :admins, -> { where(role: "admin") }
   scope :managers, -> { where(role: "manager") }

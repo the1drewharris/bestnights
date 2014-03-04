@@ -12,21 +12,37 @@
 		  		<%= f.label :email %>
 		  		<%= f.text_field :email %>
 		  	</li>
-		  	<li>
-		  		<%= f.label "Old Password" %>
-		  		<%= password_field_tag "old_password" %>
-		  	</li>
-		  	<li>
-		  		<%= f.label :password %>
-		  		<%= f.password_field :password %>
-		  	</li>
-		  	<li>
-		  		<%= f.label :password_confirmation %>
-		  		<%= f.password_field :password_confirmation %>
-		  	</li>
+		  	<% if current_user == @user %>
+		  		<li>
+			  		<%= f.label "Old Password" %>
+			  		<%= password_field_tag "old_password" %>
+			  	</li>
+			  	<li>
+			  		<%= f.label :password %>
+			  		<%= f.password_field :password %>
+			  	</li>
+			  	<li>
+			  		<%= f.label :password_confirmation %>
+			  		<%= f.password_field :password_confirmation %>
+			  	</li>
+			  <% elsif current_user.admin? %>
+			  	<li>
+			  		<%= f.label :status %>
+			  		<select id="user_status" name="user[status]">
+							<% ["active", "pending"].each do |status| %>
+							  <option value=<%= status %> <%= "selected" if @user.status == status %>  ><%= status %></option>
+							<% end %>
+						</select>
+			  	</li>	
+		  	<% end %>
+		  	
 		  	<li>
 		  		<%= f.label :role %>
-		  		<%= select_tag "role", "<option>admin</option><option>manager</option>".html_safe %>
+		  		<select id="user_role" name="user[role]">
+						<% ["admin", "manager", "front-desk"].each do |role| %>
+						  <option value=<%= role %> <%= "selected" if @user.role == role %>  ><%= role %></option>
+						<% end %>
+					</select>
 		  	</li>		  	
 		  </ul>	
 		</fieldset>

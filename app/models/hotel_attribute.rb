@@ -3,6 +3,6 @@ class HotelAttribute < ActiveRecord::Base
   
   validates :attr, presence: true, uniqueness: { case_sensitive: false }
   
-  has_many :hotel_attribute_joins
+  has_many :hotel_attribute_joins, dependent: :destroy
   has_many :hotels, through: :hotel_attribute_joins
 end

@@ -12,7 +12,7 @@
 	
 		<h2>Reset Password</h2>
 		
-		<%= form_for(resource, :as => resource_name, :url => user_password_path(resource_name), :html => {:class => 'form-vertical' }) do |f| %>
+		<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => {:class => 'form-vertical', :method => :post }) do |f| %>
 		  <fieldset>  
 		  	<ul>
 				  <li>
