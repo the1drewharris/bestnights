@@ -11,7 +11,7 @@ usa = Country.create(country: "U.S.A", abbreviation: "USA")
 canada = Country.create(country: "Canada", abbreviation: "canada")
 
 State.delete_all
-states = [["AK", "Alaska"], 
+us_states = [["AK", "Alaska"], 
           ["AL", "Alabama"],
           ["AR", "Arkansas"], 
           ["AZ", "Arizona"], 
@@ -114,6 +114,14 @@ states = [["AK", "Alaska"],
           ["WV", "West Virginia"],
           ["WY", "Wyoming"]]
 
-states.each do |abbr, state|
+us_states.each do |abbr, state|
   State.create(country_id: usa.id, state_province: state, abbreviation: abbr)
 end
+
+canada_states = [["AB", "Alberta"], ["BC", "British Columbia"],["MB", "Manitoba"],["NB", "New Brunswick"],["NF", "Newfoundland"],["NS", "Nova Scotia"],["ON", "Ontario"],["PE", "Prince Edward Island"],["QC", "Quebec"],["SK", "Saskatchewan"],["YT", "Yukon"]]
+
+
+canada_states.each do |abbr, state|
+  State.create(country_id: canada.id, state_province: state, abbreviation: abbr)
+end
+

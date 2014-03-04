@@ -23,14 +23,14 @@
 		  		<%= f.label "City*" %>
 		  		<%= f.text_field :city %>
 		  	</li>
-		  	<li>
-		  		<%= f.label "State/Province*" %>
-		  		<%= f.select :state_id, options_for_select(State.all.map{|s|[s.state_province, s.id]}) %>
-		  	</li>
-		  	<li>
-		  		<%= f.label "Country" %>
-		  		<%= f.select :country_id, options_for_select(Country.all.map{|s|[s.country, s.id]}) %>
-		  	</li>
+		  	<li class="state">
+			  	<%= f.label "State/Province*" %>
+					<%= f.select :state_id, options_for_select(Country.first.states.map{|s|[s.state_province, s.id]}) %>
+			  </li>
+			  <li class="country">
+			  	<%= f.label "Country" %>
+					<%= f.select :country_id, options_for_select(Country.all.map{|s|[s.country, s.id]}) %>
+			  </li>
 		  	<li>
 		  		<%= f.label "Zip/Postal Code*" %>
 		  		<%= f.text_field :zip %>

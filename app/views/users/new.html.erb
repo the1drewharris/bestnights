@@ -9,21 +9,45 @@
 		<fieldset>
 		  <ul>
 		  	<li>
-		  		<%= f.label :email %>
-		  		<%= f.text_field :email %>
-		  	</li>
-		  	<li>
-		  		<%= f.label :password %>
+	  			<%= f.label 'First Name*' %>
+			  	<%= f.text_field :firstname, :autofocus => true %>
+			  </li>
+			  <li>
+			  	<%= f.label 'Last Name*' %>
+			  	<%= f.text_field :lastname, :autofocus => true %>
+			  </li>
+			  <li>
+			  	<%= f.label 'Email*' %>
+		  		<%= f.text_field :email, :autofocus => true %>
+				</li>
+			  <li>
+			  	<%= f.label 'Password*' %>
 		  		<%= f.password_field :password %>
-		  	</li>
-		  	<li>
-		  		<%= f.label :password_confirmation %>
+				</li>
+			  <li>
+			  	<%= f.label 'Password confirmation*' %>
 		  		<%= f.password_field :password_confirmation %>
-		  	</li>
-		  	<li>
-		  		<%= f.label :role %>
-		  		<%= select_tag "role", "<option>admin</option><option>manager</option>".html_safe %>
-		  	</li>		  	
+				</li>
+			  <li>
+			  	<%= f.label 'Address*' %>
+			  	<%= f.text_field :address1, :autofocus => true %>
+				</li>
+			  <li>
+			  	<%= f.label 'City*' %>
+			  	<%= f.text_field :city, :autofocus => true %>
+				</li>
+			  <li class="state">
+			  	<%= f.label :state %>
+					<%= f.select :state_id, options_for_select(Country.first.states.map{|s|[s.state_province, s.id]}) %>
+			  </li>
+			  <li class="country">
+			  	<%= f.label "Country" %>
+					<%= f.select :country_id, options_for_select(Country.all.map{|s|[s.country, s.id]}) %>
+			  </li>
+			  <li>
+			  	<%= f.label :type %>
+			  	<%= f.select :role, options_for_select(User::ROLE) %>					
+			  </li>  	
 		  </ul>	
 		</fieldset>
 		<fieldset class="formactions">

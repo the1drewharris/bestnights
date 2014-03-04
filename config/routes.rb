@@ -29,7 +29,7 @@ Bestnights::Application.routes.draw do
   match 'checkout_confirm' => "home#checkout_confirm", :via => :post
   match 'traveler_signin_book' => "home#traveler_signin_book", :via => :post
   match 'check_availability' => "home#check_availability", :via => :post
-  
+  match 'fetch_states' => "countries#fetch_states", :via => :post
   
   # resources :users, except: :create
   resources :users

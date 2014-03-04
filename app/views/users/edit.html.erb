@@ -9,6 +9,14 @@
 		<fieldset>
 		  <ul>
 		  	<li>
+	  			<%= f.label 'First Name*' %>
+			  	<%= f.text_field :firstname, :autofocus => true %>
+			  </li>
+			  <li>
+			  	<%= f.label 'Last Name*' %>
+			  	<%= f.text_field :lastname, :autofocus => true %>
+			  </li>
+		  	<li>
 		  		<%= f.label :email %>
 		  		<%= f.text_field :email %>
 		  	</li>
@@ -35,7 +43,31 @@
 						</select>
 			  	</li>	
 		  	<% end %>
-		  	
+		  	<li>
+			  	<%= f.label 'Address*' %>
+			  	<%= f.text_field :address1, :autofocus => true %>
+				</li>
+			  <li>
+			  	<%= f.label 'City*' %>
+			  	<%= f.text_field :city, :autofocus => true %>
+				</li>
+			  <li class="state">
+			  	<%= f.label :state %>
+			  	<% if @user.country %>
+			  		<%= f.select :state_id, options_for_select(@user.country.states.map{|s|[s.state_province, s.id]}, @user.state.id) %>
+			  	<% else %>
+			  		<%= f.select :state_id, options_for_select(State.all.map{|s|[s.state_province, s.id]}) %>
+			  	<% end %>
+			  </li>
+			  <li class="country">
+			  	<%= f.label "Country" %>
+			  	<% if @user.country %>
+			  		<%= f.select :country_id, options_for_select(Country.all.map{|s|[s.country, s.id]}, @user.country_id) %>
+			  	<% else %>
+			  		<%= f.select :country_id, options_for_select(Country.all.map{|s|[s.country, s.id]}) %>
+			  	<% end %>
+					
+			  </li>
 		  	<li>
 		  		<%= f.label :role %>
 		  		<select id="user_role" name="user[role]">

@@ -20,18 +20,18 @@
 		  		<%= f.label "City*" %>
 		  		<%= f.text_field :city %>
 		  	</li>
-		  	<li>
+		  	<li class="state">
 		  		<%= f.label "State/Province*" %>
-		  		<%= f.select :state_id, options_for_select(State.all.map{|s|[s.state_province, s.id]}, @hotel.state.id) %>
+		  		<%= f.select :state_id, options_for_select(@hotel.country.states.map{|s|[s.state_province, s.id]}, @hotel.state.id) %>
+		  	</li>
+		  	<li class="country">
+		  		<%= f.label "Country" %>
+		  		<%= f.select :country_id, options_for_select(Country.all.map{|s|[s.country, s.id]}, @hotel.country_id) %>
 		  	</li>
 		  	<li>
 		  		<%= f.label "Zip/Postal Code*" %>
 		  		<%= f.text_field :zip %>
-		  	</li>
-		  	<li>
-		  		<%= f.label "Country" %>
-		  		<%= f.select :country_id, options_for_select(Country.all.map{|s|[s.country, s.id]}, @hotel.country_id) %>
-		  	</li>
+		  	</li>		  	
 		  	<li>
 					<label for="client_comm">Preferred Communication</label>
 					<select id="client_comm" name="hotel[email_or_fax]">

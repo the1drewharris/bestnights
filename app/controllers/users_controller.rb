@@ -18,7 +18,7 @@ class UsersController < ApplicationController
   
   def create
     @user = User.new(params[:user])
-    @user.role = params[:role]
+    # @user.role = params[:role]
     if @user.save
       flash[:success] = "The venue saved successfully!"
       redirect_to users_path and return
@@ -46,9 +46,9 @@ class UsersController < ApplicationController
       redirect_to users_path and return
     else
       if user.valid_password?(params[:old_password])
-        attr = params[:user].merge("role" => params[:role])
+        # attr = params[:user].merge("role" => params[:role])
         
-        user.update_attributes!(attr)
+        user.update_attributes!(params[:user])
         
         sign_in(user, :bypass => true) if is_current_user
         redirect_to users_path and return
