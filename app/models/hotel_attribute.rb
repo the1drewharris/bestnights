@@ -5,4 +5,13 @@ class HotelAttribute < ActiveRecord::Base
   
   has_many :hotel_attribute_joins, dependent: :destroy
   has_many :hotels, through: :hotel_attribute_joins
+  
+  def self.search(search)
+    if search
+      find(:all, :conditions => ['attr LIKE ?', "%#{search}%"])
+    else
+      find(:all)
+    end
+  end
+  
 end

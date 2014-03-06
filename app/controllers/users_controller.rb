@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   layout "admin_basic", only: [:index, :new, :show, :edit]
   
   def index
-    @users = User.all
+    @users = User.search(params[:search])
   end
   
   def show

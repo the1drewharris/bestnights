@@ -8,6 +8,13 @@
 	<h1>Room</h1>
 </header>
 
+<%= form_tag rooms_path, :id => "search_form", :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+<% end %>
+
 <div id="container-main">
 	<div class="formactions">
 		<% if current_user.new_signup? %>

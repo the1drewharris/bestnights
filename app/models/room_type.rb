@@ -13,4 +13,12 @@ class RoomType < ActiveRecord::Base
   def init
     self.status ||= "non-active"
   end
+  
+  def self.search(search)
+    if search
+      find(:all, :conditions => ['room_type LIKE ?', "%#{search}%"])
+    else
+      find(:all)
+    end
+  end
 end

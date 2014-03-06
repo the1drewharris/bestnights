@@ -61,7 +61,7 @@
 				<input type="hidden" id="checkindate" name="date[checkin]" value=<%= session[:checkin] %> >
 				<input type="hidden" id="checkoutdate" name="date[checkout]" value=<%= session[:checkout] %> >
 				<input type="hidden" id="roomtype" name="roomtype" value="2">
-				<input type="text" placeholder="Enter Destination, City, or Postal/Zip Code..." name="search" value=<%= session[:search] %>>
+				<input type="text" placeholder="Enter Destination, City, or Postal/Zip Code..." name="search" value="<%= session[:search] %>" >
 				<input type="submit" class="demo_button_submit" style="visibility: hidden;"/>
 				<div id="checkin"></div>
 				<div id="checkout"></div>

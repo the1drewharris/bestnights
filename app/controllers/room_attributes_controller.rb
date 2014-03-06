@@ -4,7 +4,7 @@ class RoomAttributesController < ApplicationController
   layout "admin_basic", only: [:index, :new, :show, :edit]
   
   def index
-    @room_attributes = RoomAttribute.all
+    @room_attributes = RoomAttribute.search(params[:search])
   end
   
   def show

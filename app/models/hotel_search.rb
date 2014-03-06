@@ -69,16 +69,19 @@ class HotelSearch
   end
   
   def search
+    p "searched page: "
+    p query
     available_hotels = []    
     ## search for city, state, zip
-    hotels = Hotel.joins(:state).where('city LIKE ? Or zip = ? Or state_province LIKE ?', "%#{@search}%", "%#{@search}%", "%#{@search}%")
-    
+    hotels = Hotel.joins(:state).where('city LIKE ? Or zip = ? Or state_province LIKE ?', "%#{query}%", "%#{query}%", "%#{query}%")
+    p hotels
     hotels.each do |hotel|      
       if hotel.available?(checkin, checkout, room_numbers, bed_numbers_group)
         available_hotels << hotel
       end
     end
-    
+    p "available: "
+    p available_hotels
     available_hotels
   end
   

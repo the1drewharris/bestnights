@@ -5,9 +5,9 @@ class RoomsController < ApplicationController
   
   def index
     if current_user.admin?
-      @rooms = Room.all
+      @rooms = Room.search(params[:search])
     elsif current_user.manager? 
-      @rooms = current_user.rooms
+      @rooms = current_user.rooms.search(params[:search])
     end    
     
     if current_user.new_signup?

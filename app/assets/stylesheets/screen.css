@@ -685,6 +685,10 @@ footer #footerend {
 	#adminwrapper nav {
 		margin: 21px 0 7px;
 	}
+	
+	#search_form {
+		float: right;
+	}
 
 #wrapper {
 	background: #fff;

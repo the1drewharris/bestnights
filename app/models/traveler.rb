@@ -17,4 +17,12 @@ class Traveler < ActiveRecord::Base
   def name
     "#{firstname} #{lastname}"
   end
+  
+  def self.search(search)
+    if search
+      find(:all, :conditions => ['firstname LIKE ? Or lastname LIKE ?', "%#{search}%", "%#{search}%"])
+    else
+      find(:all)
+    end
+  end
 end

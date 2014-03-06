@@ -65,6 +65,9 @@ class HotelsController < ApplicationController
     if hotel.update_attributes(params[:hotel])
       if current_user.admin?
         AdminMailer.hotel_changed_notify(hotel.user, hotel, current_user).deliver
+        if hotel.user.status == 'pending'
+          hotel.user.update_attributes(status: 'active')
+        end
       end  
       
       if params[:client] and params[:client][:attributes]

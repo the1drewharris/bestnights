@@ -3,7 +3,7 @@ class TravelersController < ApplicationController
   layout "admin_basic", only: [:index, :new, :show, :edit]
   
   def index
-    @travelers = Traveler.all
+    @travelers = Traveler.search(params[:search])
   end
   
   def show

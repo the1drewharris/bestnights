@@ -5,9 +5,9 @@ class HotelAttributesController < ApplicationController
   
   def index
     if current_user.admin?
-      @hotel_attributes = HotelAttribute.all
+      @hotel_attributes = HotelAttribute.search(params[:search])
     elsif current_user.manager?
-      @hotel_attributes = current_user.hotel_attributes
+      @hotel_attributes = current_user.hotel_attributes.search(params[:search])
     end 
   end
   
