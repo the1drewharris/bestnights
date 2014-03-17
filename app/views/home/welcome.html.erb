@@ -1,0 +1,158 @@
+<div id="wrapper" class="register">
+	<div id="eyebrow">
+		<%= image_tag("logo.png") %>
+		<%= render :partial => "common/home_nav_tab" %>		
+	</div>
+	<header>
+		<h1>Register Your Property</h1>
+	</header>
+	<!--
+		<div id="secondarynav">
+		<ul>
+			<li><a href="showOrgs.html">Show Organizations</a></li>
+		</ul>
+	</div>
+	-->
+	<div id="container-main">
+		<form id="newRecordType" name="newRecordType" method="post" action="/add_property" accept-charset="UTF-8" >
+			<div class="tabs">
+				<ul>
+					<li><a href="#tabs-1">Basic Info<br>Property Type &amp; Address</a></li>
+					<li><a href="#tabs-2">Property Details<br>Activities, Facilities, &amp; Services</a></li>
+					<li><a href="#tabs-3">Room Details<br>Set Up Your First Room</a></li>
+				</ul><div id="progressbar"></div>
+				<section id="tabs-1">
+					<h3>Basic Information</h3>
+					<fieldset>
+						<ul>
+							<li><label for="client_firstname">First Name</label><input id="client_firstname" name="manager[firstname]" size="30" type="text"></li>
+							<li><label for="client_lastname">Last Name</label><input id="client_lastname" name="manager[lastname]" size="30" type="text"></li>
+							<li><label for="email">Email Adddress</label><input id="email" name="manager[email]" size="30" type="email"></li>
+							<li><label for="password">Password</label><input id="password" name="manager[password]" size="30" type="password"></li>
+						</ul>
+					</fieldset>
+					<fieldset class="formactions">
+						<a class="button">Next</a>
+					</fieldset>
+				</section>
+				<section id="tabs-2">
+					<h3>Hotel/Property Information</h3>
+					<fieldset>
+				<ul>
+					<li><label for="client_firstname">Name*</label><input id="client_firstname" name="hotel[name]" size="30" type="text"></li>
+					<li><label for="client_address1">Address*</label><input id="client_address1" name="hotel[address1]" size="30" type="text"></li>
+					<li><label for="client_city">City*</label><input id="client_city" name="hotel[city]" size="30" type="text"></li>
+					<li class="state">
+						<label for="client_state">State/Province*</label>
+						<select id="client_state" name="hotel[state_id]">
+							<optgroup label="State">
+								<% Country.first.states.each do |state| %>
+									<option value=<%= state.abbreviation %> ><%= state.state_province %></option>
+								<% end %>
+							</optgroup>
+						</select>
+					</li>
+					<li><label for="client_zip">Zip/Postal Code*</label><input id="client_zip" name="hotel[zip]" size="30" type="text"></li>
+					<li class="country">
+						<label for="client_country">Country*</label>
+						<select id="client_country" name="hotel[country_id]">
+							<optgroup label="Country">
+								<% Country.all.each do |country| %>
+									<option value=<%= country.id %> ><%= country.country %></option>
+								<% end %>
+							</optgroup>
+						</select>
+					</li>
+					<li>
+						<label for="client_comm">Preferred Communication</label>
+						<select id="client_comm" name="hotel[email_or_fax]">
+							<optgroup label="Preferred Communication">
+								<option value="fax">Fax</option>
+								<option value="email">Email</option>
+							</optgroup>
+						</select>
+					</li>
+				</ul>
+			</fieldset>
+			<fieldset>
+				<ul>
+					<li>
+						<label for="client_star_rating">Star Rating</label>
+						<select id="client_star_rating" name="hotel[star]">
+							<optgroup label="Star Rating">
+								<option value="1">&#10029;</option>
+								<option value="2">&#10029;&#10029;</option>
+								<option value="3">&#10029;&#10029;&#10029;</option>
+								<option value="4">&#10029;&#10029;&#10029;&#10029;</option>
+								<option value="5">&#10029;&#10029;&#10029;&#10029;&#10029;</option>
+							</optgroup>
+						</select>
+					</li>
+					<li><label for="client_website">Website</label><input id="client_website" name="hotel_website" size="30" type="text"></li>
+					<li>
+						<label for="client_description">Description</label>
+						<textarea id="client_description" name="hotel[description]"></textarea>
+					</li>
+				</ul>
+			</fieldset>
+			<fieldset>
+				<legend>Amenities</legend>
+					<ul class="col2">
+						<% HotelAttribute.all.each do |ha| %>
+							<li class="checkboxes"><label><%= ha.attr %></label><input type="checkbox" id="" name="hotel_attributes[<%= ha.id %>]"></li>
+						<% end %>
+					</ul>
+				</fieldset>
+				<fieldset class="formactions">
+					<a class="button">Next</a>
+				</fieldset>
+				</section>
+				<section id="tabs-3">
+					<h3>Room Details</h3>
+					<fieldset>
+						<ul>
+							<li>
+								<label for="roomtype">Room Type</label>
+								<select id="client_comm" name="room[room_type_id]">
+									<optgroup label="Room Type">
+										<% RoomType.all.each do |rt| %>
+											<option value=<%= rt.id %> ><%= rt.room_type %></option>
+										<% end %>
+									</optgroup>
+								</select>
+							<li><label for="roomname">Room Name</label><input name="room[name]" type="text"></li>
+							<li><label for="roomqty">Number of Rooms</label><input name="room[starting_inventory]" type="number"></li>
+							<li>
+								<label for="smoking">Smoking</label>
+								<select id="smoking" name="client[smoking]">
+									<optgroup label="Smoking Preferences">
+										<option value="smoking">Smoking</option>
+										<option value="nonsmoking">Non-Smoking</option>
+									</optgroup>
+								</select>
+							</li>
+						</ul>
+					</fieldset>
+					<fieldset>
+					<legend>Amenities</legend>
+						<ul class="col2">
+							<% RoomAttribute.all.each do |ra| %>
+								<li class="checkboxes"><label><%= ra.attr %></label><input type="checkbox" id="" name="room_attributes[<%= ra.id %>]"></li>
+							<% end %>
+						</ul>
+					</fieldset>
+					<fieldset class="formactions">
+						<!-- <a class="button">Next</a> -->
+						<input type="submit" value="Add" />
+					</fieldset>
+				</section>
+			</div>
+		</form>
+	</div>
+	<footer>
+		<div id="footerend">
+			<p id="copyright"><small>&copy; Copyright BestNights.com 2014. All Rights Reserved.</small></p>
+			<nav></nav>
+		</div>
+	</footer>
+</div>

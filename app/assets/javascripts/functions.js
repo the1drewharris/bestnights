@@ -72,6 +72,38 @@
 			});
 		});
 		
+		// sign up page
+		if ($( '.tabs' ).length > 0) {
+			
+			
+			var $tabs = $(".tabs").tabs({
+				fx : {
+					opacity : 'toggle'
+				}
+			});
+			
+			
+			$tabs.tabs({
+				activate: function() {
+					var progVal = ($tabs.tabs( "option", "active" )+1)*20;
+					
+					$( '.tabs progress' ).val(progVal);
+					$( '.tabs progress span' ).html(progVal);
+					
+					if ($('#progressbar').length > 0) {
+						$('#progressbar').css('height', ($tabs.tabs( "option", "active" )+1)*70);
+					}
+			
+			   		return false;
+				}
+			});
+			
+			$('.tabs .formactions a').click(function () {
+			   $tabs.tabs('option', 'active', $tabs.tabs( "option", "active" )+1); // switch to tab
+			   return false;
+			});
+
+		}
 		
 		// Homepage Feature Grid
 		if ($( ".home" ).length > 0) {
@@ -82,33 +114,115 @@
 		}
 		
 		
-		/*
-		
-		if ($( "#startdate" ).length > 0) {
-			$( "#startdate" ).datepicker();
-		}
-		if ($( "#enddate" ).length > 0) {
-			$( "#enddate" ).datepicker();
-		}
-		
-		if ($( "#searchdatescal" ).length > 0) {
-			var today = new Date();
-			var dd = today.getDate() + 2;
+		if ( $( ".home" ).length > 0 ) {
+			// room options on booking ui
+			if ($('.groupopts').length > 0) {	
+				// Actions for bed quantities
+				$( '.roomtypes li:nth-child(1)' ).click(function(){
+					$(this).toggleClass('selected');
+					$(this).parent().next().hide(500);
+					$(this).siblings('li:nth-child(2),li:nth-child(3)').removeClass('selected');
+					$(this).parent().prev('.roomtype').val('');
+				});
+				
+				$( '.roomtypes li:nth-child(2)' ).click(function(){
+					$(this).toggleClass( 'selected' );
+					$(this).parent().next().hide(500);
+					$(this).siblings('li:nth-child(1),li:nth-child(3)').removeClass('selected');
+					$(this).parent().prev('.roomtype').val('');
+				});
+				
+				$( '.roomtypes li:nth-child(3)' ).click(function(){
+					$(this).toggleClass( 'selected' );
+					$(this).parent().next().toggle(500);
+					$(this).siblings('li:nth-child(1),li:nth-child(2)').removeClass('selected');
+					$(this).parent().prev('.roomtype').val('');
+					if ($("#searchform").css('height') != 728) { 
+						$("#searchform").animate({"height": 728}, {duration: "slow" });
+					}
+				});
+				
+				
+				var $roomcount = 1;
+				var $roomchange = 0;
+				
+				
+				$( '.roomqty' ).change(function(){
+					if ($(this).val() > $(this).next().children('li').length) {
+						$roomchange = $(this).val() - $(this).next().children('li').length;
+						for(var i = 0; i < $roomchange; i++){
+							$($(this).next()).append('<li><h5>Room '+parseInt($(this).next().children('li').length+1)+'</h5><ul><li><label>Adults</label><input name="group[beds]['+parseInt($(this).next().children('li').length+1)+'][adultqty]" type="number" min="0" value="1"></li><li><label>Children</label><input name="group[beds]['+parseInt($(this).next().children('li').length+1)+'][childqty]" type="number" min="0" value="0"></li></ul></li>');
+						}
+					} else if ($(this).val() < $(this).next().children('li').length) {
+						$roomchange = $(this).next().children('li').length - $(this).val();
+						for(var i = 0; i < $roomchange; i++){
+							$(this).next().children('li:last-child').remove();
+						}
+					}
+					
+				});
+				
+				$("#roomtypes li").click(function(){			
+					$("#roomtype").val($(this).val());
+				});
+		  
+			}
 			
-			$('#searchdatescal').DatePicker({
-				flat: true,
-				date: [ today , dd ],
-				current: today,
-				calendars: 2,
-				mode: 'range',
-				starts: 1
-			});
+			// init search pane
+			var sliderHeight = "42px";
+			$('#searchpane .searchpicker').css('visibility','hidden');
+	
+			$('#searchform').each(function () {
+					var current = $(this);
+					current.attr("box_h", current.height());
+				}
+			 );
+			
+			$("#searchform").css("height", sliderHeight);
+			$("#searchpane input").focus(function() { openSlider() });
+				
+			function openSlider() {
+				var open_height = $("#searchform").attr("box_h") + "px";
+				$("#searchform").animate({"height": open_height}, {duration: "slow" });
+				$("#searchpaneui a").click(function() { closeSlider() });
+				$('#searchpane .searchpicker').css('visibility','visible');
+			}
+			
+			function closeSlider() {
+				$("#searchform").animate({"height": sliderHeight}, {duration: "slow" });
+				$("#searchpaneui a").click(function() { openSlider() });
+				$('#searchpane .searchpicker').css('visibility','hidden');
+			}
+		
+			// init date range pickers		
+			if ($('.datepicker1').length > 0) {
+				// set date for today
+				var today = new Date();
+				
+				var days = new Array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
+				var months = new Array('January','February','March','April','May','June','July','August','September','October','November','December');
+				var dates = new Array('1st','2nd','3rd','4th','5th','6th','7th','8th','9th','10th','11th','12th','13th','14th','15th','16th','17th','18th','19th','20th','21st','22nd','23rd','24th','25th','26th','27th','28th','29th','30th','31st');
+								
+				$('#checkindate,#checkoutdate').val( today.getFullYear() +'-'+ ("0" + (today.getMonth() + 1)).slice(-2) +'-'+ ("0" + today.getDate()).slice(-2) );
+							
+				$('.datepicker1').dateRangePicker({
+					separator : ' : ',
+					startDate : today,
+					showShortcuts : false
+				})
+				.bind('datepicker-change',function(event,obj){
+					$(this).parent().parent().prevAll('.checkindate').html('<span>Check in</span><span>' + days[obj.date1.getDay()] + ', </span><span>' + dates[(obj.date1.getDate()-1)] + '</span><br><span>' + months[obj.date1.getMonth()] + ' ' + obj.date1.getFullYear() + '</span>');
+					$(this).parent().parent().prevAll('.checkoutdate').html('<span>Check out</span><span>' + days[obj.date2.getDay()] + ', </span><span>' + dates[(obj.date2.getDate()-1)] + '</span><br><span>' + months[obj.date2.getMonth()] + ' ' + obj.date2.getFullYear() + '</span>');
+				});
+				
+				$('.datepicker1').click();				
+			}	
 		}
 		
-		*/
 		
 		// home, search, bookingdetail page
-		if ( $( ".home" ).length > 0 || $( ".subpage" ).length > 0 || $( ".bookingdetail" ).length > 0) {
+		// if ( $( ".home" ).length > 0 || $( ".subpage" ).length > 0 || $( ".bookingdetail" ).length > 0) {
+		if ( $( ".subpage" ).length > 0 || $( ".bookingdetail" ).length > 0) {
 			var cur = -1, prv = -1;
 			var today = new Date();
 			

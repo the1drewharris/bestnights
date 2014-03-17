@@ -5,7 +5,8 @@
 @import url("uniform.agent.min.css");
 @import url("jquery-ui-1.10.4.custom.min.css");
 @import url("dropzone.css");			/* dropzone styles */
-@import url("jquery.gridster.min.css");		/* calendar select styles */
+@import url("jquery.gridster.min.css");		/* feature styles */
+@import url("daterangepicker.css");		/* datepicker styles */
 @import url("jgallery.min.css");
 
 @import url("screen.css");

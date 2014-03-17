@@ -1,11 +1,87 @@
 <div id="wrapper" class="home">
 	<div id="eyebrow">
-		<div class="logo">
-			<%= image_tag("logo.png") %>
-		</div>
+		<%= image_tag("logo.png") %>
 		<%= render :partial => "common/home_nav_tab" %>
+	</div>	
+	<div id="searchpane">
+		<!-- <form id="searchform"> -->
+		<form id="searchform" method="get" action="/hotels/search" accept-charset="UTF-8" >	
+			<input type="hidden" id="checkindate" name="date[checkin]" value=<%= session[:checkin] %> >
+			<input type="hidden" id="checkoutdate" name="date[checkout]" value=<%= session[:checkout] %> >
+			<input type="hidden" id="roomtype" name="roomtype" value="2">
+			
+			<span class="title">Hotel Search</span>
+			<input type="text" placeholder="Enter Destination..." name="search" value="<%= session[:search] %>" >
+			<input type="submit" class="demo_button_submit" style="visibility: hidden;position: absolute;"/>
+				
+			<!-- if blank, use this
+			<span class="checkindate"><span>Check in</span><span></span><span></span><br><span></span></span>
+			<span class="checkoutdate"><span>Check out</span><span></span><span></span><br><span></span></span>
+			 -->
+			
+			<!-- else, prepopulated -->
+			<span class="checkindate"><span>Check in</span><span>Tuesday, </span><span>1st</span><br><span>April 2014</span></span>
+			<span class="checkoutdate"><span>Check out</span><span>Saturday, </span><span>5th</span><br><span>April 2014</span></span>
+				
+				
+				
+			<div class="bookingdates">
+				<div class="searchpicker"><input class="datepicker1" value="2014-04-01 : 2014-04-05"></div>
+				<ul id="roomtypes" class="roomtypes">
+					<li value="1"><a>Single Room</a></li>
+					<li value="2" class="selected"><a>Double Room</a></li>
+					<li value="3"><a>Groups</a></li>
+				</ul>
+				<div class="groupopts">
+					<label for="roomqty">Number of Rooms</label>
+					<!-- <input name="roomqty[0]" class="roomqty" type="number" min="1" value="1"> -->
+					<input name="group[roomqty]" id="roomqty" class="roomqty" type="number" min="1" value="1">
+					<ul>
+						<li>
+							<h5>Room 1</h5>
+							<ul>
+								<li>
+									<label>Adults</label>
+									<!-- <input name="adultqty[1]" type="number" min="0" value="1"> -->
+									<input name="group[beds][1][adultqty]" type="number" min="0" value="1">
+								</li>
+								<li>
+									<label>Children</label>
+									<!-- <input name="childqty[1]" type="number" min="0" value="0"> -->
+									<input name="group[beds][1][childqty]" type="number" min="0" value="0">
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+			
+			<div id="searchresults">
+				<h5>Top Results</h5>
+				<ul>
+					<% Hotel.top5.each do |hotel| %>
+						<li>
+							
+							<%= link_to booking_detail_path(:hotel_id => hotel.id) do %>
+							  <% unless hotel.hotel_photos.empty? %>
+							  	<img src=<%= hotel.hotel_photos.first.picture.url %> alt="" style="width:97px;height:74px;" />
+							  <% end %>
+								<!-- <img src=<%= hotel.hotel_photos.first.picture.url unless hotel.hotel_photos.empty? %> size="97x74" alt="" /> -->
+								<b><%= hotel.name %></b><br>
+								<span class="starrating">
+									<% hotel.star.to_i.times do %>
+							  		&#10029;
+							  	<% end %>
+							  </span><br><%= hotel.city %>, <%= hotel.state.abbreviation %>
+							<% end %>
+						</li>
+					<% end %>
+				</ul>
+				<p><a class="button4" href="#">See More Results</a></p>
+			</div>
+			<div id="searchpaneui"><a href="#" class="button4">Close</a></div>
+		</form>
 	</div>
-	
 	<div id="features">
 		<ul>
 			<li data-row="1" data-col="1" data-sizex="2" data-sizey="1" style="background:url(assets/siteimages/grid-1_1.jpg) no-repeat top left;"></li>
@@ -53,74 +129,7 @@
 		</ul>
 		<a class="button2">More</a>
 	</header>
-	<section>
-		<h3>Hotel Search</h3>
 	
-		<div id="searchdates">
-			<form method="get" action="/hotels/search" accept-charset="UTF-8" >
-				<input type="hidden" id="checkindate" name="date[checkin]" value=<%= session[:checkin] %> >
-				<input type="hidden" id="checkoutdate" name="date[checkout]" value=<%= session[:checkout] %> >
-				<input type="hidden" id="roomtype" name="roomtype" value="2">
-				<input type="text" placeholder="Enter Destination, City, or Postal/Zip Code..." name="search" value="<%= session[:search] %>" >
-				<input type="submit" class="demo_button_submit" style="visibility: hidden;"/>
-				<div id="checkin"></div>
-				<div id="checkout"></div>
-				<!--<div id="checkin"><span>Check in</span><span>Wednesday, 26th<br>February 2014</span></div>-->
-				<!--<div id="checkout"><span>Check out</span><span>Friday, 28th<br>February 2014</span></div>-->
-				<div id="jrange" class="dates">
-					<input>
-					<div></div>
-				</div>
-				<ul id="roomtypes">
-					<li value="1"><a>Single Room</a></li>
-					<li value="2" class="selected"><a>Double Room</a></li>
-					<li value="3"><a>Groups</a></li>
-				</ul>
-				<div id="groupopts">
-					<label for="roomqty">Number of Rooms</label>
-					<input name="group[roomqty]" id="roomqty" type="number" min="1" value="1">
-					<ul>
-						<li>
-							<h5>Room 1</h5>
-							<ul>
-								<li>
-									<label>Adults</label>
-									<input name="group[beds][1][adultqty]" type="number" min="0" value="1">
-								</li>
-								<li>
-									<label>Children</label>
-									<input name="group[beds][1][childqty]" type="number" min="0" value="0">
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</div>
-			</form>
-		</div>
-		<div id="searchresults">
-			<h5>Top Results</h5>
-			<ul>
-				<% Hotel.top5.each do |hotel| %>
-					<li>
-						
-						<%= link_to booking_detail_path(:hotel_id => hotel.id) do %>
-						  <% unless hotel.hotel_photos.empty? %>
-						  	<img src=<%= hotel.hotel_photos.first.picture.url %> alt="" style="width:97px;height:74px;" />
-						  <% end %>
-							<!-- <img src=<%= hotel.hotel_photos.first.picture.url unless hotel.hotel_photos.empty? %> size="97x74" alt="" /> -->
-							<b><%= hotel.name %></b><br>
-							<span class="starrating">
-								<% hotel.star.to_i.times do %>
-						  		&#10029;
-						  	<% end %>
-						  </span><br><%= hotel.city %>, <%= hotel.state.abbreviation %>
-						<% end %>
-					</li>
-				<% end %>
-			</ul>
-			<p><a class="button4" href="#">See More Results</a></p>
-		</div>
-	</section>
 	<section id="latesthotels">
 		<p class="options"><a href="#">Newest</a> &bull; <a href="#">Featured</a> &bull; <a href="#">Active</a> &bull; <a href="#">Popular</a></p>
 		<h3>Take a look at the latest hotels who just joined.</h3>

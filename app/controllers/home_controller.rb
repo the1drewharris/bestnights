@@ -1,5 +1,53 @@
 class HomeController < ApplicationController
   
+  def welcome
+    respond_to do |format|
+      format.html 
+    end
+  end
+  
+  def add_property
+    p params[:manager]
+    user = User.new(params[:manager])
+    user.role = User::ROLE[1]
+    user.status = "pending"
+     
+    user.save(:validate => false)
+    user = user.reload
+    
+    p params[:hotel]
+    hotel = Hotel.new(params[:hotel])
+    hotel.user_id = user.id
+    hotel.save(:validate => false)
+    hotel = hotel.reload
+    
+    if params[:hotel_attributes]
+      ## add new hotel attribute to the hotel
+      params[:hotel_attributes].keys.each do |hotel_attribute_id|
+        HotelAttributeJoin.find_or_create_by_hotel_id_and_hotel_attribute_id(hotel.id, hotel_attribute_id)
+      end
+    end
+    
+    room = Room.new(params[:room])
+    room.hotel_id = hotel.id
+    room.save(:validate => false)
+    room = room.reload    
+    
+    if params[:room_attributes]
+      ## add new hotel attribute to the hotel
+      params[:room_attributes].keys.each do |room_attribute_id|
+        RoomAttributeJoin.find_or_create_by_room_id_and_room_attribute_id(room.id, room_attribute_id)
+      end      
+    end
+    
+    AdminMailer.added_hotel_request(user).deliver
+    
+    sign_in(:user, user)
+    
+    redirect_to new_hotel_url
+  end
+ 
+  
   def index  
     
     reset_session

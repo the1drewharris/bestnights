@@ -59,4 +59,9 @@ class AdminMailer < ActionMailer::Base
     subject = "Request to activate new front desk"
     mail(:subject => subject, :to => @hotel.user.email)
   end
+  
+  def added_hotel_request(user)
+    subject = "Thank you for signing up for Best Nights!"
+    mail(:subject => subject, :to => user.email)
+  end
 end
