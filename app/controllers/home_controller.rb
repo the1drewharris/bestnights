@@ -65,6 +65,7 @@ class HomeController < ApplicationController
     end
         
     ## Group the hotels by city
+    #TODO Need a count here too to use in the view
     @grouped_hotels = hotels.group_by { |d| d[:city].downcase} 
     
     ## the latest hotels who just joined

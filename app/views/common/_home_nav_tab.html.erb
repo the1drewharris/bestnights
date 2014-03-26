@@ -1,7 +1,8 @@
+<div class="logo">
+	<%= link_to image_tag("logo.png"), root_path %>
+</div>
 <nav>
 	<%= link_to "home", root_path, :class => "active" %>
-	<%= link_to "hotels", hotels_path %>
-	<%= link_to "deals", "#" %>
-	<%= link_to "Add your property", welcome_path %>
-	<%= link_to "sign in/create account", new_user_registration_path %>
+	<%= link_to "add your property", welcome_path %>
+	<%= link_to "sign in/create account", welcome_path %>
 </nav>

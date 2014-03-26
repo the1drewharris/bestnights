@@ -1,6 +1,5 @@
 <div id="wrapper" class="home">
 	<div id="eyebrow">
-		<%= image_tag("logo.png") %>
 		<%= render :partial => "common/home_nav_tab" %>
 	</div>	
 	<div id="searchpane">
@@ -59,6 +58,7 @@
 			<div id="searchresults">
 				<h5>Top Results</h5>
 				<ul>
+					<!-- #TODO We need to make this show dynamic search results via JavaScript --> 
 					<% Hotel.top5.each do |hotel| %>
 						<li>
 							
@@ -112,7 +112,7 @@
 			  <% hotels = group_hotel.last %>
 			  <li>
 					<h4><%= city %></h4>
-					<p>7,254 Deals are available today</p>
+					<p><%= count %> Deals are available today</p>
 					<ul>
 						<% hotels.each do |hotel| %>
 						  <li>
