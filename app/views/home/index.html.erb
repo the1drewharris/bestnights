@@ -112,7 +112,7 @@
 			  <% hotels = group_hotel.last %>
 			  <li>
 					<h4><%= city %></h4>
-					<p><!-- #TODO Need  #count --> Deals are available today</p>
+					<!--<p> #TODO Need  #count  Deals are available today</p>-->
 					<ul>
 						<% hotels.each do |hotel| %>
 						  <li>
@@ -127,7 +127,6 @@
 			<% end %>
 			
 		</ul>
-		<a class="button2">More</a>
 	</header>
 	
 	<section id="latesthotels">
@@ -136,7 +135,7 @@
 		<p>
 			<% @latest_joined_hotels.each do |hotel| %>
 				<% unless hotel.hotel_photos.empty? %>
-				<a><img src=<%= hotel.hotel_photos.first.picture.url %> style="width:72px;height:72px;" /></a>
+				<a><img src=<%= link_to hotel.hotel_photos.first.picture.url, booking_detail_path(:hotel_id => hotel.id) %> style="width:72px;height:72px;" /></a>
 					<!-- <a><%= image_tag hotel.hotel_photos.first.picture.url , size: "72x72" %></a> -->
 				<% end %>
 				
