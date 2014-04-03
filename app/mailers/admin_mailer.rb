@@ -1,8 +1,17 @@
 class AdminMailer < ActionMailer::Base
-  default from: "from@example.com"
+  default from: "info@bestnights.com"
   
   def test
-    mail(:subject => "Hi, this is bestnights", :to => "sheng.yang103@gmail.com")
+    mail(:subject => "Hi, this is bestnights", :to => "the1drewharris@gmail.com")
+  end
+  
+  ## when a hotel manager is added
+  def new_hotel_manager(admins, manager)
+    @manager = manager
+    subject = "Request to activate new manager"
+    admins.each do |admin|
+      mail(:subject => subject, :to => admin.email)
+    end
   end
   
   ## when the manager adds new room type
@@ -26,12 +35,12 @@ class AdminMailer < ActionMailer::Base
   end
   
   ## when the manager adds new hotel
-  def new_hotel_request(users, hotel, manager)
+  def new_hotel_request(admins, hotel, manager)
     @manager = manager.email
     @hotel = hotel
     subject = "Request to activate new hotel"    
-    users.each do |user|
-      mail(:subject => subject, :to => user.email)
+    admins.each do |admin|
+      mail(:subject => subject, :to => admin.email)
     end
   end
   
