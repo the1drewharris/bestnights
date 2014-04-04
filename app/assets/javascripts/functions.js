@@ -110,7 +110,7 @@
 			$("#features ul").gridster({
 				widget_margins: [0, 0],
 				widget_base_dimensions: [171, 171]
-			});
+			}).data('gridster').disable();
 		}
 		
 		
