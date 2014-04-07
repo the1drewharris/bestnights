@@ -44,6 +44,7 @@
 			  	<%= f.label "Country" %>
 					<%= f.select :country_id, options_for_select(Country.all.map{|s|[s.country, s.id]}) %>
 			  </li>
+			  <% #TODO this needs to be set in a more static fashion or secured or both %>
 			  <li>
 			  	<%= f.label :type %>
 			  	<%= f.select :role, options_for_select(User::ROLE) %>					

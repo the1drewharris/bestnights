@@ -246,7 +246,7 @@ class HomeController < ApplicationController
         end
       end
     else
-      flash[:errors] = ["Your booking was failed!"]
+      flash[:errors] = ["Your booking failed!"]
       redirect_to :back and return  
     end        
   end
@@ -256,7 +256,10 @@ class HomeController < ApplicationController
   private
   
   def book(traveler, amount, cardnumber, expiration)
-        
+    
+    #TODO make this work with the fax service
+    
+=begin        
     transaction = AuthorizeNet::ARB::Transaction.new('98dR8Lw23dG', '7Eb688x2zqDmQ9Ke', :gateway => :sandbox)
     subscription = AuthorizeNet::ARB::Subscription.new(
         :name => "Bestnight Booking",
@@ -287,5 +290,10 @@ class HomeController < ApplicationController
     else
       return false
     end
+    
+=end
+
   end
+
+
 end
