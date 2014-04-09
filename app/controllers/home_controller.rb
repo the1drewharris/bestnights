@@ -102,7 +102,7 @@ class HomeController < ApplicationController
       
       hotel = HotelSearch.new(params)
       
-      @hotels = hotel.search
+      @hotels = Hotel.search
       # @hotels = Hotel.all
       
       session[:hotel_ids] = []

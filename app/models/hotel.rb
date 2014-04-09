@@ -37,6 +37,7 @@ class Hotel < ActiveRecord::Base
   end
   
   def self.search(search)
+    #TODO not searching availability and not returning results for 'york'
     if search
       find(:all, :conditions => ['name LIKE ? Or city LIKE ?', "%#{search}%", "%#{search}%"])
     else

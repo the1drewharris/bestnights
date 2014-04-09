@@ -24,10 +24,10 @@
 					<h3>Basic Information</h3>
 					<fieldset>
 						<ul>
-							<li><label for="client_firstname">First Name</label><input id="client_firstname" name="manager[firstname]" size="30" type="text"></li>
-							<li><label for="client_lastname">Last Name</label><input id="client_lastname" name="manager[lastname]" size="30" type="text"></li>
-							<li><label for="email">Email Adddress</label><input id="email" name="manager[email]" size="30" type="email"></li>
-							<li><label for="password">Password</label><input id="password" name="manager[password]" size="30" type="password"></li>
+							<li><label for="client_firstname">First Name*</label><input id="client_firstname" name="manager[firstname]" size="30" type="text"></li>
+							<li><label for="client_lastname">Last Name*</label><input id="client_lastname" name="manager[lastname]" size="30" type="text"></li>
+							<li><label for="email">Email Address/Username*</label><input id="email" name="manager[email]" size="30" type="email"></li>
+							<li><label for="password">Password*</label><input id="password" name="manager[password]" size="30" type="password"></li>
 						</ul>
 					</fieldset>
 					<fieldset class="formactions">
@@ -71,6 +71,12 @@
 							</optgroup>
 						</select>
 					</li>
+					<li>
+						<label for="client_email">Reservation Email*</label><input id="client_email" name="hotel[email]" size="30" type="text">
+					</li>
+					<li>
+						<label for="client_fax">Fax*</label><input id="client_fax" name="hotel[fax]" size="30" type="text">
+					</li>		
 				</ul>
 			</fieldset>
 			<fieldset>
