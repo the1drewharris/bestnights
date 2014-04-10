@@ -30,16 +30,15 @@ class Hotel < ActiveRecord::Base
   has_many :users, dependent: :destroy # front desks, not admin and manager
   
   scope :activated, -> { where(status: "active") }
-  scope :top5, -> { order("star DESC").limit(5) }
+  scope :top5, -> { where(status: "active").order("star DESC").limit(5) }
   
   def self.latest_joined_hotels
     find :all, :order => "created_at DESC"
   end
   
   def self.search(search)
-    #TODO not searching availability and not returning results for 'york'
     if search
-      find(:all, :conditions => ['name LIKE ? Or city LIKE ?', "%#{search}%", "%#{search}%"])
+      find(:all, :conditions => ['status = ? and (name LIKE ? or city LIKE ?)', "active", "%#{search}%", "%#{search}%"])
     else
       find(:all)
     end
