@@ -69,12 +69,12 @@
 								<!-- <img src=<%= hotel.hotel_photos.first.picture.url unless hotel.hotel_photos.empty? %> size="97x74" alt="" /> -->
 								<b><%= hotel.name %></b><br>
 								<span class="starrating">
-									<% unless hotel.star.empty? %>
+									<% unless hotel.star.blank? %>
 										<% hotel.star.to_i.times do %>
 							  			&#10029;
 							  			<% end %>
 							  		<% end %>
-							  </span><br><%= hotel.city %>, <% unless hotel.state.empty? %><%= hotel.state.abbreviation %><% end %>
+							  </span><br><%= hotel.city %>, <% unless hotel.state.blank? %><%= hotel.state.abbreviation %><% end %>
 							<% end %>
 						</li>
 					<% end %>

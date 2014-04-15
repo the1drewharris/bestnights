@@ -160,14 +160,7 @@
 					<b>Check out:</b> <%= session[:checkout].to_date.strftime('%A, %B %C, %G') %></div>
 			</h5>
 			<div>
-				<h6>Contact</h6>
-				<p>3730 Las Vegas Boulevard, Las Vegas, 89158, USA<br>Telephone: +1(702)5907757 | <a href="#">Official Homepage</a></p>
-				<h6>Room Features</h6>
-				<p>Bathroom with bathtub, Bathroom with shower, Television, Hairdryer, Central heating, Tea/ coffeemaker, Air conditioning, Soundproof windows, Minibar, Pay-TV, Radio, Desk, Small lounge, Telephone, Room safe, DVD player/ Video recorder, Stereo system/ CD player, Computer games, Cable TV, Internet, WiFi in the rooms</p>
-				<h6>Hotel Features</h6>
-				<p>Beauty Salon, Stage for shows, Business center, Cafe, Steam room, Disco/ Nightclub, Entrance hall/ lobby, Express check-in/ out, Elevator, TV lounge, Gym, Hairdresser, Parking lot, Terrace,   Porter service, Hotel bar, Hotel bar with a view, Pool bar, Outdoor swimming pool, Hotel safe, Child/ Baby Cot, Conference rooms, Massage, Non-smoking rooms, PC with Internet, Casino, Restaurant, 24-hour reception, Wheelchair accessible, Sauna, Shops on site, Snack bar, Beach umbrellas, Deck chairs/ Sun loungers, Laundry service, Wellness Center/ Spa, Whirlpool/ Jacuzzi/ Spa tub, WiFi in Lobby, Room Service, 24-hour Room Service, Shoe cleaning service, Organized activities, Car rental at the hotel, Concierge</p>
-				<h6>Description</h6>
-				<p>The 5-star Aria Resort & Casino is located directly on the strip in Las Vegas and attractions such as the fountains of the Bellagio, the roller-coaster of the New York New York Hotel and the Eiffel Tower replica of the Paris Hotel can all be reached by a short walk. Las Vegas - McCarran International Airport is 4 km away and the hotel can arrange...</p>
+				<p><%= @hotel.description %></p>
 				<div><label for="specialrequests">Special Requests</label><textarea></textarea></div>
 			</div>
 		</section>
@@ -182,7 +175,7 @@
 			</tr>
 			<tr>
 				<td>Tax (included)</td>
-				<td>19.69 <span class="currency">US$</span></td>
+				<td><!-- TODO should be dynamic tax rate --> <span class="currency">US$</span></td>
 			</tr>
 			<tr>
 				<td>Total Price</td>
@@ -194,7 +187,7 @@
 		<ul>
 			<li>Booking is safe. When you book with us your details are protected by a secure connection.</li>
 			<li>Your privacy is protected. Your details will only be used to guarantee your booking.</li>
-			<li>No booking fees. Booking.com services are always free, so you save money.</li>
+			<li>No booking fees. BestNights.com services are always free, so you save money.</li>
 			<li>Best Price Guarantee. Found your room online at a lower price? We'll match it.</li>
 		</ul>	
 	</div>
