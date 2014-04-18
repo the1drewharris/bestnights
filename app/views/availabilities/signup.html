@@ -1,0 +1,599 @@
+<!doctype html>
+
+<!--[if lt IE 7 ]> <html class="ie ie6 ie-lt10 ie-lt9 ie-lt8 ie-lt7 no-js" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie ie7 ie-lt10 ie-lt9 ie-lt8 no-js" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie ie8 ie-lt10 ie-lt9 no-js" lang="en"> <![endif]-->
+<!--[if IE 9 ]>    <html class="ie ie9 ie-lt10 no-js" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<!-- the "no-js" class is for Modernizr. --> 
+
+	<head id="www-bestnights-ca">
+	
+		<meta charset="utf-8">
+		
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		
+		<title>BestNights.com - Add Hotel</title>
+		
+	
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		
+		<link rel="shortcut icon" href="./siteimages/favicon.ico" />
+			 
+		<link rel="apple-touch-icon" href="./siteimages/apple-touch-icon.png" />
+		<link rel="stylesheet" href="./css/default.css" type="text/css">
+		<script type="text/javascript" src="//use.typekit.net/iia6dnq.js"></script>
+		<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+		<!-- previous fonts
+		<link href='http://fonts.googleapis.com/css?family=Raleway:200,300,400,500,700' rel='stylesheet' type='text/css'>
+		-->
+		
+		<!-- Lea Verou's Prefix Free, lets you use only un-prefixed properties in yuor CSS files -->
+		<script src="./js/prefixfree.min.js"></script>
+		
+		<!-- This is an un-minified, complete version of Modernizr. 
+			 Before you move to production, you should generate a custom build that only has the detects you need. -->
+		<script src="./js/modernizr-2.7.0.dev.js"></script>
+		
+		<!-- Grab Google CDN's jQuery. fall back to local if necessary -->
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script>window.jQuery || document.write("<script src='./js/jquery-1.10.2.min.js'>\x3C/script>")</script>
+		<script src="./js/jquery-ui-1.10.4.custom.min.js"></script>
+		<script src="./js/jquery.uniform.min.js"></script>
+		
+		<!-- this is where we put our custom functions -->
+		<!-- don't forget to concatenate and minify if needed -->
+		<script src="./js/functions.js"></script>
+
+		<!-- Application-specific meta tags -->
+		<!-- Windows 8 -->
+		<meta name="application-name" content="" /> 
+		<meta name="msapplication-TileColor" content="" /> 
+		<meta name="msapplication-TileImage" content="" />
+		<!-- Twitter -->
+		<meta name="twitter:card" content="">
+		<meta name="twitter:site" content="">
+		<meta name="twitter:title" content="">
+		<meta name="twitter:description" content="">
+		<meta name="twitter:url" content="">
+		<!-- Facebook -->
+		<meta property="og:title" content="" />
+		<meta property="og:description" content="" />
+		<meta property="og:url" content="" />
+		<meta property="og:image" content="" />
+	
+	</head>
+
+
+	<body>
+
+		<div id="adminwrapper">
+			<div id="eyebrow">
+				<div id="profileInfo"></div>
+				<img src="./siteimages/logo.png">
+				<nav>
+					<a href="hotel.html" class="active">Add Hotel</a>
+					<a href="manager.html">Add Manager</a>
+					<a href="roomtype.html">Add Room Type</a>
+					<a href="bedtype.html">Add Bed Type</a>
+					<a href="hotelattribute.html">Add Hotel Attribute</a>
+					<a href="roomattribute.html">Add Room Attribute</a>
+					<a href="promotion.html">Add Promotion</a>
+					<a href="message.html">Add Message</a>
+					<a href="traveler.html">Add Traveler</a>
+				</nav>
+			</div>
+			<header>
+				<h1>Sign Up</h1>
+			</header>
+			<!--
+				<div id="secondarynav">
+				<ul>
+					<li><a href="showOrgs.html">Show Organizations</a></li>
+				</ul>
+			</div>
+			-->
+			<div id="container-main">
+				<form action="hotels.html" id="newRecordType" name="newRecordType">
+					<div class="tabs">
+						<ul>
+							<li><a href="#tabs-1">Sign Up / Register</a></li>
+							<li><a href="#tabs-2">Add Hotel</a></li>
+							<li><a href="#tabs-3">Add Rooms</a></li>
+							<li><a href="#tabs-4">Administrator Approval</a></li>
+							<li><a href="#tabs-5">Rooms Available to Travelers</a></li>
+						</ul>
+						<progress max="100" value="20"><span>20</span>%</progress>
+						<div id="tabs-1">
+							<h3>Personal Information</h3>
+							<fieldset>
+								<ul>
+									<li><label for="client_firstname">Name*</label><input id="client_firstname" name="client[hotelname]" size="30" type="text"></li>
+									<li><label for="client_address1">Address*</label><input id="client_address1" name="client[address1]" size="30" type="text"></li>
+									<li><label for="client_city">City*</label><input id="client_city" name="client[city]" size="30" type="text"></li>
+									<li>
+										<label for="client_state">State/Province*</label>
+										<select id="client_state" name="client[state]">
+											<optgroup label="State">
+												<option value="AK">Alaska</option>
+												<option value="AL">Alabama</option>
+												<option value="AR">Arkansas</option>
+												<option value="AZ">Arizona</option>
+												<option value="CA">California</option>
+												<option value="CO">Colorado</option>
+												<option value="CT">Connecticut</option>
+												<option value="DC">District of Columbia</option>
+												<option value="DE">Delaware</option>
+												<option value="FL">Florida</option>
+												<option value="GA">Georgia</option>
+												<option value="HI">Hawaii</option>
+												<option value="IA">Iowa</option>
+												<option value="ID">Idaho</option>
+												<option value="IL">Illinois</option>
+												<option value="IN">Indiana</option>
+												<option value="KS">Kansas</option>
+												<option value="KY">Kentucky</option>
+												<option value="LA">Louisiana</option>
+												<option value="MA">Massachusetts</option>
+												<option value="MD">Maryland</option>
+												<option value="ME">Maine</option>
+												<option value="MI">Michigan</option>
+												<option value="MN">Minnesota</option>
+												<option value="MO">Missouri</option>
+												<option value="MS">Mississippi</option>
+												<option value="MT">Montana</option>
+												<option value="NC">North Carolina</option>
+												<option value="ND">North Dakota</option>
+												<option value="NE">Nebraska</option>
+												<option value="NH">New Hampshire</option>
+												<option value="NJ">New Jersey</option>
+												<option value="NM">New Mexico</option>
+												<option value="NV">Nevada</option>
+												<option value="NY">New York</option>
+												<option value="OH">Ohio</option>
+												<option value="OK">Oklahoma</option>
+												<option value="OR">Oregon</option>
+												<option value="PA">Pennsylvania</option>
+												<option value="RI">Rhode Island</option>
+												<option value="SC">South Carolina</option>
+												<option value="SD">South Dakota</option>
+												<option value="TN">Tennessee</option>
+												<option value="TX">Texas</option>
+												<option value="UT">Utah</option>
+												<option value="VA">Virginia</option>
+												<option value="VT">Vermont</option>
+												<option value="WA">Washington</option>
+												<option value="WI">Wisconsin</option>
+												<option value="WV">West Virginia</option>
+												<option value="WY">Wyoming</option>
+												<option value="AK">Alaska</option>
+												<option value="AL">Alabama</option>
+												<option value="AR">Arkansas</option>
+												<option value="AZ">Arizona</option>
+												<option value="CA">California</option>
+												<option value="CO">Colorado</option>
+												<option value="CT">Connecticut</option>
+												<option value="DC">District of Columbia</option>
+												<option value="DE">Delaware</option>
+												<option value="FL">Florida</option>
+												<option value="GA">Georgia</option>
+												<option value="HI">Hawaii</option>
+												<option value="IA">Iowa</option>
+												<option value="ID">Idaho</option>
+												<option value="IL">Illinois</option>
+												<option value="IN">Indiana</option>
+												<option value="KS">Kansas</option>
+												<option value="KY">Kentucky</option>
+												<option value="LA">Louisiana</option>
+												<option value="MA">Massachusetts</option>
+												<option value="MD">Maryland</option>
+												<option value="ME">Maine</option>
+												<option value="MI">Michigan</option>
+												<option value="MN">Minnesota</option>
+												<option value="MO">Missouri</option>
+												<option value="MS">Mississippi</option>
+												<option value="MT">Montana</option>
+												<option value="NC">North Carolina</option>
+												<option value="ND">North Dakota</option>
+												<option value="NE">Nebraska</option>
+												<option value="NH">New Hampshire</option>
+												<option value="NJ">New Jersey</option>
+												<option value="NM">New Mexico</option>
+												<option value="NV">Nevada</option>
+												<option value="NY">New York</option>
+												<option value="OH">Ohio</option>
+												<option value="OK">Oklahoma</option>
+												<option value="OR">Oregon</option>
+												<option value="PA">Pennsylvania</option>
+												<option value="RI">Rhode Island</option>
+												<option value="SC">South Carolina</option>
+												<option value="SD">South Dakota</option>
+												<option value="TN">Tennessee</option>
+												<option value="TX">Texas</option>
+												<option value="UT">Utah</option>
+												<option value="VA">Virginia</option>
+												<option value="VT">Vermont</option>
+												<option value="WA">Washington</option>
+												<option value="WI">Wisconsin</option>
+												<option value="WV">West Virginia</option>
+												<option value="WY">Wyoming</option>
+											</optgroup>
+										</select>
+									</li>
+									<li><label for="client_zip">Zip/Postal Code*</label><input id="client_zip" name="client[zip]" size="30" type="text"></li>
+									<li>
+										<label for="client_country">Country*</label>
+										<select id="client_country" name="client[country]">
+											<optgroup label="Country">
+												<option value="US">U.S.A.</option>
+												<option value="CA">Canada</option>
+											</optgroup>
+										</select>
+									</li>
+									<li>
+										<label for="client_comm">Preferred Communication</label>
+										<select id="client_comm" name="client[comm]">
+											<optgroup label="Preferred Communication">
+												<option value="fax">Fax</option>
+												<option value="email">Email</option>
+											</optgroup>
+										</select>
+									</li>
+								</ul>
+							</fieldset>
+							<fieldset>
+								<ul>
+									<li>
+										<label for="client_star_rating">Star Rating</label>
+										<select id="client_star_rating" name="client[star_rating]">
+											<optgroup label="Star Rating">
+												<option value="1">&#10029;</option>
+												<option value="2">&#10029;&#10029;</option>
+												<option value="3">&#10029;&#10029;&#10029;</option>
+												<option value="4">&#10029;&#10029;&#10029;&#10029;</option>
+												<option value="5">&#10029;&#10029;&#10029;&#10029;&#10029;</option>
+											</optgroup>
+										</select>
+									</li>
+									<li>
+										<label for="client_status">Status</label>
+										<select id="client_status" name="client[status]">
+											<optgroup label="Status">
+												<option value="active">Active</option>
+												<option value="non-active">Non-Active</option>
+												<option value="non-viewable">Non-Viewable</option>
+												<option value="inactive">Inactive</option>
+											</optgroup>
+										</select>
+									</li>
+									<li>
+										<label for="client_description">Description</label>
+										<textarea id="client_description" name="client[description]"></textarea>
+									</li>
+								</ul>
+							</fieldset>
+							<fieldset class="formactions">
+								<a class="button">Next</a>
+							</fieldset>
+						</div>
+						<div id="tabs-2">
+							<h3>Hotel Information</h3>
+							<fieldset class="formactions">
+								<a class="button">Next</a>
+							</fieldset>
+						</div>
+						<div id="tabs-3">
+							<h3>Room Information</h3>
+							<fieldset class="formactions">
+								<a class="button">Next</a>
+							</fieldset>
+						</div>
+						<div id="tabs-4">
+							<h3>Administator Approval</h3>
+							<fieldset class="formactions">
+								<a class="button">Next</a>
+							</fieldset>
+						</div>
+						<div id="tabs-5">
+						
+							
+							<h4>Adjust Rooms to Sell (Room Level)</h4>
+							<fieldset>
+								<ul class="col2">
+									<li>
+										<h5>These selected days</h5>
+										<ul>
+											<li class="checkboxes"><label>Monday</label><input type="checkbox" id="" name="day[0]"></li>
+											<li class="checkboxes"><label>Tuesday</label><input type="checkbox" id="" name="day[1]"></li>
+											<li class="checkboxes"><label>Wednesday</label><input type="checkbox" id="" name="day[2]"></li>
+											<li class="checkboxes"><label>Thursday</label><input type="checkbox" id="" name="day[3]"></li>
+											<li class="checkboxes"><label>Friday</label><input type="checkbox" id="" name="day[4]"></li>
+											<li class="checkboxes"><label>Saturday</label><input type="checkbox" id="" name="day[5]"></li>
+											<li class="checkboxes"><label>Sunday</label><input type="checkbox" id="" name="day[6]"></li>
+										</ul>
+									</li>
+									<li>
+										<h5>These selected rooms</h5>
+										<ul>
+											<li class="checkboxes"><label>King Room</label><input type="checkbox" id="" name="roomtype[0]"></li>
+											<li class="checkboxes"><label>Queen Room</label><input type="checkbox" id="" name="roomtype[1]"></li>
+											<li class="checkboxes"><label>Executive Suite</label><input type="checkbox" id="" name="roomtype[2]"></li>
+											<li class="checkboxes"><label>Queen Room with Two Queen Beds</label><input type="checkbox" id="" name="roomtype[3]"></li>
+											<li class="checkboxes"><label>Room Selected at Check-In</label><input type="checkbox" id="" name="roomtype[4]"></li>
+											<li><label>Number of rooms to make available</label><input id="" name="" type="number" min="0" value="0"></li>
+										</ul>
+									</li>
+								</ul>
+								<h5>Dates</h5>
+								<div class="jrange dates">
+									<input>
+									<div></div>
+								</div>
+                              <ul class="col2">
+                                <li>
+                              <label>Room rate per night:</label><input type="number">
+                                  </li>
+                                </ul>
+                              
+								
+							</fieldset>
+							<fieldset class="formactions">
+								<input id="gobutton" type="submit" value="Change/Update">
+							</fieldset>
+							<h4>Adjust Rooms to Sell (Room Level) Grid</h4>
+							<fieldset>
+								<div id="roomsToSell">
+									<div class="inner">
+										<table>
+											<thead>
+												<tr>
+													<th></th>
+													<th>1</th>
+													<th>2</th>
+													<th>3</th>
+													<th>4</th>
+													<th>5</th>
+													<th>6</th>
+													<th>7</th>
+													<th>8</th>
+													<th>9</th>
+													<th>10</th>
+													<th>11</th>
+													<th>12</th>
+													<th>13</th>
+													<th>14</th>
+													<th>15</th>
+													<th>16</th>
+													<th>17</th>
+													<th>18</th>
+													<th>19</th>
+													<th>20</th>
+													<th>21</th>
+													<th>22</th>
+													<th>23</th>
+													<th>24</th>
+													<th>25</th>
+													<th>26</th>
+													<th>27</th>
+													<th>28</th>
+													<th>29</th>
+													<th>30</th>
+													<th>31</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<th>Queen Room</th>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+												</tr>
+												<tr>
+													<th>King Room</th>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+												</tr>
+												<tr>
+													<th>Executive Suite</th>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+												</tr>
+												<tr>
+													<th>Queen Room with Two Beds</th>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+												</tr>
+												<tr>
+													<th>Room Selected at Check-In</th>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+													<td><input value="0" min="0" type="number"></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</fieldset>
+							<fieldset class="formactions">
+								<input id="gobutton" type="submit" value="Change/Update">
+							</fieldset>
+						</div>
+					</div>
+				</form>
+			</div>
+			<footer>
+				<div id="footerend">
+					<p id="copyright"><small>&copy; Copyright BestNights.com 2014. All Rights Reserved.</small></p>
+					<nav></nav>
+				</div>
+			</footer>
+		</div>
+		
+		<!-- Prompt IE 6 users to install Chrome Frame. Remove this if you support IE 6.
+				 http://chromium.org/developers/how-tos/chrome-frame-getting-started -->
+		<!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
+		
+		<!-- Asynchronous google analytics; this is the official snippet.
+			 Replace UA-XXXXXX-XX with your site's ID and uncomment to enable.
+			 
+		<script>
+		
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-XXXXXX-XX']);
+		  _gaq.push(['_trackPageview']);
+		
+		  (function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+		
+		</script>
+		-->
+		  
+	</body>
+</html>
