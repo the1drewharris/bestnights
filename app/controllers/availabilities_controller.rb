@@ -73,4 +73,21 @@ class AvailabilitiesController < ApplicationController
     Availability.find(params[:id]).destroy
     redirect_to availabilities_path
   end
+  
+  def grid
+    if current_user.admin?
+      @rooms = Room.all
+    elsif current_user.manager?
+      @rooms = current_user.rooms
+    end 
+  end
+  
+  def days
+    if current_user.admin?
+      @rooms = Room.all
+    elsif current_user.manager?
+      @rooms = current_user.rooms
+    end 
+  end
+  
 end

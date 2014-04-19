@@ -259,7 +259,8 @@ class HomeController < ApplicationController
     
     #TODO make this work with the fax service
     
-=begin        
+=begin
+     
     transaction = AuthorizeNet::ARB::Transaction.new('98dR8Lw23dG', '7Eb688x2zqDmQ9Ke', :gateway => :sandbox)
     subscription = AuthorizeNet::ARB::Subscription.new(
         :name => "Bestnight Booking",
