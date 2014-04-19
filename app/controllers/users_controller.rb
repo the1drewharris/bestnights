@@ -20,7 +20,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     # @user.role = params[:role]
     if @user.save
-      flash[:success] = "The venue saved successfully!"
+      flash[:success] = "The user was saved successfully!"
       redirect_to users_path and return
     else
       flash[:errors] = @user.errors.full_messages
@@ -66,7 +66,7 @@ class UsersController < ApplicationController
     @manager = User.new(params[:user])
     @manager.role = 2
     if @manager.save!
-      flash[:success] = "The hotel saved successfully!"
+      flash[:success] = "The manager was saved successfully!"
       redirect_to new_manager_path
     else
       redirect_to :back  
