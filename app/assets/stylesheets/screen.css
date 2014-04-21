@@ -1357,6 +1357,8 @@ footer #footerend {
 
 #phone {
 	color: #87bf29;
+	vertical-align: center;
+	font-size: 18px;
 }
 
 

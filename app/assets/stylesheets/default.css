@@ -1,6 +1,6 @@
 /* Import other CSS */
 @import url("reset.css");
-@import url("fontawesome.css");
+@import url("font-awesome.min.css");
 @import url("typography.css");
 @import url("uniform.agent.min.css");
 @import url("jquery-ui-1.10.4.custom.min.css");
