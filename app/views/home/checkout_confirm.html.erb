@@ -54,15 +54,15 @@
 			</h5>
 			<div>
 				<h6>Contact</h6>
-				<p>Contact information should be added here from the hotel listing in the database. <!-- TODO contact info from the database for the hotel --></p>
-				<h6>Room Features</h6>
-				<!-- TODO room ammenties -->
-				<p>Bathroom with bathtub, Bathroom with shower, Television, Hairdryer, Central heating, Tea/ coffeemaker, Air conditioning, Soundproof windows, Minibar, Pay-TV, Radio, Desk, Small lounge, Telephone, Room safe, DVD player/ Video recorder, Stereo system/ CD player, Computer games, Cable TV, Internet, WiFi in the rooms</p>
-				<h6>Hotel Features</h6>
+				<p><%= @hotel.address1 %>, <%= @hotel.city %>, <%= @hotel.state.abbreviation %> <%= @hotel.zip %></p>
+				
+				<h6>Hotel Amenities</h6>
 				<!-- TODO hotel ammenties -->
-				<p>Beauty Salon, Stage for shows, Business center, Cafe, Steam room, Disco/ Nightclub, Entrance hall/ lobby, Express check-in/ out, Elevator, TV lounge, Gym, Hairdresser, Parking lot, Terrace,   Porter service, Hotel bar, Hotel bar with a view, Pool bar, Outdoor swimming pool, Hotel safe, Child/ Baby Cot, Conference rooms, Massage, Non-smoking rooms, PC with Internet, Casino, Restaurant, 24-hour reception, Wheelchair accessible, Sauna, Shops on site, Snack bar, Beach umbrellas, Deck chairs/ Sun loungers, Laundry service, Wellness Center/ Spa, Whirlpool/ Jacuzzi/ Spa tub, WiFi in Lobby, Room Service, 24-hour Room Service, Shoe cleaning service, Organized activities, Car rental at the hotel, Concierge</p>
+				<% @hotel.attributes.each do |attr| %>
+						<%= attr.attr %>, 
+				<% end %>
 				<h6>Description</h6>
-				<p><%= @hotel.descrription %></p>
+				<p><%= @hotel.description %></p>
 				<div><label for="specialrequests">Special Requests</label><textarea></textarea></div>
 			</div>
 		</section>
@@ -73,17 +73,16 @@
 			<tr>
 				<td>BestNights.com Rate</td>
 				<!--TODO room rate -->
-				<td>157.50 <span class="currency">US$</span></td>
+				<td><%= session[:subtotal] %> /td>
 			</tr>
 			<tr>
 				<td>Tax (included)</td>
-				<!--TODO tax rate -->
-				<td>19.69 <span class="currency">US$</span></td>
+				<td><%= @hotel.tax1 * session[:subtotal] %> </td>
 			</tr>
 			<tr>
 				<td>Total Price</td>
 				<!-- TODO total for stay -->
-				<td>177.19 <span class="currency">US$</span></td>
+				<td><%= session[:subtotal] + (@hotel.tax1 * session[:subtotal] )%></td>
 			</tr>
 		</table>
 		

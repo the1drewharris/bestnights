@@ -131,6 +131,8 @@ class HomeController < ApplicationController
     
     session[:hotels] = nil
     session[:hotel_id] = params[:hotel_id]
+    #TODO where is the room that has been booked?
+    
   end
   
   ## POST JSON
@@ -216,6 +218,7 @@ class HomeController < ApplicationController
       numbers = room_number.last.to_i
       amount = amount + room.price.to_f * numbers
     end
+    session[:subtotal] = amount
     
     expiryDate = params[:ccexpirym] + params[:ccexpiryy]
     
@@ -261,36 +264,7 @@ class HomeController < ApplicationController
     
 =begin
      
-    transaction = AuthorizeNet::ARB::Transaction.new('98dR8Lw23dG', '7Eb688x2zqDmQ9Ke', :gateway => :sandbox)
-    subscription = AuthorizeNet::ARB::Subscription.new(
-        :name => "Bestnight Booking",
-        :length => 1,
-        :unit => :month,
-        :start_date => Date.today,
-        :total_occurrences => 9999,
-        :amount => amount,
-        :invoice_number => "123456789",
-        :description => "Booking",
-        :credit_card => AuthorizeNet::CreditCard.new(cardnumber, expiration),
-        :billing_address => AuthorizeNet::Address.new(
-          :first_name => traveler.firstname, 
-          :last_name => traveler.lastname, 
-          :street_address => traveler.address1, 
-          :city => traveler.city,
-          :state => traveler.state.state_province,
-          :zip => traveler.zip,
-          :email => traveler.email,
-          :country => traveler.country.country )
-    )
     
-    response = transaction.create(subscription)
-    
-    if response.success?
-      TravelerPayment.create(transactionid: response.subscription_id, amount: amount, traveler_id: traveler.id)
-      return true
-    else
-      return false
-    end
     
 =end
 

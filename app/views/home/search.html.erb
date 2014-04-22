@@ -110,14 +110,11 @@
 						</span>
 						<br><%= hotel.city %>, <%= hotel.state.state_province %>
 					</a>
-					<div class="resultoptions">
-						<span class="ratingindex">94% Rating Index</span>
-						<a href="#" class="button">More Info</a>
-					</div>
+					
 				</h5>
 				<div>
 					<h6>Contact</h6>
-					<p>3730 Las Vegas Boulevard, Las Vegas, 89158, USA<br>Telephone: +1(702)5907757 | <a href="#">Official Homepage</a></p>
+					<p><%= hotel.address1 %>, <%= hotel.city %>, <%= hotel.state.state_province %> <%= hotel.zip %></p>
 					<h6>Room Features</h6>
 					<p>
 						<% hotel.room_attributes.each do |room_attr| %>
@@ -159,14 +156,10 @@
 			</span>
 			<br>{{city}}, {{state}}
 		</a>
-		<div class="resultoptions">
-			<span class="ratingindex">94% Rating Index</span>
-			<a href="#" class="button">More Info</a>
-		</div>
 	</h5>
 	<div>
 		<h6>Contact</h6>
-		<p>3730 Las Vegas Boulevard, Las Vegas, 89158, USA<br>Telephone: +1(702)5907757 | <a href="#">Official Homepage</a></p>
+		<p><%= hotel.address1 %>, <%= hotel.city %>, <%= hotel.state.state_province %> <%= hotel.zip %></p>
 		<h6>Room Features</h6>
 		<p>
 			{{#room_attributes}}

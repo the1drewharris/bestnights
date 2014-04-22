@@ -41,6 +41,7 @@ class UsersController < ApplicationController
     end
     
     if current_user.admin? and !is_current_user
+      #TODO Must add better "activation" here as it is failing and giving an error because required fields are not being sent
       user.update_attributes!(params[:user])
       AdminMailer.user_changed_notify(current_user, user).deliver
       redirect_to users_path and return
