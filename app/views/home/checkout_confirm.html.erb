@@ -72,7 +72,6 @@
 		<table>
 			<tr>
 				<td>BestNights.com Rate</td>
-				<!--TODO room rate -->
 				<td><%= session[:subtotal] %> /td>
 			</tr>
 			<tr>
@@ -81,7 +80,6 @@
 			</tr>
 			<tr>
 				<td>Total Price</td>
-				<!-- TODO total for stay -->
 				<td><%= session[:subtotal] + (@hotel.tax1 * session[:subtotal] )%></td>
 			</tr>
 		</table>

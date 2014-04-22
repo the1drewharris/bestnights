@@ -171,15 +171,15 @@
 		<table>
 			<tr>
 				<td>BestNights.com Rate</td>
-				<td><%= @amount %> <span class="currency">US$</span></td>
+				<td><%= @amount %> </td>
 			</tr>
 			<tr>
 				<td>Tax (included)</td>
-				<td><!-- TODO should be dynamic tax rate --> <span class="currency">US$</span></td>
+				<td><%= @hotel.tax1 * session[:subtotal] %></td>
 			</tr>
 			<tr>
 				<td>Total Price</td>
-				<td><%= @amount + 19.69 %> <span class="currency">US$</span></td>
+				<td><%= session[:subtotal] + (@hotel.tax1 * session[:subtotal] )%> </td>
 			</tr>
 		</table>
 		

@@ -178,6 +178,7 @@ class HomeController < ApplicationController
       numbers = room_number.last.to_i
       @amount = @amount + room.price.to_f * numbers
     end
+    session[:subtotal] = amount
     
   end
   
