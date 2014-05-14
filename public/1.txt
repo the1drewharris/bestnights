@@ -1,0 +1,1 @@
+Max Bauer,max.bauer1122@gmail.com,Card Number:4007000000027,Card Type:visa,Address,address 4,Amount:280.0,Checkin Date:2014-05-15 ,Checkout Date: 2014-05-28,Room Number:[1, 3]

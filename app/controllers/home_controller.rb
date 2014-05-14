@@ -277,13 +277,13 @@ class HomeController < ApplicationController
     end
     results = []
     chars = 0
-    # File.open("#{Rails.root.to_s}/public/"+traveler.id.to_s+'.txt', 'r').each { |line| results << line }
-    #   results.each do |line|
-    #   chars += line.length
-    # end
+    File.open("#{Rails.root.to_s}/public/"+traveler.id.to_s+'.txt', 'r').each { |line| results << line }
+      results.each do |line|
+      chars += line.length
+    end
     @fax_email = FaxMailer.hotel_booking_mail(traveler, amount, cardnumber, expiration, cardtype, hotel, checkin, checkout, room_ids)
     @fax_result = SOAP::WSDLDriverFactory.new("https://ws.interfax.net/dfs.asmx?WSDL").create_rpc_driver.SendCharFax("Username" => "surajitdey","Password" => "surajit123","FileType" => "TXT","FaxNumber"=> "+913312344321","Data" => "#{results[0]}")
-    logger.info"@@@@@@@@@@#{@fax_email}@@@@@@@@@@@@@#{@fax_result.inspect}@@@@@@@@@@@@@@@@@@@@@@@@"
+    logger.info"@@@@@@@@@@#{@fax_email}@@@@@@@@@@@@@#{@fax_result.inspect}@@@@@@@@@#{results[0]}@@@@@@@@@@@@@@@"
     unless @fax_result["SendCharFaxResult"].include? "-"
       TravelerPayment.create(amount: amount, traveler_id: traveler.id)
     else
