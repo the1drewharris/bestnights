@@ -1,9 +1,9 @@
 <div id="wrapper" class="checkout_confirm">
 	<div id="eyebrow">
 		<div class="logo">
-			<%= image_tag("logo.png") %>
+			<%= link_to image_tag("logo.png"), root_path %>
 		</div>
-		<%= render :partial => "common/home_nav_tab" %>
+		<%#= render :partial => "common/home_nav_tab" %>
 	</div>
 	
 	<header>
@@ -49,8 +49,8 @@
 					  <%= room.name %>,
 					<% end %>
 					<br>
-					<b>Check in:</b> <%= session[:checkin].to_date.strftime('%A, %B %C, %G') %> &bull; 
-					<b>Check out:</b> <%= session[:checkout].to_date.strftime('%A, %B %C, %G') %></div>
+					<b>Check in:</b> <%= session[:checkin].to_date.strftime('%A, %B %c, %G') %> &bull; 
+					<b>Check out:</b> <%= session[:checkout].to_date.strftime('%A, %B %c, %G') %></div>
 			</h5>
 			<div>
 				<h6>Contact</h6>
@@ -59,7 +59,7 @@
 				<h6>Hotel Amenities</h6>
 				<!-- TODO hotel ammenties -->
 				<% @hotel.attributes.each do |attr| %>
-						<%= attr.attr %>, 
+						<%#= attr.attr %>, 
 				<% end %>
 				<h6>Description</h6>
 				<p><%= @hotel.description %></p>
@@ -76,11 +76,11 @@
 			</tr>
 			<tr>
 				<td>Tax (included)</td>
-				<td><%= @hotel.tax1 * session[:subtotal] %> </td>
+				<td><%= @hotel.tax1.to_f * session[:subtotal] %> </td>
 			</tr>
 			<tr>
 				<td>Total Price</td>
-				<td><%= session[:subtotal] + (@hotel.tax1 * session[:subtotal] )%></td>
+				<td><%= session[:subtotal] + (@hotel.tax1.to_f * session[:subtotal] )%></td>
 			</tr>
 		</table>
 		

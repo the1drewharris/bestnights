@@ -78,7 +78,7 @@
 
 	if (window['moment'] === undefined)
 	{
-		alert('Please import moment.js before daterangepicker.js');
+		// alert('Please import moment.js before daterangepicker.js');
 		return;
 	}
 

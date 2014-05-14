@@ -18,9 +18,14 @@ gem "dynamic_form"
 gem 'dropzonejs-rails'
 gem 'simple_form'
 gem 'authorize-net'
-gem 'nokogiri'
+gem 'nokogiri', '1.5.10'
 gem 'jbuilder'
 gem 'gon'
+gem 'savon', '~> 2.5.0'
+gem 'httpi', '~> 2.1.0'
+gem 'gyoku', '~> 1.0'
+gem 'soap4r-ruby1.9', '~> 2.0.5'
+gem "rest-client", "~> 1.6.7"
 
 # Deploy with Capistrano
 group :development do

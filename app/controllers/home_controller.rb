@@ -1,4 +1,7 @@
 class HomeController < ApplicationController
+  require 'interfax/base'
+  require 'interfax/fax_item'
+  require 'interfax/incoming'
   
   def welcome
     respond_to do |format|
@@ -50,8 +53,12 @@ class HomeController < ApplicationController
   
   def index  
     
-    reset_session
-    
+    # reset_session
+    session[:checkin] = Date.today
+    session[:checkout] = Date.today
+    session[:search] = ""
+    session[:roomtype] = ""
+
     latest_rooms = Room.latest_rooms  
     
     ## Group rooms by hotel id
@@ -76,7 +83,6 @@ class HomeController < ApplicationController
   end
   
   def search
-    
     if request.xhr?
       # hotels = session[:hotels]
       hotels = [] 
@@ -178,7 +184,7 @@ class HomeController < ApplicationController
       numbers = room_number.last.to_i
       @amount = @amount + room.price.to_f * numbers
     end
-    session[:subtotal] = amount
+    session[:subtotal] = @amount
     
   end
   
@@ -208,28 +214,30 @@ class HomeController < ApplicationController
     
     unless @traveler
       @traveler = Traveler.new(params[:traveler])
-    end
-    
-    from_date = session[:checkin]
-    to_date = session[:checkout]
-    
-    amount = 0
-    session[:booking_rooms][:number].each do |room_number|
-      room = Room.find(room_number.first)
-      numbers = room_number.last.to_i
-      amount = amount + room.price.to_f * numbers
-    end
-    session[:subtotal] = amount
-    
-    expiryDate = params[:ccexpirym] + params[:ccexpiryy]
-    
-    if book(@traveler, amount, params[:ccnumber], expiryDate)
-      
       unless @traveler.save
         flash[:errors] = @traveler.errors
         redirect_to :back and return
       end
-      
+    end
+
+    from_date = session[:checkin]
+    to_date = session[:checkout]
+    
+    amount = 0
+    room_ids = []
+    session[:booking_rooms][:number].each do |room_number|
+      room = Room.find(room_number.first)
+      numbers = room_number.last.to_i
+      amount = amount + room.price.to_f * numbers
+      room_ids.push(room.id)
+    end
+    session[:subtotal] = amount
+
+    @checkin = session[:checkin]
+    @checkout = session[:checkout]
+    
+    expiryDate = params[:ccexpirym] + params[:ccexpiryy]
+    if book(@traveler, session[:subtotal], params[:ccnumber], expiryDate, params[:cardtype], @hotel, @checkin, @checkout, room_ids )
       ## Create booking record and availability record
       session[:booking_rooms][:number].each do |room_number|
         room = Room.find(room_number.first)
@@ -239,7 +247,7 @@ class HomeController < ApplicationController
                         adults: numbers, traveler_id: @traveler.id)
         
         booking.save
-        
+        logger.info"@@@@@@@@@@@@@@@#{from_date}@@@@@@@@@@@@@@@@@@@@#{to_date}@@@@@@@@@@"
         (from_date..to_date).each do |date|
           if availability = Availability.find_by_room_id_and_this_date(room.id, date)
             availability.update_attributes(count: availability.count - numbers)
@@ -259,17 +267,28 @@ class HomeController < ApplicationController
   
   private
   
-  def book(traveler, amount, cardnumber, expiration)
+  def book(traveler, amount, cardnumber, expiration, cardtype, hotel, checkin, checkout, room_ids)
+    logger.info"@@@@@@@@@@#{traveler.inspect}@@@@@@#{amount}@@@@@@@@@@@@#{cardnumber}@@@@@@@@@@#{expiration}@@@@@@@@#{cardtype}@@@@@@#{checkin}@@@@@@#{checkout}@"
     
     #TODO make this work with the fax service
-    
-=begin
-     
-    
-    
-=end
 
+    File.open("#{Rails.root.to_s}/public/"+traveler.id.to_s+'.txt', 'wb') do|f|
+      f.write(traveler.name+','+traveler.email+','+'Card Number'+':'+cardnumber+','+'Card Type'+':'+cardtype+','+'Address'+','+traveler.address1+','+'Amount'+':'+"#{amount}"+','+'Checkin Date'+':'+checkin+','+'Checkout Date'+':'+checkout+','+'Room Number'+':'+"#{room_ids.each { |r| puts r }}")
+    end
+    results = []
+    chars = 0
+    # File.open("#{Rails.root.to_s}/public/"+traveler.id.to_s+'.txt', 'r').each { |line| results << line }
+    #   results.each do |line|
+    #   chars += line.length
+    # end
+    @fax_email = FaxMailer.hotel_booking_mail(traveler, amount, cardnumber, expiration, cardtype, hotel, checkin, checkout, room_ids)
+    @fax_result = SOAP::WSDLDriverFactory.new("https://ws.interfax.net/dfs.asmx?WSDL").create_rpc_driver.SendCharFax("Username" => "surajitdey","Password" => "surajit123","FileType" => "TXT","FaxNumber"=> "+913312344321","Data" => "#{results[0]}")
+    logger.info"@@@@@@@@@@#{@fax_email}@@@@@@@@@@@@@#{@fax_result.inspect}@@@@@@@@@@@@@@@@@@@@@@@@"
+    unless @fax_result["SendCharFaxResult"].include? "-"
+      TravelerPayment.create(amount: amount, traveler_id: traveler.id)
+    else
+      flash[:notice] = "Hotel not booked due wrong params"
+      redirect_to checkout_path
+    end
   end
-
-
 end

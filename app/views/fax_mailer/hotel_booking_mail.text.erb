@@ -1,0 +1,13 @@
+Hi <%= @hotel.name %>,
+
+The new traveler has booke dthe hotel, please find the following information about traveler:
+Traveler Name: <%= @traveler.name %>
+Address      : <%= @traveler.address1 %>
+Card Number :  <%= @cardnumber %>
+Expiry Date : <%= @expiration %>
+Card Type :   <%= @cardtype %>
+Amount :     <%= @amount %>
+Checkin Date : <%= @checkin %>
+Checkout Date : <%= @checkout %>
+Room Number : <%= @room_numbers.each { |r| puts r } %>
+

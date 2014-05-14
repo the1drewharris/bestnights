@@ -156,8 +156,19 @@
 					  <%= room.name %>,
 					<% end %>
 					<br>
-					<b>Check in:</b> <%= session[:checkin].to_date.strftime('%A, %B %C, %G') %> &bull; 
-					<b>Check out:</b> <%= session[:checkout].to_date.strftime('%A, %B %C, %G') %></div>
+					<b>Check in:</b> 
+					<%# if !session[:checkin].blank? %>
+						<%= session[:checkin].to_date.strftime('%A, %B %d, %G') %> &bull; 
+					<%# else %>
+					 <%#= Date.today %>
+					<%# end %>
+					<b>Check out:</b>
+					<%# if !session[:checkout].blank? %>
+						<%= session[:checkout].to_date.strftime('%A, %B %d, %G') %> &bull; 
+					<%# else %>
+					 <%#= Date.today %>
+					<%# end %>
+					</div>
 			</h5>
 			<div>
 				<p><%= @hotel.description %></p>
@@ -175,11 +186,11 @@
 			</tr>
 			<tr>
 				<td>Tax (included)</td>
-				<td><%= @hotel.tax1 * session[:subtotal] %></td>
+				<td><%= @hotel.tax1.to_f * session[:subtotal] %></td>
 			</tr>
 			<tr>
 				<td>Total Price</td>
-				<td><%= session[:subtotal] + (@hotel.tax1 * session[:subtotal] )%> </td>
+				<td><%= session[:subtotal] + (@hotel.tax1.to_f * session[:subtotal] )%> </td>
 			</tr>
 		</table>
 		

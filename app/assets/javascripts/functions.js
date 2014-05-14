@@ -167,7 +167,6 @@
 				});
 		  
 			}
-			
 			// init search pane
 			var sliderHeight = "42px";
 			$('#searchpane .searchpicker').css('visibility','hidden');
@@ -213,10 +212,12 @@
 				.bind('datepicker-change',function(event,obj){
 					$(this).parent().parent().prevAll('.checkindate').html('<span>Check in</span><span>' + days[obj.date1.getDay()] + ', </span><span>' + dates[(obj.date1.getDate()-1)] + '</span><br><span>' + months[obj.date1.getMonth()] + ' ' + obj.date1.getFullYear() + '</span>');
 					$(this).parent().parent().prevAll('.checkoutdate').html('<span>Check out</span><span>' + days[obj.date2.getDay()] + ', </span><span>' + dates[(obj.date2.getDate()-1)] + '</span><br><span>' + months[obj.date2.getMonth()] + ' ' + obj.date2.getFullYear() + '</span>');
+					$("#checkindate").val(obj.value.substr(0,obj.value.indexOf(":")));
+					$("#checkoutdate").val(obj.value.substr(obj.value.indexOf(":")+1));
 				});
 				
-				$('.datepicker1').click();				
-			}	
+				$('.datepicker1').click();
+			}
 		}
 		
 		
@@ -726,6 +727,13 @@
 			$( 'input[name="ratingMin"]' ).val( $( "#slider-rating" ).slider( "values", 0 ) + "%" );
 			$( 'input[name="ratingMax"]' ).val( $( "#slider-rating" ).slider( "values", 1 ) + "%" );
 		}
+
+
+		//booking deatail page validation start
+
+		
+		
+		//booking deatail page validation end
 		
 		
 			

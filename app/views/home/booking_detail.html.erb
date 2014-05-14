@@ -111,7 +111,8 @@
 						<td class="price"><sup>$</sup><%= room.price %><sup>.15</sup><br><span>Not included: 13.88% tax</span></td>
 						<td><input type="number" min="0" max=<%= room.available_max(@from_date, @to_date) %> value="0" name="number[<%= room.id %>]"></td>
 						<% if room == @hotel.rooms.first %>
-							<td rowspan=<%= @hotel.rooms.count %> ><input type="submit" value="book now" <%= "disabled" unless room.available?(@from_date, @to_date) %> ></td>
+							<td rowspan=<%= @hotel.rooms.count %> ><input type="submit" value="book now"
+							class="book" <%= "disabled" unless room.available?(@from_date, @to_date) %> ></td>
 						<% end %>
 					</tr>
 				<% end %>			
