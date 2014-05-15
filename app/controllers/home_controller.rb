@@ -273,7 +273,7 @@ class HomeController < ApplicationController
     #TODO make this work with the fax service
 
     File.open("#{Rails.root.to_s}/public/"+traveler.id.to_s+'.txt', 'wb') do|f|
-      f.write(traveler.name+','+traveler.email+','+'Card Number'+':'+cardnumber+','+'Card Type'+':'+cardtype+','+'Address'+','+traveler.address1+','+'Amount'+':'+"#{amount}"+','+'Checkin Date'+':'+checkin+','+'Checkout Date'+':'+checkout+','+'Room Number'+':'+"#{room_ids.each { |r| puts r }}")
+      f.write('Traveler Name'+':'+traveler.name+"\n"+'Traveler Email'+':'+traveler.email+"\n"+'Card Number'+':'+cardnumber+"\n"+'Card Type'+':'+cardtype+"\n"+'Address'+':'+traveler.address1+"\n"+'Amount'+':'+"#{amount}"+"\n"+'Checkin Date'+':'+checkin.to_s+"\n"+'Checkout Date'+':'+checkout.to_s+"\n"+'Room Number'+':'+"#{room_ids.each { |r| puts r }}")
     end
     results = []
     chars = 0
