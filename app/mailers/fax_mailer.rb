@@ -12,6 +12,6 @@ class FaxMailer < ActionMailer::Base
   	@checkout = checkout
   	@room_numbers = room_ids
   	subject = "Booking Hotel"
-    mail(:subject => subject, :to => hotel.email)
+    mail(:subject => subject, :to => @hotel.email)
   end
 end
