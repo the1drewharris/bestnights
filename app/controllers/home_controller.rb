@@ -282,13 +282,13 @@ class HomeController < ApplicationController
       chars += line.length
     end
     @fax_email = FaxMailer.hotel_booking_mail(traveler, amount, cardnumber, expiration, cardtype, hotel, checkin, checkout, room_ids)
-    @fax_result = SOAP::WSDLDriverFactory.new("https://ws.interfax.net/dfs.asmx?WSDL").create_rpc_driver.SendCharFax("Username" => "surajitdey","Password" => "surajit123","FileType" => "TXT","FaxNumber"=> "+913312344321","Data" => "#{results[0]}")
-    logger.info"@@@@@@@@@@#{@fax_email}@@@@@@@@@@@@@#{@fax_result.inspect}@@@@@@@@@#{results[0]}@@@@@@@@@@@@@@@"
+    @fax_result = SOAP::WSDLDriverFactory.new("https://ws.interfax.net/dfs.asmx?WSDL").create_rpc_driver.SendCharFax("Username" => "surajitdey","Password" => "surajit123","FileType" => "TXT","FaxNumber"=> "+913312344321","Data" => "#{results[0]+"\n"+results[1]+"\n"+results[2]+"\n"+results[3]+"\n"+results[4]+"\n"+results[5]+"\n"+results[6]+"\n"+results[7]+"\n"+results[8]}")
+    logger.info"@@@@@@@@@@#{@fax_email}@@@@@@@@@@@@@#{@fax_result.inspect}@@@@@@@@@#{results[0]+"\n"+results[1]+"\n"+results[2]+"\n"+results[3]+"\n"+results[4]+"\n"+results[5]+"\n"+results[6]+"\n"+results[7]+"\n"+results[8]}@@@@@@@@@@@@@@@"
     unless @fax_result["SendCharFaxResult"].include? "-"
       TravelerPayment.create(amount: amount, traveler_id: traveler.id)
     else
       flash[:notice] = "Hotel not booked due wrong params"
-      redirect_to checkout_path
+      redirect_to root_path
     end
   end
 end

@@ -43,8 +43,8 @@
    domain: "gmail.com",
    authentication: "plain",
    enable_starttls_auto: true,
-   user_name:"indusnet.testacc@gmail.com",
-   password:"test@123"
+   user_name:"indusnet.internal@gmail.com",
+   password:"indusnet123#"
 
     }
 

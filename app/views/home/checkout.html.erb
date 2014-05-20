@@ -186,11 +186,11 @@
 			</tr>
 			<tr>
 				<td>Tax (included)</td>
-				<td><%= @hotel.tax1.to_f * session[:subtotal] %></td>
+				<td><%= (@hotel.tax1.to_f * session[:subtotal])/100 %></td>
 			</tr>
 			<tr>
 				<td>Total Price</td>
-				<td><%= session[:subtotal] + (@hotel.tax1.to_f * session[:subtotal] )%> </td>
+				<td><%= session[:subtotal] + (@hotel.tax1.to_f * session[:subtotal] )/100 %> </td>
 			</tr>
 		</table>
 		
