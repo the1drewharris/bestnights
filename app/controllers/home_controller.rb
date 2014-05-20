@@ -8,6 +8,14 @@ class HomeController < ApplicationController
       format.html 
     end
   end
+
+  def terms_of_service
+    
+  end
+
+  def privacy
+    
+  end
   
   def add_property
     p params[:manager]

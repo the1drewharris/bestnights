@@ -34,6 +34,8 @@ Bestnights::Application.routes.draw do
   match 'fetch_states' => "countries#fetch_states", :via => :post
   match 'welcome' => "home#welcome", :via => :get
   match 'add_property' => "home#add_property", :via => :post
+  match 'terms_of_service' => 'home#terms_of_service', :as => :terms_of_service
+  match 'privacy' => 'home#privacy', :as => :privacy
   
   # resources :users, except: :create
   resources :users

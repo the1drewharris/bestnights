@@ -12,8 +12,8 @@
 				<li>Customer Service</li>
 				<li><a href="#">Contact Us</a></li>
 				<li><a href="#">FAQs</a></li>
-				<li><a href="#">Privacy Policy</a></li>
-				<li><a href="#">Terms &amp; Conditions</a></li>
+				<li><%= link_to "Privacy Policy", privacy_path %></li>
+				<li><%= link_to "Terms & Conditions", terms_of_service_path %></li>
 				<li><a href="#">Site Map</a></li>
 			</ul>
 			<ul>
@@ -42,8 +42,8 @@
 		<p id="copyright">&copy; Copyright BestNights.com 2014. All Rights Reserved.</p>
 		<nav>
 			<a href="#">home</a><span> &bull; </span>
-			<a href="#">terms of service</a><span> &bull; </span> 
-			<a href="#">privacy guidelines</a><span> &bull; </span>
+			<%= link_to "terms of service", terms_of_service_path %><span> &bull; </span> 
+			<%= link_to "Privacy Policy", privacy_path %><span> &bull; </span>
 			<a href="#">contact us</a><span> &bull; </span>
 			<a href="#">site map</a><span> &bull; </span>
 			<a href="#">help</a>
