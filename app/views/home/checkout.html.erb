@@ -14,7 +14,7 @@
 		
 			<h5>Book Faster by Signing In</h5>
 			<div>
-				<form id="traveler_sign_in_booking" action="/traveler_signin_book">
+				<form id="traveler_sign_in_booking" action="/traveler_signin_book" method= "POST">
 					<ul>
 						<li>
 							<label for="email">Email Address</label>
@@ -25,7 +25,7 @@
 							<input type="password" name="password" placeholder="password">
 						</li>
 					</ul>
-					<input id="traveler_sign_in_booking_btn" type="input" value="sign in" class="button4">
+					<input id="" type="submit" value="sign in" class="button4">
 				</form>
 			</div>
 				
@@ -107,6 +107,10 @@
 							</li>
 							<li><label for="ccnumber">Credit Card Number</label><input id="ccnumber" name="ccnumber" size="30" type="text"></li>
 							<li>
+								<label for="ccv">CCV</label>
+								<input id="ccv" name="ccv" size="3" type="text" maxlength="3">
+							</li>
+							<li>
 								<label for="ccexpiry">Credit Card Expiration Date</label>
 								<select id="ccexpirym" name="ccexpirym">
 									<optgroup label="Month">
@@ -178,7 +182,7 @@
 	</section>
 		
 	<div id="bookingtotal" class="sidesticky">
-		<h3>Your BestNights.com Total</h3>
+		<h3>Reservation Total</h3>
 		<table>
 			<tr>
 				<td>BestNights.com Rate</td>

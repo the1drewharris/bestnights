@@ -199,20 +199,26 @@ class HomeController < ApplicationController
   ## POST JSON
   def traveler_signin_book    
     @traveler = Traveler.find_by_email(params[:email])
-    
+    session[:traveler] = @traveler
+    logger.info"===========#{(params[:password]).inspect}=======#{@traveler.valid_password?(params[:password])}===========#{session[:booking_rooms][:number]}======="
     if @traveler and @traveler.valid_password?(params[:password])
-      render :json => @traveler, :status => 200
+      redirect_to book_hotel_path
+      # render :json => @traveler, :status => 200
     else
       render :nothing => true, :status => 404
     end
     
+  end
+
+  def book_hotel
+    @traveler = Traveler.find(session[:traveler])
   end
   
   ## POST
   def checkout_confirm
     
     @hotel = Hotel.find(session[:hotel_id])
-    
+    logger.info"=============22=#{params[:emailconfirm]}=22===========#{params[:traveler][:email]}========="
     if params[:traveler][:email] != params[:emailconfirm]
       flash[:errors] = ["confirm your email address"]
       redirect_to :back and return
@@ -245,7 +251,7 @@ class HomeController < ApplicationController
     @checkout = session[:checkout]
     
     expiryDate = params[:ccexpirym] + params[:ccexpiryy]
-    if book(@traveler, session[:subtotal], params[:ccnumber], expiryDate, params[:cardtype], @hotel, @checkin, @checkout, room_ids )
+    if book(@traveler, session[:subtotal], params[:ccnumber], params[:ccv], expiryDate, params[:cardtype], @hotel, @checkin, @checkout, room_ids )
       ## Create booking record and availability record
       session[:booking_rooms][:number].each do |room_number|
         room = Room.find(room_number.first)
@@ -275,7 +281,7 @@ class HomeController < ApplicationController
   
   private
   
-  def book(traveler, amount, cardnumber, expiration, cardtype, hotel, checkin, checkout, room_ids)
+  def book(traveler, amount, cardnumber,ccv, expiration, cardtype, hotel, checkin, checkout, room_ids)
     logger.info"@@@@@@@@@@#{traveler.inspect}@@@@@@#{amount}@@@@@@@@@@@@#{cardnumber}@@@@@@@@@@#{expiration}@@@@@@@@#{cardtype}@@@@@@#{checkin}@@@@@@#{checkout}@"
     
     #TODO make this work with the fax service
@@ -289,9 +295,9 @@ class HomeController < ApplicationController
       results.each do |line|
       chars += line.length
     end
-    @fax_email = FaxMailer.hotel_booking_mail(traveler, amount, cardnumber, expiration, cardtype, hotel, checkin, checkout, room_ids)
-    @fax_result = SOAP::WSDLDriverFactory.new("https://ws.interfax.net/dfs.asmx?WSDL").create_rpc_driver.SendCharFax("Username" => "surajitdey","Password" => "surajit123","FileType" => "TXT","FaxNumber"=> "+913312344321","Data" => "#{results[0]+"\n"+results[1]+"\n"+results[2]+"\n"+results[3]+"\n"+results[4]+"\n"+results[5]+"\n"+results[6]+"\n"+results[7]+"\n"+results[8]}")
-    logger.info"@@@@@@@@@@#{@fax_email}@@@@@@@@@@@@@#{@fax_result.inspect}@@@@@@@@@#{results[0]+"\n"+results[1]+"\n"+results[2]+"\n"+results[3]+"\n"+results[4]+"\n"+results[5]+"\n"+results[6]+"\n"+results[7]+"\n"+results[8]}@@@@@@@@@@@@@@@"
+    @fax_email = FaxMailer.hotel_booking_mail(traveler, amount, cardnumber, ccv, expiration, cardtype, hotel, checkin, checkout, room_ids)
+    @fax_result = SOAP::WSDLDriverFactory.new("https://ws-sl.fax.tc/Outbound.asmx?WSDL").create_rpc_driver.SendCharFax("Username" => "bestnights","Password" => "@BestN1ghts","FileType" => "TXT","FaxNumber"=> "17787530200","Data" => "#{results[0]+"\n"+results[1]+"\n"+results[2]+"\n"+results[3]+"\n"+results[4]+"\n"+results[5]+"\n"+results[6]+"\n"+results[7]+"\n"+results[8]}")
+    logger.info"@@@@@@@@@@#{@fax_email}@@@@@@@@@@@@@#{@fax_result.inspect}@@@@@@@@@@@@@@@@@@@@@@@@"
     unless @fax_result["SendCharFaxResult"].include? "-"
       TravelerPayment.create(amount: amount, traveler_id: traveler.id)
     else

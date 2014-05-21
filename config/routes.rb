@@ -36,6 +36,7 @@ Bestnights::Application.routes.draw do
   match 'add_property' => "home#add_property", :via => :post
   match 'terms_of_service' => 'home#terms_of_service', :as => :terms_of_service
   match 'privacy' => 'home#privacy', :as => :privacy
+  match 'book_hotel' => 'home#book_hotel', :as => 'book_hotel'
   
   # resources :users, except: :create
   resources :users
