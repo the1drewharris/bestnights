@@ -18,7 +18,7 @@
 					<li><%= @traveler.email %></li>
 					<li>&nbsp;</li>
 					<li><%= @traveler.address1 %></li>
-					<li><%= @traveler.city %>, <%= @traveler.state.state_province %> <%= @traveler.zip %> <%= @traveler.country.country %></li>
+					<li><%= @traveler.city %>, <%= @subregion.name %> <%= @traveler.zip %> <%= @country.name %></li>  
 					<li>&nbsp;</li>
 					<li><%= @traveler.phone_number %></li>
 						<li>&nbsp;</li>
@@ -72,7 +72,7 @@
 		<table>
 			<tr>
 				<td>BestNights.com Rate</td>
-				<td><%= session[:subtotal] %> /td>
+				<td><%= session[:subtotal] %> </td>
 			</tr>
 			<tr>
 				<td>Tax (included)</td>

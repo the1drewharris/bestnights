@@ -74,12 +74,12 @@
 						end
 						%>
 						<li>
-				  		<%= f.label :state %>
-				  		<%= f.select :state_id, options_for_select(State.all.map{|s|[s.state_province, s.id]}, state_id ) %>
+				  		<%= f.label :country_id %>
+							<%= f.country_select :country_id, priority: %w(US CA), prompt: 'Please select a country' %>
 				  	</li>						
 						<li>
-							<label for="country">Country</label>
-							<%= f.select :country_id, options_for_select(Country.all.map{|s|[s.country, s.id]}, country_id ) %>
+							<%= f.label :state_id , :style =>"float:left" %>
+							<%= render partial: 'home/test', locals: {parent_region: f.object.country_id} %>
 						</li>
 						<li>
 							<label for="zip">Zip/Postal Code</label>

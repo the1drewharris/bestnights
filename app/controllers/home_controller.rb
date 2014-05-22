@@ -234,6 +234,10 @@ class HomeController < ApplicationController
       end
     end
 
+    logger.info"============#{@traveler.country_id}===================="
+    @country = Carmen::Country.coded(@traveler.country_id )
+    @subregion = @country.subregions.coded(@traveler.state_id)
+
     from_date = session[:checkin]
     to_date = session[:checkout]
     
@@ -277,6 +281,9 @@ class HomeController < ApplicationController
     end        
   end
   
+  def subregion_options
+    render partial: 'test'
+  end
   
   
   private

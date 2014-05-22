@@ -37,6 +37,8 @@ Bestnights::Application.routes.draw do
   match 'terms_of_service' => 'home#terms_of_service', :as => :terms_of_service
   match 'privacy' => 'home#privacy', :as => :privacy
   match 'book_hotel' => 'home#book_hotel', :as => 'book_hotel'
+  get '/home/subregion_options' => 'home#subregion_options'
+
   
   # resources :users, except: :create
   resources :users

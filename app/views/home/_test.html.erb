@@ -1,0 +1,13 @@
+<div id="order_state_code_wrapper" style="float:left">
+  <% parent_region ||= params[:parent_region] %>
+  <% country = Carmen::Country.coded(parent_region) %>
+
+  <% if country.nil? %>
+    <em>Please select a country above</em>
+  <% elsif country.subregions? %>
+    <%= subregion_select(:traveler, :state_id, parent_region) %>
+  <% else %>
+    <%= text_field(:traveler, :state_id) %>
+  <% end %>
+</div>
+<div style="clear:both"></div>

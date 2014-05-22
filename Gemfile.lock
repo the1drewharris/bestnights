@@ -46,6 +46,11 @@ GEM
       capistrano (>= 3.0.0.pre)
     capistrano-rails (1.0.0)
       capistrano
+    carmen (1.0.1)
+      unicode_utils (~> 1.4.0)
+    carmen-rails (1.0.1)
+      carmen (~> 1.0.0)
+      rails
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.4)
@@ -172,6 +177,7 @@ GEM
     uglifier (2.4.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    unicode_utils (1.4.0)
     warden (1.2.3)
       rack (>= 1.0)
     wasabi (3.3.0)
@@ -188,6 +194,7 @@ DEPENDENCIES
   capistrano (~> 3.0.0)
   capistrano-bundler (~> 1.0.0)
   capistrano-rails (~> 1.0.0)
+  carmen-rails (~> 1.0.1)
   coffee-rails (~> 3.2.1)
   devise
   dropzonejs-rails
