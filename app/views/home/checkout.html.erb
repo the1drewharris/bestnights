@@ -12,7 +12,7 @@
 	<section>
 		<div id="userdetails">
 		
-			<h5>Book Faster by Signing In</h5>
+			<h5>Book Faster by Signing In  Click Here</h5>
 			<div>
 				<form id="traveler_sign_in_booking" action="/traveler_signin_book" method= "POST">
 					<ul>
@@ -34,11 +34,11 @@
 				<%= form_for @traveler, :url => checkout_confirm_path, :method => :post do |f| %>
 					<ul>
 						<li>
-							<%= f.label :firstname %>
+							<label for="First Name">First Name</label>
 		  				<%= f.text_field :firstname %>
 						</li>
 						<li>
-							<%= f.label :lastname %>
+							<label for="Last Name">Last Name</label>
 		  				<%= f.text_field :lastname %>
 						</li>
 						<li>
@@ -78,7 +78,7 @@
 							<%= f.country_select :country_id, priority: %w(US CA), prompt: 'Please select a country' %>
 				  	</li>						
 						<li>
-							<%= f.label :state_id , :style =>"float:left" %>
+							<label for="State/Province" style="float:left">State/Province</label>
 							<%= render partial: 'home/test', locals: {parent_region: f.object.country_id} %>
 						</li>
 						<li>
