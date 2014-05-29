@@ -99,7 +99,8 @@
 				<legend>Amenities</legend>
 					<ul class="col2">
 						<% HotelAttribute.all.each do |ha| %>
-							<li class="checkboxes"><label><%= ha.attr %></label><input type="checkbox" id="" name="hotel_attributes[<%= ha.id %>]"></li>
+							<li class="checkboxes"><label style="float:left"><%= ha.attr %></label><input type="checkbox" id="" name="hotel_attributes[<%= ha.id %>]" style="float:left; margin-top:4px;" ></li>
+							<div style="clear:both;"></div>
 						<% end %>
 					</ul>
 				</fieldset>
@@ -123,6 +124,10 @@
 							<li><label for="roomname">Room Name</label><input name="room[name]" type="text"></li>
 							<li><label for="roomqty">Number of Rooms</label><input name="room[starting_inventory]" type="number"></li>
 							<li>
+								<label for="roomqty">Room Description</label>
+								<textarea id="room_description" name="room[description]"></textarea>
+							</li>
+							<li>
 								<label for="smoking">Smoking</label>
 								<select id="smoking" name="client[smoking]">
 									<optgroup label="Smoking Preferences">
@@ -137,7 +142,8 @@
 					<legend>Amenities</legend>
 						<ul class="col2">
 							<% RoomAttribute.all.each do |ra| %>
-								<li class="checkboxes"><label><%= ra.attr %></label><input type="checkbox" id="" name="room_attributes[<%= ra.id %>]"></li>
+								<li class="checkboxes"><label style="float:left"><%= ra.attr %></label><input type="checkbox" id="" name="room_attributes[<%= ra.id %>]"  style="float:left; margin-top:4px;"></li>
+								<div style="clear:both;"></div>
 							<% end %>
 						</ul>
 					</fieldset>
@@ -149,9 +155,10 @@
 			</div>
 		</form>
 		<section>
-			<h3>Why Partner with BestNights.com?</h3>
-			<h5>Al large, global audience</h5>
-			<p>We work directly with more properties than anyone else! From family-owned B&B&rsquo;s to resorts, we show your property to a large audience of travelers worldwide.</p>
+			<h3>Why Partner with <a href="http://www.bestnights.com">BestNights.com?</a></h3>
+			<p>We offer hoteliers:<br>
+				An easy to use interface, An efficient and organized booking service, Increased exposure for marketing
+					Our goal is to make online hotel booking as easy and convenient for both hotel guests and hoteliers alike.</p>
 		</section>
 	</div>
 	<footer>

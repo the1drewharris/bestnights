@@ -2,10 +2,10 @@
 	<% if can? :index, Hotel %>
 		<%= link_to "Hotels", hotels_path %>
 	<% end %>
-	<% if can? :index, HotelAttribute %>	
+	<% if current_user.admin? %>	
 		<%= link_to "Hotel Attributes", hotel_attributes_path %>
 	<% end %>
-	<% if can? :index, RoomType %>
+	<% if current_user.admin? %>
 		<%= link_to "Room Types", room_types_path %>
 	<% end %>
 	<% if can? :index, Room %>
@@ -14,7 +14,7 @@
 	<% if can? :index, Availability %>
 		<%= link_to "Availabilities", availabilities_path %>
 	<% end %>
-	<% if can? :index, RoomAttribute %>	
+	<% if current_user.admin? %>	
 		<%= link_to "Room Attributes", room_attributes_path %>
 	<% end %>
 	<% if can? :index, Promotion %>	

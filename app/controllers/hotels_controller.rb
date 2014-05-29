@@ -62,6 +62,7 @@ class HotelsController < ApplicationController
   
   def update
     hotel = Hotel.find(params[:id])
+    
     if hotel.update_attributes(params[:hotel])
       if current_user.admin?
         AdminMailer.hotel_changed_notify(hotel.user, hotel, current_user).deliver

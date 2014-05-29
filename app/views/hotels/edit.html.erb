@@ -153,8 +153,17 @@
 		  		<%= f.text_field :comission_rate, :value => @hotel.comission_rate,  :disabled => current_user.manager? %>
 		  	</li>
 		  	<li>
-		  		<%= f.label :card %>
-		  		<%= f.select :card_id, options_for_select(Card.all.map{|s|[s.card_number, s.id]}) %>
+		  		<span class="formLabel">Crads</span>
+					<div class="checklist">
+						<ul>
+							<% Card.all.each do |card| %>
+								<li>
+									<input name="card[<%= card.id %>]" type="checkbox" <%= "checked" if card.hotels.include?(@hotel) %>>
+									<label for="client[attributes]"><%= card.card_type %></label>
+								</li>
+							<% end %>
+						</ul>
+					</div>
 		  	</li>
 		  	<li>
 		  		<%= f.label :description %>
