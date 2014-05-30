@@ -38,6 +38,8 @@ Bestnights::Application.routes.draw do
   match 'privacy' => 'home#privacy', :as => :privacy
   match 'book_hotel' => 'home#book_hotel', :as => 'book_hotel'
   get '/home/subregion_options' => 'home#subregion_options'
+  match 'faq' => 'home#faq', :as => :faq
+  match 'contact_us' => 'home#contact_us', :as => 'contact_us'
 
   
   # resources :users, except: :create

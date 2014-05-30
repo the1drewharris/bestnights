@@ -16,6 +16,14 @@ class HomeController < ApplicationController
   def privacy
     
   end
+
+  def faq
+    
+  end
+
+  def contact_us
+    
+  end
   
   def add_property
     p params[:manager]
