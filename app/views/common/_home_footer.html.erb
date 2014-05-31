@@ -10,11 +10,10 @@
 			</ul>
 			<ul>
 				<li>Customer Service</li>
-				<li><%= link_to "Conatct Us", contact_us_path %></li>
+				<li><%= link_to "Contact Us", new_contact_path %></li>
 				<li><%= link_to "FAQs", faq_path %></li>
 				<li><%= link_to "Privacy Policy", privacy_path %></li>
 				<li><%= link_to "Terms & Conditions", terms_of_service_path %></li>
-				<li><a href="#">Site Map</a></li>
 			</ul>
 			
 			<ul>
@@ -39,9 +38,8 @@
 			<a href="#">home</a><span> &bull; </span>
 			<%= link_to "terms of service", terms_of_service_path %><span> &bull; </span> 
 			<%= link_to "Privacy Policy", privacy_path %><span> &bull; </span>
-			<%= link_to "contact us", contact_us_path %><span> &bull; </span>
-			<a href="#">site map</a><span> &bull; </span>
-			<a href="#">help</a>
+			<%= link_to "contact us", new_contact_path %><span> &bull; </span>
+			<%= link_to "Help", contact_us_path %>
 		</nav>
 	</div>
 </footer>

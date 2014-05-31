@@ -1,0 +1,32 @@
+  <div id="wrapper" class="register">
+  <div id="eyebrow">
+    <%= render :partial => "common/home_nav_tab" %>   
+  </div>
+  <header>
+    <h2>Contact Us</h2>
+  </header>
+  <div id="container-main">
+    <p><strong>Toll Free:</strong> 1 800 494 BEST (2378)</p>
+    <p><strong>Fax:</strong> 1 844 494 BEST (2378)</p>
+    <p><strong>Email:</strong> <%= mail_to "info@bestnights.com" %> </p>
+    <%= form_for(@contact, :html => { :class => 'form-horizontal new_contact', :autocomplete => :off }) do |f| %>
+    <% if @contact.errors.any? %>
+      <div id="error_explanation" class="error">
+        <h2><%= pluralize(@contact.errors.count, "error") %> prohibited this contact us form from being saved:</h2>
+
+        <ul>
+        <% @contact.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div><strong>Contact Email:</strong></div><br />
+      <label>
+        <%= f.text_field :email, :placeholder => "email", onblur: "if(this.placeholder=='') {this.placeholder='email'}",  onfocus: "if(this.placeholder=='email') {this.placeholder='';}" %>
+      </label> <br />
+      <input type="submit" name="button"> 
+    <% end %>
+  </div>
+  <%= render :partial => "common/home_footer" %>
+</div>

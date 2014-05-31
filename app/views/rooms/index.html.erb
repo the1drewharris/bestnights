@@ -38,8 +38,8 @@
 		  <tr>
 		  	<td><%= room.name %></td>
 				<td><%= room.description %></td>
-				<td><%= room.price %></td>
-				<td><%= room.original_price %></td>
+				<td>$<%= number_with_precision(room.price, :precision => 2, :separator => '.', :delimiter => ',') %></td> 
+				<td>$<%= number_with_precision(room.original_price, :precision => 2, :separator => '.', :delimiter => ',') %></td>
 				<td><%= room.hotel.name unless room.hotel.nil? %></td>
 				<td><%= room.room_type.room_type unless room.room_type.nil? %></td>
 				<% if can? :show, room %>

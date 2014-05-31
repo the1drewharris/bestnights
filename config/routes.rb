@@ -2,6 +2,8 @@ Bestnights::Application.routes.draw do
   
   resources :pages
 
+  resources :contacts
+
   match '/payments/payment', :to => 'payments#payment', :as => 'paymentspayment', :via => [:get]
 
   match '/payments/thank_you', :to => 'payments#thank_you', :as => 'payments_thank_you', :via => [:get]
@@ -39,7 +41,7 @@ Bestnights::Application.routes.draw do
   match 'book_hotel' => 'home#book_hotel', :as => 'book_hotel'
   get '/home/subregion_options' => 'home#subregion_options'
   match 'faq' => 'home#faq', :as => :faq
-  match 'contact_us' => 'home#contact_us', :as => 'contact_us'
+  
 
   
   # resources :users, except: :create
