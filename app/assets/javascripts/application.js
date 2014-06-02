@@ -19,3 +19,4 @@
 //= require jquery.uniform.min
 //= require dropzone
 //= require functions
+//= require autocomplete-rails

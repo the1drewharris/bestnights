@@ -125,6 +125,8 @@ GEM
       activesupport (= 3.2.8)
       bundler (~> 1.0)
       railties (= 3.2.8)
+    rails3-jquery-autocomplete (1.0.14)
+      rails (>= 3.0)
     railties (3.2.8)
       actionpack (= 3.2.8)
       activesupport (= 3.2.8)
@@ -208,6 +210,7 @@ DEPENDENCIES
   nokogiri (= 1.5.10)
   paperclip
   rails (= 3.2.8)
+  rails3-jquery-autocomplete (~> 1.0.14)
   rest-client (~> 1.6.7)
   sass-rails (~> 3.2.3)
   savon (~> 2.5.0)

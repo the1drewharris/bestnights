@@ -27,6 +27,7 @@ gem 'gyoku', '~> 1.0'
 gem 'soap4r-ruby1.9', '~> 2.0.5'
 gem "rest-client", "~> 1.6.7"
 gem 'carmen-rails', '~> 1.0.1'
+gem 'rails3-jquery-autocomplete', '~> 1.0.14'
 
 # Deploy with Capistrano
 group :development do

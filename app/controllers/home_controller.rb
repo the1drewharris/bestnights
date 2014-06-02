@@ -2,6 +2,8 @@ class HomeController < ApplicationController
   require 'interfax/base'
   require 'interfax/fax_item'
   require 'interfax/incoming'
+
+  autocomplete :hotel, :name
   
   def welcome
     respond_to do |format|
@@ -97,8 +99,15 @@ class HomeController < ApplicationController
     gon.group = session[:group] # passing rails variable to js object variable
     
   end
+
+  def autocomplete_hotel_name
+    term = params[:term]
+    hotels = Hotel.where('name LIKE ?', "%#{term}%").order(:name).all
+    render :json => hotels.map { |hotel| {:value => hotel.name} }
+  end
   
   def search
+    logger.info"=======#{params}=22===========111212212========#{params[:search]}=============="
     if request.xhr?
       # hotels = session[:hotels]
       hotels = [] 
@@ -282,6 +291,8 @@ class HomeController < ApplicationController
                                 room_id: room.id)
           end
         end
+        @booking = Booking.where(:traveler_id => @traveler.id, :hotel_id =>  @hotel)
+        @numbers = numbers
       end
     else
       flash[:errors] = ["Your booking failed!"]
@@ -310,7 +321,7 @@ class HomeController < ApplicationController
       results.each do |line|
       chars += line.length
     end
-    @fax_email = FaxMailer.hotel_booking_mail(traveler, amount, cardnumber, ccv, expiration, cardtype, hotel, checkin, checkout, room_ids)
+    @fax_email = FaxMailer.hotel_booking_mail(traveler, amount, cardnumber, ccv, expiration, cardtype, hotel, checkin, checkout, room_ids).deliver
     @fax_result = SOAP::WSDLDriverFactory.new("https://ws-sl.fax.tc/Outbound.asmx?WSDL").create_rpc_driver.SendCharFax("Username" => "bestnights","Password" => "@BestN1ghts","FileType" => "TXT","FaxNumber"=> "15874090031","Data" => "#{results[0]+"\n"+results[1]+"\n"+results[2]+"\n"+results[3]+"\n"+results[4]+"\n"+results[5]+"\n"+results[6]+"\n"+results[7]+"\n"+results[8]}")
     logger.info"@@@@@@@@@@#{@fax_email}@@@@@@@@@@@@@#{@fax_result.inspect}@@@@@@@@@@@@@@@@@@@@@@@@"
     unless @fax_result["SendCharFaxResult"].include? "-"
