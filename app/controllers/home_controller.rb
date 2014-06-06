@@ -199,18 +199,23 @@ class HomeController < ApplicationController
   
   def checkout
     @traveler = Traveler.new
-    @hotel = Hotel.find(session[:hotel_id])
+    @hotel = Hotel.find(params[:hotel_id])
     session[:booking_rooms] = params
     gon.group = session[:group] # passing rails variable to js object variable
     
-    @amount = 0
-    session[:booking_rooms][:number].each do |room_number|
-      room = Room.find(room_number.first)
-      numbers = room_number.last.to_i
-      @amount = @amount + room.price.to_f * numbers
-    end
+    # @amount = 0
+    # session[:booking_rooms][:number].each do |room_number|
+    #   logger.info"&&&&&&&&&#{room_number.first}&&&&&&&&&&&&&&&&&#{room_number.last}&&&&&&&&&&&&&&&&"
+    #   room = Room.find(room_number.first)
+    #   numbers = room_number.last.to_i
+    #   @amount = @amount + room.price.to_f * numbers
+    # end
+    # session[:subtotal] = @amount
+
+    room = Room.find_by_hotel_id(params[:hotel_id])
+    numbers = session[:roomtype].to_i
+    @amount = room.price.to_f * numbers
     session[:subtotal] = @amount
-    
   end
   
   ## POST JSON

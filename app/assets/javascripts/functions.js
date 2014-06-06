@@ -179,8 +179,10 @@
 			
 			$("#searchform").css("height", sliderHeight);
 			$("#searchpane input").focus(function() { openSlider() });
+			$("#check-in").on("click",function() { openSlider() })
 				
 			function openSlider() {
+				
 				var open_height = $("#searchform").attr("box_h") + "px";
 				$("#searchform").animate({"height": open_height}, {duration: "slow" });
 				$("#searchpaneui a").click(function() { closeSlider() });
@@ -195,28 +197,40 @@
 		
 			// init date range pickers		
 			if ($('.datepicker1').length > 0) {
-				// set date for today
 				var today = new Date();
+				var tomorrow = new Date(today.getTime() + (24 * 60 * 60 * 1000));
+				$('.datepicker1').attr("value", today.getFullYear() +'-'+ ("0" + (today.getMonth() + 1)).slice(-2) +'-'+ ("0" + today.getDate()).slice(-2) +" to " + tomorrow.getFullYear() +'-'+ ("0" + (tomorrow.getMonth() + 1)).slice(-2) +'-'+ ("0" + tomorrow.getDate()).slice(-2))
+				
+				// set date for today
 				
 				var days = new Array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
 				var months = new Array('January','February','March','April','May','June','July','August','September','October','November','December');
 				var dates = new Array('1st','2nd','3rd','4th','5th','6th','7th','8th','9th','10th','11th','12th','13th','14th','15th','16th','17th','18th','19th','20th','21st','22nd','23rd','24th','25th','26th','27th','28th','29th','30th','31st');
 								
-				$('#checkindate,#checkoutdate').val( today.getFullYear() +'-'+ ("0" + (today.getMonth() + 1)).slice(-2) +'-'+ ("0" + today.getDate()).slice(-2) );
-							
+				$('#checkindat').val( today.getFullYear() +'-'+ ("0" + (today.getMonth() + 1)).slice(-2) +'-'+ ("0" + today.getDate()).slice(-2) );
+				$('#checkoutdate').val( tomorrow.getFullYear() +'-'+ ("0" + (tomorrow.getMonth() + 1)).slice(-2) +'-'+ ("0" + tomorrow.getDate()).slice(-2) );
+				
+				$('.checkindate').html('<span>Check in</span><span>' + days[today.getDay()] + ', </span><span>' + dates[(today.getDate())-1] + '</span><br><span>' + months[today.getMonth()] + ' ' + today.getFullYear() + '</span>');
+				$('.checkoutdate').html('<span>Check out</span><span>' + days[tomorrow.getDay()] + ', </span><span>' + dates[(tomorrow.getDate())-1] + '</span><br><span>' + months[tomorrow.getMonth()] + ' ' + tomorrow.getFullYear() + '</span>');
+								
 				$('.datepicker1').dateRangePicker({
-					separator : ' : ',
-					startDate : today,
-					showShortcuts : false
-				})
-				.bind('datepicker-change',function(event,obj){
+						dayGap: 2
+					
+				}).bind('datepicker-change',function(event,obj){
+					var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+					var diffDays = Math.round(Math.abs((obj.date2.getTime() - obj.date1.getTime())/(oneDay)))+1;
 					$(this).parent().parent().prevAll('.checkindate').html('<span>Check in</span><span>' + days[obj.date1.getDay()] + ', </span><span>' + dates[(obj.date1.getDate()-1)] + '</span><br><span>' + months[obj.date1.getMonth()] + ' ' + obj.date1.getFullYear() + '</span>');
 					$(this).parent().parent().prevAll('.checkoutdate').html('<span>Check out</span><span>' + days[obj.date2.getDay()] + ', </span><span>' + dates[(obj.date2.getDate()-1)] + '</span><br><span>' + months[obj.date2.getMonth()] + ' ' + obj.date2.getFullYear() + '</span>');
-					$("#checkindate").val(obj.value.substr(0,obj.value.indexOf(":")));
-					$("#checkoutdate").val(obj.value.substr(obj.value.indexOf(":")+1));
+					$("#checkindate").val(obj.value.substr(0,obj.value.indexOf("to")));
+					$("#checkoutdate").val(obj.value.substr(obj.value.indexOf("to")+2));
+					$("#night-number").html(diffDays)
 				});
+
+
+				// $('.datepicker1').data('dateRangePicker').setDateRange('2014-06-03', "2014-06-04");
 				
 				$('.datepicker1').click();
+				
 			}
 		}
 		
@@ -234,115 +248,6 @@
 			var monthsArray = new Array('January','February','March','April','May','June','July','August','September','October','November','December');
 			var datesArray = new Array('1st','2nd','3rd','4th','5th','6th','7th','8th','9th','10th','11th','12th','13th','14th','15th','16th','17th','18th','19th','20th','21st','22nd','23rd','24th','25th','26th','27th','28th','29th','30th','31st');
 			
-			
-			if (!isNaN(kept_cur)) {
-				var kept_cur_date = new Date(kept_cur);
-				$('#checkout').html('<span>Check out</span><span>' + daysArray[kept_cur_date.getDay()] + ', </span><span>' + datesArray[(kept_cur_date.getDate()-1)] + '</span><br><span>' + monthsArray[kept_cur_date.getMonth()] + ' ' + kept_cur_date.getFullYear() + '</span>');
-			} else {
-				$('#checkout').html('<span>Check out</span><span>' + daysArray[today.getDay()] + ', </span><span>' + datesArray[(today.getDate()-1)] + '</span><br><span>' + monthsArray[today.getMonth()] + ' ' + today.getFullYear() + '</span>');	
-			}
-			
-			
-			if (!isNaN(kept_prv)) {
-				var kept_prv_date = new Date(kept_prv);
-				$('#checkin').html('<span>Check in</span><span>' + daysArray[kept_prv_date.getDay()] + ', </span><span>' + datesArray[(kept_prv_date.getDate()-1)] + '</span><br><span>' + monthsArray[kept_prv_date.getMonth()] + ' ' + kept_prv_date.getFullYear() + '</span>');
-			} else {
-				$('#checkin').html('<span>Check in</span><span>' + daysArray[today.getDay()] + ', </span><span>' + datesArray[(today.getDate()-1)] + '</span><br><span>' + monthsArray[today.getMonth()] + ' ' + today.getFullYear() + '</span>');	
-			}
-					
-			$('#checkindate,#checkoutdate').val( today.getFullYear() +'-'+ ("0" + (today.getMonth() + 1)).slice(-2) +'-'+ ("0" + today.getDate()).slice(-2) );
-									
-			$('#jrange div')
-			  .datepicker({
-					numberOfMonths : 2,
-					minDate : today,
-			
-					beforeShowDay: function ( date ) {
-						return [true, ( (date.getTime() >= Math.min(kept_prv, kept_cur) && date.getTime() <= Math.max(kept_prv, kept_cur)) ? 'date-range-selected' : '')];
-					},					
-					
-					onSelect: function ( dateText, inst ) {
-						prv = cur;
-						cur = (new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay)).getTime();
-						kept_prv = prv;
-						kept_cur = cur;
-						if ( prv == -1 || prv == cur ) {
-							prv = cur;
-							$('#jrange input').val( dateText );
-							$('#checkindate').val( dateText.substr(6,4)+'-'+dateText.substr(0,2)+'-'+dateText.substr(3,2) );
-							
-							var indatestring = $('#checkindate').val();
-							var indate = new Date(indatestring.substr(0,4),(parseInt(indatestring.substr(5,2))-1),indatestring.substr(8,2));
-							
-							$('#checkin').html('<span>Check in</span><span>' + daysArray[indate.getDay()] + ', </span><span>' + datesArray[(indate.getDate()-1)] + '</span><br><span>' + monthsArray[indate.getMonth()] + ' ' + indate.getFullYear() + '</span>');
-							
-						} else {
-							
-							d1 = $.datepicker.formatDate( 'yy-mm-dd', new Date(Math.min(prv,cur)), {} );
-							d2 = $.datepicker.formatDate( 'yy-mm-dd', new Date(Math.max(prv,cur)), {} );
-							$('#jrange input').val( d1+' : '+d2 );
-							
-							// drop dates into fields for form
-							$('#checkindate').val( d1 );
-							$('#checkoutdate').val( d2 );	
-							
-							var indatestring = $('#checkindate').val();
-							var outdatestring = $('#checkoutdate').val();
-							var indate = new Date(indatestring.substr(0,4),(parseInt(indatestring.substr(5,2))-1),indatestring.substr(8,2));
-							var outdate = new Date(outdatestring.substr(0,4),(parseInt(outdatestring.substr(5,2))-1),outdatestring.substr(8,2));
-							
-							$('#checkin').html('<span>Check in</span><span>' + daysArray[indate.getDay()] + ', </span><span>' + datesArray[(indate.getDate()-1)] + '</span><br><span>' + monthsArray[indate.getMonth()] + ' ' + indate.getFullYear() + '</span>');	
-							$('#checkout').html('<span>Check out</span><span>' + daysArray[outdate.getDay()] + ', </span><span>' + datesArray[(outdate.getDate()-1)] + '</span><br><span>' + monthsArray[outdate.getMonth()] + ' ' + outdate.getFullYear() + '</span>');					
-												
-						}
-						// display dates for user	
-					},
-			
-					onChangeMonthYear: function ( year, month, inst ) {
-						  //prv = cur = -1;
-					   },
-			
-					onAfterUpdate: function ( inst ) {
-						  /*
-						  $('<button type="button" class="ui-datepicker-close ui-state-default ui-priority-primary ui-corner-all" data-handler="hide" data-event="click">Done</button>')
-							 .appendTo($('#jrange div .ui-datepicker-buttonpane'))
-							 .on('click', function () { $('#jrange div').hide(); });
-							 */
-					   }
-				 })
-			  .position({
-					my: 'left top',
-					at: 'left bottom',
-					of: $('#jrange input')
-				 })
-			  .hide();
-			  
-				$('#jrange input').on('focus', function (e) {
-				  });
-				
-				  
-				var v = this.value, d;
-				
-					 try {
-						if ( v.indexOf(' - ') > -1 ) {
-						   d = v.split(' - ');
-	
-						   prv = $.datepicker.parseDate( 'yy-mm-dd', d[0] ).getTime();
-						   cur = $.datepicker.parseDate( 'yy-mm-dd', d[1] ).getTime();
-				
-						} else if ( v.length > 0 ) {
-						   prv = cur = $.datepicker.parseDate( 'yy-mm-dd', v ).getTime();
-						}
-					 } catch ( e ) {
-						cur = prv = -1;
-					 }
-				
-					 if ( cur > -1 )
-						$('#jrange div').datepicker('setDate', new Date(cur));
-				
-					 // $('#jrange div').datepicker('setDate', [prv, cur]);
-					 $('#jrange div').datepicker('refresh').show();	
-					 
 			
 			
 			$( '#roomtypes li:nth-child(1)' ).click(function(){

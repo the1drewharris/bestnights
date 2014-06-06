@@ -24,7 +24,7 @@
 	padding: 5px 12px;
 	font-size:12px;
 	line-height:20px;
-	color:#aaa;
+	color:#8A0808;
 	font-family:Arial;
 	box-shadow:3px 3px 10px rgba(0,0,0,0.5);
 }
@@ -81,7 +81,7 @@
 .date-picker-wrapper .month-wrapper table div.day.lastMonth,
 .date-picker-wrapper .month-wrapper table div.day.nextMonth
 {
-	color:#999;
+	color:#0080FF;
 	cursor:default;
 }
 .date-picker-wrapper .month-wrapper table .day.checked

@@ -87,6 +87,7 @@
 		if (!opt) opt = {};
 		opt = $.extend(true,
 		{
+			dayGap: false,
 			autoClose: false,
 			format: 'YYYY-MM-DD',
 			separator: ' to ',
@@ -108,6 +109,7 @@
 			minDays: 0,
 			maxDays: 0,
 			showShortcuts: true,
+			extendDate: false,
 			shortcuts: 
 			{
 				//'prev-days': [1,3,5,7],
@@ -430,7 +432,7 @@
 				function setRange(name, timePoint) {
 					var h = timePoint.format("HH"),
 						m = timePoint.format("mm");
-					opt[name] = timePoint
+						opt[name] = timePoint
 						.startOf('day')
 						.add("h", hour || h)
 						.add("m", minute || m)
@@ -446,16 +448,33 @@
 				if (day.hasClass('invalid')) return;
 				var time = day.attr('time');
 				day.addClass('checked');
+				if(opt.extendDate){
+					opt.extendDate = false
+					opt.end = false
+				}
+				
 				if ((opt.start && opt.end) || (!opt.start && !opt.end) )
 				{
 					opt.start = time;
-					opt.end = false;
-					if (opt.time.enabled) {
-						changeTime("start", opt.start);
+					if(opt.dayGap && !opt.extendDate){
+						opt.extendDate = true
+						opt.end = parseInt(time) + (opt.dayGap-1)*24*60*60*1000
+						if (opt.time.enabled) {
+							changeTime("start", opt.start);
+							changeTime("end", opt.end);
+						}
+					}else{
+						opt.end = false;
+						if (opt.time.enabled) {
+							changeTime("start", opt.start);
+						}
 					}
+					
+					
 				}
 				else if (opt.start)
 				{
+					
 					opt.end = time;
 					if (opt.time.enabled) {
 						changeTime("end", opt.end);
@@ -473,7 +492,6 @@
 
 				opt.start = parseInt(opt.start);
 				opt.end = parseInt(opt.end);
-
 				checkSelectionValid();
 				showSelectedInfo();
 				showSelectedDays();

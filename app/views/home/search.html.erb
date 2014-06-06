@@ -13,21 +13,12 @@
 				<input type="hidden" id="checkindate" name="date[checkin]" value=<%= session[:checkin] %> >
 				<input type="hidden" id="checkoutdate" name="date[checkout]" value=<%= session[:checkout] %> >
 				<input type="hidden" id="roomtype" name="roomtype">
-				<input type="text" class="ajax_submit" placeholder="Enter Destination, City, or Postal/Zip Code..." name="search" value="<%= session[:search] %>"  data-autocomplete="/home/autocomplete_hotel_name" id="hotel_name" name="search" class="ui-autocomplete-input" autocomplete="off">
 				<input type="submit" class="demo_button_submit" style="visibility: hidden;"/>
-				<div id="checkin"></div>
-				<div id="checkout"></div>
 				<!--<div id="checkin"><span>Check in</span><span>Wednesday, 26th<br>February 2014</span></div>-->
+				<input type="hidden" class="datepicker2"/>
 				<!--<div id="checkout"><span>Check out</span><span>Friday, 28th<br>February 2014</span></div>-->
 				<div id="jrange" class="dates">
-					<input>
-					<div></div>
 				</div>
-				<ul id="roomtypes">
-					<li value="1"><a>Single Room</a></li>
-					<li value="2"><a>Double Room</a></li>
-					<li value="3"><a>Groups</a></li>
-				</ul>
 				<div id="groupopts">
 					<label for="roomqty">Number of Rooms</label>
 					<input name="group[roomqty]" id="roomqty" type="number" min="1" value="1">
@@ -92,45 +83,17 @@
 	</form>
 	<section>
 		<h5>Top Results</h5>
-		<div id="searchresultslist">
+		<div id="">
 			<% @hotels.each do |hotel| %>
 				<h5>
-					<%= link_to booking_detail_path(:hotel_id => hotel.id), class: "booknow" do %>	
-						<span>BestNights.com Price</span>
-						<span>$<%= hotel.lowest_price %></span>
-						<span>Book Now</span>
-					<% end %>					
-					
-					<a href="#">
-						<b><%= hotel.name %></b><br>
+						<b><%= link_to hotel.name, checkout_path(:hotel_id => hotel.id) %></b><br>
 						<span class="starrating">
 							<% hotel.star.to_i.times do %>
 								&#10029;
 							<% end %>
 						</span>
-						<br><%= hotel.city %>, <%= hotel.zip %>
-					</a>
-					
-				</h5>
-				<div>
-					<h6>Contact</h6>
-					<p><%= hotel.address1 %>, <%= hotel.city %>, <%= hotel.zip %> <%= hotel.zip %></p>
-					<h6>Room Features</h6>
-					<p>
-						<% hotel.room_attributes.each do |room_attr| %>
-							<%= room_attr.first + ', ' %>
-						<% end %>
-					</p>
-					<h6>Hotel Features</h6>
-					<p>
-						<% hotel.hotel_attributes.each do |ha| %>
-							<%= ha.attr + ', ' %>
-						<% end %>
-					</p>
-					<h6>Description</h6>
-					<p><%= hotel.description %></p>
-					<a class="button4" href=<%= booking_detail_url(:hotel_id => hotel.id) %> >Full Details</a>
-				</div>
+						<br><%= hotel.city %>, <%= hotel.zip %>				
+				</h5>				
 			<% end %>
 		</div>
 	</section>
