@@ -211,7 +211,7 @@ class HomeController < ApplicationController
     #   @amount = @amount + room.price.to_f * numbers
     # end
     # session[:subtotal] = @amount
-
+    session[:hotel_id] = params[:hotel_id]
     room = Room.find_by_hotel_id(params[:hotel_id])
     numbers = session[:roomtype].to_i
     @amount = room.price.to_f * numbers
@@ -262,16 +262,12 @@ class HomeController < ApplicationController
 
     from_date = session[:checkin]
     to_date = session[:checkout]
-    
-    amount = 0
     room_ids = []
-    session[:booking_rooms][:number].each do |room_number|
-      room = Room.find(room_number.first)
-      numbers = room_number.last.to_i
-      amount = amount + room.price.to_f * numbers
-      room_ids.push(room.id)
-    end
-    session[:subtotal] = amount
+    room = Room.find_by_hotel_id(session[:hotel_id])
+    numbers = session[:roomtype].to_i
+    @amount = room.price.to_f * numbers
+    room_ids.push(room.id)
+    session[:subtotal] = @amount
 
     @checkin = session[:checkin]
     @checkout = session[:checkout]
@@ -279,9 +275,9 @@ class HomeController < ApplicationController
     expiryDate = params[:ccexpirym] + params[:ccexpiryy]
     if book(@traveler, session[:subtotal], params[:ccnumber], params[:ccv], expiryDate, params[:cardtype], @hotel, @checkin, @checkout, room_ids )
       ## Create booking record and availability record
-      session[:booking_rooms][:number].each do |room_number|
-        room = Room.find(room_number.first)
-        numbers = room_number.last.to_i
+
+        room = Room.find_by_hotel_id(session[:hotel_id])
+        numbers = session[:roomtype].to_i
         
         booking = Booking.new(hotel_id: room.hotel.id, room_id: room.id, from_date: from_date, to_date: to_date, 
                         adults: numbers, traveler_id: @traveler.id)
@@ -298,7 +294,6 @@ class HomeController < ApplicationController
         end
         @booking = Booking.where(:traveler_id => @traveler.id, :hotel_id =>  @hotel)
         @numbers = numbers
-      end
     else
       flash[:errors] = ["Your booking failed!"]
       redirect_to :back and return  

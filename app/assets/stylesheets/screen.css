@@ -80,6 +80,7 @@ h4 {
 
 h5 {
 	font-size: 1.31em;
+	margin: 0 0 5px;
 }
 
 h6 {
@@ -117,7 +118,7 @@ input, {
 input,
 select,
 textarea {
-	margin: -3px 0 0 0;
+	margin: -6px 0 0 0;
 	transition: box-shadow 0.5s;
 }
 
@@ -745,20 +746,23 @@ footer #footerend {
 }
 
 #roomtypes {
-	
+	margin:10px 0 0;
+	overflow: hidden;
 }
 
 	#roomtypes li a {
 		background: #fff;
-		background: rgba(255,255,255,0.5);
+		background: #DCDDCD;
 		border: 1px #ccc solid;
-		color: #aaa;
+		color: #333;
 		display: block;
-		width: 200px;
-		padding: 21px;
+		width: 202px;
+		padding: 8px 12px;
 		text-transform: uppercase;
 		text-decoration: none;
 		cursor: pointer;
+		min-height: 50px;
+		font-size: 11px;
 	}
 	
 	#roomtypes li a:hover {
@@ -766,15 +770,16 @@ footer #footerend {
 	}
 	
 	#roomtypes li.selected a {
-		border: 3px #de5756 solid;
+		border: 3px #83BF17 solid;
 		color: #000;
-		padding: 17px;
+		padding: 8px 12px;
 		box-shadow: 0px 0px 7px rgba(135,191,41,0.75);
 	}
 	
 	#roomtypes li {
 		display: inline-block;
 		margin: 0 4px 0 0;
+		float: left;
 	}
 	
 	#roomtypes li:last-child {
@@ -809,7 +814,14 @@ footer #footerend {
 	padding: 21px;
 	margin: 0 28px 0 0;
 	min-height: 370px;
-	background: #CEECF5;
+	background: #212121;
+	color: #FFF;
+	/*-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	-o-border-radius:10px;
+	-khtml-border-radius:10px;
+	border-radius:10px;*/
+	border: 1px solid #141414;
 }
 
 	.checkindate,
@@ -823,7 +835,7 @@ footer #footerend {
 		
 	#searchpane .checkindate,
 	#searchpane .checkoutdate {
-		width: 275px;
+		width: 266px;
 		margin: 0 0 14px;
 	}
 		
@@ -875,7 +887,7 @@ footer #footerend {
 	.checkindate span:nth-child(3),
 	.checkoutdate span:nth-child(2),
 	.checkoutdate span:nth-child(3) {
-		font-size: 1.31em;
+		font-size: 1em;
 		text-transform: none;
 		font-weight: 700;
 	}
@@ -933,9 +945,9 @@ footer #footerend {
 		
 		.bookingdates .groupopts input {
 			font-size: 1.01em;
-			width: 50px;
+			width: 40px;
 			display: inline-block;
-			padding: 3px;
+			padding: 1px;
 		}
 		
 		.bookingdates .groupopts label {
@@ -950,7 +962,7 @@ footer #footerend {
 		
 		.bookingdates .searchpicker {
 			overflow: hidden;
-			height: 314px;
+			height: 295px;
 		}
 		
 			.bookingdates .searchpicker input {
@@ -976,11 +988,34 @@ footer #footerend {
 			}
 			
 				.month-wrapper td {
-					background: #A9E2F3;
 					padding: 0;
-					font-size: 1.51em;
-					border-bottom: 1px solid #81DAF5;
-					border-right: 1px solid #81DAF5;
+					font-size:1.20em;
+					background: #252525; /* Old browsers */
+					/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+					background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzI1MjUyNSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMxYTFhMWEiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+					background: -moz-linear-gradient(top,  #252525 0%, #1a1a1a 100%); /* FF3.6+ */
+					background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#252525), color-stop(100%,#1a1a1a)); /* Chrome,Safari4+ */
+					background: -webkit-linear-gradient(top,  #252525 0%,#1a1a1a 100%); /* Chrome10+,Safari5.1+ */
+					background: -o-linear-gradient(top,  #252525 0%,#1a1a1a 100%); /* Opera 11.10+ */
+					background: -ms-linear-gradient(top,  #252525 0%,#1a1a1a 100%); /* IE10+ */
+					background: linear-gradient(to bottom,  #252525 0%,#1a1a1a 100%); /* W3C */
+					filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#252525', endColorstr='#1a1a1a',GradientType=0 ); /* IE6-8 */
+					/*border-top: 1px solid #141414;*/
+    				text-shadow: 0 -1px 0 #000000;
+				}
+
+				.date-picker-wrapper .month-wrapper table .day:hover {
+					background: #6b6b6b; /* Old browsers */
+					/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+					background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzZiNmI2YiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM1NzU3NTciIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+					background: -moz-linear-gradient(top,  #6b6b6b 0%, #575757 100%); /* FF3.6+ */
+					background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#6b6b6b), color-stop(100%,#575757)); /* Chrome,Safari4+ */
+					background: -webkit-linear-gradient(top,  #6b6b6b 0%,#575757 100%); /* Chrome10+,Safari5.1+ */
+					background: -o-linear-gradient(top,  #6b6b6b 0%,#575757 100%); /* Opera 11.10+ */
+					background: -ms-linear-gradient(top,  #6b6b6b 0%,#575757 100%); /* IE10+ */
+					background: linear-gradient(to bottom,  #6b6b6b 0%,#575757 100%); /* W3C */
+					filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6b6b6b', endColorstr='#575757',GradientType=0 ); /* IE6-8 */
+					color: #C8C8C8;
 				}
 				
 				.month-wrapper th {
@@ -991,38 +1026,63 @@ footer #footerend {
 					.month-wrapper th.month-name,
 					.month-wrapper th .prev,
 					.month-wrapper th .next {
-						font-size: 1.51em;
+						font-size: 1.31em;
 					}
 					
 					.month-wrapper th.month-name {
-						font-weight: 600;
+						font-weight: 400;
 						color: #272727;
 					}
 				
 				.month-wrapper tr:first-child td,
 				.month-wrapper td:first-child {
 					padding: 0;
-					font-size: 1.51em;
-					border-top: 1px solid #ccc;
-					border-left: 1px solid #ccc;
+					font-size:1.20em;
 				}
 		
 				div.date-picker-wrapper .month-wrapper table td .day {
 					padding: 9px 10px;
 					height: 37px;
-					font-size: 1.01em;
-				}
+					font-size: 1.20em;
+					background: #434343; /* Old browsers */
+					/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+					background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzQzNDM0MyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMyZjJmMmYiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+					background: -moz-linear-gradient(top,  #434343 0%, #2f2f2f 100%); /* FF3.6+ */
+					background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#434343), color-stop(100%,#2f2f2f)); /* Chrome,Safari4+ */
+					background: -webkit-linear-gradient(top,  #434343 0%,#2f2f2f 100%); /* Chrome10+,Safari5.1+ */
+					background: -o-linear-gradient(top,  #434343 0%,#2f2f2f 100%); /* Opera 11.10+ */
+					background: -ms-linear-gradient(top,  #434343 0%,#2f2f2f 100%); /* IE10+ */
+					background: linear-gradient(to bottom,  #434343 0%,#2f2f2f 100%); /* W3C */
+					filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#434343', endColorstr='#2f2f2f',GradientType=0 ); /* IE6-8 */
+					box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15) inset, 1px 0 0 rgba(255, 255, 255, 0.15) inset;
+    				color: #858585;
+    				border-left: 1px solid #141414;
+    				/*border-top: 1px solid #141414;*/
+    				text-shadow: 0 -1px 0 #000000;
+    				box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15) inset, 1px 0 0 rgba(255, 255, 255, 0.15) inset;
+    			}
 				
 				div.date-picker-wrapper .month-wrapper table td div.toMonth.valid.day.real-today {
-					background-color: #D35452;
-					color: #fff;
+					background: #3a5406; /* Old browsers */
+					/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+					background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzNhNTQwNiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM2YTlhMGMiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+					background: -moz-linear-gradient(top,  #3a5406 0%, #6a9a0c 100%); /* FF3.6+ */
+					background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#3a5406), color-stop(100%,#6a9a0c)); /* Chrome,Safari4+ */
+					background: -webkit-linear-gradient(top,  #3a5406 0%,#6a9a0c 100%); /* Chrome10+,Safari5.1+ */
+					background: -o-linear-gradient(top,  #3a5406 0%,#6a9a0c 100%); /* Opera 11.10+ */
+					background: -ms-linear-gradient(top,  #3a5406 0%,#6a9a0c 100%); /* IE10+ */
+					background: linear-gradient(to bottom,  #3a5406 0%,#6a9a0c 100%); /* W3C */
+					filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3a5406', endColorstr='#6a9a0c',GradientType=0 ); /* IE6-8 */
+					color: #C8C8C8!important;
+					text-shadow: 0 -1px 0 #000000;
 				}
 				
 				div.date-picker-wrapper .month-wrapper table td .day.checked {
-					background: #fff;
+					background: #DCDDCD;
+					color:#333!important;
 					/*border-top: 4px solid #87bf29;
 					border-bottom: 4px solid #87bf29;*/
-					font-weight: 600;
+					font-weight: 400;
 					/*padding: 5px 7px;*/
 				}
 				
@@ -1049,6 +1109,7 @@ footer #footerend {
 	margin: 0 28px 0 0;
 	min-height: 370px;
 	background: #e0e0d3;
+	display: none;
 }
 
 	#searchdates div#checkin,
@@ -1132,9 +1193,17 @@ footer #footerend {
 	}
 	
 	
-	
+.no-display {
+	display: none;!important;
+}
+.height350 {
+	height: 350px;
+	clear: both;
+	overflow: hidden;
+}
 #searchfilters {
-	top: 253px;
+	/*top: 253px;*/
+	top:90px!important;
 }
 
 	#searchfilters div#slider-price,
@@ -1969,4 +2038,26 @@ tr > td.date-range-selected ~ td.date-range-selected {
 	padding:19px;
 	margin: 19px;
 	border: #ccc 1px solid;
+}
+.resBlock {
+	border-bottom: 1px solid #CCCCCC;
+}
+.resBlock p {
+	font-size: 16px;
+	line-height: normal;
+	font-weight: normal;
+	margin: 0 0 10px;
+	clear: both;
+}
+.resBlock p a {
+	color: #DD5656;
+}
+.resBlock span {
+	color: #000;
+	clear: both;
+	display: block;
+	overflow: hidden;
+}
+.resBlock span a {
+	color: #777;
 }

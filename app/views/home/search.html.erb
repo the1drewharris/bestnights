@@ -6,7 +6,7 @@
 		<h1>Search Results</h1>
 	</header>
 	
-	<section>
+	<section class="no-display">
 		<h3>Hotel Search</h3>
 		<div id="searchdates">
 			<form method="get" action="/hotels/search" accept-charset="UTF-8">
@@ -81,23 +81,22 @@
 		</fieldset>
 		
 	</form>
-	<section>
+	<section class="resBlock">
 		<h5>Top Results</h5>
 		<div id="">
 			<% @hotels.each do |hotel| %>
-				<h5>
-						<b><%= link_to hotel.name, checkout_path(:hotel_id => hotel.id) %></b><br>
+			<p><%= link_to hotel.name, checkout_path(:hotel_id => hotel.id) %></p>
 						<span class="starrating">
 							<% hotel.star.to_i.times do %>
 								&#10029;
 							<% end %>
 						</span>
-						<br><%= hotel.city %>, <%= hotel.zip %>				
-				</h5>				
+						<span class="bt-info"><%= link_to hotel.city, checkout_path(:hotel_id => hotel.id) %>, <%= link_to hotel.zip, checkout_path(:hotel_id => hotel.id) %>
+						</span>		
 			<% end %>
 		</div>
 	</section>
-	
+	<div class="height350">&nbsp;</div>
 	<%= render :partial => "common/home_footer" %>
 
 </div>

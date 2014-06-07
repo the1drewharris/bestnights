@@ -24,7 +24,7 @@
 	padding: 5px 12px;
 	font-size:12px;
 	line-height:20px;
-	color:#8A0808;
+	color:#FFF;
 	font-family:Arial;
 	box-shadow:3px 3px 10px rgba(0,0,0,0.5);
 }
@@ -35,12 +35,12 @@
 }
 .date-picker-wrapper b
 {
-	color:#666;
+	color:#FFF;
 	font-weight:700;
 }
 .date-picker-wrapper a 
 {
-	color: rgb(107, 180, 214);
+	color:#83BF17;
 	text-decoration:underline;
 }
 .date-picker-wrapper .month-wrapper
@@ -57,6 +57,11 @@
 {
 	width:190px;
 	float:left;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	-o-border-radius:10px;
+	-khtml-border-radius:10px;
+	border-radius:10px;
 }
 .date-picker-wrapper .month-wrapper table.month2
 {
@@ -68,21 +73,49 @@
 	vertical-align:middle;
 	text-align:center;
 	line-height:14px;
+	color:#FFF;
+}
+.month-wrapper table tr.week-name th {
+background: #9D9D9D;
+/* Old browsers */
+/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzYxNjE2MSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM0NDQ0NDQiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+background: -moz-linear-gradient(top,  #616161 0%, #444444 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#616161), color-stop(100%,#444444)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #616161 0%,#444444 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #616161 0%,#444444 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #616161 0%,#444444 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #616161 0%,#444444 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#616161', endColorstr='#444444',GradientType=0 ); /* IE6-8 */
+text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.75);
+border-bottom:1px solid #141414;
+border-top:1px solid #777777;
+padding: 3% 0;
 }
 .date-picker-wrapper .month-wrapper table .day
 {
 	height:19px;
 	line-height:19px;
 	font-size:12px;
-	margin-bottom:1px;
+	margin-bottom:0;
 	color:#999;
 	cursor:default;
 }
 .date-picker-wrapper .month-wrapper table div.day.lastMonth,
 .date-picker-wrapper .month-wrapper table div.day.nextMonth
 {
-	color:#0080FF;
-	cursor:default;
+	background: #252525; /* Old browsers */
+	/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzI1MjUyNSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMxYTFhMWEiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+	background: -moz-linear-gradient(top,  #252525 0%, #1a1a1a 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#252525), color-stop(100%,#1a1a1a)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #252525 0%,#1a1a1a 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #252525 0%,#1a1a1a 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #252525 0%,#1a1a1a 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #252525 0%,#1a1a1a 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#252525', endColorstr='#1a1a1a',GradientType=0 ); /* IE6-8 */
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset, 1px 0 0 rgba(255, 255, 255, 0.05) inset;
+    color: #4E4E4E;
 }
 .date-picker-wrapper .month-wrapper table .day.checked
 {
@@ -97,7 +130,7 @@
 
 .date-picker-wrapper .month-wrapper table .day.toMonth.valid
 {
-	color:#333;
+	color:#FFF;
 	cursor:pointer;
 }
 
@@ -109,6 +142,20 @@
 {
 	height:40px;
 }
+.date-picker-wrapper table .caption th
+{
+background: #464646; /* Old browsers */
+/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzQ2NDY0NiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMzMTMxMzEiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+background: -moz-linear-gradient(top,  #464646 0%, #313131 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#464646), color-stop(100%,#313131)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #464646 0%,#313131 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #464646 0%,#313131 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #464646 0%,#313131 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #464646 0%,#313131 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#464646', endColorstr='#313131',GradientType=0 ); /* IE6-8 */
+padding: 5% 0;
+}
 .date-picker-wrapper table .caption .next,
 .date-picker-wrapper table .caption .prev
 {
@@ -118,8 +165,8 @@
 .date-picker-wrapper table .caption .next:hover,
 .date-picker-wrapper table .caption .prev:hover
 {
-	background-color:#ccc;
-	color:white;
+	/*background-color:#ccc;*/
+	color:#87BF29;
 }
 .date-picker-wrapper .gap
 {
