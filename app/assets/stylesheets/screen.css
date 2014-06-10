@@ -35,6 +35,8 @@ footer,
 #eyebrow {
 	background: #272727;
 	color: #888;
+	clear: both;
+	overflow: hidden;
 }
 
 footer {
@@ -231,7 +233,72 @@ select {
 		text-align: center;
 		text-decoration: none;
 	}
-	
+	body .calbg a.button4 {
+		display: inline-block;
+		background: #434343;
+		background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzQzNDM0MyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMyZjJmMmYiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+		background: -moz-linear-gradient(top,  #434343 0%, #2f2f2f 100%); /* FF3.6+ */
+		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#434343), color-stop(100%,#2f2f2f)); /* Chrome,Safari4+ */
+		background: -webkit-linear-gradient(top,  #434343 0%,#2f2f2f 100%); /* Chrome10+,Safari5.1+ */
+		background: -o-linear-gradient(top,  #434343 0%,#2f2f2f 100%); /* Opera 11.10+ */
+		background: -ms-linear-gradient(top,  #434343 0%,#2f2f2f 100%); /* IE10+ */
+		background: linear-gradient(to bottom,  #434343 0%,#2f2f2f 100%); /* W3C */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#434343', endColorstr='#2f2f2f',GradientType=0 ); /* IE6-8 */
+		box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15) inset, 1px 0 0 rgba(255, 255, 255, 0.15) inset;
+		color: #FFF;
+		border: 1px solid #141414;
+		text-shadow: 0 -1px 0 #000000;
+		box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15) inset, 1px 0 0 rgba(255, 255, 255, 0.15) inset;
+		margin-right: 0;
+	}
+
+	body .calbg a.button4:hover {
+		background: #6b6b6b; /* Old browsers */
+		/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+		background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzZiNmI2YiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM1NzU3NTciIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+		background: -moz-linear-gradient(top,  #6b6b6b 0%, #575757 100%); /* FF3.6+ */
+		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#6b6b6b), color-stop(100%,#575757)); /* Chrome,Safari4+ */
+		background: -webkit-linear-gradient(top,  #6b6b6b 0%,#575757 100%); /* Chrome10+,Safari5.1+ */
+		background: -o-linear-gradient(top,  #6b6b6b 0%,#575757 100%); /* Opera 11.10+ */
+		background: -ms-linear-gradient(top,  #6b6b6b 0%,#575757 100%); /* IE10+ */
+		background: linear-gradient(to bottom,  #6b6b6b 0%,#575757 100%); /* W3C */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6b6b6b', endColorstr='#575757',GradientType=0 ); /* IE6-8 */
+		color: #C8C8C8;
+		border: 1px solid #777;
+	}
+	.calbg .nightNum {
+		width: 32px;
+		height: 32px;
+		position: relative;
+	}
+	.calbg .nightNum #night-number{		
+		width: 32px;
+		height: 32px;
+		position: absolute;
+		left: 0;
+		top: 0;
+		line-height: 40px;
+		text-align: center;
+		color: #CC1C1E;
+		font-weight: bold;
+		font-size: 14px;
+		display: block;
+		text-shadow: 0 0px 1px #F15D58;
+	}
+	.calbg .nightNum em {
+		text-indent: -99999em;
+		line-height: 0;
+		font-size: 0;
+		background-image: url(/assets/icon-luggage.png);
+		background-repeat: no-repeat;
+		background-color: transparent;
+		overflow: hidden;
+		width: 32px;
+		height: 32px;
+		display: block;
+		font-style:normal;
+		float: left;
+	}
 	a.button5 {
 		font-size: 2.01em;
 		padding: 14px 21px;
@@ -244,7 +311,17 @@ select {
 		text-decoration: none;
 	}
 	
-	
+	.logo {
+		float: left;;
+		margin: 0 10px 0 0;
+	}
+	.logo img {
+		width: 350px;
+	}
+	.logo > a {
+		display: block;
+		outline: none;
+	}
 	
 label,
 .formLabel {
@@ -452,7 +529,7 @@ ul li {
 }
 
 #eyebrow {
-	padding: 18px 27px 0;
+	padding:12px 20px 4px;
 	border-bottom: 1px solid #fff;
 }
 
@@ -770,21 +847,6 @@ footer #footerend {
 		background-image: url(/assets/icon-bookings.png);
 		background-repeat: no-repeat;
 		background-color: transparent;
-		background-position: 0 0;
-		padding: 0;
-		float: left;
-		display: block;
-		height: 30px;
-		width: 15px;
-		margin: 0 10px 0 0;
-	}
-	#roomtypes li.selected span.booking-sngl {
-		background-position: 0 -38px;
-	}
-	#roomtypes li span.booking-dble {
-		background-image: url(/assets/icon-bookings.png);
-		background-repeat: no-repeat;
-		background-color: transparent;
 		background-position: -23px 0;
 		padding: 0;
 		float: left;
@@ -793,10 +855,10 @@ footer #footerend {
 		width: 25px;
 		margin: 0 10px 0 0;
 	}
-	#roomtypes li.selected span.booking-dble {
+	#roomtypes li.selected span.booking-sngl {
 		background-position: -23px -38px;
 	}
-	#roomtypes li span.booking-grp {
+	#roomtypes li span.booking-dble {
 		background-image: url(/assets/icon-bookings.png);
 		background-repeat: no-repeat;
 		background-color: transparent;
@@ -805,11 +867,26 @@ footer #footerend {
 		float: left;
 		display: block;
 		height: 30px;
-		width: 33px;
+		width: 48px;
+		margin: 0 10px 0 0;
+	}
+	#roomtypes li.selected span.booking-dble {
+		background-position: -56px -38px;
+	}
+	#roomtypes li span.booking-grp {
+		background-image: none;
+		background-repeat: no-repeat;
+		background-color: transparent;
+		background-position: 0 0;
+		padding: 0;
+		float: left;
+		display: block;
+		height: 30px;
+		width: 2px;
 		margin: 0 10px 0 0;
 	}
 	#roomtypes li.selected span.booking-grp {
-		background-position: -56px -38px;
+		background-position: 0 0;
 	}
 	#roomtypes li.selected {
 		border-left-color:#70ad12;
@@ -819,13 +896,13 @@ footer #footerend {
 		color: #83BF17;
 	}
 	#roomtypes li a:hover span.booking-sngl {
-		background-position: 0 -38px;
-	}
-	#roomtypes li a:hover span.booking-dble {
 		background-position: -23px -38px;
 	}
-	#roomtypes li a:hover span.booking-grp {
+	#roomtypes li a:hover span.booking-dble {
 		background-position: -56px -38px;
+	}
+	#roomtypes li a:hover span.booking-grp {
+		background-position: 0 0;
 	}
 	#roomtypes li.selected a {
 		color: #83BF17;
@@ -866,15 +943,28 @@ footer #footerend {
 	padding: 14px 28px 29px;
 	box-shadow: inset 0 0 7px rgba(43,43,43,0.5);
 }
-
+	#searchpane.calbg {
+		background-color:#83BF17;
+	}
+	#searchpane.calbg .bookingdates {
+		margin-top: 20px;
+	}
+	#searchpane.calbg #searchresults {
+		margin-top: 20px;
+	}
 	#searchpane input[type="text"] {
 		font-size: 1.51em;
 		font-weight: 200;
 		padding: 7px 14px;
+		border: 1px solid #272727;
 	}
 	
 	#searchpaneui {
 		margin: 14px 0 0 0;
+	}
+	.calbg #searchpaneui.calClose {
+		text-align: right;
+		margin-right: 27px;
 	}
 
 /************** cpane start *********/
@@ -906,6 +996,7 @@ footer #footerend {
 		display: inline-block;
 		margin: 14px 0;
 		vertical-align: top;
+		background-color: #FFF;
 	}
 		
 	#searchpane .checkindate,
@@ -945,7 +1036,7 @@ footer #footerend {
 	
 	#searchpane .checkindate span:first-child,
 	#searchpane .checkoutdate span:first-child {
-		padding: 14px 9px;
+		padding: 12px 9px 13px;
 	}
 	
 	.checkoutdate span:first-child {
@@ -956,6 +1047,7 @@ footer #footerend {
 	.checkoutdate span:first-child ~ span {
 		display: inline-block;
 		font-family: Helvetica, Arial, sans-serif;
+		line-height: 14px;
 	}
 	
 	.checkindate span:nth-child(2),
@@ -1439,7 +1531,7 @@ footer #footerend {
 			color: #fff;
 			text-decoration: none;
 			display: block;
-			background: #c8b68c;
+			background: #6A9A0C;
 		}
 	
 			#searchresults ul li a img,
@@ -1500,11 +1592,24 @@ footer #footerend {
 
 
 #phone {
-	color: #87bf29;
+	color: #83BF17;
 	vertical-align: center;
-	font-size: 18px;
+	font-size: 16px;
 }
-
+#phone a {
+	color: #FFF;
+	font-size: 16px;
+	line-height: 25px;
+}
+#phone a:hover {
+	color: #83BF17;
+}
+#phone .call {
+	color: #83BF17;
+	vertical-align: center;
+	font-size: 16px;
+	margin-right: 10px;
+}
 
 	
 /*********************************************

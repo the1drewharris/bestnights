@@ -2,7 +2,7 @@
 	<div id="eyebrow">
 		<%= render :partial => "common/home_nav_tab" %>
 	</div>	
-	<div id="searchpane">
+	<div id="searchpane" class="calbg">
 		<!-- <form id="searchform"> -->
 		<form id="searchform" method="get" action="/hotels/search" accept-charset="UTF-8" >	
 			<div style="margin-bottom:6px;"> Click Check-in and Check-out Dates to Search Availability </div>
@@ -25,10 +25,10 @@
 			<!-- <span class="checkoutdate"><span>Check out</span><span>Saturday, </span><span>5th</span><br><span>April 2014</span></span> -->
 				
 				
-				
+			<div style="display:inline-block;">
 			<div class="bookingdates">
 				<div class="searchpicker"><input class="datepicker1"></div>
-				<div>NUMBER OF NIGHTS: <span id="night-number"></span></div>
+				<div class="nightNum"><em>NUMBER OF NIGHTS</em><span id="night-number"></span></div>
 				<ul id="roomtypes" class="roomtypes">
 					<li value="1" class=""><a><span class="booking-sngl"></span><em>Single Room</em></a></li>
 					<li value="2" class="selected"><a><span class="booking-dble"></span><em>Double Room</em></a></li>
@@ -57,7 +57,8 @@
 					</ul>
 				</div>
 			</div>
-			
+			<div id="searchpaneui" class="calClose"><a class="button4" href="#">Close</a></div>
+			</div>
 			<div id="searchresults">
 				<h5>Top Results</h5>
 				<ul>
@@ -84,7 +85,6 @@
 				</ul>
 				<p><a class="button4" href="#">See More Results</a></p>
 			</div>
-			<div id="searchpaneui"><a href="#" class="button4">Close</a></div>
 		</form>
 	</div>
 	<div id="features">

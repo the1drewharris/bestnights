@@ -10,7 +10,7 @@
 		  		&#10029;
 		  	<% end %>
 		  </span><br>
-		  <span class="price">BestNights.com Price <b><sup>$</sup><%= @hotel.lowest_price %><sup>.15</sup></b></span>
+		  <span class="price">BestNights.com Price <b><sup>$</sup><%= @hotel.lowest_price.to_i %></b></span>
 		</div>
 		<h1><%= @hotel.name %></h1>
 		<address><%= @hotel.address1 %></address>
@@ -108,7 +108,7 @@
 							<% end %>	
 						</td>
 						<td>&nbsp;</td>
-						<td class="price"><sup>$</sup><%= room.price %><sup>.15</sup><br><span>Not included: 13.88% tax</span></td>
+						<td class="price"><sup>$</sup><%= room.price.to_i %><br><span>Not included: 13.88% tax</span></td>
 						<td><input type="number" min="0" max=<%= room.available_max(@from_date, @to_date) %> value="0" name="number[<%= room.id %>]"></td>
 						<% if room == @hotel.rooms.first %>
 							<td rowspan=<%= @hotel.rooms.count %> ><input type="submit" value="book now"

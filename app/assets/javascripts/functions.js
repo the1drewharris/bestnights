@@ -168,7 +168,7 @@
 		  
 			}
 			// init search pane
-			var sliderHeight = "42px";
+			var sliderHeight = "58px";
 			$('#searchpane .searchpicker').css('visibility','hidden');
 	
 			$('#searchform').each(function () {
