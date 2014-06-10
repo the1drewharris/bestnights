@@ -137,8 +137,8 @@
 					$(this).parent().next().toggle(500);
 					$(this).siblings('li:nth-child(1),li:nth-child(2)').removeClass('selected');
 					$(this).parent().prev('.roomtype').val('');
-					if ($("#searchform").css('height') != 728) { 
-						$("#searchform").animate({"height": 728}, {duration: "slow" });
+					if ($("#searchform").css('height') != 780) { 
+						$("#searchform").animate({"height": 780}, {duration: "slow" });
 					}
 				});
 				
