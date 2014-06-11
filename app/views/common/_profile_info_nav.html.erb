@@ -9,7 +9,7 @@
 	<% unless current_user.new_signup? %>
 		You are logged in as 
 		<%= link_to "Site #{role}" , '#' %>
-		<%= link_to "Dashboard" , '#' %>
+		<%= link_to "Dashboard" , dashboard_path %>
 		<%= link_to "Profile" , edit_user_path(current_user) %>
 	<% end %>
 	

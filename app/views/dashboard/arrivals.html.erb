@@ -1,0 +1,19 @@
+<div class="bookconfTab">
+	<div>Arrivals</div>
+	<div><%= link_to "Today", arrivals_path(:day => "todays") %> | <%= link_to "Yesterday", arrivals_path(:day => "yesterday") %>| <%= link_to "Future", arrivals_path(:day => "future") %></div>
+	<table class="bookconf">
+		<tr>
+			<td>Resrvation No</td>
+			<td>Booker Name</td>
+		</tr>
+		<% if !@arrivals.blank? %>
+			<% @arrivals.each do |arrival| %>
+				<tr>
+					<td><%= arrival.id %></td>
+					<td><%= arrival.traveler.name %></td>
+				</tr>
+			<% end %>
+		<% end %>
+	</table>
+	<%= will_paginate @arrivals %>
+</div>

@@ -1,0 +1,34 @@
+<div class="bookconfTab">
+	<div>Bookings</div>
+	<table class="bookconf">
+		<tr>
+			<td>Resrvation No</td>
+			<td>Book Date</td>
+			<td>Arrival</td>
+			<td>Departure</td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Total</td>
+			<td>Booker Name</td>
+		</tr>
+		<% if !@bookings.blank? %>
+			<% @bookings.each do |book| %>
+				<tr>
+					<td><%= book.id %></td>
+					<td><%= book.created_at.strftime("%Y-%m-%d") %></td>
+					<td><%= book.from_date  %></td>
+					<td><%= book.to_date %></td>
+					<td>Resrvation No</td>
+					<td></td>
+					<td>Resrvation No</td>
+					<td></td>
+					<td><%= book.price %></td>
+					<td><%= book.traveler.name %></td>
+				</tr>
+			<% end %>
+		<% end %>
+	</table>
+	<%= will_paginate @bookings %>
+</div>

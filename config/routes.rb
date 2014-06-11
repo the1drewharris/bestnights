@@ -42,7 +42,8 @@ Bestnights::Application.routes.draw do
   get '/home/subregion_options' => 'home#subregion_options'
   match 'faq' => 'home#faq', :as => :faq
   get '/home/autocomplete_hotel_name' => 'home#autocomplete_hotel_name'
-  
+  match 'arrivals' => 'dashboard#arrivals', :as => 'arrivals'  
+  match 'bookings' => 'dashboard#bookings', :as => 'bookings'
 
   
   # resources :users, except: :create

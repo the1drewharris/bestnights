@@ -186,7 +186,7 @@
 		<table>
 			<tr>
 				<td>BestNights.com Rate</td>
-				<td><%= @amount %> </td>
+				<td>USD <%= @amount %> </td>
 			</tr>
 			<tr>
 				<td>Tax (included)</td>
@@ -194,7 +194,7 @@
 			</tr>
 			<tr>
 				<td>Total Price</td>
-				<td><%= session[:subtotal] + (@hotel.tax1.to_f * session[:subtotal] )/100 %> </td>
+				<td>USD <%= session[:subtotal] + (@hotel.tax1.to_f * session[:subtotal] )/100 %> </td>
 			</tr>
 		</table>
 		
