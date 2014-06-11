@@ -120,14 +120,20 @@
 				// Actions for bed quantities
 				$( '.roomtypes li:nth-child(1)' ).click(function(){
 					$(this).toggleClass('selected');
-					$(this).parent().next().hide(500);
+					$(this).parent().next().toggle(500);
 					$(this).siblings('li:nth-child(2),li:nth-child(3)').removeClass('selected');
 					$(this).parent().prev('.roomtype').val('');
+					if ($("#searchform").css('height') != 728) { 
+						$("#searchform").animate({"height": 728}, {duration: "slow" });
+					}
+					if ($(this).hasClass("selected")){
+						$(".groupopts li").html("<h5>Room 1</h5><ul><li><label>Adults</label><input name='group[beds][1][adultqty]' type='number' min='2' value='2'></li></ul>")
+					}
 				});
 				
 				$( '.roomtypes li:nth-child(2)' ).click(function(){
 					$(this).toggleClass( 'selected' );
-					$(this).parent().next().hide(500);
+					$(this).parent().next().toggle(500);
 					$(this).siblings('li:nth-child(1),li:nth-child(3)').removeClass('selected');
 					$(this).parent().prev('.roomtype').val('');
 				});
@@ -137,8 +143,11 @@
 					$(this).parent().next().toggle(500);
 					$(this).siblings('li:nth-child(1),li:nth-child(2)').removeClass('selected');
 					$(this).parent().prev('.roomtype').val('');
-					if ($("#searchform").css('height') != 780) { 
-						$("#searchform").animate({"height": 780}, {duration: "slow" });
+					if ($("#searchform").css('height') != 728) { 
+						$("#searchform").animate({"height": 728}, {duration: "slow" });
+					}
+					if ($(this).hasClass("selected")){
+						$(".groupopts li").html("<h5>Room 1</h5><ul><li><label>Adults</label><input name='group[beds][1][adultqty]' type='number' min='0' value='1'></li><li><label>Children</label><input name='group[beds][1][childqty]' type='number' min='0' value='0'></li></ul>")
 					}
 				});
 				
@@ -168,7 +177,7 @@
 		  
 			}
 			// init search pane
-			var sliderHeight = "58px";
+			var sliderHeight = "42px";
 			$('#searchpane .searchpicker').css('visibility','hidden');
 	
 			$('#searchform').each(function () {
@@ -214,7 +223,8 @@
 				$('.checkoutdate').html('<span>Check out</span><span>' + days[tomorrow.getDay()] + ', </span><span>' + dates[(tomorrow.getDate())-1] + '</span><br><span>' + months[tomorrow.getMonth()] + ' ' + tomorrow.getFullYear() + '</span>');
 								
 				$('.datepicker1').dateRangePicker({
-						dayGap: 2
+						dayGap: 2,
+						startDate: today
 					
 				}).bind('datepicker-change',function(event,obj){
 					var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
@@ -252,10 +262,11 @@
 			
 			$( '#roomtypes li:nth-child(1)' ).click(function(){
 				$(this).toggleClass('selected');
-				$('#groupopts').hide(500);
+				$('#groupopts').toggle(500);
 				$('#roomtypes li:nth-child(2),#roomtypes li:nth-child(3)').removeClass('selected');
-				$('#roomtype').val('');
+				//$('#roomtype').val('');
 			});
+			console.log($("#roomtype"))
 			
 			$( '#roomtypes li:nth-child(2)' ).click(function(){
 				$(this).toggleClass( 'selected' );
@@ -297,7 +308,7 @@
 			// set kept room type
 			if (kept_roomtype.length !== 0) {
 				$("#roomtypes li").eq(kept_roomtype-1).addClass("selected");	
-			}		
+			}
 			
 			if (kept_roomtype == 3) {	
 				$('#groupopts').toggle(500);
@@ -306,6 +317,13 @@
 					$('#groupopts > ul').append('<li><h5>Room '+i+'</h5><ul><li><label>Adults</label><input name="group[beds]['+i+'][adultqty]" type="number" min="0" value="1"></li><li><label>Children</label><input name="group[beds]['+i+'][childqty]" type="number" min="0" value="0"></li></ul></li>');
 				}
 				
+			}
+			else if (kept_roomtype == 1) {
+				$('#groupopts').toggle(500);
+				var kept_group_beds_length = Object.keys(kept_group.beds).length;
+				for(var i = 2; i <= kept_group_beds_length; i++){
+					$('#groupopts > ul').append('<li><h5>Room '+i+'</h5><ul><li><label>Adults</label><input name="group[beds]['+i+'][adultqty]" type="number" min="0" value="1"></li><li><label>Children</label><input name="group[beds]['+i+'][childqty]" type="number" min="0" value="0"></li></ul></li>');
+				}
 			}
 			
 			//set room numbers to roomqty input 
