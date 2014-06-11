@@ -1,15 +1,13 @@
 <div class="bookconfTab">
-	<div>Bookings</div>
+	<div><%= link_to "Home", dashboard_path %></div>
+	<div><h2>Bookings</h2></div>
+	<p>----------------------</p>
 	<table class="bookconf">
 		<tr>
 			<td>Resrvation No</td>
 			<td>Book Date</td>
 			<td>Arrival</td>
 			<td>Departure</td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
 			<td>Total</td>
 			<td>Booker Name</td>
 		</tr>
@@ -20,10 +18,6 @@
 					<td><%= book.created_at.strftime("%Y-%m-%d") %></td>
 					<td><%= book.from_date  %></td>
 					<td><%= book.to_date %></td>
-					<td>Resrvation No</td>
-					<td></td>
-					<td>Resrvation No</td>
-					<td></td>
 					<td><%= book.price %></td>
 					<td><%= book.traveler.name %></td>
 				</tr>

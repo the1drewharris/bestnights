@@ -6,13 +6,13 @@ class DashboardController < ApplicationController
   end
 
   def arrivals
-    if params[:day] == "todays"
+    if params[:day] == "todays" || params[:day].blank? 
   	 @arrivals = Booking.where(:from_date => Date.today).paginate(:page => params[:page], :per_page => 20).order('id DESC')
   	elsif params[:day] == "yesterday"
      @arrivals = Booking.where(:from_date => Date.yesterday).paginate(:page => params[:page], :per_page => 20).order('id DESC')
     elsif params[:day] == "future"
-     @arrivals = Booking.where(:from_date != Date.today && :from_date < Date.today ).paginate(:page => params[:page], :per_page => 20).order('id DESC')
-    end
+     @arrivals = Booking.where('from_date > ?', Date.today ).paginate(:page => params[:page], :per_page => 20).order('id DESC')
+     end
   end
 
   def bookings
