@@ -2291,3 +2291,9 @@ tr > td.date-range-selected ~ td.date-range-selected {
 .resBlock span a {
 	color: #777;
 }
+
+/* Custom CSS Added */
+
+#dashboard a, #navigation li a, .links{
+	color: #000;
+}

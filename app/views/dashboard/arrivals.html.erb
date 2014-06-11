@@ -1,8 +1,8 @@
 <div class="bookconfTab">
-	<div><%= link_to "Home", dashboard_path %></div>
+	<div><%= link_to "Home", dashboard_path, class: "links" %></div>
 	<div><h2>Arrivals</h2></div>
 	<p>------------------------</p>
-	<div><strong><%= link_to "Today", arrivals_path(:day => "todays") %></strong> | <%= link_to "Yesterday", arrivals_path(:day => "yesterday") %>| <%= link_to "Future", arrivals_path(:day => "future") %></div>
+	<div id="links"><%= link_to "Today", arrivals_path(:day => "todays"), class: "links" %> | <%= link_to "Yesterday", arrivals_path(:day => "yesterday"), class: "links" %>| <%= link_to "Future", arrivals_path(:day => "future"), class: "links" %></div>
 	<table class="bookconf">
 		<tr>
 			<td>Resrvation No</td>

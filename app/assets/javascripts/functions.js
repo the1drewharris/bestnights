@@ -123,10 +123,11 @@
 					$(this).parent().next().toggle(500);
 					$(this).siblings('li:nth-child(2),li:nth-child(3)').removeClass('selected');
 					$(this).parent().prev('.roomtype').val('');
-					if ($("#searchform").css('height') != 728) { 
-						$("#searchform").animate({"height": 728}, {duration: "slow" });
+					if ($("#searchform").css('height') != 780) { 
+						$("#searchform").animate({"height": 780}, {duration: "slow" });
 					}
 					if ($(this).hasClass("selected")){
+						$("#roomqty").val(1)
 						$(".groupopts li").html("<h5>Room 1</h5><ul><li><label>Adults</label><input name='group[beds][1][adultqty]' type='number' min='2' value='2'></li></ul>")
 					}
 				});
@@ -136,6 +137,13 @@
 					$(this).parent().next().toggle(500);
 					$(this).siblings('li:nth-child(1),li:nth-child(3)').removeClass('selected');
 					$(this).parent().prev('.roomtype').val('');
+					if ($("#searchform").css('height') != 780) { 
+						$("#searchform").animate({"height": 780}, {duration: "slow" });
+					}
+					if ($(this).hasClass("selected")){
+						$("#roomqty").val(2)
+						$(".groupopts li").html("<h5>Room 1</h5><ul><li><label>Adults</label><input name='group[beds][1][adultqty]' type='number' min='4' value='4'></li></ul>")
+					}
 				});
 				
 				$( '.roomtypes li:nth-child(3)' ).click(function(){
@@ -143,10 +151,11 @@
 					$(this).parent().next().toggle(500);
 					$(this).siblings('li:nth-child(1),li:nth-child(2)').removeClass('selected');
 					$(this).parent().prev('.roomtype').val('');
-					if ($("#searchform").css('height') != 728) { 
-						$("#searchform").animate({"height": 728}, {duration: "slow" });
+					if ($("#searchform").css('height') != 780) { 
+						$("#searchform").animate({"height": 780}, {duration: "slow" });
 					}
 					if ($(this).hasClass("selected")){
+						$("#roomqty").val(1)
 						$(".groupopts li").html("<h5>Room 1</h5><ul><li><label>Adults</label><input name='group[beds][1][adultqty]' type='number' min='0' value='1'></li><li><label>Children</label><input name='group[beds][1][childqty]' type='number' min='0' value='0'></li></ul>")
 					}
 				});
@@ -242,6 +251,10 @@
 				$('.datepicker1').click();
 				
 			}
+		}
+
+		if(window.location.pathname == "/arrivals"){
+			$("#links a:first-child").css("color", "#969696")
 		}
 		
 		
