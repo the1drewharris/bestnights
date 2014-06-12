@@ -49,9 +49,10 @@
 		// $("#profileInfo").load("./includes/profile.inc.html");
 		
 		// Add photo upload dropzone
-		// if ($( ".dropzone" ).length > 0) {
-			// $(".dropzone").dropzone({ url: "/file/post" });
-		// }
+		Dropzone.options.dropzone = false;
+		if ($( ".dropzone" ).length > 0) {
+			$(".dropzone").dropzone();
+		}
 		
 		// Fetching states from the country
 		$( ".country > select" ).change(function() {	

@@ -679,9 +679,9 @@ require.register("dropzone/lib/dropzone.js", function(exports, require, module){
       if (!(this.element && (this.element.nodeType != null))) {
         throw new Error("Invalid dropzone element.");
       }
-      if (this.element.dropzone) {
-        throw new Error("Dropzone already attached.");
-      }
+      // if (this.element.dropzone) {
+      //   throw new Error("Dropzone already attached.");
+      // }
       Dropzone.instances.push(this);
       this.element.dropzone = this;
       elementOptions = (_ref = Dropzone.optionsForElement(this.element)) != null ? _ref : {};
@@ -1589,7 +1589,7 @@ require.register("dropzone/lib/dropzone.js", function(exports, require, module){
     return element.dropzone;
   };
 
-  Dropzone.autoDiscover = true;
+  Dropzone.autoDiscover = false;
 
   Dropzone.discover = function() {
     var checkElements, dropzone, dropzones, _i, _len, _results;

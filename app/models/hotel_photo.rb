@@ -5,6 +5,6 @@ class HotelPhoto < ActiveRecord::Base
   
   belongs_to :hotel
   
-  has_attached_file :picture, :styles => { :medium => "300x300>", :thumb1 => "97x74>", :thumb2 => "72x72>" }, :default_url => "/images/:style/missing.png"
-  validates_attachment_content_type :picture, :content_type => /\Aimage\/.*\Z/
+  has_attached_file :picture#, :styles => { :medium => "300x300>", :thumb1 => "97x74>", :thumb2 => "72x72>" }, :default_url => "/images/:style/missing.png"
+  validates_attachment_content_type :picture, :content_type => ["image/jpg", "image/jpeg", "image/png"], :message => 'Please upload image files only'
 end
