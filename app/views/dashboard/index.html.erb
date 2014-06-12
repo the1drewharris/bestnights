@@ -18,6 +18,9 @@
 	<% if can? :index, Promotion %>	
 		<%= link_to "Bookings", bookings_path %>
 	<% end %>
+	<% if can? :index, Promotion %>	
+		<%= link_to "Statistics", statistics_path %>
+	<% end %>
 	<% if can? :index, Room %>
 		<%= link_to "Manage Rooms", rooms_path %>
 	<% end %>
@@ -26,9 +29,6 @@
 	<% end %>
 	<% if current_user.admin? %>	
 		<%= link_to "Rates and Availability", "#" %>
-	<% end %>
-	<% if can? :index, Promotion %>	
-		<%= link_to "Statistics", "#" %>
 	<% end %>
 	<% if can? :index, Promotion %>	
 		<%= link_to "Property Details", "#" %>

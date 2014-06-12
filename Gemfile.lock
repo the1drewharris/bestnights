@@ -79,10 +79,14 @@ GEM
     gyoku (1.1.1)
       builder (>= 2.1.2)
     hike (1.2.3)
+    httpclient (2.4.0)
     httpi (2.1.0)
       rack
       rubyntlm (~> 0.3.2)
     i18n (0.6.9)
+    impressionist (1.5.1)
+      httpclient (~> 2.2)
+      nokogiri (~> 1.5)
     jbuilder (2.0.7)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
@@ -205,6 +209,7 @@ DEPENDENCIES
   gon
   gyoku (~> 1.0)
   httpi (~> 2.1.0)
+  impressionist (~> 1.5.1)
   jbuilder
   jquery-rails
   mysql2 (~> 0.3.11)

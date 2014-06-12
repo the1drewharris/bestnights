@@ -17,6 +17,15 @@ class DashboardController < ApplicationController
 
   def bookings
   	@bookings = Booking.paginate(:page => params[:page], :per_page => 20).order('id DESC')
+  end
 
+  def statistics
+    @site_visitors = ActiveRecord::Base.connection.exec_query("SELECT COUNT(*) as c from impressions")
+    @bookings_day_wise = Booking.all(:conditions => ["created_at >= ?", Date.today])
+    @bookings_month_wise = Booking.all(:conditions => ["created_at >= ?", Date.today - 32 ])
+    @bookings_year_wise = ActiveRecord::Base.connection.exec_query("Select count(*) as b FROM bookings WHERE year(created_at) = '2014' GROUP BY year(created_at)")
   end
 end
+
+
+# ActiveRecord::Base.connection.exec_query("SELECT count( * ) FROM bookings WHERE year( created_at ) = '2014' GROUP BY year( created_at )")

@@ -1,4 +1,5 @@
 class HomeController < ApplicationController
+  impressionist :unique => [:ip_address]
   require 'interfax/base'
   require 'interfax/fax_item'
   require 'interfax/incoming'
