@@ -233,7 +233,7 @@
 				$('.checkoutdate').html('<span>Check out</span><span>' + days[tomorrow.getDay()] + ', </span><span>' + dates[(tomorrow.getDate())-1] + '</span><br><span>' + months[tomorrow.getMonth()] + ' ' + tomorrow.getFullYear() + '</span>');
 								
 				$('.datepicker1').dateRangePicker({
-						dayGap: 2,
+						dayGap: 1,
 						startDate: today
 					
 				}).bind('datepicker-change',function(event,obj){
