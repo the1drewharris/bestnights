@@ -129,7 +129,7 @@
 					}
 					if ($(this).hasClass("selected")){
 						$("#roomqty").val(1)
-						$(".groupopts li").html("<h5>Room 1</h5><ul><li><label>Adults</label><input name='group[beds][1][adultqty]' type='number' min='2' value='2'></li></ul>")
+						$(".groupopts li").html("<h5>Room 1</h5><ul><li><label>Adults</label><input name='group[beds][1][adultqty]' type='number' min='1' value='1'></li></ul>")
 					}
 				});
 				
@@ -143,7 +143,7 @@
 					}
 					if ($(this).hasClass("selected")){
 						$("#roomqty").val(2)
-						$(".groupopts li").html("<h5>Room 1</h5><ul><li><label>Adults</label><input name='group[beds][1][adultqty]' type='number' min='4' value='4'></li></ul>")
+						$(".groupopts li").html("<h5>Room 1</h5><ul><li><label>Adults</label><input name='group[beds][1][adultqty]' type='number' min='1' value='1'></li></ul>")
 					}
 				});
 				

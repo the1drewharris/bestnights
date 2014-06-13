@@ -24,8 +24,10 @@ class DashboardController < ApplicationController
     @bookings_day_wise = Booking.all(:conditions => ["created_at >= ?", Date.today])
     @bookings_month_wise = Booking.all(:conditions => ["created_at >= ?", Date.today - 32 ])
     @bookings_year_wise = ActiveRecord::Base.connection.exec_query("Select count(*) as b FROM bookings WHERE year(created_at) = '2014' GROUP BY year(created_at)")
+    @total_nights = Booking.all(:conditions => ["created_at >= ?", Date.today]).map(&:night_number).sum
   end
 end
 
 
 # ActiveRecord::Base.connection.exec_query("SELECT count( * ) FROM bookings WHERE year( created_at ) = '2014' GROUP BY year( created_at )")
+#sum(rating_for_customer_relationship) as customer_relationship

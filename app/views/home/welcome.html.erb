@@ -4,167 +4,177 @@
 	</div>
 	<header>
 		<h1 class="prop-title">Make Your Property Work for You.</h1>
-		<h4>BestNights.com can help.</h4>
+		<h4>BestNights.com can help</h4>
 	</header>
 
 	<div id="container-main">
 		<form id="newRecordType" name="newRecordType" method="post" action="/add_property" accept-charset="UTF-8" >
-			<div class="tabs">
-				<ul>
-					<li><a href="#tabs-1">Basic Info<br>Property Type &amp; Address</a></li>
-					<li><a href="#tabs-2">Property Details<br>Activities, Facilities, &amp; Services</a></li>
-					<li><a href="#tabs-3">Room Details<br>Set Up Your First Room</a></li>
-				</ul><div id="progressbar"></div>
-				<section id="tabs-1">
-					<h3>Basic Information</h3>
-					<fieldset>
-						<ul>
-							<li><label for="client_firstname">First Name*</label><input id="client_firstname" name="manager[firstname]" size="30" type="text"></li>
-							<li><label for="client_lastname">Last Name*</label><input id="client_lastname" name="manager[lastname]" size="30" type="text"></li>
-							<li><label for="email">Email Address/Username*</label><input id="email" name="manager[email]" size="30" type="email"></li>
-							<li><label for="password">Password*</label><input id="password" name="manager[password]" size="30" type="password"></li>
-						</ul>
-					</fieldset>
-					<fieldset class="formactions">
-						<a class="button">Next</a>
-					</fieldset>
-				</section>
-				<section id="tabs-2">
-					<h3>Hotel/Property Information</h3>
-					<fieldset>
-				<ul>
-					<li><label for="client_firstname">Name*</label><input id="client_firstname" name="hotel[name]" size="30" type="text"></li>
-					<li><label for="client_address1">Address*</label><input id="client_address1" name="hotel[address1]" size="30" type="text"></li>
-					<li><label for="client_city">City*</label><input id="client_city" name="hotel[city]" size="30" type="text"></li>
-					<li class="state">
-						<label for="client_state">State/Province*</label>
-						<select id="client_state" name="hotel[state_id]">
-							<optgroup label="State">
-								<% Country.first.states.each do |state| %>
-									<option value=<%= state.abbreviation %> ><%= state.state_province %></option>
-								<% end %>
-							</optgroup>
-						</select>
-					</li>
-					<li><label for="client_zip">Zip/Postal Code*</label><input id="client_zip" name="hotel[zip]" size="30" type="text"></li>
-					<li class="country">
-						<label for="client_country">Country*</label>
-						<select id="client_country" name="hotel[country_id]">
-							<optgroup label="Country">
-								<% Country.all.each do |country| %>
-									<option value=<%= country.id %> ><%= country.country %></option>
-								<% end %>
-							</optgroup>
-						</select>
-					</li>
-					<li>
-						<label for="client_comm">Preferred Communication</label>
-						<select id="client_comm" name="hotel[email_or_fax]">
-							<optgroup label="Preferred Communication">
-								<option value="fax">Fax</option>
-								<option value="email">Email</option>
-							</optgroup>
-						</select>
-					</li>
-					<li>
-						<label for="client_email">Reservation Email*</label><input id="client_email" name="hotel[email]" size="30" type="text">
-					</li>
-					<li>
-						<label for="client_fax">Fax*</label><input id="client_fax" name="hotel[fax]" size="30" type="text">
-					</li>		
-				</ul>
-			</fieldset>
-			<fieldset>
-				<ul>
-					<li>
-						<label for="client_star_rating">Star Rating</label>
-						<select id="client_star_rating" name="hotel[star]">
-							<optgroup label="Star Rating">
-								<option value="1">&#10029;</option>
-								<option value="2">&#10029;&#10029;</option>
-								<option value="3">&#10029;&#10029;&#10029;</option>
-								<option value="4">&#10029;&#10029;&#10029;&#10029;</option>
-								<option value="5">&#10029;&#10029;&#10029;&#10029;&#10029;</option>
-							</optgroup>
-						</select>
-					</li>
-					<li><label for="client_website">Website</label><input id="client_website" name="hotel_website" size="30" type="text"></li>
-					<li>
-						<label for="client_description">Description</label>
-						<textarea id="client_description" name="hotel[description]"></textarea>
-					</li>
-				</ul>
-			</fieldset>
-			<fieldset>
-				<legend>Amenities</legend>
-					<ul class="col2">
-						<% HotelAttribute.all.each do |ha| %>
-							<li class="checkboxes"><label style="float:left"><%= ha.attr %></label><input type="checkbox" id="" name="hotel_attributes[<%= ha.id %>]" style="float:left; margin-top:4px;" ></li>
-							<div style="clear:both;"></div>
-						<% end %>
-					</ul>
-				</fieldset>
-				<fieldset class="formactions">
-					<a class="button">Next</a>
-				</fieldset>
-				</section>
-				<section id="tabs-3">
-					<h3>Room Details</h3>
-					<fieldset>
-						<ul>
-							<li>
-								<label for="roomtype">Room Type</label>
-								<select id="client_comm" name="room[room_type_id]">
-									<optgroup label="Room Type">
-										<% RoomType.all.each do |rt| %>
-											<option value=<%= rt.id %> ><%= rt.room_type %></option>
-										<% end %>
-									</optgroup>
-								</select>
-							<li><label for="roomname">Room Name</label><input name="room[name]" type="text"></li>
-							<li><label for="roomqty">Number of Rooms</label><input name="room[starting_inventory]" type="number"></li>
-							<li>
-								<label for="roomqty">Room Description</label>
-								<textarea id="room_description" name="room[description]"></textarea>
-							</li>
-							<li>
-								<label for="smoking">Smoking</label>
-								<select id="smoking" name="client[smoking]">
-									<optgroup label="Smoking Preferences">
-										<option value="smoking">Smoking</option>
-										<option value="nonsmoking">Non-Smoking</option>
-									</optgroup>
-								</select>
-							</li>
-						</ul>
-					</fieldset>
-					<fieldset>
-					<legend>Amenities</legend>
-						<ul class="col2">
-							<% RoomAttribute.all.each do |ra| %>
-								<li class="checkboxes"><label style="float:left"><%= ra.attr %></label><input type="checkbox" id="" name="room_attributes[<%= ra.id %>]"  style="float:left; margin-top:4px;"></li>
-								<div style="clear:both;"></div>
+<div class="tabs">
+	<ul>
+		<li><a href="#tabs-1">Add Basic Info<br>Property Type &amp; Address</a></li>
+		<li><a href="#tabs-2">Add Property Details<br>Activities, Facilities, &amp; Services</a></li>
+		<li><a href="#tabs-3">Add Room Details<br>Set Up Your First Room</a></li>
+	</ul><div id="progressbar"></div>
+	<section id="tabs-1">
+		<h3>Basic Information</h3>
+		<fieldset>
+			<ul>
+				<li><label for="client_firstname">First Name*</label><input id="client_firstname" name="manager[firstname]" size="30" type="text"></li>
+				<li><label for="client_lastname">Last Name*</label><input id="client_lastname" name="manager[lastname]" size="30" type="text"></li>
+				<li><label for="email">Email Address/Username*</label><input id="email" name="manager[email]" size="30" type="email"></li>
+				<li><label for="password">Password*</label><input id="password" name="manager[password]" size="30" type="password"></li>
+			</ul>
+		</fieldset>
+		<fieldset class="formactions">
+			<a class="button">Next</a>
+		</fieldset>
+	</section>
+	<section id="tabs-2">
+		<h3>Hotel/Property Information</h3>
+		<fieldset>
+	<ul>
+		<li><label for="client_firstname">Hotel Name*</label><input id="client_firstname" name="hotel[name]" size="30" type="text"></li>
+		<li><label for="client_address1">Address*</label><input id="client_address1" name="hotel[address1]" size="30" type="text"></li>
+		<li><label for="client_city">City*</label><input id="client_city" name="hotel[city]" size="30" type="text"></li>
+		<li class="state">
+			<label for="client_state">State/Province*</label>
+			<select id="client_state" name="hotel[state_id]">
+				<optgroup label="State">
+					<% Country.first.states.each do |state| %>
+						<option value=<%= state.abbreviation %> ><%= state.state_province %></option>
+					<% end %>
+				</optgroup>
+			</select>
+		</li>
+		<li><label for="client_zip">Zip/Postal Code*</label><input id="client_zip" name="hotel[zip]" size="30" type="text"></li>
+		<li class="country">
+			<label for="client_country">Country*</label>
+			<select id="client_country" name="hotel[country_id]">
+				<optgroup label="Country">
+					<% Country.all.each do |country| %>
+						<option value=<%= country.id %> ><%= country.country %></option>
+					<% end %>
+				</optgroup>
+			</select>
+		</li>
+		<li>
+			<label for="client_comm">Preferred Communication</label>
+			<select id="client_comm" name="hotel[email_or_fax]">
+				<optgroup label="Preferred Communication">
+					<option value="fax">Fax</option>
+					<option value="email">Email</option>
+				</optgroup>
+			</select>
+		</li>
+		<li>
+			<label for="client_email">Reservation Email*</label><input id="client_email" name="hotel[email]" size="30" type="text">
+		</li>
+		<li>
+			<label for="client_fax">Fax*</label><input id="client_fax" name="hotel[fax]" size="30" type="text">
+		</li>		
+	</ul>
+</fieldset>
+<fieldset>
+	<ul>
+		<li>
+			<label for="client_star_rating">Star Rating</label>
+			<select id="client_star_rating" name="hotel[star]">
+				<optgroup label="Star Rating">
+					<option value="1">&#10029;</option>
+					<option value="2">&#10029;&#10029;</option>
+					<option value="3">&#10029;&#10029;&#10029;</option>
+					<option value="4">&#10029;&#10029;&#10029;&#10029;</option>
+					<option value="5">&#10029;&#10029;&#10029;&#10029;&#10029;</option>
+				</optgroup>
+			</select>
+		</li>
+		<li><label for="client_website">Website</label><input id="client_website" name="hotel_website" size="30" type="text"></li>
+		<li>
+			<label for="client_description">Description</label>
+			<textarea id="client_description" name="hotel[description]"></textarea>
+		</li>
+	</ul>
+</fieldset>
+<fieldset>
+	<legend>Amenities</legend>
+		<ul class="col2">
+			<% HotelAttribute.all.each do |ha| %>
+				<li class="checkboxes"><label style="float:left"><%= ha.attr %></label><input type="checkbox" id="" name="hotel_attributes[<%= ha.id %>]" style="float:left; margin-top:4px;" ></li>
+				<div style="clear:both;"></div>
+			<% end %>
+		</ul>
+	</fieldset>
+	<fieldset class="formactions">
+		<a class="button">Next</a>
+	</fieldset>
+	</section>
+	<section id="tabs-3">
+		<h3>Room Details</h3>
+		<fieldset>
+			<ul>
+				<li>
+					<label for="roomtype">Add Room Type</label>
+					<select id="client_comm" name="room[room_type_id]">
+						<optgroup label="Room Type">
+							<% RoomType.all.each do |rt| %>
+								<option value=<%= rt.id %> ><%= rt.room_type %></option>
 							<% end %>
-						</ul>
-					</fieldset>
-					<fieldset class="formactions">
-						<!-- <a class="button">Next</a> -->
-						<input type="submit" value="Add" />
-					</fieldset>
-				</section>
-			</div>
-		</form>
-		<section>
-			<h3>Why Partner with <a href="http://www.bestnights.com">BestNights.com?</a></h3>
-			<p>We offer hoteliers:<br>
-				An easy to use interface, An efficient and organized booking service, Increased exposure for marketing
-					Our goal is to make online hotel booking as easy and convenient for both hotel guests and hoteliers alike.</p>
-		</section>
-	</div>
-	<footer>
-		<div id="footerend">
-			<p id="copyright"><small>&copy; Copyright BestNights.com 2014. All Rights Reserved.</small></p>
-			<nav></nav>
-		</div>
-	</footer>
+						</optgroup>
+					</select>
+				<li><label for="roomname">Room Name</label><input name="room[name]" type="text"></li>
+				<li><label for="roomqty">Number of Rooms</label><input name="room[starting_inventory]" type="number"></li>
+				<li><label for="roomqty">Max. people</label><input name="room[max_people]" type="number"></li>
+				<li><label for="roomqty">Max. children</label><input name="room[max_children]" type="number"></li>
+				<li>
+					<label for="roomqty">Minimum size of room</label><input name="room[room_size]" type="number">Square
+					<select name="room[room_unit]" id="room_unit">
+						<optgroup label="Room Unit">
+								<option value="meters">Meters</option>
+								<option value="feet">Feet</option>
+						</optgroup>
+					</select>
+				</li>
+				<li>
+					<label for="roomqty">Room Description</label>
+					<textarea id="room_description" name="room[description]"></textarea>
+				</li>
+				<li>
+					<label for="smoking">Smoking</label>
+					<select id="smoking" name="client[smoking]">
+						<optgroup label="Smoking Preferences">
+							<option value="smoking">Smoking</option>
+							<option value="nonsmoking">Non-Smoking</option>
+						</optgroup>
+					</select>
+				</li>
+			</ul>
+		</fieldset>
+		<fieldset>
+		<legend>Amenities</legend>
+			<ul class="col2">
+				<% RoomAttribute.all.each do |ra| %>
+					<li class="checkboxes"><label style="float:left"><%= ra.attr %></label><input type="checkbox" id="" name="room_attributes[<%= ra.id %>]"  style="float:left; margin-top:4px;"></li>
+					<div style="clear:both;"></div>
+				<% end %>
+			</ul>
+		</fieldset>
+		<fieldset class="formactions">
+			<!-- <a class="button">Next</a> -->
+			<input type="submit" value="Add" />
+		</fieldset>
+	</section>
+</div>
+</form>
+<section class="sections">
+<h3>Why Partner with <a href="http://www.bestnights.com">BestNights.com?</a></h3>
+<p>We offer hoteliers:<br>
+	An easy to use interface, an efficient and organized booking service, and increased exposure for marketing. Our goal is to make online hotel booking as easy and convenient for both hotel guests and hoteliers alike.</p>
+</section>
+</div>
+<footer>
+<div id="footerend">
+<p id="copyright"><small>&copy; Copyright BestNights.com 2014. All Rights Reserved.</small></p>
+<nav></nav>
+</div>
+</footer>
 </div>

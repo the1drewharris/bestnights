@@ -1,5 +1,5 @@
 class Room < ActiveRecord::Base
-  attr_accessible :hotel_id, :room_type_id, :name, :description, :price, :additionaladultfee, :original_price, :starting_inventory, :bed_numbers
+  attr_accessible :hotel_id, :room_type_id, :name, :description, :price, :additionaladultfee, :original_price, :starting_inventory, :bed_numbers, :max_people, :max_children, :room_size, :room_unit
   
   validates :hotel_id, :room_type_id, presence: true
   validates :price, :original_price, presence: true, numericality: true

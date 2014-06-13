@@ -43,5 +43,21 @@
 				<% end %>
 			</td>
 		</tr>
+		<tr>
+		  <td>Total Nights Sold</td>
+		  <td>
+				<% if !@total_nights.blank?  %>
+					<%= @total_nights %>
+				<% end %>
+			</td>		
+		  <td><% if !@total_nights.blank?  %>
+					<%= @total_nights %>
+				<% end %>
+			</td>
+		  <td><% if !@total_nights.blank?  %>
+					<%= @total_nights %>
+				<% end %>
+			</td>
+		</tr>
 </table>
 </div>

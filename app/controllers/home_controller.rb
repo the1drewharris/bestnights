@@ -103,7 +103,7 @@ class HomeController < ApplicationController
 
   def autocomplete_hotel_name
     term = params[:term]
-    hotels = Hotel.where('name LIKE ?', "%#{term}%").order(:name).all
+    hotels = Hotel.where('name LIKE ? or city LIKE ?', "%#{term}%","%#{term}%" ).order(:name).all
     render :json => hotels.map { |hotel| {:value => hotel.name} }
   end
   
@@ -263,6 +263,11 @@ class HomeController < ApplicationController
 
     from_date = session[:checkin]
     to_date = session[:checkout]
+    a = session[:checkout].strip
+    b = session[:checkin].strip
+    logger.info"========22==#{(a.to_date)}===========24======#{session[:checkin].strip}============"
+
+    number_nights = ((a.to_date - b.to_date).to_i) + 1 
     room_ids = []
     room = Room.find_by_hotel_id(session[:hotel_id])
     numbers = session[:roomtype].to_i
@@ -281,7 +286,7 @@ class HomeController < ApplicationController
         numbers = session[:roomtype].to_i
         
         booking = Booking.new(hotel_id: room.hotel.id, room_id: room.id, from_date: from_date, to_date: to_date, 
-                        adults: numbers, traveler_id: @traveler.id)
+                        adults: numbers, traveler_id: @traveler.id, night_number: number_nights)
         
         booking.save
         logger.info"@@@@@@@@@@@@@@@#{from_date}@@@@@@@@@@@@@@@@@@@@#{to_date}@@@@@@@@@@"

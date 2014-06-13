@@ -488,6 +488,10 @@ section {
 	border-top: 1px solid #ccc;
 }
 
+.sections a {
+	color: #83BF17;
+}
+
 sup {
 	font-size: 0.41em;
 	position: relative;
@@ -815,10 +819,13 @@ footer #footerend {
 			color: #87bf29;
 			background: #fff;
 		}
-		
+
 #latesthotels {
 	
 }
+	#latesthotels a {
+		color: #F15D58;
+	}
 
 	#latesthotels h3 {
 		text-transform: none;
