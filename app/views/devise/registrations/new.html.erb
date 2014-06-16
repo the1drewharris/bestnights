@@ -37,18 +37,22 @@
 				  	<%= f.label 'Address*' %>
 				  	<%= f.text_field :address1, :autofocus => true %>
 					</li>
+					<li>
+				  	<%= f.label 'Zip*' %>
+				  	<%= f.text_field :zip, :autofocus => true %>
+					</li>
 				  <li>
 				  	<%= f.label 'City*' %>
 				  	<%= f.text_field :city, :autofocus => true %>
 					</li>
-				  <li class="state">
-				  	<%= f.label :state %>
-						<%= f.select :state_id, options_for_select(Country.first.states.map{|s|[s.state_province, s.id]}) %>
-				  </li>
-				  <li class="country">
-				  	<%= f.label "Country" %>
-						<%= f.select :country_id, options_for_select(Country.all.map{|s|[s.country, s.id]}) %>
-				  </li>					
+				  <li>
+				  	<%= f.label :country_id %>
+						<%= f.country_select :country_id, priority: %w(US CA), prompt: 'Please select a country' %>
+				  </li>	
+				  <li>
+						<label for="State/Province" style="float:left">State/Province</label>
+						<%= render partial: 'home/test', locals: {parent_region: f.object.country_id} %>
+					</li>				
 				  
 			  </ul>
 		  </fieldset>

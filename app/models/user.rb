@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   
   validates_uniqueness_of :email, message: 'That email already exists'
   validates_confirmation_of :password
-  validates :role, :firstname, :lastname, :address1, :city, :state_id, :country_id, :status, presence: true  
+  validates :role, :firstname, :lastname, :address1, :city, :state_id, :country_id, :status, :zip, presence: true  
   # validates :terms_of_service, acceptance: true
   
   after_initialize :init

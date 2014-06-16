@@ -45,6 +45,8 @@ Bestnights::Application.routes.draw do
   match 'arrivals' => 'dashboard#arrivals', :as => 'arrivals'  
   match 'bookings' => 'dashboard#bookings', :as => 'bookings'  
   match 'statistics' => 'dashboard#statistics', :as => 'statistics'
+  match 'download_booking_data' => 'dashboard#download_booking_data', :as => 'download_booking_data'
+  match 'export_in_excel' => 'dashboard#export_in_excel', :as => 'export_in_excel' 
   
   # resources :users, except: :create
   resources :users

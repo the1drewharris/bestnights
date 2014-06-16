@@ -2384,3 +2384,7 @@ tr > td.date-range-selected ~ td.date-range-selected {
 #dashboard a, #navigation li a, .links{
 	color: #000;
 }
+
+.link_style{
+	color: #F15D58;
+}

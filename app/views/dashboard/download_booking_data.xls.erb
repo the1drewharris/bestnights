@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">Resrvation No</Data></Cell>
+        <Cell><Data ss:Type="String">Book Date</Data></Cell>
+        <Cell><Data ss:Type="String">Arrival</Data></Cell>
+        <Cell><Data ss:Type="String">Total</Data></Cell>
+        <Cell><Data ss:Type="String">Booker Name</Data></Cell>
+      </Row>
+    <% @bookings.each do |book| %>
+      <Row>
+        <Cell><Data ss:Type="Number"><%= book.id %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= book.created_at.strftime("%Y-%m-%d") %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= book.from_date %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= book.to_date %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= book.price %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= book.traveler.name %></Data></Cell>
+      </Row>
+    <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>
+

@@ -4,6 +4,14 @@
 	<p>----------------------</p>
 	<table class="bookconf">
 		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td><%= link_to "Download as CSV", download_booking_data_path(format: "csv"),  class: "link_style" %> | <%= link_to "Download as Excel", export_in_excel_path(format: "xls"),  class: "link_style" %></td>
+		</tr>
+		<tr>
 			<td>Resrvation No</td>
 			<td>Book Date</td>
 			<td>Arrival</td>
