@@ -13,6 +13,8 @@
 
 	/* trigger when page is ready */
 	$(document).ready(function (){
+
+		$(".searchButton").css("display", "none");
 		
 		$('#traveler_sign_in_booking_btn').click(function() {
 			var valuesToSubmit = $('#traveler_sign_in_booking').serialize();
@@ -244,6 +246,7 @@
 					$("#checkindate").val(obj.value.substr(0,obj.value.indexOf("to")));
 					$("#checkoutdate").val(obj.value.substr(obj.value.indexOf("to")+2));
 					$("#night-number").html(diffDays)
+					$(".searchButton").css("display", "inline");
 				});
 
 
