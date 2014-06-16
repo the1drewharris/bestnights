@@ -1,5 +1,7 @@
 Bestnights::Application.routes.draw do
   
+  resources :rates
+
   resources :pages
 
   resources :contacts
