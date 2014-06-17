@@ -20,9 +20,9 @@
 			 -->
 			
 			<!-- else, prepopulated -->
-			<span class="checkindate" id="check-in"><span>Check in</span><!-- <span>Tuesday, </span><span>1st</span><br><span>April 2014</span> --><span><%= Date.today.strftime("%A, %-d") %></span><br/><span><%= Date.today.strftime("%B %Y") %></span></span>
-			<span class="checkoutdate" id="check-in"><span>Check out</span><span></span><span></span><br><span></span></span>
-			<!-- <span class="checkoutdate"><span>Check out</span><span>Saturday, </span><span>5th</span><br><span>April 2014</span></span> -->
+			<span class="checkindate" id="check-in"><span>Check in</span><input type="text" value="<%= Date.today.strftime("%A, %-d") %><%= Date.today.strftime("%B %Y") %>" class="intime"/></span>
+			<span class="checkoutdate" id="check-in"><span>Check out</span><input type="text" value="<%= Date.today.strftime("%A, %-d") %><%= Date.today.strftime("%B %Y") %>" class="outtime"/></span>
+			
 				
 				
 			<div style="display:inline-block;">
@@ -171,4 +171,14 @@
 	
 	console.log(kept_roomtype);
 	console.log(kept_group);
+</script>
+
+<script>
+	$(document).ready(function(){
+		$("#searchform").find('input').keypress(function(e){
+			if(e.which == 13){
+				return false;
+			}
+		})
+	})
 </script>

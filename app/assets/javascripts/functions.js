@@ -216,7 +216,7 @@
 				$('#searchpane .searchpicker').css('visibility','hidden');
 			}
 		
-			// init date range pickers		
+			// init date range pickers	
 			if ($('.datepicker1').length > 0) {
 				var today = new Date();
 				var tomorrow = new Date(today.getTime() + (24 * 60 * 60 * 1000));
@@ -231,12 +231,23 @@
 				$('#checkindat').val( today.getFullYear() +'-'+ ("0" + (today.getMonth() + 1)).slice(-2) +'-'+ ("0" + today.getDate()).slice(-2) );
 				$('#checkoutdate').val( tomorrow.getFullYear() +'-'+ ("0" + (tomorrow.getMonth() + 1)).slice(-2) +'-'+ ("0" + tomorrow.getDate()).slice(-2) );
 				
-				$('.checkindate').html('<span>Check in</span><span>' + days[today.getDay()] + ', </span><span>' + dates[(today.getDate())-1] + '</span><br><span>' + months[today.getMonth()] + ' ' + today.getFullYear() + '</span>');
-				$('.checkoutdate').html('<span>Check out</span><span>' + days[tomorrow.getDay()] + ', </span><span>' + dates[(tomorrow.getDate())-1] + '</span><br><span>' + months[tomorrow.getMonth()] + ' ' + tomorrow.getFullYear() + '</span>');
+				$(".intime").val(days[today.getDay()]+','+dates[(today.getDate()) - 1]+","+ months[today.getMonth()] + ' ' + today.getFullYear())
+				$(".outtime").val(days[tomorrow.getDay()]+','+dates[(tomorrow.getDate()) - 1]+","+ months[tomorrow.getMonth()] + ' ' + tomorrow.getFullYear())
 								
 				$('.datepicker1').dateRangePicker({
 						dayGap: 1,
-						startDate: today
+						startDate: today,
+						separator : ' to ',
+						getValue: function(){
+							if($(".intime").val() && $(".outtime").val())
+								return $('.intime').val() + ' to ' + $('.outtime').val();
+							else
+								return '';
+						},
+						setValue: function(s,s1,s2){
+							$('.intime').val(s1);
+							$('.outtime').val(s2);
+						}
 					
 				}).bind('datepicker-change',function(event,obj){
 					var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
@@ -247,8 +258,8 @@
 					$("#checkoutdate").val(obj.value.substr(obj.value.indexOf("to")+2));
 					$("#night-number").html(diffDays)
 					$(".searchButton").css("display", "inline");
-					$('.checkindate').html('<span>Check in</span><span>' + days[obj.date1.getDay()] + ', </span><span>' + dates[(obj.date1.getDate()-1)] + '</span><br><span>' + months[obj.date1.getMonth()] + ' ' + obj.date1.getFullYear() + '</span>');
-					$('.checkoutdate').html('<span>Check out</span><span>' + days[obj.date2.getDay()] + ', </span><span>' + dates[(obj.date2.getDate()-1)] + '</span><br><span>' + months[obj.date2.getMonth()] + ' ' + obj.date2.getFullYear() + '</span>');
+					$('.intime').val(days[obj.date1.getDay()] + ',' + dates[(obj.date1.getDate()-1)] + ',' + months[obj.date1.getMonth()] + ' ' + obj.date1.getFullYear());
+					$('.outtime').val(days[obj.date2.getDay()] + ',' + dates[(obj.date2.getDate()-1)] + ',' + months[obj.date2.getMonth()] + ' ' + obj.date2.getFullYear());
 				});
 
 
