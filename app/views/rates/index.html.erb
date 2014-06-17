@@ -1,5 +1,6 @@
 <div id="content">
-  <form action="/rates" mathod="post">
+  <div><%= link_to "Home", dashboard_path, class: "links" %></div>
+  <form action="/rates" method="post">
     <h1>Change Room Rate</h1>
     <table id="which">
       <tbody>
@@ -53,25 +54,23 @@
           or for one or more of these Rooms:
           <br>
           <div id="so-inject" style="margin: 0 0 5px;"></div>
-          <div>
-            <input id="so-17237103" type="checkbox" value="17237103" name="so">
-            <label for="so-17237103">King Room</label>
-          </div>
-          <div>
-            <input id="so-17237106" type="checkbox" value="17237106" name="so">
-            <label for="so-17237106">Executive Suite</label>
-          </div>
-          <div>
-            <input id="so-17237101" type="checkbox" value="17237101" name="so">
-            <label for="so-17237101">Queen Room with Two Queen Beds</label>
-          </div>
-          <div>
-            <input id="so-17237105" type="checkbox" value="17237105" name="so">
-            <label for="so-17237105">Room Selected at Check-In</label>
-          </div>
+          <% Room.all.each do |room|%>
+            <label style="float:left"><%= room.name %></label><input type="checkbox" id="" name="room_id[<%= room.id %>]" style="float:left; margin-top:4px;" >
+          <% end %>
           </td>
         </tr>
       </tbody>
     </table>
+    <% my_date = Time.now %>
+    <div>From Date: <%= text_field_tag 'from_date', "", :name => "from_date", :class => "datepicker1" %></div><br />
+    <div>To Date: <%= text_field_tag 'to_date', "", :name => "to_date", :class => "datepicker1" %></div>
+    <div>Room Rate Per Night: <%= text_field_tag 'price', "", :name => "price" %> CAD <%= %></div>
+    <p><input type="submit" value="Search" name="submit" ></p>
   </form>
+   
 </div>
+ <script>
+$(function() {
+$( ".datepicker1" ).datepicker();
+});
+</script>

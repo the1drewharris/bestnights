@@ -688,12 +688,19 @@
 			$( 'input[name="ratingMax"]' ).val( $( "#slider-rating" ).slider( "values", 1 ) + "%" );
 		}
 
+		//WELCOME PAGE
 
-		//booking deatail page validation start
-
-		
-		
-		//booking deatail page validation end
+		$(".room_type").change(function(){
+			if($(".room_type").val() == "1"){
+				$(".people").attr("max", "2")
+			}
+			else if($(".room_type").val() == "2"){
+				$(".people").attr("max", "4")	
+			}
+			else if($(".room_type").val() == "3"){
+				$(".people").attr("max", "6")	
+			}
+		})
 		
 		
 			

@@ -114,7 +114,7 @@
 			<ul>
 				<li>
 					<label for="roomtype">Add Room Type</label>
-					<select id="client_comm" name="room[room_type_id]">
+					<select id="client_comm" name="room[room_type_id]" class="room_type">
 						<optgroup label="Room Type">
 							<% RoomType.all.each do |rt| %>
 								<option value=<%= rt.id %> ><%= rt.room_type %></option>
@@ -122,11 +122,11 @@
 						</optgroup>
 					</select>
 				<li><label for="roomname">Room Name</label><input name="room[name]" type="text"></li>
-				<li><label for="roomqty">Number of Rooms</label><input name="room[starting_inventory]" type="number"></li>
-				<li><label for="roomqty">Max. people</label><input name="room[max_people]" type="number"></li>
-				<li><label for="roomqty">Max. children</label><input name="room[max_children]" type="number"></li>
+				<li><label for="roomqty">Number of Rooms</label><input name="room[starting_inventory]" type="number" min="1"></li>
+				<li><label for="roomqty">Max. people</label><input name="room[max_people]" type="number" min="1" class="people" max="2"></li>
+				<li><label for="roomqty">Max. children</label><input name="room[max_children]" type="number" min="1"></li>
 				<li>
-					<label for="roomqty">Minimum size of room</label><input name="room[room_size]" type="number">Square
+					<label for="roomqty">Room Size</label><input name="room[room_size]" type="number" min="1">Square
 					<select name="room[room_unit]" id="room_unit">
 						<optgroup label="Room Unit">
 								<option value="meters">Meters</option>
@@ -149,15 +149,7 @@
 				</li>
 			</ul>
 		</fieldset>
-		<fieldset>
-		<legend>Amenities</legend>
-			<ul class="col2">
-				<% RoomAttribute.all.each do |ra| %>
-					<li class="checkboxes"><label style="float:left"><%= ra.attr %></label><input type="checkbox" id="" name="room_attributes[<%= ra.id %>]"  style="float:left; margin-top:4px;"></li>
-					<div style="clear:both;"></div>
-				<% end %>
-			</ul>
-		</fieldset>
+		
 		<fieldset class="formactions">
 			<!-- <a class="button">Next</a> -->
 			<input type="submit" value="Add" />
