@@ -126,12 +126,14 @@
 					$(this).parent().next().toggle(500);
 					$(this).siblings('li:nth-child(2),li:nth-child(3)').removeClass('selected');
 					$(this).parent().prev('.roomtype').val('');
-					if ($("#searchform").css('height') != auto) {
-						$("#searchform").animate({"height": auto}, {duration: "slow" });
+					if ($("#searchform").css('height') != "auto") {
+						var curheight = $("#searchform").height();
+						var autoheight = $("#searchform").css('height', 'auto').css('height');
+						$("#searchform").animate({"height": "auto"},"slow");
 					}
 					if ($(this).hasClass("selected")){
 						$("#roomqty").val(1)
-						$(".groupopts li").html("<h5>Room 1</h5><ul><li><label>Adults</label><input name='group[beds][1][adultqty]' type='number' min='1' value='1'></li></ul>")
+						$(".groupopts ul li").html("<h5>Room 1</h5><ul><li><label>Adults</label><input name='group[beds][1][adultqty]' type='number' min='1' value='1' max='2'></li></ul>")
 					}
 				});
 				
@@ -140,12 +142,14 @@
 					$(this).parent().next().toggle(500);
 					$(this).siblings('li:nth-child(1),li:nth-child(3)').removeClass('selected');
 					$(this).parent().prev('.roomtype').val('');
-					if ($("#searchform").css('height') != auto) { 
-						$("#searchform").animate({"height": auto}, {duration: "slow" });
+					if ($("#searchform").css('height') != "auto") {
+						var curheight = $("#searchform").height();
+						var autoheight = $("#searchform").css('height', 'auto').css('height');
+						$("#searchform").animate({"height": "auto"},"slow");
 					}
 					if ($(this).hasClass("selected")){
 						$("#roomqty").val(2)
-						$(".groupopts li").html("<h5>Room 1</h5><ul><li><label>Adults</label><input name='group[beds][1][adultqty]' type='number' min='1' value='1'></li></ul>")
+						$(".groupopts ul li").html("<h5>Room 1</h5><ul><li><label>Adults</label><input name='group[beds][1][adultqty]' type='number' min='1' value='1' max='4'></li></ul>")
 					}
 				});
 				
@@ -156,14 +160,12 @@
 					$(this).parent().prev('.roomtype').val('');
 					if ($("#searchform").css('height') != "auto") {
 						var curheight = $("#searchform").height();
-						console.log($("#searchform").css('height', 'auto'))
-						console.log($("#searchform").css('height'))
 						var autoheight = $("#searchform").css('height', 'auto').css('height');
 						$("#searchform").animate({"height": "auto"},"slow");
 					}
 					if ($(this).hasClass("selected")){
 						$("#roomqty").val(1)
-						$(".groupopts li").html("<h5>Room 1</h5><ul><li><label>Adults</label><input name='group[beds][1][adultqty]' type='number' min='0' value='1'></li><li><label>Children</label><input name='group[beds][1][childqty]' type='number' min='0' value='0'></li></ul>")
+						$(".groupopts ul li").html("<h5>Room 1</h5><ul><li><label>Adults</label><input name='group[beds][1][adultqty]' type='number' min='0' value='1'></li><li><label>Children</label><input name='group[beds][1][childqty]' type='number' min='0' value='0'></li></ul>")
 					}
 				});
 				
