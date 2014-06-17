@@ -9,9 +9,8 @@
 			<input type="hidden" id="checkindate" name="date[checkin]" value=<%= session[:checkin] %> >
 			<input type="hidden" id="checkoutdate" name="date[checkout]" value=<%= session[:checkout] %> >
 			<input type="hidden" id="roomtype" name="roomtype" value="2">
-			<span class="title">Hotel Search</span>
 			<span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
-			<input type="text" placeholder="Enter Destination..." value="<%= session[:search] %>" data-autocomplete="/home/autocomplete_hotel_name" id="hotel_name" name="search" class="ui-autocomplete-input" autocomplete="off">
+			<input type="text" placeholder="Enter Destination..." value="<%= session[:search] %>" data-autocomplete="/home/autocomplete_hotel_name" id="hotel_name" name="search" class="ui-autocomplete-input inputCText" autocomplete="off">
 			<input type="submit" class="demo_button_submit" style="visibility: hidden;position: absolute;"/>
 				
 			<!-- if blank, use this
@@ -20,8 +19,8 @@
 			 -->
 			
 			<!-- else, prepopulated -->
-			<span class="checkindate" id="check-in"><span>Check in</span><input type="text" value="<%= Date.today.strftime("%A, %-d") %><%= Date.today.strftime("%B %Y") %>" class="intime"/></span>
-			<span class="checkoutdate" id="check-in"><span>Check out</span><input type="text" value="<%= Date.today.strftime("%A, %-d") %><%= Date.today.strftime("%B %Y") %>" class="outtime"/></span>
+			<span class="checkindate" id="check-in"><span>Check in</span><input type="text" value="<%= Date.today.strftime("%A, %-d") %><%= Date.today.strftime("%B %Y") %>" class="intime inputCheck"/></span>
+			<span class="checkoutdate" id="check-in"><span>Check out</span><input type="text" value="<%= Date.today.strftime("%A, %-d") %><%= Date.today.strftime("%B %Y") %>" class="outtime inputCheck"/></span>
 			
 				
 				

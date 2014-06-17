@@ -197,6 +197,21 @@ select {
 	input[type="password"] {
 		width: 250px;
 	}
+	input[type="text"].inputCheck,
+	input[type="file"].inputCheck,
+	input[type="password"].inputCheck {
+		width: 160px;
+		border: none!important;
+		float: left;
+		margin: 0;
+		font-size: 1em!important;
+		padding:11px 8px 10px !important;
+	}
+	#searchpane input[type="text"].inputCText {
+		font-size: 1.1em!important;
+		padding:10px 8px 10px !important;
+		width: 157px;
+	}
 	
 	button,
 	input[type="submit"],
@@ -1112,7 +1127,7 @@ footer #footerend {
 		
 	#searchpane .checkindate,
 	#searchpane .checkoutdate {
-		width: 266px;
+		width: 245px;
 		margin: 0 0 14px;
 	}
 		
@@ -1148,6 +1163,8 @@ footer #footerend {
 	#searchpane .checkindate span:first-child,
 	#searchpane .checkoutdate span:first-child {
 		padding: 12px 9px 13px;
+		text-align: center;
+		width: 83px;
 	}
 	
 	.checkoutdate span:first-child {

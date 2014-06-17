@@ -126,8 +126,8 @@
 					$(this).parent().next().toggle(500);
 					$(this).siblings('li:nth-child(2),li:nth-child(3)').removeClass('selected');
 					$(this).parent().prev('.roomtype').val('');
-					if ($("#searchform").css('height') != 780) { 
-						$("#searchform").animate({"height": 780}, {duration: "slow" });
+					if ($("#searchform").css('height') != auto) {
+						$("#searchform").animate({"height": auto}, {duration: "slow" });
 					}
 					if ($(this).hasClass("selected")){
 						$("#roomqty").val(1)
@@ -140,8 +140,8 @@
 					$(this).parent().next().toggle(500);
 					$(this).siblings('li:nth-child(1),li:nth-child(3)').removeClass('selected');
 					$(this).parent().prev('.roomtype').val('');
-					if ($("#searchform").css('height') != 780) { 
-						$("#searchform").animate({"height": 780}, {duration: "slow" });
+					if ($("#searchform").css('height') != auto) { 
+						$("#searchform").animate({"height": auto}, {duration: "slow" });
 					}
 					if ($(this).hasClass("selected")){
 						$("#roomqty").val(2)
@@ -154,8 +154,12 @@
 					$(this).parent().next().toggle(500);
 					$(this).siblings('li:nth-child(1),li:nth-child(2)').removeClass('selected');
 					$(this).parent().prev('.roomtype').val('');
-					if ($("#searchform").css('height') != 780) { 
-						$("#searchform").animate({"height": 780}, {duration: "slow" });
+					if ($("#searchform").css('height') != "auto") {
+						var curheight = $("#searchform").height();
+						console.log($("#searchform").css('height', 'auto'))
+						console.log($("#searchform").css('height'))
+						var autoheight = $("#searchform").css('height', 'auto').css('height');
+						$("#searchform").animate({"height": "auto"},"slow");
 					}
 					if ($(this).hasClass("selected")){
 						$("#roomqty").val(1)
@@ -180,6 +184,7 @@
 							$(this).next().children('li:last-child').remove();
 						}
 					}
+					$("#searchform").css("height", "auto");
 					
 				});
 				
@@ -231,8 +236,8 @@
 				$('#checkindat').val( today.getFullYear() +'-'+ ("0" + (today.getMonth() + 1)).slice(-2) +'-'+ ("0" + today.getDate()).slice(-2) );
 				$('#checkoutdate').val( tomorrow.getFullYear() +'-'+ ("0" + (tomorrow.getMonth() + 1)).slice(-2) +'-'+ ("0" + tomorrow.getDate()).slice(-2) );
 				
-				$(".intime").val(days[today.getDay()]+','+dates[(today.getDate()) - 1]+","+ months[today.getMonth()] + ' ' + today.getFullYear())
-				$(".outtime").val(days[tomorrow.getDay()]+','+dates[(tomorrow.getDate()) - 1]+","+ months[tomorrow.getMonth()] + ' ' + tomorrow.getFullYear())
+				$(".intime").val(days[today.getDay()]+','+dates[(today.getDate()) - 1]+","+ months[today.getMonth()])
+				$(".outtime").val(days[tomorrow.getDay()]+','+dates[(tomorrow.getDate()) - 1]+","+ months[tomorrow.getMonth()])
 								
 				$('.datepicker1').dateRangePicker({
 						dayGap: 1,
@@ -258,8 +263,8 @@
 					$("#checkoutdate").val(obj.value.substr(obj.value.indexOf("to")+2));
 					$("#night-number").html(diffDays)
 					$(".searchButton").css("display", "inline");
-					$('.intime').val(days[obj.date1.getDay()] + ',' + dates[(obj.date1.getDate()-1)] + ',' + months[obj.date1.getMonth()] + ' ' + obj.date1.getFullYear());
-					$('.outtime').val(days[obj.date2.getDay()] + ',' + dates[(obj.date2.getDate()-1)] + ',' + months[obj.date2.getMonth()] + ' ' + obj.date2.getFullYear());
+					$('.intime').val(days[obj.date1.getDay()] + ',' + dates[(obj.date1.getDate()-1)] + ',' + months[obj.date1.getMonth()]);
+					$('.outtime').val(days[obj.date2.getDay()] + ',' + dates[(obj.date2.getDate()-1)] + ',' + months[obj.date2.getMonth()]);
 				});
 
 
