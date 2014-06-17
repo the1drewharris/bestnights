@@ -247,6 +247,8 @@
 					$("#checkoutdate").val(obj.value.substr(obj.value.indexOf("to")+2));
 					$("#night-number").html(diffDays)
 					$(".searchButton").css("display", "inline");
+					$('.checkindate').html('<span>Check in</span><span>' + days[obj.date1.getDay()] + ', </span><span>' + dates[(obj.date1.getDate()-1)] + '</span><br><span>' + months[obj.date1.getMonth()] + ' ' + obj.date1.getFullYear() + '</span>');
+					$('.checkoutdate').html('<span>Check out</span><span>' + days[obj.date2.getDay()] + ', </span><span>' + dates[(obj.date2.getDate()-1)] + '</span><br><span>' + months[obj.date2.getMonth()] + ' ' + obj.date2.getFullYear() + '</span>');
 				});
 
 

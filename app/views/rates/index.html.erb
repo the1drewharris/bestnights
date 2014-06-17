@@ -1,21 +1,77 @@
-<h1>Listing rates</h1>
-
-<table>
-  <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @rates.each do |rate| %>
-  <tr>
-    <td><%= link_to 'Show', rate %></td>
-    <td><%= link_to 'Edit', edit_rate_path(rate) %></td>
-    <td><%= link_to 'Destroy', rate, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Rate', new_rate_path %>
+<div id="content">
+  <form action="/rates" mathod="post">
+    <h1>Change Room Rate</h1>
+    <table id="which">
+      <tbody>
+        <tr>
+          <td>
+            on:<br>
+            <input id="wd-0" type="checkbox" value="0" name="wd">
+            <label for="wd-0">All Days</label>
+            <div></div>
+            or one or more of these days:<br>
+            <input id="wd-1" type="checkbox" value="1" name="wd">
+            <label for="wd-1">Monday</label>
+            <br>
+            <input id="wd-2" type="checkbox" value="2" name="wd">
+            <label for="wd-2">Tuesday</label>
+            <br>
+            <input id="wd-3" type="checkbox" value="3" name="wd">
+            <label for="wd-3">Wedenesday</label>
+            <br>
+            <input id="wd-4" type="checkbox" value="4" name="wd">
+            <label for="wd-4">Thursday</label>
+            <br>
+            <input id="wd-5" type="checkbox" value="5" name="wd">
+            <label for="wd-5">Friday</label>
+            <br>
+            <input id="wd-6" type="checkbox" value="6" name="wd">
+            <label for="wd-6">Saturday</label>
+            <br>
+            <input id="wd-7" type="checkbox" value="7" name="wd">
+            <label for="wd-7">Sunday</label>
+            <br>
+          </td>
+          <td>
+            for:<br>
+            <input id="sa-0" type="checkbox" value="0" name="sa">
+            <label for="sa-0">All Rate Categories</label>
+            <br>
+            <div> </div>
+            or for one or more of these Rate Categories:
+            <br>
+            <div id="sa-inject" style="margin: 0 0 5px;"></div>
+            <input id="sa-724052" type="checkbox" value="724052" name="sa">
+            <label for="sa-724052">Standard Rate [P]</label>
+          </td>
+          <td>
+            for:<br>
+          <input id="so-0" type="checkbox" value="0" name="so">
+          <label for="so-0">All Rooms</label>
+          <br>
+          <div> </div>
+          or for one or more of these Rooms:
+          <br>
+          <div id="so-inject" style="margin: 0 0 5px;"></div>
+          <div>
+            <input id="so-17237103" type="checkbox" value="17237103" name="so">
+            <label for="so-17237103">King Room</label>
+          </div>
+          <div>
+            <input id="so-17237106" type="checkbox" value="17237106" name="so">
+            <label for="so-17237106">Executive Suite</label>
+          </div>
+          <div>
+            <input id="so-17237101" type="checkbox" value="17237101" name="so">
+            <label for="so-17237101">Queen Room with Two Queen Beds</label>
+          </div>
+          <div>
+            <input id="so-17237105" type="checkbox" value="17237105" name="so">
+            <label for="so-17237105">Room Selected at Check-In</label>
+          </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+</div>

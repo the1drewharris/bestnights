@@ -28,7 +28,7 @@
 		<%= link_to "Manage Rates", "#" %>
 	<% end %>
 	<% if current_user.admin? %>	
-		<%= link_to "Rates and Availability", "#" %>
+		<%= link_to "Rates and Availability", rates_path %>
 	<% end %>
 	<% if can? :index, Promotion %>	
 		<%= link_to "Property Details", "#" %>

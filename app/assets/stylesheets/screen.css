@@ -2388,3 +2388,23 @@ tr > td.date-range-selected ~ td.date-range-selected {
 .link_style{
 	color: #F15D58;
 }
+
+#which{
+	width: 100%;
+	border-collapse: collapse;
+}
+
+#which td{
+	padding: 10px;
+	background: none repeat scroll 0 0 #FFFFFF;
+	border: 1px solid #82A3D2;
+	text-align: left;
+	vertical-align: top;
+	text-decoration: none;
+}
+
+#which input{
+	margin: 0;
+  padding: 0.1em 0.2em;
+  text-align: left;
+}
