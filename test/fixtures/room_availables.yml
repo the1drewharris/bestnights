@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  room_id: 1
+  room_type_id: 1
+  status: false
+  from_date: 2014-06-18
+  to_date: 2014-06-18
+  days: MyString
+  number: 1
+
+two:
+  room_id: 1
+  room_type_id: 1
+  status: false
+  from_date: 2014-06-18
+  to_date: 2014-06-18
+  days: MyString
+  number: 1

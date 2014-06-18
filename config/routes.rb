@@ -21,6 +21,10 @@ Bestnights::Application.routes.draw do
   namespace :manager do
     get '/' => 'dashboard#index'
   end
+
+  resources :room_availables do
+    post 'rooms_to_sell'
+  end
     
   match 'new_manager' => 'users#create', :via => :post, :as => 'create_user'
   # match 'new_manager' => 'users#create_manager', :via => :post, :as => 'new_manager'
@@ -48,7 +52,8 @@ Bestnights::Application.routes.draw do
   match 'bookings' => 'dashboard#bookings', :as => 'bookings'  
   match 'statistics' => 'dashboard#statistics', :as => 'statistics'
   match 'download_booking_data' => 'dashboard#download_booking_data', :as => 'download_booking_data'
-  match 'export_in_excel' => 'dashboard#export_in_excel', :as => 'export_in_excel' 
+  match 'export_in_excel' => 'dashboard#export_in_excel', :as => 'export_in_excel'
+  match 'rooms_to_sell' => 'room_availables#rooms_to_sell', :as => 'rooms_to_sell'
   
   # resources :users, except: :create
   resources :users

@@ -69,8 +69,32 @@
 </form>
   
 </div>
- <script>
-$(function() {
-$( ".datepicker1" ).datepicker();
-});
+<script>
+  $(function() {
+    $( ".datepicker1" ).datepicker();
+    $("#wd-0").click(function(event){
+      if(this.checked){
+        $(".wd").each(function(){
+          this.checked = true;
+        })
+      }
+      else{
+        $(".wd").each(function(){
+          this.checked = false;
+        })    
+      }
+    })
+    $("#so-0").click(function(event){
+      if(this.checked){
+        $(".so").each(function(){
+          this.checked = true;
+        })
+      }
+      else{
+        $(".so").each(function(){
+          this.checked = false;
+        })    
+      }
+    })
+  });
 </script>
