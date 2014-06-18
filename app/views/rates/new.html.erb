@@ -1,74 +1,60 @@
-<div id="content">
-  <div><%= link_to "Home", dashboard_path, class: "links" %></div>
-  <form action="/rates" enctype="multipart/form-data" method="post">
-<h1>Change Room Rate</h1>
-<table id="which">
-  <tbody>
-    <tr>
-      <td>
-        on:<br>
-        <input id="wd-0" type="checkbox" value="0" name="wd">
-        <label for="wd-0">All Days</label>
-        <div></div>
-        or one or more of these days:<br>
-        <input id="wd-1" type="checkbox" value="1" name="wd">
-        <label for="wd-1">Monday</label>
-        <br>
-        <input id="wd-2" type="checkbox" value="2" name="wd">
-        <label for="wd-2">Tuesday</label>
-        <br>
-        <input id="wd-3" type="checkbox" value="3" name="wd">
-        <label for="wd-3">Wedenesday</label>
-        <br>
-        <input id="wd-4" type="checkbox" value="4" name="wd">
-        <label for="wd-4">Thursday</label>
-        <br>
-        <input id="wd-5" type="checkbox" value="5" name="wd">
-        <label for="wd-5">Friday</label>
-        <br>
-        <input id="wd-6" type="checkbox" value="6" name="wd">
-        <label for="wd-6">Saturday</label>
-        <br>
-        <input id="wd-7" type="checkbox" value="7" name="wd">
-        <label for="wd-7">Sunday</label>
-        <br>
-      </td>
-      <td>
-        for:<br>
-        <input id="sa-0" type="checkbox" value="0" name="sa">
-        <label for="sa-0">All Rate Categories</label>
-        <br>
-        <div> </div>
-        or for one or more of these Rate Categories:
-        <br>
-        <div id="sa-inject" style="margin: 0 0 5px;"></div>
-        <input id="sa-724052" type="checkbox" value="724052" name="sa">
-        <label for="sa-724052">Standard Rate [P]</label>
-      </td>
-      <td>
-        for:<br>
-      <input id="so-0" type="checkbox" value="0" name="so">
-      <label for="so-0">All Rooms</label>
-      <br>
-      <div> </div>
-      or for one or more of these Rooms:
-      <br>
-      <div id="so-inject" style="margin: 0 0 5px;"></div>
-      <% Room.all.each do |room|%>
-        <label style="float:left"><%= room.name %></label><input type="checkbox" id="" name="room_id[<%= room.id %>]" style="float:left; margin-top:4px;" >
-      <% end %>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<% my_date = Time.now %>
-<div>From Date: <%= text_field_tag 'from_date', "", :name => "from_date", :class => "datepicker1" %></div><br />
-<div>To Date: <%= text_field_tag 'to_date', "", :name => "to_date", :class => "datepicker1" %></div>
-<div>Room Rate Per Night: <%= text_field_tag 'price', "", :name => "price" %> CAD <%= %></div>
-<p><input type="submit" value="submit" name="submit" ></p>
-</form>
-  
+<form action="/rates" method="post">
+    <h1>Change Room Rate</h1>
+    <% my_date = Time.now %>
+    <div>From Date: <%= text_field_tag 'from_date', "", :name => "from_date", :class => "datepicker1" %></div><br />
+    <div>To Date: <%= text_field_tag 'to_date', "", :name => "to_date", :class => "datepicker1" %></div>
+    <table id="which">
+      <tbody>
+        <tr>
+          <td>
+            on:<br>
+            <input id="wd-0" type="checkbox" value="0" name="wd">
+            <label for="wd-0">All Days</label>
+            <div></div>
+            or one or more of these days:<br>
+            <input id="wd-1" type="checkbox" value="1" name="days[monday]" class="wd" >
+            <label for="wd-1">Monday</label>
+            <br>
+            <input id="wd-2" type="checkbox" value="2" name="days[tuesday]" class="wd" >
+            <label for="wd-2">Tuesday</label>
+            <br>
+            <input id="wd-3" type="checkbox" value="3" name="days[wednesday]" class="wd" >
+            <label for="wd-3">Wedenesday</label>
+            <br>
+            <input id="wd-4" type="checkbox" value="4" name="days[thursday]" class="wd" >
+            <label for="wd-4">Thursday</label>
+            <br>
+            <input id="wd-5" type="checkbox" value="5" name="days[friday]" class="wd" >
+            <label for="wd-5">Friday</label>
+            <br>
+            <input id="wd-6" type="checkbox" value="6" name="days[saturday]" class="wd" >
+            <label for="wd-6">Saturday</label>
+            <br>
+            <input id="wd-7" type="checkbox" value="7" name="days[sunday]" class="wd" >
+            <label for="wd-7">Sunday</label>
+            <br>
+          </td>
+          <td>
+            for:<br>
+          <input id="so-0" type="checkbox" value="0" name="so">
+          <label for="so-0">All Rooms</label>
+          <br>
+          <div> </div>
+          or for one or more of these Rooms:
+          <br>
+          <div id="so-inject" style="margin: 0 0 5px;"></div>
+          <% RoomType.all.each do |room|%>
+            <label style="float:left"><%= room.room_type %></label><input type="checkbox" id="" name="room_id[<%= room.id %>]" style="float:left; margin-top:4px;" class="so" >
+          <% end %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div>Room Rate Per Night: <%= text_field_tag 'price', "", :name => "price" %> CAD <%= %></div>
+    <p><input type="submit" value="Update Rooms for Sell" name="submit" ></p>
+  </form>
 </div>
+
 <script>
   $(function() {
     $( ".datepicker1" ).datepicker();

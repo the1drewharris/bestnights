@@ -40,11 +40,20 @@ class RatesController < ApplicationController
   # POST /rates
   # POST /rates.json
   def create
-    @rate = Rate.new(params[:rate])
-
+    logger.info"=============#{params[:from_date]}================="
+    @day = []
+    @rooms = []
+    params[:days].each do |day|
+      @day << day[0]
+    end
+    params[:room_id].each do |room|
+      logger.info"****************#{room[0]}**********************"
+      @rooms << room[0]
+    end
+    @rate = Rate.new(to_date:params[:to_date], from_date: params[:from_date], price: params[:price], day: @days, room_id: @rooms )
     respond_to do |format|
       if @rate.save
-        format.html { redirect_to @rate, notice: 'Rate was successfully created.' }
+        format.html { redirect_to @rate, notice: 'rate was successfully updated for sell.' }
         format.json { render json: @rate, status: :created, location: @rate }
       else
         format.html { render action: "new" }

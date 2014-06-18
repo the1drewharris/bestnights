@@ -34,5 +34,4 @@ class RoomAvailablesController < ApplicationController
       end
     end
 	end
-
 end
