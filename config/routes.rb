@@ -26,6 +26,7 @@ Bestnights::Application.routes.draw do
 
   resources :room_availables do
     post 'rooms_to_sell'
+    post 'update_status'
   end
     
   match 'new_manager' => 'users#create', :via => :post, :as => 'create_user'
@@ -56,6 +57,8 @@ Bestnights::Application.routes.draw do
   match 'download_booking_data' => 'dashboard#download_booking_data', :as => 'download_booking_data'
   match 'export_in_excel' => 'dashboard#export_in_excel', :as => 'export_in_excel'
   match 'rooms_to_sell' => 'room_availables#rooms_to_sell', :as => 'rooms_to_sell'
+  #match 'change_room_status' => 'room_availables#edit', :as => 'change_room_status', :method => :post
+  match '/update_status' => 'room_availables#update_status', :as => 'room_available_update_status' 
   
   # resources :users, except: :create
   resources :users

@@ -49,4 +49,16 @@ class RoomAvailablesController < ApplicationController
       end
     end
 	end
+
+	def edit
+		@room = RoomAvailable.find(1)
+	end
+
+	def update_status
+		@room = RoomAvailable.find(1)
+		@room.update_attributes(:status => params["closed"])
+		@room.save
+		redirect_to rates_path
+	end
+
 end

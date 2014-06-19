@@ -133,8 +133,12 @@
 					}
 					if ($(this).hasClass("selected")){
 						$("#roomqty").val(1)
-						$(".groupopts ul li").html("<h5>Room 1</h5><ul><li><label>Adults</label><input name='group[beds][1][adultqty]' type='number' min='1' value='1' max='2'></li></ul>")
+						$(".groupopts ul li").html("<h5>Room 1</h5><ul><li><label>Adults</label><input name='group[beds][1][adultqty]' type='number' min='0' value='0' max='2' class='adult'></li><li><label>Children</label><input name='group[beds][1][childqty]' type='number' min='0' value='0' class='children' max='2'></li></ul>")
 					}
+					$(".adult").change(function(){
+						var max = $(".children").attr("max")
+						$(".children").attr("max", max - 1)
+					})
 				});
 				
 				$( '.roomtypes li:nth-child(2)' ).click(function(){
@@ -149,8 +153,12 @@
 					}
 					if ($(this).hasClass("selected")){
 						$("#roomqty").val(2)
-						$(".groupopts ul li").html("<h5>Room 1</h5><ul><li><label>Adults</label><input name='group[beds][1][adultqty]' type='number' min='1' value='1' max='4'></li></ul>")
+						$(".groupopts ul li").html("<h5>Room 1</h5><ul><li><label>Adults</label><input name='group[beds][1][adultqty]' type='number' min='0' value='1' max='4' class='adult'></li><li><label>Children</label><input name='group[beds][1][childqty]' type='number' min='0' value='0' class='children' max='4'></li></ul>")
 					}
+					$(".adult").change(function(){
+						var max = $(".children").attr("max")
+						$(".children").attr("max", max - 1)
+					})
 				});
 				
 				$( '.roomtypes li:nth-child(3)' ).click(function(){
@@ -165,9 +173,14 @@
 					}
 					if ($(this).hasClass("selected")){
 						$("#roomqty").val(1)
-						$(".groupopts ul li").html("<h5>Room 1</h5><ul><li><label>Adults</label><input name='group[beds][1][adultqty]' type='number' min='0' value='1'></li><li><label>Children</label><input name='group[beds][1][childqty]' type='number' min='0' value='0'></li></ul>")
+						$(".groupopts ul li").html("<h5>Room 1</h5><ul><li><label>Adults</label><input name='group[beds][1][adultqty]' type='number' min='0' value='1' class='adult'></li><li><label>Children</label><input name='group[beds][1][childqty]' type='number' min='0' value='0' class='children'></li></ul>")
 					}
+					$(".adult").change(function(){
+						var max = $(".children").attr("max")
+						$(".children").attr("max", max - 1)
+					})
 				});
+
 				
 				
 				var $roomcount = 1;
@@ -242,7 +255,7 @@
 				$(".outtime").val(days[tomorrow.getDay()]+','+dates[(tomorrow.getDate()) - 1]+","+ months[tomorrow.getMonth()])
 								
 				$('.datepicker1').dateRangePicker({
-						dayGap: 1,
+						dayGap: 2,
 						startDate: today,
 						separator : ' to ',
 						getValue: function(){
