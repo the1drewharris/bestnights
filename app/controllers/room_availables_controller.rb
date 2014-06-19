@@ -12,21 +12,36 @@ class RoomAvailablesController < ApplicationController
 		@room = RoomAvailable.new
 		@days = []
 		@rooms = []
-		@room.to_date = params[:to_date]
-		@room.from_date = params[:from_date]
-		params[:days].each do |day|
-			@days << day[0]
+		if !params[:to_date].blank? 
+			@room.to_date = DateTime.strptime(params[:to_date], '%m/%d/%Y').to_date
+		else
+			@room.to_date = ""
 		end
-		params[:room_id].each do |room|
-			logger.info"****************#{room[0]}**********************"
-			@rooms << room[0]
+		if !params[:from_date].blank? 
+			@room.from_date = DateTime.strptime(params[:from_date], '%m/%d/%Y').to_date
+		else
+			@room.from_date = ""
+		end
+		if !params[:days].blank? 
+			params[:days].each do |day|
+				@days << day[0]
+			end
+		else
+			@days = ""
+		end
+		if !params[:room_id].blank? 
+			params[:room_id].each do |room|
+				@rooms << room[0]
+			end
+		else
+			@rooms = ""
 		end
 		@room.days = @days
 		@room.room_type_id = @rooms
 		@room.number = params[:rooms_to_sell]
 		respond_to do |format|
       if @room.save
-        format.html { redirect_to @room, notice: 'room was successfully updated for sell.' }
+        format.html { redirect_to new_room_available_path, notice: 'room was successfully updated for sell.' }
         format.json { render json: @room, status: :created, location: @room }
       else
         format.html { render action: "new" }

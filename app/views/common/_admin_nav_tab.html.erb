@@ -34,5 +34,8 @@
 	<% end %>	
 	<% if can? :index, Traveler %>	
 		<%= link_to "Travelers", travelers_path %>
+	<% end %>
+	<% if current_user.admin? || current_user.manager? %>	
+		<%= link_to "Rate Categories", rate_categories_path %>
 	<% end %>	
 </nav>

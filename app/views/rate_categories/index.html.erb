@@ -1,0 +1,32 @@
+<% content_for :title, "BestNights.com - Room Attributes" %>
+<div><%= link_to "Home", dashboard_path, class: "links" %></div>
+<header>
+  <h1>Listing Rate Categories</h1>
+</header>
+
+<div id="container-main">
+  <div class="formactions">
+    <%= link_to 'Add', new_rate_category_path %>
+  </div>
+  <table class="admintablelist">
+    <tr>
+      <th>Name</th>
+     </tr>
+    <% @rate_categories.each do |rate_category| %>
+      <tr>
+        <td><%= rate_category.name %></td>
+        <% if can? :show, rate_category %>
+          <td><%= link_to "Show", rate_category %></td>
+        <% end %>
+        <% if can? :edit, rate_category %> 
+          <td><%= link_to "Edit", edit_rate_category_path(rate_category) %></td>
+        <% end %>
+        <% if can? :delete, rate_category %>
+          <td><%= link_to "Delete", rate_category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %> 
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+<%= javascript_include_tag :jquery_ujs %>

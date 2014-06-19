@@ -54,7 +54,7 @@
     </table>
     <div>
     	Number of rooms to make available:
-    	<input type="number" name="rooms_to_sell">
+    	<input type="number" name="rooms_to_sell" min="1">
     </div>
     <p><input type="submit" value="Update Rooms for Sell" name="submit" ></p>
 	</form>
@@ -62,7 +62,7 @@
 
 <script>
 	$(function() {
-		$( ".datepicker1" ).datepicker();
+		$( ".datepicker1" ).datepicker({format: 'yyyy-mm-dd'});
 		$("#wd-0").click(function(event){
 			if(this.checked){
 				$(".wd").each(function(){

@@ -1,0 +1,2 @@
+module RateCategoriesHelper
+end

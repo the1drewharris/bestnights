@@ -40,23 +40,52 @@ class RatesController < ApplicationController
   # POST /rates
   # POST /rates.json
   def create
-    logger.info"=============#{params[:from_date]}================="
+    logger.info"==================#{params}=================="
     @day = []
     @rooms = []
-    params[:days].each do |day|
-      @day << day[0]
+    @category = []
+    if !params[:rate_cat_id].blank? 
+      params[:days].each do |day|
+        @day << day[0]
+      end
+    else
+      @day = ""
     end
-    params[:room_id].each do |room|
-      logger.info"****************#{room[0]}**********************"
-      @rooms << room[0]
+
+    if !params[:room_id].blank?
+      params[:room_id].each do |room|
+        @rooms << room[0]
+      end
+    else
+      @rooms = ""
     end
-    @rate = Rate.new(to_date:params[:to_date], from_date: params[:from_date], price: params[:price], day: @days, room_id: @rooms )
+
+    if !params[:rate_cat_id].blank?
+      params[:rate_cat_id].each do |rate_category|
+        @category << rate_category[0]
+      end
+    else 
+      @category = ""
+    end
+    if !params[:from_date].blank? 
+      @from_date = DateTime.strptime(params[:from_date], '%m/%d/%Y').to_date
+    else
+      @from_date = ""
+    end
+
+    if !params[:to_date].blank?
+      @to_date = DateTime.strptime(params[:to_date], '%m/%d/%Y').to_date
+    else
+      @to_date = ""
+    end
+    @rate = Rate.new(to_date: @to_date, from_date: @from_date, price: params[:price], day: @day, room_id: @rooms, category: @category  )
+    
     respond_to do |format|
       if @rate.save
-        format.html { redirect_to @rate, notice: 'rate was successfully updated for sell.' }
+        format.html { redirect_to new_rate_path, notice: 'rate was successfully updated for sell.' }
         format.json { render json: @rate, status: :created, location: @rate }
       else
-        format.html { render action: "new" }
+        format.html { render action: "new", notice: 'Please fill all the information.' }
         format.json { render json: @rate.errors, status: :unprocessable_entity }
       end
     end

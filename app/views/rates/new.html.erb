@@ -1,4 +1,5 @@
 <form action="/rates" method="post">
+  <div><%= link_to "Home", dashboard_path, class: "links" %></div>
     <h1>Change Room Rate</h1>
     <% my_date = Time.now %>
     <div>From Date: <%= text_field_tag 'from_date', "", :name => "from_date", :class => "datepicker1" %></div><br />
@@ -37,6 +38,19 @@
           <td>
             for:<br>
           <input id="so-0" type="checkbox" value="0" name="so">
+          <label for="so-0">All Rate Categories</label>
+          <br>
+          <div> </div>
+          or for one or more of these Rooms:
+          <br>
+          <div id="so-inject" style="margin: 0 0 5px;"></div>
+          <% RateCategory.all.each do |rate|%>
+            <label style="float:left"><%= rate.name %></label><input type="checkbox" id="" name="rate_cat_id[<%= rate.id %>]" style="float:left; margin-top:4px;" class="so" >
+          <% end %>
+          </td>
+          <td>
+            for:<br>
+          <input id="so-0" type="checkbox" value="0" name="so">
           <label for="so-0">All Rooms</label>
           <br>
           <div> </div>
@@ -51,13 +65,13 @@
       </tbody>
     </table>
     <div>Room Rate Per Night: <%= text_field_tag 'price', "", :name => "price" %> CAD <%= %></div>
-    <p><input type="submit" value="Update Rooms for Sell" name="submit" ></p>
+    <p><input type="submit" value="Update Rooms for Sell" name="submit" min="1" ></p>
   </form>
 </div>
 
 <script>
   $(function() {
-    $( ".datepicker1" ).datepicker();
+    $( ".datepicker1" ).datepicker({format: 'yyyy-mm-dd'});
     $("#wd-0").click(function(event){
       if(this.checked){
         $(".wd").each(function(){

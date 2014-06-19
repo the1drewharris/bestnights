@@ -1,0 +1,10 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @rate_category.name %>
+</p>
+
+
+<%= link_to 'Edit', edit_rate_category_path(@rate_category), class: "link_style" %> |
+<%= link_to 'Back', rate_categories_path, class: "link_style" %>
