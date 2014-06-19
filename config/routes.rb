@@ -59,7 +59,7 @@ Bestnights::Application.routes.draw do
   match 'rooms_to_sell' => 'room_availables#rooms_to_sell', :as => 'rooms_to_sell'
   #match 'change_room_status' => 'room_availables#edit', :as => 'change_room_status', :method => :post
   match '/update_status' => 'room_availables#update_status', :as => 'room_available_update_status' 
-  
+  match 'copy_yearly_rates' => 'rates#copy_yearly_rates', :as => 'copy_yearly_rates'
   # resources :users, except: :create
   resources :users
   resources :hotels do

@@ -91,6 +91,10 @@ class RatesController < ApplicationController
     end
   end
 
+  def copy_yearly_rates
+    
+  end
+
   # PUT /rates/1
   # PUT /rates/1.json
   def update

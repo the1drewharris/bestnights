@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140228092211) do
+ActiveRecord::Schema.define(:version => 20140619065305) do
+
+  create_table "agreements", :force => true do |t|
+    t.integer  "hotel_id"
+    t.string   "comission_rate"
+    t.string   "status"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.string   "card_id"
+  end
 
   create_table "availabilities", :force => true do |t|
     t.integer  "count"
@@ -22,6 +31,12 @@ ActiveRecord::Schema.define(:version => 20140228092211) do
     t.string   "room_id"
   end
 
+  create_table "bed_types", :force => true do |t|
+    t.string   "bedtype"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "bookings", :force => true do |t|
     t.integer  "hotel_id"
     t.string   "price"
@@ -29,11 +44,12 @@ ActiveRecord::Schema.define(:version => 20140228092211) do
     t.date     "to_date"
     t.integer  "adults"
     t.integer  "children"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
     t.string   "room_id"
     t.text     "message"
     t.string   "traveler_id"
+    t.integer  "night_number"
   end
 
   create_table "cards", :force => true do |t|
@@ -43,6 +59,12 @@ ActiveRecord::Schema.define(:version => 20140228092211) do
     t.datetime "expiration"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "contacts", :force => true do |t|
+    t.string   "email"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "countries", :force => true do |t|
@@ -109,6 +131,53 @@ ActiveRecord::Schema.define(:version => 20140228092211) do
     t.string   "tax4_label"
   end
 
+  create_table "impressions", :force => true do |t|
+    t.string   "impressionable_type"
+    t.integer  "impressionable_id"
+    t.integer  "user_id"
+    t.string   "controller_name"
+    t.string   "action_name"
+    t.string   "view_name"
+    t.string   "request_hash"
+    t.string   "ip_address"
+    t.string   "session_hash"
+    t.text     "message"
+    t.text     "referrer"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
+
+  add_index "impressions", ["controller_name", "action_name", "ip_address"], :name => "controlleraction_ip_index"
+  add_index "impressions", ["controller_name", "action_name", "request_hash"], :name => "controlleraction_request_index"
+  add_index "impressions", ["controller_name", "action_name", "session_hash"], :name => "controlleraction_session_index"
+  add_index "impressions", ["impressionable_type", "impressionable_id", "ip_address"], :name => "poly_ip_index"
+  add_index "impressions", ["impressionable_type", "impressionable_id", "request_hash"], :name => "poly_request_index"
+  add_index "impressions", ["impressionable_type", "impressionable_id", "session_hash"], :name => "poly_session_index"
+  add_index "impressions", ["impressionable_type", "message", "impressionable_id"], :name => "impressionable_type_message_index", :length => {"impressionable_type"=>nil, "message"=>255, "impressionable_id"=>nil}
+  add_index "impressions", ["user_id"], :name => "index_impressions_on_user_id"
+
+  create_table "messages", :force => true do |t|
+    t.string   "message"
+    t.string   "sender_id"
+    t.string   "sender_type"
+    t.string   "to_id"
+    t.string   "to_type"
+    t.string   "type"
+    t.string   "status"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "pages", :force => true do |t|
+    t.string   "name"
+    t.string   "link"
+    t.text     "content"
+    t.string   "title"
+    t.string   "status"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "promotions", :force => true do |t|
     t.string   "coupon_code"
     t.datetime "expiry_date"
@@ -120,6 +189,24 @@ ActiveRecord::Schema.define(:version => 20140228092211) do
     t.datetime "created_at",                                      :null => false
     t.datetime "updated_at",                                      :null => false
     t.string   "hotel_id"
+  end
+
+  create_table "rate_categories", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "rates", :force => true do |t|
+    t.string   "day"
+    t.string   "category"
+    t.integer  "hotel_id"
+    t.date     "from_date"
+    t.date     "to_date"
+    t.string   "price"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "room_id"
   end
 
   create_table "reviews", :force => true do |t|
@@ -144,6 +231,18 @@ ActiveRecord::Schema.define(:version => 20140228092211) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "room_availables", :force => true do |t|
+    t.integer  "room_id"
+    t.string   "room_type_id"
+    t.boolean  "status"
+    t.date     "from_date"
+    t.date     "to_date"
+    t.string   "days"
+    t.integer  "number"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
   create_table "room_photos", :force => true do |t|
     t.integer  "hotel_id"
     t.datetime "created_at",           :null => false
@@ -153,6 +252,16 @@ ActiveRecord::Schema.define(:version => 20140228092211) do
     t.string   "picture_content_type"
     t.integer  "picture_file_size"
     t.datetime "picture_updated_at"
+  end
+
+  create_table "room_prices", :force => true do |t|
+    t.integer  "hotel_id"
+    t.integer  "room_type_id"
+    t.string   "price"
+    t.string   "additionaladultfee"
+    t.string   "original_price"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
   end
 
   create_table "room_types", :force => true do |t|
@@ -174,6 +283,10 @@ ActiveRecord::Schema.define(:version => 20140228092211) do
     t.datetime "updated_at",         :null => false
     t.integer  "starting_inventory"
     t.integer  "bed_numbers"
+    t.integer  "max_people"
+    t.integer  "max_children"
+    t.string   "room_size"
+    t.string   "room_unit"
   end
 
   create_table "sessions", :force => true do |t|
@@ -203,8 +316,8 @@ ActiveRecord::Schema.define(:version => 20140228092211) do
   end
 
   create_table "travelers", :force => true do |t|
-    t.integer  "state_id"
-    t.integer  "country_id"
+    t.string   "state_id"
+    t.string   "country_id"
     t.string   "firstname"
     t.string   "lastname"
     t.string   "address1"
@@ -244,8 +357,8 @@ ActiveRecord::Schema.define(:version => 20140228092211) do
     t.string   "lastname"
     t.string   "address1"
     t.string   "address2"
-    t.integer  "state_id"
-    t.integer  "country_id"
+    t.string   "state_id"
+    t.string   "country_id"
     t.string   "zip"
     t.string   "phone_number"
     t.string   "city"
