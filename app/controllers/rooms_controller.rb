@@ -37,6 +37,7 @@ class RoomsController < ApplicationController
   end
   
   def create
+    logger.info"=================#{params}================"
     @room = Room.new(params[:room])
     if @room.save
       flash[:success] = "The room type saved successfully!"
@@ -109,5 +110,46 @@ class RoomsController < ApplicationController
     else
       redirect_to rooms_path
     end 
+  end
+
+  def rate_details
+    session[:room_id]  = params[:room_id]
+  end
+
+  def add_room_rate_details
+    @rate_details = RoomRateDetail.new
+    if !params[:to_date].blank? 
+      @rate_details.to_date = DateTime.strptime(params[:to_date], '%m/%d/%Y').to_date
+    else
+      @rate_details.to_date = ""
+    end
+
+    if !params[:from_date].blank? 
+      @rate_details.from_date = DateTime.strptime(params[:from_date], '%m/%d/%Y').to_date
+    else
+      @rate_details.from_date = ""
+    end
+    @rate_details.day = params[:day]
+    @rate_details.status = params[:status]
+    @rate_details.rate_per_night = params[:rate_per_night]
+    @rate_details.booked = params[:booked]
+    @rate_details.canceled = params[:canceled]
+    @rate_details.policy_group = params[:policy_group]
+    @rate_details.month = params[:month]
+    @rate_details.year = params[:year]
+    @rate_details.rooms_to_sell = params[:rooms_to_sell]
+    @rate_details.room_id = session[:room_id]
+
+    respond_to do |format|
+      if @rate_details.save
+        format.html { redirect_to rooms_path, notice: 'rate Details successfully created.' }
+        format.json { render json: @rate_details, status: :created, location: @rate_details }
+      else
+        format.html { render action: "rate_details", notice: 'Please fill all the information.' }
+        format.json { render json: @rate_details.errors, status: :unprocessable_entity }
+      end
+    end
+
+    
   end
 end

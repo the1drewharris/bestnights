@@ -2,7 +2,9 @@ Bestnights::Application.routes.draw do
   
   resources :rate_categories
 
-  resources :rates
+  resources :rates do
+    post 'add_room_rate_details'
+  end
 
   resources :pages
 
@@ -60,6 +62,9 @@ Bestnights::Application.routes.draw do
   #match 'change_room_status' => 'room_availables#edit', :as => 'change_room_status', :method => :post
   match '/update_status' => 'room_availables#update_status', :as => 'room_available_update_status' 
   match 'copy_yearly_rates' => 'rates#copy_yearly_rates', :as => 'copy_yearly_rates'
+  match 'rate_details' => 'rooms#rate_details', :as => 'rate_details'
+  match '/add_room_rate_details' => 'rooms#add_room_rate_details', :as => 'add_room_rate_details'
+  
   # resources :users, except: :create
   resources :users
   resources :hotels do

@@ -1,9 +1,7 @@
 <% content_for :title, "BestNights.com - Room Type" %>
 
-<%= link_to "Rooms", rooms_path(:hotel_id => @room.hotel.id) %>
-
 <header>
-	<h1><%= @room.name %></h1>
+	<h1><%= @room.name %></h1> <%= link_to "Update Room/Rate details", rate_details_path(room_id: @room.id ) , class: "link_style" %>
 </header>
 
 <div id="container-main">

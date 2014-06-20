@@ -1,5 +1,5 @@
 class Room < ActiveRecord::Base
-  attr_accessible :hotel_id, :room_type_id, :name, :description, :price, :additionaladultfee, :original_price, :starting_inventory, :bed_numbers, :max_people, :max_children, :room_size, :room_unit
+  attr_accessible :hotel_id, :room_type_id, :name, :description, :price, :additionaladultfee, :original_price, :starting_inventory, :bed_numbers, :max_people, :max_children, :room_size, :room_unit, :lunch, :dinner, :all_inclusive
   
   validates :hotel_id, :room_type_id, presence: true
   validates :price, :original_price, presence: true, numericality: true
@@ -16,6 +16,7 @@ class Room < ActiveRecord::Base
   has_many :room_photos, dependent: :destroy
   has_many :room_attribute_joins, dependent: :destroy
   has_many :room_attributes, through: :room_attribute_joins
+  has_many :room_rate_details
   
   def self.latest_rooms
     find :all, :order => "updated_at DESC"
