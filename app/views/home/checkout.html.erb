@@ -161,17 +161,21 @@
 					<% end %>
 					<br>
 					<b>Check in:</b> 
-					<%# if !session[:checkin].blank? %>
-						<%= session[:checkin].to_date.strftime('%A, %B %d, %G') %> &bull; 
-					<%# else %>
-					 <%#= Date.today %>
-					<%# end %>
+					<span style="background:#FACC2E; color: #CC504A; margin-right:4px; padding: 0 4px;">
+						<% if !session[:checkin].blank? %>
+							<%= session[:checkin].to_date.strftime('%A, %B %d, %G') %>
+						<% else %>
+						 <%= Date.today %>
+						<% end %>
+					</span>
 					<b>Check out:</b>
-					<%# if !session[:checkout].blank? %>
-						<%= session[:checkout].to_date.strftime('%A, %B %d, %G') %> &bull; 
-					<%# else %>
-					 <%#= Date.today %>
-					<%# end %>
+					<span style="background:#FACC2E; color: #CC504A; padding: 0 4px;">
+						<% if !session[:checkout].blank? %>
+							<%= session[:checkout].to_date.strftime('%A, %B %d, %G') %> 
+						<% else %>
+						 <%= Date.today %>
+						<% end %>
+					</span>
 					</div>
 			</h5>
 			<div>
