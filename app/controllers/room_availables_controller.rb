@@ -1,5 +1,5 @@
 class RoomAvailablesController < ApplicationController
-
+layout "admin_basic"
 	def new
 		@room = RoomAvailable.new
 		respond_to do |format|

@@ -1,4 +1,5 @@
 class RatesController < ApplicationController
+  layout "admin_basic"
   # GET /rates
   # GET /rates.json
   def index

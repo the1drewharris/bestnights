@@ -1,6 +1,7 @@
 class DashboardController < ApplicationController
   require 'csv'
   before_filter :authenticate_user!
+  layout "admin_basic"
   
   def index
     
