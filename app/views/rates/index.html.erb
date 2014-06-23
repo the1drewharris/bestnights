@@ -1,6 +1,6 @@
 <ul id="dashboard">	
-  <li><img src="assets/icon2.png" width="48" height="48" border="0" /><%= link_to "Change Room Rate", new_rate_path, class: "link_style"  %></li>
-  <li><img src="assets/icon2.png" width="48" height="48" border="0" /><%= link_to "Adjust Rooms To Sell", new_room_available_path, class: "link_style"  %></li>
-  <li><img src="assets/icon2.png" width="48" height="48" border="0" /><%= link_to "Open/Close Rooms", edit_room_available_path(1), class: "link_style" %></li>
+  <li><img src="assets/ico-change-room-rate.gif" width="48" height="48" border="0" /><%= link_to "Change Room Rate", new_rate_path, class: "link_style"  %></li>
+  <li><img src="assets/ico-rooms-sell.gif" width="48" height="48" border="0" /><%= link_to "Adjust Rooms To Sell", new_room_available_path, class: "link_style"  %></li>
+  <li><img src="assets/ico-open-close-room.gif" width="48" height="48" border="0" /><%= link_to "Open/Close Rooms", edit_room_available_path(1), class: "link_style" %></li>
 </ul>
-<div><%= link_to "Back", dashboard_path , class: "link_style" %></div>
+<div class="row back-link"><%= link_to "Back", dashboard_path , class: "link" %></div>

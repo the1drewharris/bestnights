@@ -1,12 +1,14 @@
 <% content_for :title, "BestNights.com - Room Type" %>
 
 <div class="bookconfTab">
-	<div class="statistics blocks store-view">
+	<div class="view blocks store-view">
 	<div style="display:none;"><%= link_to "Home", dashboard_path, class: "links" %></div>
 	<h2>View</h2>
+	<div class="scroll-hor">
 		<table class="bookconf" width="100%" border="0">
 	<thead>
 		<tr>
+			<td align="left" valign="middle">Room No.</td>
 		 	<td align="left" valign="middle">Hotel</td>
 		  <td align="center" valign="middle">Room Description</td>
 		  <td align="center" valign="middle">Room Specification</td>
@@ -16,10 +18,16 @@
 		  <td align="center" valign="middle">M,ax Children</td>
 		  <td align="center" valign="middle">Room Size</td>
 		  <td align="center" valign="middle">Size Unit</td>
+		  <td align="center" valign="middle">Lunch</td>
+		  <td align="center" valign="middle">Dinner</td>
+		  <td align="center" valign="middle">All-Inclusive</td>
 		</tr>
 	</thead>
 	<tbody>
 		<tr>
+			<td align="center" valign="middle">
+					<%= @room.id %>
+		  </td align="center" valign="middle">	
 		  <td align="center" valign="middle">
 				<% if !@room.hotel.nil?  %>
 					<%= @room.hotel.name %>
@@ -65,8 +73,32 @@
 					<%= @room.room_unit %>
 				<% end %>
 			</td>
+			<td align="center" valign="middle">
+		  	<% if !@room.lunch.nil?  %>
+			  	<% if @room.lunch == true %>
+			  		Applicable
+					<% elsif @room.lunch == false  %>
+					 	Not applicable
+					<% end %>
+				<% end %>
+			</td>
+			<td align="center" valign="middle">
+			  	<% if @room.dinner == true %>
+			  		Applicable
+					<% elsif @room.dinner == false  %>
+					 	Not applicable
+					<% end %>
+			</td>
+			<td align="center" valign="middle">
+			  	<% if @room.all_inclusive == true %>
+			  		Applicable
+					<% elsif @room.all_inclusive == false  %>
+					 	Not applicable
+					<% end %>
+			</td>
 		</tr>
 	</tbody>
 </table>
+</div>
 </div>
 </div>
