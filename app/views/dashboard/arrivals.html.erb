@@ -1,21 +1,25 @@
 <div class="bookconfTab">
-	<div><%= link_to "Home", dashboard_path, class: "links" %></div>
-	<div><h2>Arrivals</h2></div>
-	<p>------------------------</p>
-	<div id="links"><%= link_to "Today", arrivals_path(:day => "todays"), class: "links" %> | <%= link_to "Yesterday", arrivals_path(:day => "yesterday"), class: "links" %>| <%= link_to "Future", arrivals_path(:day => "future"), class: "links" %></div>
-	<table class="bookconf">
+	<div class="arrival blocks">
+	<div style="display:none;"><%= link_to "Home", dashboard_path, class: "links" %></div>
+	<h2>Arrivals</h2>
+	<ul id="links"><li class="active"><%= link_to "Today", arrivals_path(:day => "todays"), class: "" %></li><li><%= link_to "Yesterday", arrivals_path(:day => "yesterday"), class: "" %></li><li><%= link_to "Future", arrivals_path(:day => "future"), class: "" %></li></ul>
+	<table class="bookconf" width="100%" border="0">
+		<thead>
 		<tr>
-			<td>Resrvation No</td>
-			<td>Booker Name</td>
+			<td align="center" valign="middle">Resrvation No</td>
+			<td align="center" valign="middle">Booker Name</td>
 		</tr>
+	</thead>
+	<tbody>
 		<% if !@arrivals.blank? %>
-			<% @arrivals.each do |arrival| %>
+		<% @arrivals.each do |arrival| %>
 				<tr>
-					<td><%= arrival.id %></td>
-					<td><%= arrival.traveler.name %></td>
+					<td align="center" valign="middle"><%= arrival.id %></td>
+					<td align="center" valign="middle"><%= arrival.traveler.name %></td>
 				</tr>
-			<% end %>
 		<% end %>
+		<% end %>
+	</tbody>
 	</table>
-	<%= will_paginate @arrivals %>
+</div>
 </div>

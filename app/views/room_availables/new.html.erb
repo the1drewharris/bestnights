@@ -1,43 +1,55 @@
-<div id="content">
-	<div><%= link_to "Home", dashboard_path, class: "links" %></div>
-	<form action="/room_availables" method="post">
-		<h1>Adjust Rooms To Sell</h1>
+<form action="/room_availables" method="post">
+  <div class="clear">&nbsp;</div>
+  <div class="room-type blocks">
+  <div style="display:none;"><%= link_to "Home", dashboard_path, class: "links" %></div>
+		<h2>Adjust Rooms To Sell</h2>
 		<% my_date = Time.now %>
     <div>From Date: <%= text_field_tag 'from_date', "", :name => "from_date", :class => "datepicker1" %></div><br />
     <div>To Date: <%= text_field_tag 'to_date', "", :name => "to_date", :class => "datepicker1" %></div>
-    <table id="which">
+    <div class="row mrgntp15"></div>
+    <table id="which" width="100%" border="0">
       <tbody>
         <tr>
-          <td>
-            on:<br>
-            <input id="wd-0" type="checkbox" value="0" name="wd">
-            <label for="wd-0">All Days</label>
-            <div></div>
-            or one or more of these days:<br>
+          <td align="left" valign="top" width="33%">
+            On:
+            <div class="row">
+              <input id="wd-0" type="checkbox" value="0" name="wd">
+              <label for="wd-0">All Days</label>
+            </div>            
+            <div class="row mrgntp15">
+              or one or more of these days:
+            </div>
+            <div class="row">
             <input id="wd-1" type="checkbox" value="1" name="days[monday]" class="wd" >
             <label for="wd-1">Monday</label>
-            <br>
+           </div>
+           <div class="row">
             <input id="wd-2" type="checkbox" value="2" name="days[tuesday]" class="wd" >
             <label for="wd-2">Tuesday</label>
-            <br>
+           </div>
+           <div class="row">
             <input id="wd-3" type="checkbox" value="3" name="days[wednesday]" class="wd" >
             <label for="wd-3">Wedenesday</label>
-            <br>
+           </div>
+           <div class="row">
             <input id="wd-4" type="checkbox" value="4" name="days[thursday]" class="wd" >
             <label for="wd-4">Thursday</label>
-            <br>
+           </div>
+           <div class="row">
             <input id="wd-5" type="checkbox" value="5" name="days[friday]" class="wd" >
             <label for="wd-5">Friday</label>
-            <br>
+            </div>
+            <div class="row">
             <input id="wd-6" type="checkbox" value="6" name="days[saturday]" class="wd" >
             <label for="wd-6">Saturday</label>
-            <br>
+            </div>
+            <div class="row">
             <input id="wd-7" type="checkbox" value="7" name="days[sunday]" class="wd" >
             <label for="wd-7">Sunday</label>
-            <br>
+            </div>
           </td>
-          <td>
-            for:<br>
+          <td width="33%" align="left" valign="top">
+            For:
           <input id="so-0" type="checkbox" value="0" name="so">
           <label for="so-0">All Rooms</label>
           <br>
@@ -46,7 +58,8 @@
           <br>
           <div id="so-inject" style="margin: 0 0 5px;"></div>
           <% RoomType.all.each do |room|%>
-            <label style="float:left"><%= room.room_type %></label><input type="checkbox" id="" name="room_id[<%= room.id %>]" style="float:left; margin-top:4px;" class="so" >
+            <input type="checkbox" id="" name="room_id[<%= room.id %>]" style="float:left; margin-top:4px;" class="so" >
+            <label><%= room.room_type %></label><div style="height:12px; clear:both;"></div>
           <% end %>
           </td>
         </tr>
@@ -57,8 +70,9 @@
     	<input type="number" name="rooms_to_sell" min="1">
     </div>
     <p><input type="submit" value="Update Rooms for Sell" name="submit" ></p>
-	</form>
-</div>
+    </div>
+  </form>
+<div class="height100"></div>
 
 <script>
 	$(function() {

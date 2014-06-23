@@ -1,37 +1,41 @@
 <div class="bookconfTab">
-	<div><%= link_to "Home", dashboard_path, class: "links" %></div>
-	<div><h2>Bookings</h2></div>
-	<p>----------------------</p>
-	<table class="bookconf">
+	<div class="booking blocks">
+	<div style="display:none;"><%= link_to "Home", dashboard_path, class: "links" %></div>
+	<h2>Bookings</h2>
+	<div class="link-files">
+	<%= link_to "Download as CSV", download_booking_data_path(format: "csv"),  class: "csv" %> | <%= link_to "Download as Excel", export_in_excel_path(format: "xls"),  class: "xls" %>
+	</div>
+	<div class="scroll">
+	<table class="bookconf" width="100%" border="0">
+	<thead>
 		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td><%= link_to "Download as CSV", download_booking_data_path(format: "csv"),  class: "link_style" %> | <%= link_to "Download as Excel", export_in_excel_path(format: "xls"),  class: "link_style" %></td>
+			<td align="center" valign="middle">Resrvation No</td>
+			<td align="center" valign="middle">Book Date</td>
+			<td align="center" valign="middle">Arrival</td>
+			<td align="center" valign="middle">Departure</td>
+			<td align="center" valign="middle">Total</td>
+			<td align="left" valign="middle">Booker Name</td>
 		</tr>
-		<tr>
-			<td>Resrvation No</td>
-			<td>Book Date</td>
-			<td>Arrival</td>
-			<td>Departure</td>
-			<td>Total</td>
-			<td>Booker Name</td>
-		</tr>
+		</thead>
+		<tbody>
 		<% if !@bookings.blank? %>
 			<% @bookings.each do |book| %>
 				<tr>
-					<td><%= book.id %></td>
-					<td><%= book.created_at.strftime("%Y-%m-%d") %></td>
-					<td><%= book.from_date  %></td>
-					<td><%= book.to_date %></td>
-					<td><%= book.price %></td>
-					<td><%= book.traveler.name %></td>
+					<td align="center" valign="middle"><%= book.id %></td>
+					<td align="center" valign="middle"><%= book.created_at.strftime("%Y-%m-%d") %></td>
+					<td align="center" valign="middle"><%= book.from_date  %></td>
+					<td align="center" valign="middle"><%= book.to_date %></td>
+					<td align="center" valign="middle"><%= book.price %></td>
+					<td align="left" valign="middle"><%= book.traveler.name %></td>
 					<!-- <td><%#= @site_visitors.first["c"] %></td> -->
 				</tr>
 			<% end %>
 		<% end %>
+	</tbody>
 	</table>
-	<%= will_paginate @bookings %>
 </div>
+<%= will_paginate @bookings %>
+</div>
+</div>
+<div><%= link_to "Back", dashboard_path , class: "link_style" %></div>
+<div class="height100"></div>

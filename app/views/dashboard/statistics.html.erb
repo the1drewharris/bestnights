@@ -1,63 +1,66 @@
 <div class="bookconfTab">
-	<div><%= link_to "Home", dashboard_path, class: "links" %></div>
-	<div><h2>Statistics</h2></div>
-	<p>----------------------</p>
-		<table style="width:300px">
-			<tr>
-		  <td>
-				
-		  </td>		
-		  <td>Today</td>
-		  <td>Month</td>
-		  <td>Year</td>
-		</tr>
+	<div class="statistics blocks">
+	<div style="display:none;"><%= link_to "Home", dashboard_path, class: "links" %></div>
+	<h2>Statistics</h2>
+		<table class="bookconf" width="100%" border="0">
+	<thead>
 		<tr>
-		  <td>Visitors</td>
-		  <td>
+		 <td align="left" valign="middle">Subject</td>
+		  <td align="center" valign="middle">Today</td>
+		  <td align="center" valign="middle">Month</td>
+		  <td align="center" valign="middle">Year</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+		  <td align="left" valign="middle">Visitors</td>
+		  <td align="center" valign="middle">
 				<% if !@site_visitors.blank?  %>
 					<%= @site_visitors.first["c"] %>
 				<% end %>
-		  </td>		
-		  <td><% if !@site_visitors.blank?  %>
+		  </td align="center" valign="middle">		
+		  <td align="center" valign="middle"><% if !@site_visitors.blank?  %>
 					<%= @site_visitors.first["c"] %>
 				<% end %>
 			</td>
-		  <td><% if !@site_visitors.blank?  %>
+		  <td align="center" valign="middle"><% if !@site_visitors.blank?  %>
 					<%= @site_visitors.first["c"] %>
 				<% end %>
 			</td>
 		</tr>
 		<tr>
-		  <td>Boking</td>
-		  <td>
+		  <td align="left" valign="middle">Boking</td>
+		  <td align="center" valign="middle">
 				<% if !@bookings_day_wise.blank?  %>
 					<%= @bookings_day_wise.count %>
 				<% end %>
 			</td>		
-		  <td><% if !@bookings_month_wise.blank?  %>
+		  <td align="center" valign="middle"><% if !@bookings_month_wise.blank?  %>
 					<%= @bookings_month_wise.count %>
 				<% end %>
 			</td>
-		  <td><% if !@bookings_year_wise.blank?  %>
+		  <td align="center" valign="middle"><% if !@bookings_year_wise.blank?  %>
 					<%= @bookings_year_wise.first["b"] %>
 				<% end %>
 			</td>
 		</tr>
 		<tr>
-		  <td>Total Nights Sold</td>
-		  <td>
+		  <td align="left" valign="middle">Total Nights Sold</td>
+		  <td align="center" valign="middle">
 				<% if !@total_nights.blank?  %>
 					<%= @total_nights %>
 				<% end %>
 			</td>		
-		  <td><% if !@total_nights.blank?  %>
+		  <td align="center" valign="middle"><% if !@total_nights.blank?  %>
 					<%= @total_nights %>
 				<% end %>
 			</td>
-		  <td><% if !@total_nights.blank?  %>
+		  <td align="center" valign="middle"><% if !@total_nights.blank?  %>
 					<%= @total_nights %>
 				<% end %>
 			</td>
 		</tr>
+	</tbody>
 </table>
+</div>
 </div>

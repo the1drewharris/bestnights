@@ -1,28 +1,72 @@
 <% content_for :title, "BestNights.com - Room Type" %>
 
-<header>
-	<h1><%= @room.name %></h1> <%= link_to "Update Room/Rate details", rate_details_path(room_id: @room.id ) , class: "link_style" %>
-</header>
-
-<div id="container-main">
-	<h4>Hotel</h4>
-	<span><%= @room.hotel.name %></span>	
-	<br />
-	
-	<h4>Room Description</h4>
-	<span><%= @room.description %></span>	
-	<br />
-	
-	<h4>Room Specification</h4>
-	<span>Room Type: </span>
-	<span><%= @room.room_type.room_type %></span>	
-	<br />
-	
-	<h4>Room Amenities</h4>
-	<span>
-		<% @room.room_attributes.each do |ra| %>
-		  <%= ra.attr %>
-		<% end %>
-	</span>	
-	
+<div class="bookconfTab">
+	<div class="statistics blocks store-view">
+	<div style="display:none;"><%= link_to "Home", dashboard_path, class: "links" %></div>
+	<h2>View</h2>
+		<table class="bookconf" width="100%" border="0">
+	<thead>
+		<tr>
+		 	<td align="left" valign="middle">Hotel</td>
+		  <td align="center" valign="middle">Room Description</td>
+		  <td align="center" valign="middle">Room Specification</td>
+		  <td align="center" valign="middle">Amenities</td>
+		  <td align="left" valign="middle">Price</td>
+		  <td align="center" valign="middle">Max People</td>
+		  <td align="center" valign="middle">M,ax Children</td>
+		  <td align="center" valign="middle">Room Size</td>
+		  <td align="center" valign="middle">Size Unit</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+		  <td align="center" valign="middle">
+				<% if !@room.hotel.nil?  %>
+					<%= @room.hotel.name %>
+				<% end %>
+		  </td align="center" valign="middle">		
+		  <td align="center" valign="middle">
+		  	<% if !@room.description.nil?  %>
+					<%= @room.description %>
+				<% end %>
+			</td>
+		  <td align="center" valign="middle">
+		  	<% if !@room.room_type.room_type.nil?   %>
+					<%= @room.room_type.room_type %>
+				<% end %>
+			</td>
+		  <td align="center" valign="middle">
+				<% @room.room_attributes.each do |ra| %>
+				  <%= ra.attr %>
+				<% end %>
+			</td>		
+		  <td align="center" valign="middle">
+		  	<% if !@room.price.nil?  %>
+					<%= @room.price %>
+				<% end %>
+			</td>
+		  <td align="center" valign="middle">
+		  	<% if !@room.max_people.nil?  %>
+					<%= @room.max_people %>
+				<% end %>
+			</td>
+		  <td align="center" valign="middle">
+				<% if !@room.max_children.nil?  %>
+					<%= @room.max_children %>
+				<% end %>
+			</td>		
+		  <td align="center" valign="middle">
+		  	<% if !@room.room_size.nil?  %>
+					<%= @room.room_size %>
+				<% end %>
+			</td>
+		  <td align="center" valign="middle">
+		  	<% if !@room.room_unit.nil?  %>
+					<%= @room.room_unit %>
+				<% end %>
+			</td>
+		</tr>
+	</tbody>
+</table>
+</div>
 </div>
