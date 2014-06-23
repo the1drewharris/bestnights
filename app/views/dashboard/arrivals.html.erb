@@ -23,3 +23,23 @@
 	</table>
 </div>
 </div>
+
+<script>
+	$(document).ready(function(){
+		//alert(window.location.params)
+		var url = $.url(window.location.href)
+		//alert(url.param('day'))
+		if (url.param('day') == 'yesterday'){
+			$("#links li:nth-child(2)").addClass('active');
+			$("#links li:nth-child(2)").siblings("li").removeClass('active');
+		}
+		else if (url.param('day') == 'future'){
+			$("#links li:nth-child(3)").addClass('active');
+			$("#links li:nth-child(3)").siblings("li").removeClass('active');
+		}
+		else{
+			$("#links li:nth-child(1)").addClass('active');
+			$("#links li:nth-child(1)").siblings("li").removeClass('active');
+		}
+	})
+</script>
