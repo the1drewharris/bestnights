@@ -51,23 +51,14 @@
 			  	<%= f.label 'City*' %>
 			  	<%= f.text_field :city, :autofocus => true %>
 				</li>
-			  <li class="state">
-			  	<%= f.label :state %>
-			  	<% if @user.country %>
-			  		<%= f.select :state_id, options_for_select(@user.country.states.map{|s|[s.state_province, s.id]}, @user.state.id) %>
-			  	<% else %>
-			  		<%= f.select :state_id, options_for_select(State.all.map{|s|[s.state_province, s.id]}) %>
-			  	<% end %>
-			  </li>
-			  <li class="country">
-			  	<%= f.label "Country" %>
-			  	<% if @user.country %>
-			  		<%= f.select :country_id, options_for_select(Country.all.map{|s|[s.country, s.id]}, @user.country_id) %>
-			  	<% else %>
-			  		<%= f.select :country_id, options_for_select(Country.all.map{|s|[s.country, s.id]}) %>
-			  	<% end %>
-					
-			  </li>
+			  <li>
+				  	<%= f.label :country_id %>
+						<%= f.country_select :country_id, priority: %w(US CA), prompt: 'Please select a country' %>
+				  </li>	
+				  <li>
+						<label for="State/Province" style="float:left">State/Province</label>
+						<%= render partial: 'home/test', locals: {parent_region: f.object.country_id} %>
+					</li>
 		  	<li>
 		  		<%= f.label :role %>
 		  		<select id="user_role" name="user[role]">
