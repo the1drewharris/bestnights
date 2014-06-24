@@ -2813,3 +2813,6 @@ ul#dashboard li a:hover {
 #which .mrgntp15 {
 	white-space: nowrap;
 } 
+#booked, #canceled{
+	vertical-align: middle;
+}

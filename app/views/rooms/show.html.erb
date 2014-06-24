@@ -1,5 +1,5 @@
 <% content_for :title, "BestNights.com - Room Type" %>
-
+<%= link_to "Update Room/Rate details", rate_details_path(room_id: @room.id ) , class: "link_style" %>
 <div class="bookconfTab">
 	<div class="view blocks store-view">
 	<div style="display:none;"><%= link_to "Home", dashboard_path, class: "links" %></div>
@@ -102,3 +102,4 @@
 </div>
 </div>
 </div>
+<div class="row back-link"><%= link_to "Back", rooms_path , class: "link" %></div>

@@ -1,7 +1,7 @@
 class RoomsController < ApplicationController
   before_filter :authenticate_user!
   load_and_authorize_resource
-  layout "admin_basic", only: [:index, :new, :show, :edit]
+  layout "admin_basic"
   
   def index
     if current_user.admin?
@@ -114,42 +114,45 @@ class RoomsController < ApplicationController
 
   def rate_details
     session[:room_id]  = params[:room_id]
+    @rate_detail = RoomRateDetail.find_by_room_id(session[:room_id])
   end
 
   def add_room_rate_details
-    @rate_details = RoomRateDetail.new
-    if !params[:to_date].blank? 
-      @rate_details.to_date = DateTime.strptime(params[:to_date], '%m/%d/%Y').to_date
+    if @rate_detail = RoomRateDetail.find_by_room_id(session[:room_id])
     else
-      @rate_details.to_date = ""
+      @rate_detail = RoomRateDetail.new
+    end
+    if !params[:to_date].blank? 
+      @rate_detail.to_date = DateTime.strptime(params[:to_date], '%m/%d/%Y').to_date
+    else
+      @rate_detail.to_date = ""
     end
 
     if !params[:from_date].blank? 
-      @rate_details.from_date = DateTime.strptime(params[:from_date], '%m/%d/%Y').to_date
+      @rate_detail.from_date = DateTime.strptime(params[:from_date], '%m/%d/%Y').to_date
     else
-      @rate_details.from_date = ""
+      @rate_detail.from_date = ""
     end
-    @rate_details.day = params[:day]
-    @rate_details.status = params[:status]
-    @rate_details.rate_per_night = params[:rate_per_night]
-    @rate_details.booked = params[:booked]
-    @rate_details.canceled = params[:canceled]
-    @rate_details.policy_group = params[:policy_group]
-    @rate_details.month = params[:month]
-    @rate_details.year = params[:year]
-    @rate_details.rooms_to_sell = params[:rooms_to_sell]
-    @rate_details.room_id = session[:room_id]
+    @rate_detail.day = params[:day]
+    @rate_detail.status = params[:status]
+    @rate_detail.rate_per_night = params[:rate_per_night]
+    @rate_detail.booked = params[:booked]
+    @rate_detail.canceled = params[:canceled]
+    @rate_detail.policy_group = params[:policy_group]
+    @rate_detail.month = params[:month]
+    @rate_detail.year = params[:year]
+    @rate_detail.rooms_to_sell = params[:rooms_to_sell]
+    @rate_detail.room_id = session[:room_id]
 
     respond_to do |format|
-      if @rate_details.save
+      if @rate_detail.save!
         format.html { redirect_to rooms_path, notice: 'rate Details successfully created.' }
-        format.json { render json: @rate_details, status: :created, location: @rate_details }
+        format.json { render json: @rate_detail, status: :created, location: @rate_detail }
       else
+        logger.info"&&&&&&&&&&&&&&&&&&&&&&&&&7"
         format.html { render action: "rate_details", notice: 'Please fill all the information.' }
-        format.json { render json: @rate_details.errors, status: :unprocessable_entity }
+        format.json { render json: @rate_detail.errors, status: :unprocessable_entity }
       end
-    end
-
-    
+    end    
   end
 end

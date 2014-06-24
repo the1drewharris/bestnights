@@ -1,65 +1,61 @@
 <% content_for :title, "BestNights.com - Add Room" %>
-
-<header>
-<h1>Rate Details</h1>
-</header>
-
-<div id="container-main">
-
 <form action="/add_room_rate_details" method="post">
-<fieldset>
+  <div class="clear">&nbsp;</div>
+  <div class="room-type blocks">
+  <div style="display:none;"><%= link_to "Home", dashboard_path, class: "links" %></div>
+  <h2>Rate Details</h2>    
   <ul>
-  	<li>
-  		<label>Status</label>
-  		<%= text_field_tag 'status', "", :name => "status" %>
-  	</li>
-  	<li>
-  		<label>Rate Per Night</label>
-  		<%= text_field_tag 'rate_per_night', "", :name => "rate_per_night" %>
-  	</li>
-  	<li>
-  		<label>Booked</label>
-  		<%= check_box_tag 'booked', "", :name => "booked" %>
-  	</li>
-  	<li>
-  		<label>Canceled</label>
-  		<%= check_box_tag 'canceled', "", :name => "canceled" %>
-  	</li>
-  	<li>
-  		<label>Policy Group</label>
-  		<%= text_field_tag 'policy_group', "", :name => "policy_group" %>
-  	</li>
-  	<li>
-  		<label>Month</label>
-  		<%= text_field_tag 'month', "", :name => "month" %>
-  	</li>
-  	<li>
-  		<label>Year</label>
-  		<%= text_field_tag 'year', "", :name => "year" %>
-  	</li>
-  	<li>
-  		<label>From Date</label>
-  		<%= text_field_tag 'from_date', "", :name => "from_date", class: "datepicker1" %>
-  	</li>
-  	<li>
-  		<label>To Date</label>
-  		<%= text_field_tag 'to_date', "", :name => "to_date" , class: "datepicker1" %>
-  	</li>
-  	<li>
-  		<label>Rooms To Sell</label>
-  		<%= text_field_tag 'rooms_to_sell', "", :name => "rooms_to_sell" %>
-  	</li>
-  		<li>
-  		<label>Day</label>
-  		<%= text_field_tag 'day', "", :name => "day" %>
-  	</li>
-  </ul>	
-</fieldset>
-<fieldset class="formactions">
-	<input type="submit" value="Room Rate Details" name="submit" min="1" >
-</fieldset>
-	<div><%= link_to "Back", rooms_path, class: "link_style" %></div>
-</div>
+  <li>
+    <label>Status</label>
+    <%= text_field_tag 'status', @rate_detail.blank? ? "" : @rate_detail.status, :name => "status" %>
+  </li>
+  <li>
+    <label>Rate Per Night</label>
+    <%= text_field_tag 'rate_per_night', @rate_detail.blank? ? "" : @rate_detail.rate_per_night, :name => "rate_per_night" %>
+  </li>
+  <li>
+    <label>Booked</label>
+    <%= check_box_tag 'booked', @rate_detail.blank? ? "" : @rate_detail.booked, :name => "booked" %>
+  </li>
+  <li>
+    <label>Canceled</label>
+    <%= check_box_tag 'canceled', @rate_detail.blank? ? "" : @rate_detail.canceled, :name => "canceled" %>
+  </li>
+  <li>
+    <label>Policy Group</label>
+    <%= text_field_tag 'policy_group', @rate_detail.blank? ? "" : @rate_detail.policy_group, :name => "policy_group" %>
+  </li>
+  <li>
+    <label>Month</label>
+    <%= text_field_tag 'month', @rate_detail.blank? ? "" : @rate_detail.month, :name => "month" %>
+  </li>
+  <li>
+    <label>Year</label>
+    <%= text_field_tag 'year', @rate_detail.blank? ? "" : @rate_detail.year, :name => "year" %>
+  </li>
+  <li>
+    <label>From Date</label>
+    <%= text_field_tag 'from_date', @rate_detail.blank? ? "" : @rate_detail.from_date.strftime("%m/%d/%Y"), :name => "from_date", class: "datepicker1" %>
+  </li>
+  <li>
+    <label>To Date</label>
+    <%= text_field_tag 'to_date', @rate_detail.blank? ? "" : @rate_detail.to_date.strftime("%m/%d/%Y"), :name => "to_date" , class: "datepicker1" %>
+  </li>
+  <li>
+    <label>Rooms To Sell</label>
+    <%= text_field_tag 'rooms_to_sell', @rate_detail.blank? ? "" : @rate_detail.rooms_to_sell, :name => "rooms_to_sell" %>
+  </li>
+    <li>
+    <label>Day</label>
+    <%= text_field_tag 'day', "", :name => "day" %>
+  </li>
+</ul> 
+   <input type="submit" value="Room Rate Details" name="submit" min="1" >
+   </div>
+  </form>
+  <div class="row back-link"><%= link_to "Back", room_path(id: session[:room_id]) , class: "link" %></div>
+<div class="height100"></div>
+
 
 <%= javascript_include_tag :jquery_ujs %>
 <script>
