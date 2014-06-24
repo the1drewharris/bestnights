@@ -7,57 +7,63 @@
 		<tr>
 		 <td align="left" valign="middle">Subject</td>
 		  <td align="center" valign="middle">Today</td>
-		  <td align="center" valign="middle">Month</td>
-		  <td align="center" valign="middle">Year</td>
+		  <td align="center" valign="middle">This week</td>
+		  <td align="center" valign="middle">This Month</td>
+		  <td align="center" valign="middle">This Year</td>
 		</tr>
 	</thead>
 	<tbody>
 		<tr>
 		  <td align="left" valign="middle">Visitors</td>
 		  <td align="center" valign="middle">
-				<% if !@site_visitors.blank?  %>
-					<%= @site_visitors.first["c"] %>
+				<% if !@site_visitors_today.blank?  %>
+					<%= @site_visitors_today.first["c"] %>
 				<% end %>
-		  </td align="center" valign="middle">		
-		  <td align="center" valign="middle"><% if !@site_visitors.blank?  %>
-					<%= @site_visitors.first["c"] %>
+		  </td>
+		  <td align="center" valign="middle">
+				<% if !@site_visitors_today.blank?  %>
+					<%= @site_visitors_this_week.count %>
+				<% end %>
+		  </td>		
+		  <td align="center" valign="middle">
+				<% if !@site_visitors_this_month.blank? %>
+					<%= @site_visitors_this_month.first["c"] %>
 				<% end %>
 			</td>
-		  <td align="center" valign="middle"><% if !@site_visitors.blank?  %>
-					<%= @site_visitors.first["c"] %>
+		  <td align="center" valign="middle">
+		  	<% if !@site_visitors_this_year.blank?  %>
+					<%= @site_visitors_this_year.first["c"] %>
 				<% end %>
 			</td>
 		</tr>
 		<tr>
 		  <td align="left" valign="middle">Booking</td>
 		  <td align="center" valign="middle">
-				<% if !@bookings_day_wise.blank?  %>
-					<%= @bookings_day_wise.count %>
-				<% end %>
-			</td>		
-		  <td align="center" valign="middle"><% if !@bookings_month_wise.blank?  %>
-					<%= @bookings_month_wise.count %>
-				<% end %>
+				<%= @bookings_day_wise.count %>
 			</td>
-		  <td align="center" valign="middle"><% if !@bookings_year_wise.blank?  %>
-					<%= @bookings_year_wise.first["b"] %>
-				<% end %>
+			<td align="center" valign="middle">
+				<%= @bookings_week_wise.count %>
+			</td>	
+		  <td align="center" valign="middle">
+				<%= @bookings_month_wise.count %>
+			</td>
+		  <td align="center" valign="middle">
+				<%= @bookings_year_wise.count %>
 			</td>
 		</tr>
 		<tr>
 		  <td align="left" valign="middle">Total Nights Sold</td>
 		  <td align="center" valign="middle">
-				<% if !@total_nights.blank?  %>
-					<%= @total_nights %>
-				<% end %>
-			</td>		
-		  <td align="center" valign="middle"><% if !@total_nights.blank?  %>
-					<%= @total_nights %>
-				<% end %>
+				<%= @total_nights_today %>
 			</td>
-		  <td align="center" valign="middle"><% if !@total_nights.blank?  %>
-					<%= @total_nights %>
-				<% end %>
+			<td align="center" valign="middle">
+				<%= @total_nights_this_week %>
+			</td>	
+		  <td align="center" valign="middle">
+				<%= @total_nights_this_month %>
+			</td>
+		  <td align="center" valign="middle">
+				<%= @total_nights_this_year %>
 			</td>
 		</tr>
 	</tbody>

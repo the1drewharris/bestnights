@@ -22,11 +22,18 @@ class DashboardController < ApplicationController
   end
 
   def statistics
-    @site_visitors = ActiveRecord::Base.connection.exec_query("SELECT COUNT(*) as c from impressions")
-    @bookings_day_wise = Booking.all(:conditions => ["created_at >= ?", Date.today])
-    @bookings_month_wise = Booking.all(:conditions => ["created_at >= ?", Date.today - 32 ])
-    @bookings_year_wise = ActiveRecord::Base.connection.exec_query("Select count(*) as b FROM bookings WHERE year(created_at) = '2014' GROUP BY year(created_at)")
-    @total_nights = Booking.all(:conditions => ["created_at >= ?", Date.today]).map(&:night_number).sum
+    @site_visitors_today = ActiveRecord::Base.connection.exec_query("SELECT COUNT(*) as c from impressions WHERE created_at=CURDATE()")
+    @site_visitors_this_week = ActiveRecord::Base.connection.exec_query("SELECT * FROM impressions  WHERE created_at > DATE_SUB(CURDATE(), INTERVAL 7 DAY)")
+    @site_visitors_this_month = ActiveRecord::Base.connection.exec_query("SELECT COUNT(*) as c from impressions WHERE MONTH(created_at) = MONTH(CURDATE()) AND YEAR(created_at) = YEAR(CURDATE())")
+    @site_visitors_this_year = ActiveRecord::Base.connection.exec_query("SELECT COUNT(*) as c from impressions WHERE YEAR(created_at) = YEAR(CURDATE())")
+    @bookings_day_wise = Booking.where("created_at >= ?", Date.today)
+    @bookings_week_wise = Booking.where("created_at > DATE_SUB(CURDATE(), INTERVAL 7 DAY)")
+    @bookings_month_wise = Booking.where("created_at > DATE_SUB(CURDATE(), INTERVAL 1 MONTH)")
+    @bookings_year_wise = Booking.where("created_at > DATE_SUB(CURDATE(), INTERVAL 1 YEAR)")
+    @total_nights_today = find_nights_today
+    @total_nights_this_week = find_nights_this_week
+    @total_nights_this_month = find_nights_this_month
+    @total_nights_this_year = find_nights_this_year
   end
 
   def download_booking_data
@@ -58,6 +65,52 @@ class DashboardController < ApplicationController
    send_data csv_string,
    :type => 'text/xls; charset=iso-8859-1; header=present',
    :disposition => "attachment; filename=bookings.xls"
+  end
+
+  private
+
+  def find_nights_today
+    @bookings_today = Booking.all(:conditions => ["created_at >= ?", Date.today])
+    @night = 0
+    if !@bookings_today.nil?
+      @bookings_today.each do |today|
+        @night += (today.to_date - today.from_date).to_i
+      end
+    end
+    return @night
+  end
+
+  def find_nights_this_week
+    @bookings_today =  Booking.where("created_at > DATE_SUB(CURDATE(), INTERVAL 7 DAY)")
+    @night = 0
+    if !@bookings_today.nil?
+      @bookings_today.each do |today|
+        @night += (today.to_date - today.from_date).to_i
+      end
+    end
+    return @night
+  end
+
+  def find_nights_this_month
+    @bookings_today =  Booking.where("created_at > DATE_SUB(CURDATE(), INTERVAL 1 MONTH)")
+    @night = 0
+    if !@bookings_today.nil?
+      @bookings_today.each do |today|
+        @night += (today.to_date - today.from_date).to_i
+      end
+    end
+    return @night
+  end
+
+  def find_nights_this_year
+    @bookings_today =  Booking.where("created_at > DATE_SUB(CURDATE(), INTERVAL 1 YEAR)")
+    @night = 0
+    if !@bookings_today.nil?
+      @bookings_today.each do |today|
+        @night += (today.to_date - today.from_date).to_i
+      end
+    end
+    return @night
   end
 
 end
