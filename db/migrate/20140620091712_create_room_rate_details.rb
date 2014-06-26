@@ -1,11 +1,11 @@
 class CreateRoomRateDetails < ActiveRecord::Migration
   def change
     create_table :room_rate_details do |t|
-    	t.string 		:day
+    	t.string 	:day
     	t.string	:status
     	t.string	:rate_per_night
-    	t.integer	:booked
-    	t.integer	:canceled
+    	t.boolean	:booked
+    	t.boolean	:canceled
     	t.string	:policy_group
     	t.string	:month
     	t.string 	:year
