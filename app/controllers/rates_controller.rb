@@ -96,6 +96,47 @@ class RatesController < ApplicationController
     
   end
 
+  def update_room_rates
+    @rooms = RoomRate.all
+    @rooms.each do |room|
+      params[:days].each do |day|
+        a = "rate_"
+        if params[:modify] == "fix-increase"
+          f = a + day[0]
+          query = (eval "room." + f).to_f + params[:price].to_f
+          params[:room_id].each do |room|
+            ActiveRecord::Base.connection.execute("UPDATE room_rates SET " + f.to_s + "=" + query.to_s + "WHERE room_type_id = " + room[0].to_s)
+          end
+        elsif params[:modify] == "fix-decrease"
+          f = a + day[0]
+          query = (eval "room." + f).to_f - params[:price].to_f
+          params[:room_id].each do |room|
+            ActiveRecord::Base.connection.execute("UPDATE room_rates SET " + f.to_s + "=" + query.to_s + "WHERE room_type_id = " + room[0].to_s)
+          end
+        elsif params[:modify] == "percent-decrease"
+          f =a + day[0]
+          query = (eval "room." + f).to_f - ((params[:price].to_f * (eval "room." + f).to_f)/100)
+          params[:room_id].each do |room|
+            ActiveRecord::Base.connection.execute("UPDATE room_rates SET " + f.to_s + "=" + query.to_s + "WHERE room_type_id = " + room[0].to_s)
+          end
+        elsif params[:modify] == "percent-increase"
+          f =a + day[0]
+          query = (eval "room." + f).to_f + ((params[:price].to_f * (eval "room." + f).to_f)/100)
+          params[:room_id].each do |room|
+            ActiveRecord::Base.connection.execute("UPDATE room_rates SET " + f.to_s + "=" + query.to_s + "WHERE room_type_id = " + room[0].to_s)
+          end
+        else
+          f =a + day[0]
+          params[:room_id].each do |room|
+            ActiveRecord::Base.connection.execute("UPDATE room_rates SET " + f.to_s + "=" + params[:price].to_s + "WHERE room_type_id =" + room[0].to_s)
+          end
+        end
+      end
+      room.save
+    end
+    redirect_to copy_yearly_rates_path
+  end
+
   # PUT /rates/1
   # PUT /rates/1.json
   def update

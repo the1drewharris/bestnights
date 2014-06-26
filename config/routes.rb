@@ -4,6 +4,7 @@ Bestnights::Application.routes.draw do
 
   resources :rates do
     post 'add_room_rate_details'
+    post 'update_room_rates'
   end
 
   resources :pages
@@ -64,6 +65,7 @@ Bestnights::Application.routes.draw do
   match 'copy_yearly_rates' => 'rates#copy_yearly_rates', :as => 'copy_yearly_rates'
   match 'rate_details' => 'rooms#rate_details', :as => 'rate_details'
   match '/add_room_rate_details' => 'rooms#add_room_rate_details', :as => 'add_room_rate_details'
+  match '/update_room_rates' => 'rates#update_room_rates', :as => 'update_room_rates'
   
   # resources :users, except: :create
   resources :users

@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  room_id: 1
+  room_type_id: 1
+  rate_monday: 1.5
+  rate_tuesday: 1.5
+  rate_wednesday: 1.5
+  rate_thursday: 1.5
+  rate_friday: 1.5
+  rate_saturday: 1.5
+  rate_sunday: 1.5
+
+two:
+  room_id: 1
+  room_type_id: 1
+  rate_monday: 1.5
+  rate_tuesday: 1.5
+  rate_wednesday: 1.5
+  rate_thursday: 1.5
+  rate_friday: 1.5
+  rate_saturday: 1.5
+  rate_sunday: 1.5

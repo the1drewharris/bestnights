@@ -40,6 +40,17 @@ class RoomsController < ApplicationController
     logger.info"=================#{params}================"
     @room = Room.new(params[:room])
     if @room.save
+      @room_rate = RoomRate.new
+      @room_rate.room_id = @room.id
+      @room_rate.room_type_id = @room.room_type_id
+      @room_rate.rate_monday = @room.price
+      @room_rate.rate_tuesday = @room.price
+      @room_rate.rate_wednesday = @room.price
+      @room_rate.rate_thursday = @room.price
+      @room_rate.rate_friday = @room.price
+      @room_rate.rate_saturday = @room.price
+      @room_rate.rate_sunday = @room.price
+      @room_rate.save
       flash[:success] = "The room type saved successfully!"
       
       if current_user.new_signup?

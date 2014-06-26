@@ -1,1 +1,150 @@
-copy_yearly_rates
+<form action="/update_room_rates" method="post">
+  <div class="clear">&nbsp;</div>
+  <div class="room-type blocks">
+    <div style="display:none;"><%= link_to "Home", dashboard_path, class: "links" %></div>
+      <h2>Change Room Rate</h2>
+      <div class="date-row">
+      <%# my_date = Time.now %>
+      <!-- <div class="clear"><span>From Date: </span><%#= text_field_tag 'from_date', "", :name => "from_date", :class => "datepicker1" %></div>
+      <div class="clear"><span>To Date: </span><%#= text_field_tag 'to_date', "", :name => "to_date", :class => "datepicker1" %></div> -->
+    </div>
+    <table id="which" width="100%" border="0">
+      <tbody>
+        <tr>
+          <td align="left" valign="top" width="33%">
+            On:
+            <div class="row">
+            <input id="wd-0" type="checkbox" value="0" name="wd">
+            <label for="wd-0">All Days</label>
+            </div>
+            <div class="row mrgntp15">
+            or one or more of these days:
+          </div>
+          <div class="row">
+            <input id="wd-1" type="checkbox" value="1" name="days[monday]" class="wd" >
+            <label for="wd-1">Monday</label>
+           </div>
+           <div class="row">
+            <input id="wd-2" type="checkbox" value="2" name="days[tuesday]" class="wd" >
+            <label for="wd-2">Tuesday</label>
+           </div>
+           <div class="row">
+            <input id="wd-3" type="checkbox" value="3" name="days[wednesday]" class="wd" >
+            <label for="wd-3">Wedenesday</label>
+           </div>
+           <div class="row">
+            <input id="wd-4" type="checkbox" value="4" name="days[thursday]" class="wd" >
+            <label for="wd-4">Thursday</label>
+           </div>
+           <div class="row">
+            <input id="wd-5" type="checkbox" value="5" name="days[friday]" class="wd" >
+            <label for="wd-5">Friday</label>
+            </div>
+            <div class="row">
+            <input id="wd-6" type="checkbox" value="6" name="days[saturday]" class="wd" >
+            <label for="wd-6">Saturday</label>
+            </div>
+            <div class="row">
+            <input id="wd-7" type="checkbox" value="7" name="days[sunday]" class="wd" >
+            <label for="wd-7">Sunday</label>
+            </div>
+          </td>
+          <td width="33%" align="left" valign="top">
+            For:
+          <div class="row">
+          <input id="rc-0" type="checkbox" value="0" name="so">
+          <label for="so-0">All Rate Categories</label>
+          </div>
+         <div class="row mrgntp15">
+          or for one or more of these Rooms:
+          </div>
+          <div id="so-inject" style="margin: 0 0 5px;"></div>
+          <div class="row">
+          <% RateCategory.all.each do |rate|%>
+            <input type="checkbox" id="" name="rate_cat_id[<%= rate.id %>]" class="rc">
+            <label><%= rate.name %></label><div style="height:12px; clear:both;"></div>
+          <% end %>
+          </div>
+          </td>
+          <td align="left" valign="top">
+          For:
+          <div class="row">
+          <input id="so-0" type="checkbox" value="0" name="so">
+          <label for="so-0">All Rooms</label>
+          </div>
+          <div class="row mrgntp15">
+          or for one or more of these Rooms:
+          </div>
+          <div id="so-inject" style="margin: 0 0 5px;"></div>
+          <div class="row">
+          <% RoomType.all.each do |room|%>
+            <input type="checkbox" id="" name="room_id[<%= room.id %>]" class="so">
+            <label><%= room.room_type %></label><div style="height:12px; clear:both;"></div>
+          <% end %>
+        </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="wizard-selector">
+      <tbody>
+        <tr>
+          <td>I want to</td>
+          <td>
+            <select name="modify">
+              <option value="copy">
+                Use the same rates as this year
+              </option>
+              <option value="fix-increase">
+                Increase rates by a fixed amount of CAD
+              </option>
+              <option value="percent-increase">
+                Increase rates by a percentage of this year's rate
+              </option>
+              <option value="fix-decrease">
+                Reduce rates by a fixed amount of CAD
+              </option>
+              <option value="percent-decrease">
+                Reduce rates by a percentage of this year's rate
+              </option>
+            </select>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    Room Rate Per Night: <%= text_field_tag 'price', "", :name => "price" %> CAD
+  </div>
+  <input type="submit" value="Update Rooms for Sell" name="submit" min="1" >
+</form>
+<div class="row back-link"><%= link_to "Back", rates_path , class: "link" %></div>
+<div class="height100"></div>
+
+<script>
+  $(function() {
+    $( ".datepicker1" ).datepicker({format: 'yyyy-mm-dd'});
+    $("#wd-0").click(function(event){
+      if(this.checked){
+        $(".wd").each(function(){
+          this.checked = true;
+        })
+      }
+      else{
+        $(".wd").each(function(){
+          this.checked = false;
+        })    
+      }
+    })
+    $("#so-0").click(function(event){
+      if(this.checked){
+        $(".so").each(function(){
+          this.checked = true;
+        })
+      }
+      else{
+        $(".so").each(function(){
+          this.checked = false;
+        })    
+      }
+    })
+  });
+</script>
