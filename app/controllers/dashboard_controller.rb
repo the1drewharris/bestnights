@@ -67,6 +67,30 @@ class DashboardController < ApplicationController
    :disposition => "attachment; filename=bookings.xls"
   end
 
+  def overview
+    @rooms = Room.where("hotel_id=1")
+    cookies[:from_date] = []
+    cookies[:to_date] = []
+    cookies[:nights] = []
+    @rooms.each do |room|
+      @booked = Booking.find_by_hotel_id_and_room_id(room.hotel_id,room.id)
+      cookies[:from_date] << @booked.from_date
+      cookies[:to_date] << @booked.to_date
+      (@booked.from_date..@booked.to_date).to_a.select{|k| cookies[:nights] << k}
+    end
+  end
+
+  def cancel_booking
+    
+  end
+
+  def invoice
+    @bookings = Booking.paginate(:page => params[:page], :per_page => 20).order('id DESC')
+    @bookings.each do |booking|
+      booking.price = (booking.price.to_i * 12) / 100
+    end
+  end
+
   private
 
   def find_nights_today

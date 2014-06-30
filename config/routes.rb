@@ -66,6 +66,8 @@ Bestnights::Application.routes.draw do
   match 'rate_details' => 'rooms#rate_details', :as => 'rate_details'
   match '/add_room_rate_details' => 'rooms#add_room_rate_details', :as => 'add_room_rate_details'
   match '/update_room_rates' => 'rates#update_room_rates', :as => 'update_room_rates'
+  match '/overview' => 'dashboard#overview', :as => 'overview'
+  match '/invoice' => 'dashboard#invoice', :as => 'invoice'
   
   # resources :users, except: :create
   resources :users

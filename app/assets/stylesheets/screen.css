@@ -2816,3 +2816,14 @@ ul#dashboard li a:hover {
 #booked, #canceled{
 	vertical-align: middle;
 }
+.booked{
+	background-color: #378006;
+}
+.invoices.blocks{
+	margin:0 auto;
+	border-top: 5px solid #84DE50;
+	background:#EEEEEE;
+  cursor: default;
+  clear: both;
+  width: 100%!important;
+}

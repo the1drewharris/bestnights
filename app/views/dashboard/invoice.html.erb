@@ -1,0 +1,45 @@
+<div class="bookconfTab">
+	<div class="invoices blocks">
+		<div style="display:none;">
+			<%= link_to "Home", dashboard_path, class: "links" %>
+		</div>
+		<h2>Invoices</h2>
+		<div class="scroll">
+			<table class="bookconf" width="100%" border="0">
+				<thead>
+					<tr>
+						<td align="left" valign="middle">Invoice Number</td>
+						<td align="center" valign="middle">Invoice Date</td>
+						<td align="center" valign="middle">Due Date</td>
+						<td align="center" valign="middle">Period</td>
+						<td align="center" valign="middle">Invoice Amount</td>
+					</tr>
+				</thead>
+				<tbody>
+					<% @bookings.each do |booking| %>
+						<tr>
+							<td>
+								<%= booking.id %>
+							</td>
+							<td>
+								<%= booking.from_date %>
+							</td>
+							<td>
+								<%= booking.from_date.advance(:months => 1) %>
+							</td>
+							<td>
+								<%= booking.from_date %> To <%= booking.from_date.advance(:months => 1) %>
+							</td>
+							<td>
+								<%= booking.price %>
+							</td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+		<%= will_paginate @bookings %>
+	</div>
+</div>
+<div class="row back-link"><%= link_to "Back", dashboard_path , class: "link" %></div>
+<div class="height100"></div>
