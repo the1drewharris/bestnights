@@ -92,6 +92,18 @@ class DashboardController < ApplicationController
     end
   end
 
+  def status
+    @booking = Booking.find_by_id(params[:id])
+    @booking.price = (@booking.price.to_i * 12) / 100
+    @room = Room.find_by_id(@booking.room_id)
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render :pdf => "invoice_status"
+      end
+    end
+  end
+
   private
 
   def find_nights_today

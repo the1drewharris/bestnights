@@ -20,7 +20,7 @@
 					<% @bookings.each do |booking| %>
 						<tr>
 							<td>
-								<%#= booking.id %>
+								<%= link_to "Download", status_path(:id => booking.id, :format => "pdf"), class: "links" %>
 							</td>
 							<td>
 								<%= booking.id %>

@@ -1,0 +1,31 @@
+<p>
+	<%= @booking.hotel.name %>
+</p>
+<p>
+	<%= @booking.hotel.address1 %>
+</p>
+<p>
+	Invoice Number: <%= @booking.id %>
+</p>
+<p>
+	Period: <%= @booking.from_date %> To <%= @booking.from_date.advance(:months => 1) %>
+</p>
+<h2>INVOICE</h2>
+<table>
+	<thead>
+		<tr>
+			<td>Description</td>
+			<td>Amount</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<%= @room.name %> , <%= @room.room_type.room_type %>
+			</td>
+			<td>
+				<%= @booking.price %>
+			</td>
+		</tr>
+	</tbody>
+</table>
