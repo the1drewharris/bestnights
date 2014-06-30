@@ -1,0 +1,54 @@
+<div class="bookconfTab">
+	<div class="booking blocks">
+	<div style="display:none;"><%= link_to "Home", dashboard_path, class: "links" %></div>
+	<h2>Reservation Statements</h2>
+	<div class="link-files">
+	<%= link_to "Download as CSV", download_reservation_data_path(format: "csv"),  class: "csv", :hotel_id => session[:hotel_id] %> | <%= link_to "Download as Excel", export_reservation_in_excel_path(format: "xls"),  class: "xls",:hotel_id => session[:hotel_id] %>
+	</div>
+	<div class="scroll">
+	<table class="bookconf" width="100%" border="0">
+	<thead>
+		<tr>
+			<td align="center" valign="middle">Book Number</td>
+			<td align="center" valign="middle">Booked By</td>
+			<td align="center" valign="middle">Guest Name</td>
+			<td align="center" valign="middle">Checkin</td>
+			<td align="center" valign="middle">Checkout</td>
+			<td align="center" valign="middle">Room Nights</td>
+			<td align="center" valign="middle">Commission</td>
+			<td align="left" valign="middle">Result</td>
+			<td align="left" valign="middle">Original Amount</td>
+			<td align="left" valign="middle">Final Amount</td>
+			<td align="left" valign="middle">Commission Amount</td>
+			<td align="left" valign="middle">Remarks</td>
+		</tr>
+		</thead>
+		<tbody>
+		<% if !@bookings.blank? %>
+			<% @bookings.each do |book| %>
+			<% @room = Room.find(book.room_id) %>
+				<tr>
+					<td align="center" valign="middle"><%= book.id %></td>
+					<td align="center" valign="middle"><%= book.traveler.name %></td>
+					<td align="center" valign="middle"><%= book.traveler.name %></td>
+					<td align="center" valign="middle"><%= book.from_date  %></td>
+					<td align="center" valign="middle"><%= book.to_date %></td>
+					<td align="center" valign="middle"><%= book.night_number %></td>
+					<td align="center" valign="middle"><%= @commission_rate.amount %> % </td>
+					<td align="left" valign="middle"></td>
+					<td align="center" valign="middle"><%= book.price %></td>
+					<td align="left" valign="middle"><%= (book.price.to_f - @reserve_price.to_f) %></td>
+					<td align="center" valign="middle"><%= @reserve_price %></td>
+					<td align="left" valign="middle"></td>
+					<!-- <td><%#= @site_visitors.first["c"] %></td> -->
+				</tr>
+			<% end %>
+		<% end %>
+	</tbody>
+	</table>
+</div>
+<%= will_paginate @bookings %>
+</div>
+</div>
+<div class="row back-link"><%= link_to "Back", dashboard_path , class: "link" %></div>
+<div class="height100"></div>

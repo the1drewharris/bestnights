@@ -28,6 +28,7 @@
 				<th>User</th>
 			<% end %>
 			<th>Actions</th>
+			<th></th>
 		</tr>
 		<% @hotels.each do |hotel| %>
 		  <tr>
@@ -44,14 +45,8 @@
 				  <td><%= hotel.user.email %></td>
 				<% end %>
 				<% if can? :show, hotel %>
-					<td><%= link_to "Show", hotel_path(hotel) %></td>
+					<td><%= link_to "Show", dashboard_path(:hotel_id => hotel.id) %></td>
 				<% end %>
-				<% if can? :edit, hotel %>
-					<td><%= link_to "Edit", edit_hotel_path(hotel) %></td>
-				<% end %>	
-				<% if can? :delete, hotel %>
-					<td><%= link_to "Delete", hotel_path(hotel), :method => :delete %></td>
-				<% end %>	
 		  </tr>
 		<% end %>
 	</table>

@@ -1,0 +1,20 @@
+<ul id="dashboard">	
+	<li>
+		<% if current_user.admin? || current_user.manager? %>
+		<img src="assets/ico-hotel-arrival.gif" width="48" height="48" border="0" />
+		<%= link_to "Reservation Statements", reservation_statements_path %>
+	<% end %>
+</li>
+	<li>
+		<% if can? :index, Promotion %>
+		<img src="assets/ico-hotel-bookings.gif" width="48" height="48" border="0" />
+		<%= link_to "Invoices", invoice_path %>
+	<% end %>
+</li>
+	<li>
+		<% if can? :index, Promotion %>
+		<img src="assets/ico-hotel-statistics.gif" width="48" height="48" border="0" />
+		<%= link_to "Invoicing Details", statistics_path %>
+	<% end %>
+</li>
+</ul>

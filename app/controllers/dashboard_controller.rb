@@ -4,7 +4,15 @@ class DashboardController < ApplicationController
   layout "admin_basic"
   
   def index
-    
+    session[:hotel_id] = params[:hotel_id]
+  end
+
+  def my_hotels
+    if current_user.admin?
+      @hotels = Hotel.all
+    elsif current_user.manager?
+      @hotels = current_user.hotels
+    end 
   end
 
   def arrivals
@@ -84,9 +92,17 @@ class DashboardController < ApplicationController
     
   end
 
+  def finance
+    unless !session[:hotel_id].blank? 
+      session[:hotel_id] = params[:hotel_id]
+    else
+      session[:hotel_id] = session[:hotel_id]
+    end
+  end
+
   def invoice
     @commission_rate = CommissionRate.amount
-    @bookings = Booking.paginate(:page => params[:page], :per_page => 20).order('id DESC')
+    @bookings = Booking.where(:hotel_id => session[:hotel_id]).paginate(:page => params[:page], :per_page => 20).order('id DESC')
     @bookings.each do |booking|
       booking.price = (booking.price.to_i * (@commission_rate).to_f) / 100
     end
@@ -103,6 +119,42 @@ class DashboardController < ApplicationController
       end
     end
   end
+
+  def reservation_statements
+    @commission_rate = CommissionRate.first
+    @bookings = Booking.where(:hotel_id => session[:hotel_id]).paginate(:page => params[:page], :per_page => 20).order('id DESC')
+    @bookings.each do |booking|
+      @reserve_price = (booking.price.to_i * (@commission_rate.amount).to_f) / 100
+    end
+  end
+
+  def download_reservation_data
+    @bookings = Booking.where(:hotel_id => params[:hotel_id]).paginate(:page => params[:page], :per_page => 20).order('id DESC')
+    logger.info"=========#{@bookings}=============="
+    csv_string = CSV.generate do |csv|
+       csv << ["Booking Number", "Total", "Arrival","Departure", "Booker Name", "Night Number", "Booking Date"]
+       @bookings.each do |book|
+         csv << [book.id, book.price, book.from_date, book.to_date, book.traveler.name, book.night_number, book.created_at]
+       end
+    end   
+   send_data csv_string,
+   :type => 'text/csv; charset=iso-8859-1; header=present',
+   :disposition => "attachment; filename=bookings.csv"
+  end
+
+  def export_reservation_in_excel
+    @bookings = Booking.where(:hotel_id => params[:hotel_id]).paginate(:page => params[:page], :per_page => 20).order('id DESC')
+    csv_string = CSV.generate do |csv|
+       csv << ["Booking Number", "Total", "Arrival","Departure", "Booker Name", "Night Number", "Booking Date"]
+       @bookings.each do |book|
+         csv << [book.id, book.price, book.from_date, book.to_date, book.traveler.name, book.night_number, book.created_at]
+       end
+    end   
+   send_data csv_string,
+   :type => 'text/xls; charset=iso-8859-1; header=present',
+   :disposition => "attachment; filename=bookings.xls"
+  end
+
 
   private
 

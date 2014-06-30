@@ -45,6 +45,6 @@
 	<% end %></li>
 	<li><% if current_user.admin? || current_user.manager?  %>
 		<img src="assets/ico-availability-rates.gif" width="48" height="48" border="0" />
-		<%= link_to "Finance", invoice_path %>
+		<%= link_to "Finance", finance_path %>
 	<% end %></li>
 </ul>
