@@ -8,16 +8,20 @@
 			<table class="bookconf" width="100%" border="0">
 				<thead>
 					<tr>
+						<td align="left" valign="middle">Status</td>
 						<td align="left" valign="middle">Invoice Number</td>
 						<td align="center" valign="middle">Invoice Date</td>
 						<td align="center" valign="middle">Due Date</td>
 						<td align="center" valign="middle">Period</td>
 						<td align="center" valign="middle">Invoice Amount</td>
-					</tr>
+						<td align="center" valign="middle">Amount Paid</td>
 				</thead>
 				<tbody>
 					<% @bookings.each do |booking| %>
 						<tr>
+							<td>
+								<%#= booking.id %>
+							</td>
 							<td>
 								<%= booking.id %>
 							</td>
@@ -29,6 +33,9 @@
 							</td>
 							<td>
 								<%= booking.from_date %> To <%= booking.from_date.advance(:months => 1) %>
+							</td>
+							<td>
+								<%= booking.price %>
 							</td>
 							<td>
 								<%= booking.price %>
