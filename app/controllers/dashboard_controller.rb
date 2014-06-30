@@ -85,10 +85,10 @@ class DashboardController < ApplicationController
   end
 
   def invoice
-    @commission_rate = CommissionRate.first
+    @commission_rate = CommissionRate.amount
     @bookings = Booking.paginate(:page => params[:page], :per_page => 20).order('id DESC')
     @bookings.each do |booking|
-      booking.price = (booking.price.to_i * (@commission_rate.amount).to_f) / 100
+      booking.price = (booking.price.to_i * (@commission_rate).to_f) / 100
     end
   end
 
