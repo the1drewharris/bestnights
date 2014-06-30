@@ -30,6 +30,8 @@ gem 'carmen-rails', '~> 1.0.1'
 gem 'rails3-jquery-autocomplete', '~> 1.0.14'
 gem 'will_paginate', '~> 3.0.0'
 gem 'impressionist', '~> 1.5.1'
+gem "wicked_pdf"
+gem "wkhtmltopdf-binary"
 
 # Deploy with Capistrano
 group :development do
