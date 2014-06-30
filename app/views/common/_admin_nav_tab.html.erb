@@ -37,5 +37,8 @@
 	<% end %>
 	<% if current_user.admin? || current_user.manager? %>	
 		<%= link_to "Rate Categories", rate_categories_path %>
+	<% end %>
+	<% if current_user.admin?  %>	
+		<%= link_to "Set Commission", new_commission_rate_path %>
 	<% end %>	
 </nav>

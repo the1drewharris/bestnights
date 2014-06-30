@@ -1,5 +1,7 @@
 Bestnights::Application.routes.draw do
   
+  resources :commission_rates
+
   resources :rate_categories
 
   resources :rates do

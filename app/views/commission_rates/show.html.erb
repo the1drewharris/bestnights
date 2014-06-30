@@ -1,0 +1,10 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Amount:</b>
+  <%= @commission_rate.amount %>
+</p>
+
+
+<%= link_to 'Edit', edit_commission_rate_path(@commission_rate), class: "link_style" %> |
+<%= link_to 'Back', commission_rates_path, class: "link_style" %>
