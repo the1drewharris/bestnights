@@ -4,7 +4,11 @@ class DashboardController < ApplicationController
   layout "admin_basic"
   
   def index
-    session[:hotel_id] = params[:hotel_id]
+    unless !session[:hotel_id].blank? 
+      session[:hotel_id] = params[:hotel_id]
+    else
+      session[:hotel_id] = session[:hotel_id]
+    end
   end
 
   def my_hotels
