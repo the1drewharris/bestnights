@@ -9,6 +9,8 @@ class DashboardController < ApplicationController
     else
       session[:hotel_id] = session[:hotel_id]
     end
+    @hotel = Hotel.find(session[:hotel_id])
+    session[:hotel_name] = @hotel.name
   end
 
   def my_hotels
@@ -25,12 +27,12 @@ class DashboardController < ApplicationController
   	elsif params[:day] == "yesterday"
      @arrivals = Booking.where(:from_date => Date.yesterday).paginate(:page => params[:page], :per_page => 20).order('id DESC')
     elsif params[:day] == "future"
-     @arrivals = Booking.where('from_date > ?', Date.today ).paginate(:page => params[:page], :per_page => 20).order('id DESC')
+     @arrivals = Booking.where('from_date > ?', Date.today).paginate(:page => params[:page], :per_page => 20).order('id DESC')
      end
   end
 
   def bookings
-  	@bookings = Booking.paginate(:page => params[:page], :per_page => 20).order('id DESC')
+  	@bookings = Booking.where(:hotel_id => session[:hotel_id]).paginate(:page => params[:page], :per_page => 20).order('id DESC')
   end
 
   def statistics
@@ -157,6 +159,10 @@ class DashboardController < ApplicationController
    send_data csv_string,
    :type => 'text/xls; charset=iso-8859-1; header=present',
    :disposition => "attachment; filename=bookings.xls"
+  end
+
+  def finance_info
+    
   end
 
 

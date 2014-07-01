@@ -19,6 +19,7 @@
   <% end %>
 	<table class="admintablelist">
 		<tr>
+			<th>Hotel ID</th>
 			<th>Name</th>
 			<th>City</th>
 			<th>State</th>
@@ -32,6 +33,7 @@
 		</tr>
 		<% @hotels.each do |hotel| %>
 		  <tr>
+		  	<td><%= link_to "#{hotel.id}", dashboard_path(:hotel_id => hotel.id) %></td>
 		  	<% if current_user.manager? and current_user.new_signup? %>
 		  		<td><%= link_to hotel.name, new_room_path(:hotel_id => hotel.id) %></td>
 		  	<% else %>

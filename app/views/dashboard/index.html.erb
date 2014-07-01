@@ -15,6 +15,7 @@
 <p>This is the dashboard for authenticated user!</p>
  -->
 <ul id="dashboard">	
+	<h5>Hotel Name: <%= session[:hotel_name] %></h5>
 	<li><% if current_user.admin? || current_user.manager? %>
 		<img src="assets/ico-hotel-arrival.gif" width="48" height="48" border="0" />
 		<%= link_to "Arrivals", arrivals_path %>
@@ -30,10 +31,6 @@
 	<li><% if can? :index, Room %>
 		<img src="assets/ico-manage-rooms.gif" width="48" height="48" border="0" />
 		<%= link_to "Manage Rooms", rooms_path %>
-	<% end %></li>
-	<li><% if can? :index, Availability %>
-		<img src="assets/ico-manage-rates.gif" width="48" height="48" border="0" />
-		<%= link_to "Manage Rates", "#" %>
 	<% end %></li>
 	<li><% if current_user.admin? || current_user.manager?  %>
 		<img src="assets/ico-availability-rates.gif" width="48" height="48" border="0" />

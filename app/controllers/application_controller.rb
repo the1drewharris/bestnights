@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
       if resource.admin?
         hotels_url
       elsif resource.manager?
-        resource.new_signup? ? new_hotel_url : hotels_url 
+        resource.new_signup? ? new_hotel_url : my_hotels_url 
       elsif resource.front_desk?      
         hotels_url             
       end
