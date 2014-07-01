@@ -3,6 +3,23 @@
 	<div class="booking blocks">
 	<div style="display:none;"><%= link_to "Home", dashboard_path, class: "links" %></div>
 	<h2>Reservation Statements</h2>
+	<div class="">
+	  <span style="margin-top: 5px;font-size: 1.4em;" class="span1">
+	    Period
+	  </span>
+	  <span class="">
+	    <select name="period" id="selectperiod">
+	    	<% Booking.all.each do |booking| %>
+	    		<option value="<%= booking.from_date %>">
+	    			<%= booking.from_date %> To <%= booking.to_date %>
+	    		</option>
+	    	<% end %>
+	  	</select>
+	  </span>
+	  <span class="">
+	    <input type="submit" value="View" class="period">
+	  </span>
+	</div>
 	<div class="link-files">
 	<%= link_to "Download as CSV", download_reservation_data_path(format: "csv"),  class: "csv", :hotel_id => session[:hotel_id] %> | <%= link_to "Download as Excel", export_reservation_in_excel_path(format: "xls"),  class: "xls",:hotel_id => session[:hotel_id] %>
 	</div>

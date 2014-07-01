@@ -129,7 +129,11 @@ class DashboardController < ApplicationController
 
   def reservation_statements
     @commission_rate = CommissionRate.first
-    @bookings = Booking.where(:hotel_id => session[:hotel_id]).paginate(:page => params[:page], :per_page => 20).order('id DESC')
+    if params[:from_date]
+      @bookings = Booking.where("hotel_id=? AND from_date=?", session[:hotel_id], params[:from_date]).paginate(:page => params[:page], :per_page => 20).order('id DESC')
+    else
+      @bookings = Booking.where(:hotel_id => session[:hotel_id]).paginate(:page => params[:page], :per_page => 20).order('id DESC')
+    end
     @bookings.each do |booking|
       @reserve_price = (booking.price.to_i * (@commission_rate.amount).to_f) / 100
     end
