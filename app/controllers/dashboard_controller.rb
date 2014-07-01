@@ -169,6 +169,9 @@ class DashboardController < ApplicationController
     
   end
 
+  def invoicing_details
+    
+  end
 
   private
 
