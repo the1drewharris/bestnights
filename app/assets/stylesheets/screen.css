@@ -2827,3 +2827,9 @@ ul#dashboard li a:hover {
   clear: both;
   width: 100%!important;
 }
+.invoiceDet{
+	border-top:1px solid #CCC;
+}
+.invoiceDet tr:nth-child(even) td{
+	background: #fff;
+}

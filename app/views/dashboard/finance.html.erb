@@ -18,6 +18,12 @@
 		<%= link_to "Invoices", invoice_path %>
 	<% end %>
 </li>
+<li>
+		<% if current_user.manager? || current_user.admin?  %>
+		<img src="assets/ico-hotel-statistics.gif" width="48" height="48" border="0" />
+		<%= link_to "Invoicing Details", invoicing_details_path %>
+	<% end %>
+</li>
 
 </ul>
 <div class="row back-link"><%= link_to "Back", dashboard_path , class: "link" %></div>

@@ -1,23 +1,39 @@
 <div class="bookconfTab">
-	<div class="blocks">
+	<div class="statistics blocks">
 	<div style="display:none;"><%= link_to "Home", dashboard_path, class: "links" %></div>
 	<h2>Invoicing Details</h2>
-		<table class="bookconf" width="100%" border="0">
-		<tr>
-		 <td align="left" valign="middle">Subject</td>
-		  <td align="center" valign="middle">Today</td>
-		</tr>
-	<tbody>
-		<tr>
-		  <td align="center" valign="middle">
-
-		  </td>
-		  <td align="center" valign="middle">
-
-		  </td>		
-		</tr>
-	</tbody>
-</table>
+		<table class="bookconf invoiceDet" width="100%" border="0">
+			<tbody>
+				<tr>
+				  <td align="left" valign="middle"><strong>Contracted by</strong></td>
+				  <td align="center" valign="middle">BestNights.com</td>
+				</tr>
+				<tr>
+				  <td align="left" valign="middle"><strong>Company name for invoicing</strong></td>
+				  <td align="center" valign="middle"><%= @hotel.name %></td>
+				</tr>
+				<tr>
+				  <td align="left" valign="middle"><strong>Legal Address</strong></td>
+				  <td align="center" valign="middle"><%= @hotel.address1 %></td>
+				</tr>
+				<tr>
+				  <td align="left" valign="middle"><strong>Legal Zip code</strong></td>
+				  <td align="center" valign="middle"><%= @hotel.zip %></td>
+				</tr>
+				<tr>
+				  <td align="left" valign="middle"><strong>Legal City</strong></td>
+				  <td align="center" valign="middle"><%= @hotel.city %></td>
+				</tr>
+				<tr>
+				  <td align="left" valign="middle"><strong>Legal Country</strong></td>
+				  <td align="center" valign="middle"></td>
+				</tr>
+				<tr>
+				  <td align="left" valign="middle"><strong>Invoice Medium</strong></td>
+				  <td align="center" valign="middle">Email to <%= @hotel.email %> in language "en" </td>
+				</tr>
+			</tbody>
+		</table>
 </div>
 </div>
-<div class="row back-link"><%= link_to "Back", dashboard_path , class: "link" %></div>
+<div class="row back-link"><%= link_to "Back", finance_path , class: "link" %></div>

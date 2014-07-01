@@ -174,7 +174,7 @@ class DashboardController < ApplicationController
   end
 
   def invoicing_details
-    
+    @hotel = Hotel.find(session[:hotel_id])    
   end
 
   private
