@@ -137,6 +137,12 @@ class DashboardController < ApplicationController
     @bookings.each do |booking|
       @reserve_price = (booking.price.to_i * (@commission_rate.amount).to_f) / 100
     end
+    @periods = Booking.all
+    @period_array = []
+    @periods.each do |period|
+      str = period.from_date.to_s + " To " + period.to_date.to_s
+      @period_array << str
+    end
   end
 
   def download_reservation_data

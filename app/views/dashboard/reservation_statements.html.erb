@@ -9,9 +9,10 @@
 	  </span>
 	  <span class="">
 	    <select name="period" id="selectperiod">
-	    	<% Booking.all.each do |booking| %>
-	    		<option value="<%= booking.from_date %>">
-	    			<%= booking.from_date %> To <%= booking.to_date %>
+	    	<% @period_array.uniq.each do |booking| %>
+	    		<% start_date = booking.split(" ") %>
+	    		<option value="<%= start_date[0] %>">
+	    			<%= booking %>
 	    		</option>
 	    	<% end %>
 	  	</select>
