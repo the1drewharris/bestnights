@@ -99,7 +99,8 @@ class DashboardController < ApplicationController
   end
 
   def finance
-    unless !session[:hotel_id].blank? 
+    unless !session[:hotel_id].blank?
+      logger.info"*********#{params[:hotel_id]}***********"
       session[:hotel_id] = params[:hotel_id]
     else
       session[:hotel_id] = session[:hotel_id]
@@ -135,12 +136,13 @@ class DashboardController < ApplicationController
   end
 
   def download_reservation_data
-    @bookings = Booking.where(:hotel_id => params[:hotel_id]).paginate(:page => params[:page], :per_page => 20).order('id DESC')
-    logger.info"=========#{@bookings}=============="
+    @bookings = Booking.where(:hotel_id => session[:hotel_id])
+    @commission_rate = CommissionRate.first
     csv_string = CSV.generate do |csv|
-       csv << ["Booking Number", "Total", "Arrival","Departure", "Booker Name", "Night Number", "Booking Date"]
+       csv << ["Booking_Number", "Booked_By", "Guest_Name","Checkin", "Checkout", "Room_Nights", "Commission", "Result", "Original_Amount", "Final_Amount", "Commission_Amount", "Remarks"]
        @bookings.each do |book|
-         csv << [book.id, book.price, book.from_date, book.to_date, book.traveler.name, book.night_number, book.created_at]
+          @reserve_price = (book.price.to_i * (@commission_rate.amount).to_f) / 100
+          csv << [book.id, book.traveler.name, book.traveler.name, book.from_date, book.to_date, book.night_number, @commission_rate.amount, "", book.price, book.price.to_f - @reserve_price.to_f, @reserve_price, ""]
        end
     end   
    send_data csv_string,
@@ -149,16 +151,18 @@ class DashboardController < ApplicationController
   end
 
   def export_reservation_in_excel
-    @bookings = Booking.where(:hotel_id => params[:hotel_id]).paginate(:page => params[:page], :per_page => 20).order('id DESC')
+    @bookings = Booking.where(:hotel_id => session[:hotel_id])
+    @commission_rate = CommissionRate.first
     csv_string = CSV.generate do |csv|
-       csv << ["Booking Number", "Total", "Arrival","Departure", "Booker Name", "Night Number", "Booking Date"]
+       csv << ["Booking_Number", "Booked_By", "Guest_Name","Checkin", "Checkout", "Room_Nights", "Commission", "Result", "Original_Amount", "Final_Amount", "Commission_Amount", "Remarks"]
        @bookings.each do |book|
-         csv << [book.id, book.price, book.from_date, book.to_date, book.traveler.name, book.night_number, book.created_at]
+          @reserve_price = (book.price.to_i * (@commission_rate.amount).to_f) / 100
+          csv << [book.id, book.traveler.name, book.traveler.name, book.from_date, book.to_date, book.night_number, @commission_rate.amount, "", book.price, book.price.to_f - @reserve_price.to_f, @reserve_price, ""]
        end
-    end   
-   send_data csv_string,
-   :type => 'text/xls; charset=iso-8859-1; header=present',
-   :disposition => "attachment; filename=bookings.xls"
+    end
+    send_data csv_string,
+    :type => 'text/xls; charset=iso-8859-1; header=present',
+    :disposition => "attachment; filename=bookings.xls"
   end
 
   def finance_info
