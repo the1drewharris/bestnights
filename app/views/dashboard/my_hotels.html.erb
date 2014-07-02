@@ -33,7 +33,7 @@
 		</tr>
 		<% @hotels.each do |hotel| %>
 		  <tr>
-		  	<td><%= link_to "#{hotel.id}", dashboard_path(:hotel_id => hotel.id) %></td>
+		  	<td><%= link_to "#{hotel.id}", dashboard_path(:hotel_id => hotel.id), class: "link_hotel" %></td>
 		  	<% if current_user.manager? and current_user.new_signup? %>
 		  		<td><%= link_to hotel.name, new_room_path(:hotel_id => hotel.id) %></td>
 		  	<% else %>

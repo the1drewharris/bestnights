@@ -2770,6 +2770,12 @@ ul#dashboard li a:hover {
 .link_style{
 	color: #F15D58;
 }
+.admintablelist .link_hotel{
+	color: #F15D58!important;
+	background: none!important;
+	border: none!important;
+	text-shadow: none!important;
+}
 #which{
 	width: 100%;
 	border-collapse: collapse;
