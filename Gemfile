@@ -32,7 +32,7 @@ gem 'will_paginate', '~> 3.0.0'
 gem 'impressionist', '~> 1.5.1'
 gem "wicked_pdf"
 gem "wkhtmltopdf-binary"
-# gem 'fullcalendar-rails'
+gem 'fullcalendar-rails'
 
 # Deploy with Capistrano
 group :development do
