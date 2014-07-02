@@ -38,10 +38,10 @@ class HomeController < ApplicationController
     user = user.reload
     
     p params[:hotel]
-    hotel = Hotel.new(params[:hotel])
-    hotel.user_id = user.id
-    hotel.save(:validate => false)
-    hotel = hotel.reload
+    @hotel = Hotel.new(params[:hotel])
+    @hotel.user_id = user.id
+    @hotel.save(:validate => false)
+    @hotel = hotel.reload
     
     if params[:hotel_attributes]
       ## add new hotel attribute to the hotel

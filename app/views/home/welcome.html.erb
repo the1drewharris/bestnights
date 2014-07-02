@@ -36,26 +36,14 @@
 		<li><label for="client_firstname">Hotel Name*</label><input id="client_firstname" name="hotel[name]" size="30" type="text"></li>
 		<li><label for="client_address1">Address*</label><input id="client_address1" name="hotel[address1]" size="30" type="text"></li>
 		<li><label for="client_city">City*</label><input id="client_city" name="hotel[city]" size="30" type="text"></li>
-		<li class="state">
-			<label for="client_state">State/Province*</label>
-			<select id="client_state" name="hotel[state_id]">
-				<optgroup label="State">
-					<% Country.first.states.each do |state| %>
-						<option value=<%= state.abbreviation %> ><%= state.state_province %></option>
-					<% end %>
-				</optgroup>
-			</select>
+		<li class="country">
+			<label for="traveler_country_id">Country</label>
+			<%= country_select_tag :country_id, priority: %w(US CA), prompt: 'Please select a country' %>
 		</li>
 		<li><label for="client_zip">Zip/Postal Code*</label><input id="client_zip" name="hotel[zip]" size="30" type="text"></li>
-		<li class="country">
-			<label for="client_country">Country*</label>
-			<select id="client_country" name="hotel[country_id]">
-				<optgroup label="Country">
-					<% Country.all.each do |country| %>
-						<option value=<%= country.id %> ><%= country.country %></option>
-					<% end %>
-				</optgroup>
-			</select>
+		<li class="state">
+			<label for="State/Province">State/Province</label>
+			<input id="client_state" name="state_id" size="30" type="text">
 		</li>
 		<li>
 			<label for="client_comm">Preferred Communication</label>
