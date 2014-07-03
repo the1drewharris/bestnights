@@ -23,11 +23,11 @@ class DashboardController < ApplicationController
 
   def arrivals
     if params[:day] == "todays" || params[:day].blank? 
-  	 @arrivals = Booking.where(:from_date => Date.today).paginate(:page => params[:page], :per_page => 20).order('id DESC')
+  	 @arrivals = Booking.where("hotel_id=? AND from_date=?", session[:hotel_id], Date.today ).paginate(:page => params[:page], :per_page => 20).order('id DESC')
   	elsif params[:day] == "yesterday"
-     @arrivals = Booking.where(:from_date => Date.yesterday).paginate(:page => params[:page], :per_page => 20).order('id DESC')
+     @arrivals = Booking.where("hotel_id=? AND from_date=?", session[:hotel_id], Date.yesterday).paginate(:page => params[:page], :per_page => 20).order('id DESC')
     elsif params[:day] == "future"
-     @arrivals = Booking.where('from_date > ?', Date.today).paginate(:page => params[:page], :per_page => 20).order('id DESC')
+     @arrivals = Booking.where("hotel_id=? AND from_date > ?", session[:hotel_id], Date.today).paginate(:page => params[:page], :per_page => 20).order('id DESC')
      end
   end
 
@@ -56,7 +56,7 @@ class DashboardController < ApplicationController
     #   format.csv { send_data Booking.to_csv }
     #   format.xls { send_data @bookings.to_csv(col_sep: "\t") }
     # end
-    @bookings = Booking.all
+    @bookings = Booking.where(:hotel_id => session[:hotel_id])
     csv_string = CSV.generate do |csv|
        csv << ["Booking Number", "Total", "Arrival","Departure", "Booker Name", "Night Number", "Booking Date"]
        @bookings.each do |book|
@@ -69,7 +69,7 @@ class DashboardController < ApplicationController
   end
 
   def export_in_excel
-    @bookings = Booking.all
+    @bookings = Booking.where(:hotel_id => session[:hotel_id])
     csv_string = CSV.generate do |csv|
        csv << ["Booking Number", "Total", "Arrival","Departure", "Booker Name", "Night Number", "Booking Date"]
        @bookings.each do |book|
@@ -82,7 +82,7 @@ class DashboardController < ApplicationController
   end
 
   def overview
-    @rooms = Room.where("hotel_id=1")
+    @rooms = Booking.where(:hotel_id => session[:hotel_id])
     cookies[:from_date] = []
     cookies[:to_date] = []
     cookies[:nights] = []

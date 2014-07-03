@@ -54,6 +54,8 @@ Bestnights::Application.routes.draw do
   match 'privacy' => 'home#privacy', :as => :privacy
   match 'book_hotel' => 'home#book_hotel', :as => 'book_hotel'
   get '/home/subregion_options' => 'home#subregion_options'
+  get '/hotels/subregion_options' => 'home#subregion_options'
+  get '/users/subregion_options' => 'home#subregion_options'
   match 'faq' => 'home#faq', :as => :faq
   get '/home/autocomplete_hotel_name' => 'home#autocomplete_hotel_name'
   match 'arrivals' => 'dashboard#arrivals', :as => 'arrivals'  

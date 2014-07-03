@@ -29,6 +29,10 @@ class HotelsController < ApplicationController
     @hotel = Hotel.new 
   end
 
+  def subregion_options
+    render partial: 'test'
+  end
+
   def create
     @hotel = Hotel.new(params[:hotel])
     # @hotel.status = "non-active" unless params[:hotel][:status]
@@ -42,12 +46,14 @@ class HotelsController < ApplicationController
       
       if current_user.admin?
         AdminMailer.new_hotel_request([@hotel.user], @hotel, current_user).deliver
+        flash[:success] = "The hotel saved successfully!"
+        redirect_to hotels_path
       elsif current_user.manager?
         AdminMailer.new_hotel_request(User.admins, @hotel, current_user).deliver
+        flash[:success] = "The hotel saved successfully!"
+        redirect_to my_hotels_path
       end
       
-      flash[:success] = "The hotel saved successfully!"
-      redirect_to hotels_path
     else
       flash[:errors] = @hotel.errors.full_messages
       redirect_to :back

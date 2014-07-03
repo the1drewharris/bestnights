@@ -419,7 +419,7 @@
 	    select_wrapper = $('#order_state_code_wrapper');
 	    $('select', select_wrapper).attr('disabled', true);
 	    country_code = $(this).val();
-	    url = "/home/subregion_options?parent_region=" + country_code;
+	    url = "/users/subregion_options?parent_region=" + country_code;
 	    return select_wrapper.load(url);
 
   	});
@@ -429,10 +429,11 @@
 	    select_wrapper = $('#order_state_code_wrapper');
 	    $('select', select_wrapper).attr('disabled', true);
 	    country_code = $(this).val();
-	    url = "/home/subregion_options?parent_region=" + country_code;
+	    url = "/hotels/subregion_options?parent_region=" + country_code;
 	    return select_wrapper.load(url);
 
   	});
+
 
 		if ($( ".checkout" ).length > 0) {
 			

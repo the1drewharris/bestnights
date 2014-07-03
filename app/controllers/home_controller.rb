@@ -33,25 +33,30 @@ class HomeController < ApplicationController
     user = User.new(params[:manager])
     user.role = User::ROLE[1]
     user.status = "pending"
+    user.address1 = ""
+    user.city = ""
+    user.country_id = ""
+    user.zip = ""
+    
      
-    user.save(:validate => false)
+    user.save(validate: false)
     user = user.reload
     
     p params[:hotel]
     @hotel = Hotel.new(params[:hotel])
     @hotel.user_id = user.id
     @hotel.save(:validate => false)
-    @hotel = hotel.reload
+    @hotel = @hotel.reload
     
     if params[:hotel_attributes]
       ## add new hotel attribute to the hotel
       params[:hotel_attributes].keys.each do |hotel_attribute_id|
-        HotelAttributeJoin.find_or_create_by_hotel_id_and_hotel_attribute_id(hotel.id, hotel_attribute_id)
+        HotelAttributeJoin.find_or_create_by_hotel_id_and_hotel_attribute_id(@hotel.id, hotel_attribute_id)
       end
     end
     
     room = Room.new(params[:room])
-    room.hotel_id = hotel.id
+    room.hotel_id = @hotel.id
     room.save(:validate => false)
     room = room.reload    
     

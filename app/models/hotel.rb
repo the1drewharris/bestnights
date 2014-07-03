@@ -3,7 +3,7 @@ class Hotel < ActiveRecord::Base
                   :comission_rate, :card_id, :email_or_fax, :email, :fax, :tax1_label, :tax1, :tax2_label, :tax2, 
                   :tax3_label, :tax3, :tax4_label, :tax4
   
-  validates_presence_of :name, :description, :address1, :city, :state_id, :zip, :user_id, :country_id, :status,
+  validates_presence_of :name, :description, :address1, :city, :zip, :user_id, :country_id, :status,
                         :tax1_label, :tax2_label, :tax3_label, :tax4_label
   
   validates :email, presence: true,
