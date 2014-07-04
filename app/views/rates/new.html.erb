@@ -1,3 +1,5 @@
+<div class="content-wrapper">
+<%= render partial: "/common/navigation_tab"%>
 <div class="bookconfTab">
 <h5>Hotel Name: <%= session[:hotel_name] %>(Id: <%= session[:hotel_id] %>)</h5>
 <form action="/rates" method="post">
@@ -93,7 +95,7 @@
     </div>
   </form>
 </div>
-  <div class="row back-link"><%= link_to "Back", rates_path , class: "link" %></div>
+</div>
 <div class="height100"></div>
 
 <script>

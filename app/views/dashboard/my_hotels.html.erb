@@ -33,11 +33,11 @@
 		</tr>
 		<% @hotels.each do |hotel| %>
 		  <tr>
-		  	<td><%= link_to "#{hotel.id}", dashboard_path(:hotel_id => hotel.id), class: "link_hotel" %></td>
+		  	<td><%= link_to "#{hotel.id}", arrivals_path(:hotel_id => hotel.id), class: "link_hotel" %></td>
 		  	<% if current_user.manager? and current_user.new_signup? %>
 		  		<td><%= link_to hotel.name, new_room_path(:hotel_id => hotel.id) %></td>
 		  	<% else %>
-		  		<td><%= link_to hotel.name, dashboard_path(hotel_id: hotel.id), class: "link_hotel" %></td>
+		  		<td><%= link_to hotel.name, arrivals_path(hotel_id: hotel.id), class: "link_hotel" %></td>
 		  	<% end %>		  	
 				<td><%= hotel.city %></td>
 				<td><%= hotel.state.state_province unless hotel.state.nil? %></td>

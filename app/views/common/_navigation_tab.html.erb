@@ -1,0 +1,55 @@
+<div class="navigation">
+<ul id="dropdown">
+<% if current_user.admin? || current_user.manager?  %>
+<li>
+  <%= link_to image_tag("/assets/ico-hotel-arrival-sm.png") + "Arrivals", arrivals_path, class: "active" %>
+</li>
+<li>
+  <%= link_to image_tag("/assets/ico-hotel-bookings-sm.png") + "Bookings", bookings_path %>
+</li>
+<li>
+  <%= link_to image_tag("/assets/ico-hotel-statistics-sm.png") + "Statistics",  statistics_path %>
+</li>
+<li>
+  <%= link_to image_tag("/assets/ico-manage-rooms-sm.png") + "Manage Rooms",  rooms_path %>
+</li>
+<li>
+   <%= link_to image_tag("/assets/ico-availability-rates-sm.png") + "Rates & Availability", rates_path %>
+<ul class="noJS">
+    <li>
+      <%= link_to image_tag("/assets/ico-change-room-rate-sm.png") + "Change Room Rate", new_rate_path %>
+    </li>
+    <li>
+      <%= link_to image_tag("/assets/ico-rooms-sell-sm.png") + "Adjust Rooms To Sell", new_room_available_path %>
+    </li>
+    <li>
+      <%= link_to image_tag("/assets/ico-open-close-room-sm.png") + "Open/Close Rooms", edit_room_available_path(1) %>
+    </li>
+    <li>
+      <%= link_to image_tag("/assets/ico-open-close-room-sm.png") + "Copy Yearly Rates", copy_yearly_rates_path %>
+    </li>
+</ul>
+</li>
+<li>
+  <%= link_to image_tag("/assets/ico-availability-rates-sm.png") + "Overview", overview_path %>
+</li>
+<li>
+  <%= link_to image_tag("/assets/ico-availability-rates-sm.png") + "Finance", finance_path %>
+  <ul class="noJS">
+    <li>
+      <%= link_to image_tag("/assets/ico-change-room-rate-sm.png") + "Information", finance_info_path %>
+    </li>
+    <li>
+      <%= link_to image_tag("/assets/ico-rooms-sell-sm.png") + "Reservation Statements", reservation_statements_path %>
+    </li>
+    <li>
+      <%= link_to image_tag("/assets/ico-open-close-room-sm.png") + "Invoices", invoice_path %>
+    </li>
+    <li>
+      <%= link_to image_tag("/assets/ico-open-close-room-sm.png") + "Invoice Details", invoicing_details_path %>
+    </li>
+  </ul>
+</li>
+</ul>
+<% end %>
+</div>

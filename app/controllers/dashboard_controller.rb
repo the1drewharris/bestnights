@@ -22,6 +22,14 @@ class DashboardController < ApplicationController
   end
 
   def arrivals
+    unless !session[:hotel_id].blank? 
+      session[:hotel_id] = params[:hotel_id]
+    else
+      session[:hotel_id] = session[:hotel_id]
+    end
+    @hotel = Hotel.find(session[:hotel_id])
+    session[:hotel_name] = @hotel.name
+
     if params[:day] == "todays" || params[:day].blank? 
   	 @arrivals = Booking.where("hotel_id=? AND from_date=?", session[:hotel_id], Date.today ).paginate(:page => params[:page], :per_page => 20).order('id DESC')
   	elsif params[:day] == "yesterday"

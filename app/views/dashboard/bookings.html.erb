@@ -1,3 +1,5 @@
+<div class="content-wrapper">
+<%= render partial: "/common/navigation_tab"%>
 <div class="bookconfTab">
 	<div class="booking blocks">
 		<h5>Hotel Name: <%= session[:hotel_name] %>(Id: <%= session[:hotel_id] %>)</h5>
@@ -38,5 +40,5 @@
 <%= will_paginate @bookings %>
 </div>
 </div>
-<div class="row back-link"><%= link_to "Back", dashboard_path , class: "link" %></div>
+</div>
 <div class="height100"></div>
