@@ -1,3 +1,5 @@
+<div class="bookconfTab">
+<h5>Hotel Name: <%= session[:hotel_name] %>(Id: <%= session[:hotel_id] %>)</h5>
 <form action="/room_availables" method="post">
   <div class="clear">&nbsp;</div>
   <div class="room-type blocks">
@@ -84,9 +86,10 @@
 		</table>
 		<p><input type="submit" value="Change Status" name="submit" ></p>
 		</form>
-	</div>
+  </div>
   <div class="row back-link"><%= link_to "Back", rates_path , class: "link" %></div>
 </div>
+<div class="height100"></div>
 
 <script>
 	$(function() {

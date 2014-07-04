@@ -58,7 +58,7 @@ class DashboardController < ApplicationController
     # end
     @bookings = Booking.where(:hotel_id => session[:hotel_id])
     csv_string = CSV.generate do |csv|
-       csv << ["Booking Number", "Total", "Arrival","Departure", "Booker Name", "Night Number", "Booking Date"]
+       csv << ["Booking_Number", "Total", "Arrival","Departure", "Booker_Name", "Night_Number", "Booking_Date"]
        @bookings.each do |book|
          csv << [book.id, book.price, book.from_date, book.to_date, book.traveler.name, book.night_number, book.created_at]
        end
@@ -71,7 +71,7 @@ class DashboardController < ApplicationController
   def export_in_excel
     @bookings = Booking.where(:hotel_id => session[:hotel_id])
     csv_string = CSV.generate do |csv|
-       csv << ["Booking Number", "Total", "Arrival","Departure", "Booker Name", "Night Number", "Booking Date"]
+       csv << ["Booking_Number", "Total", "Arrival","Departure", "Booker_Name", "Night_Number", "Booking_Date"]
        @bookings.each do |book|
          csv << [book.id, book.price, book.from_date, book.to_date, book.traveler.name, book.night_number, book.created_at]
        end
