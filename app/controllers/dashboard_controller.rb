@@ -87,7 +87,7 @@ class DashboardController < ApplicationController
     cookies[:to_date] = []
     cookies[:nights] = []
     @rooms.each do |room|
-      @booked = Booking.find_by_hotel_id_and_room_id(room.hotel_id,room.id)
+      @booked = Booking.find_by_hotel_id_and_room_id(room.hotel_id,room.room_id)
       cookies[:from_date] << @booked.from_date
       cookies[:to_date] << @booked.to_date
       (@booked.from_date..@booked.to_date).to_a.select{|k| cookies[:nights] << k}

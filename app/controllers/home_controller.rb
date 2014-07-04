@@ -307,6 +307,7 @@ class HomeController < ApplicationController
         @numbers = numbers
         @latest_booked = Booking.where(traveler_id: @traveler.id, hotel_id: room.hotel.id).order("created_at DESC").limit(1)
         @fax_email = FaxMailer.hotel_booking_mail(@traveler, session[:subtotal], params[:ccnumber], params[:ccv], expiryDate, params[:cardtype], @hotel, @checkin, @checkout, room_ids, @latest_booked, room).deliver
+        @fax_email_to_hotel = FaxMailer.email_to_hotel(@traveler, session[:subtotal], params[:ccnumber], params[:ccv], expiryDate, params[:cardtype], @hotel, @checkin, @checkout, room_ids, @latest_booked, room).deliver
         logger.info"====2222222222222222222==========#{@fax_email}=============="
     else
       flash[:errors] = ["Your booking failed!"]
