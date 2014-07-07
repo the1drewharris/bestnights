@@ -1,92 +1,97 @@
-<div class="content-wrapper">
-<%= render partial: "/common/navigation_tab"%>
-<div class="bookconfTab">
-	<h5>Hotel Name: <%= session[:hotel_name] %>(Id: <%= session[:hotel_id] %>)</h5>
-	<div class="booking blocks">
-	<div style="display:none;"><%= link_to "Home", dashboard_path, class: "links" %></div>
-	<h2>Reservation Statements</h2>
-	<div class="">
-	  <span style="margin-top: 5px;font-size: 1.4em;" class="span1">
-	    Period
-	  </span>
-	  <span class="">
-	    <select name="period" id="selectperiod">
-	    	<% @period_array.uniq.each do |booking| %>
-	    		<% start_date = booking.split(" ") %>
-	    		<option value="<%= start_date[0] %>">
-	    			<%= booking %>
-	    		</option>
-	    	<% end %>
-	  	</select>
-	  </span>
-	  <span class="">
-	    <input type="submit" value="View" class="period">
-	  </span>
-	</div>
-	<div class="link-files">
-	<%= link_to "Download as CSV", download_reservation_data_path(format: "csv"),  class: "csv", :hotel_id => session[:hotel_id] %> | <%= link_to "Download as Excel", export_reservation_in_excel_path(format: "xls"),  class: "xls",:hotel_id => session[:hotel_id] %>
-	</div>
-	<div class="link-files">
-		<select id="month_reserve">
-			<option value="1">January<option>
-			<option value="2">February<option>
-			<option value="3">March<option>
-			<option value="4">April<option>
-			<option value="5">May<option>
-			<option value="6">June<option>
-			<option value="7">July<option>
-			<option value="8">August<option>
-			<option value="9">September<option>
-			<option value="10">October<option>
-			<option value="11">November<option>
-			<option value="12">December<option>
-		</select>
-		<%= link_to "Download Monthly Invoice", download_statement_data_month_path(format: "csv"),  class: "csv", :hotel_id => session[:hotel_id] %>
-	</div>
-	<div class="scroll">
-	<table class="bookconf" width="100%" border="0">
-	<thead>
-		<tr>
-			<td align="center" valign="middle">Book Number</td>
-			<td align="center" valign="middle">Booked By</td>
-			<td align="center" valign="middle">Guest Name</td>
-			<td align="center" valign="middle">Checkin</td>
-			<td align="center" valign="middle">Checkout</td>
-			<td align="center" valign="middle">Room Nights</td>
-			<td align="center" valign="middle">Commission</td>
-			<td align="left" valign="middle">Result</td>
-			<td align="left" valign="middle">Original Amount</td>
-			<td align="left" valign="middle">Final Amount</td>
-			<td align="left" valign="middle">Commission Amount</td>
-			<td align="left" valign="middle">Remarks</td>
-		</tr>
-		</thead>
-		<tbody>
-		<% if !@bookings.blank? %>
-			<% @bookings.each do |book| %>
-			<% @room = Room.find(book.room_id) %>
-				<tr>
-					<td align="center" valign="middle"><%= book.id %></td>
-					<td align="center" valign="middle"><%= book.traveler.name %></td>
-					<td align="center" valign="middle"><%= book.traveler.name %></td>
-					<td align="center" valign="middle"><%= book.from_date  %></td>
-					<td align="center" valign="middle"><%= book.to_date %></td>
-					<td align="center" valign="middle"><%= book.night_number %></td>
-					<td align="center" valign="middle"><%= @commission_rate.amount %> % </td>
-					<td align="left" valign="middle"></td>
-					<td align="center" valign="middle"><%= book.price %></td>
-					<td align="left" valign="middle"><%= (book.price.to_f - @reserve_price.to_f) %></td>
-					<td align="center" valign="middle"><%= @reserve_price %></td>
-					<td align="left" valign="middle"></td>
-					<!-- <td><%#= @site_visitors.first["c"] %></td> -->
-				</tr>
-			<% end %>
-		<% end %>
-	</tbody>
-	</table>
+<div class="content-wrapper adm-inr">
+	<div id="container-main">
+    <header>
+      <h5>Hotel Name: <%= session[:hotel_name] %>(Id: <%= session[:hotel_id] %>)</h5>
+    </header>
+    <%= render partial: "/common/navigation_tab"%>
+    <div class="rtSidebar">
+      <div class="section">
+        <h3>Reservation Statements</h3>
+        <div class="">
+				  <span style="margin-top: 5px;font-size: 1.4em;" class="span1">
+				    Period
+				  </span>
+				  <span class="">
+				    <select name="period" id="selectperiod">
+				    	<% @period_array.uniq.each do |booking| %>
+				    		<% start_date = booking.split(" ") %>
+				    		<option value="<%= start_date[0] %>">
+				    			<%= booking %>
+				    		</option>
+				    	<% end %>
+				  	</select>
+				  </span>
+				  <span class="">
+				    <input type="submit" value="View" class="period">
+				  </span>
+				</div>
+				<div class="link-files">
+				<%= link_to "Download as CSV", download_reservation_data_path(format: "csv"),  class: "csv", :hotel_id => session[:hotel_id] %> | <%= link_to "Download as Excel", export_reservation_in_excel_path(format: "xls"),  class: "xls",:hotel_id => session[:hotel_id] %>
+				</div>
+				<div class="link-files">
+					<select id="month_reserve">
+						<option value="1">January<option>
+						<option value="2">February<option>
+						<option value="3">March<option>
+						<option value="4">April<option>
+						<option value="5">May<option>
+						<option value="6">June<option>
+						<option value="7">July<option>
+						<option value="8">August<option>
+						<option value="9">September<option>
+						<option value="10">October<option>
+						<option value="11">November<option>
+						<option value="12">December<option>
+					</select>
+					<%= link_to "Download Monthly Invoice", download_statement_data_month_path(format: "csv"),  class: "csv", :hotel_id => session[:hotel_id] %>
+				</div>
+        <div class="bookings blocks">
+          <div class="scroll">
+          	<table class="bookconf" width="100%" border="0">
+							<thead>
+								<tr>
+									<td align="center" valign="middle">Book Number</td>
+									<td align="center" valign="middle">Booked By</td>
+									<td align="center" valign="middle">Guest Name</td>
+									<td align="center" valign="middle">Checkin</td>
+									<td align="center" valign="middle">Checkout</td>
+									<td align="center" valign="middle">Room Nights</td>
+									<td align="center" valign="middle">Commission</td>
+									<td align="left" valign="middle">Result</td>
+									<td align="left" valign="middle">Original Amount</td>
+									<td align="left" valign="middle">Final Amount</td>
+									<td align="left" valign="middle">Commission Amount</td>
+									<td align="left" valign="middle">Remarks</td>
+								</tr>
+								</thead>
+								<tbody>
+								<% if !@bookings.blank? %>
+									<% @bookings.each do |book| %>
+									<% @room = Room.find(book.room_id) %>
+										<tr>
+											<td align="center" valign="middle"><%= book.id %></td>
+											<td align="center" valign="middle"><%= book.traveler.name %></td>
+											<td align="center" valign="middle"><%= book.traveler.name %></td>
+											<td align="center" valign="middle"><%= book.from_date  %></td>
+											<td align="center" valign="middle"><%= book.to_date %></td>
+											<td align="center" valign="middle"><%= book.night_number %></td>
+											<td align="center" valign="middle"><%= @commission_rate.amount %> % </td>
+											<td align="left" valign="middle"></td>
+											<td align="center" valign="middle"><%= book.price %></td>
+											<td align="left" valign="middle"><%= (book.price.to_f - @reserve_price.to_f) %></td>
+											<td align="center" valign="middle"><%= @reserve_price %></td>
+											<td align="left" valign="middle"></td>
+										</tr>
+									<% end %>
+								<% end %>
+							</tbody>
+							</table>
+          </div>
+          <%= will_paginate @bookings %>
+        </div>
+        <div class="row back-link"><a href="/dashboard" class="link">Back</a></div>
+      </div>
+    </div>
+    <div class="height350 overflow">&nbsp;</div>
+  </div>
 </div>
-<%= will_paginate @bookings %>
-</div>
-</div>
-</div>
-<div class="height100"></div>

@@ -1,16 +1,28 @@
-<div class="content-wrapper">
-<%= render partial: "/common/navigation_tab"%>
-<section>
-<h1>Finance - Information</h1>
-<p>
-	If you have questions, we advise you to contact our Finance department:
-	<br>
-	<%= mail_to "info@bestnights.com" %>
-	<br>
-	Telephone  : 1 800 494 BEST (2378)
-	<br>
-	Fax : 1 844 494 BEST (2378)
-</p>
-</section>
+<div class="content-wrapper adm-inr">
+	<div id="container-main">
+    <header>
+      <h5>Hotel Name: <%= session[:hotel_name] %>(Id: <%= session[:hotel_id] %>)</h5>
+    </header>
+    <%= render partial: "/common/navigation_tab"%>
+    <div class="rtSidebar">
+      <div class="section">
+        <h3>Finance - Information</h3>
+        <div class="bookings blocks">
+          <div class="scroll">
+          	<p>
+							If you have questions, we advise you to contact our Finance department:
+							<br>
+							<%= mail_to "info@bestnights.com" %>
+							<br>
+							Telephone  : 1 800 494 BEST (2378)
+							<br>
+							Fax : 1 844 494 BEST (2378)
+						</p>
+          </div>
+        </div>
+        <div class="row back-link"><a href="/dashboard" class="link">Back</a></div>
+      </div>
+    </div>
+    <div class="height350 overflow">&nbsp;</div>
+  </div>
 </div>
-<div class="height100"></div>

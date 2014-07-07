@@ -1,29 +1,45 @@
-<div class="content-wrapper">
-	<%= render partial: "/common/navigation_tab"%>
+<div class="content-wrapper adm-inr">
+	<div id="container-main">
+    <header>
+      <h5>Hotel Name: <%= session[:hotel_name] %>(Id: <%= session[:hotel_id] %>)</h5>
+    </header>
+    <%= render partial: "/common/navigation_tab"%>
+    <div class="rtSidebar">
+      <div class="section">
+        <h3>Overview</h3>
+        <div class="bookings blocks">
+          <div class="scroll">
+          	<p>Date: <input type="text" id="datepicker"><input type="submit" id="find" value="Find"></p>
+          	<table class="bookconf" width="100%" border="0">
+							<thead>
+								<tr>
+								 <td align="left" valign="middle">Room Type</td>
+								  <td align="center" valign="middle">No. of Rooms Booked</td>
+								  <td align="center" valign="middle">No. of Rooms Available</td>
+								  <td align="center" valign="middle">Rate</td>
+								</tr>
+							</thead>
+							<tbody>
+								<% @room_types.each_with_index do |room_type,i| %>
+									<tr>
+									  <td align="left" valign="middle">
+									  	<%= room_type.room_type %>
+									  </td>
+									  <td align="center" valign="middle" id="booked<%= i %>">
+									  </td>
+									  <td align="center" valign="middle">
+									  </td>		
+									  <td align="center" valign="middle" id="rate<%= i %>">
+										</td>
+									</tr>
+								<% end %>
+							</tbody>
+						</table>
+          </div>
+        </div>
+        <div class="row back-link"><a href="/dashboard" class="link">Back</a></div>
+      </div>
+    </div>
+    <div class="height350 overflow">&nbsp;</div>
+  </div>
 </div>
-<p>Date: <input type="text" id="datepicker"><input type="submit" id="find" value="Find"></p>
-<table class="bookconf" width="100%" border="0">
-	<thead>
-		<tr>
-		 <td align="left" valign="middle">Room Type</td>
-		  <td align="center" valign="middle">No. of Rooms Booked</td>
-		  <td align="center" valign="middle">No. of Rooms Available</td>
-		  <td align="center" valign="middle">Rate</td>
-		</tr>
-	</thead>
-	<tbody>
-		<% @room_types.each_with_index do |room_type,i| %>
-			<tr>
-			  <td align="left" valign="middle">
-			  	<%= room_type.room_type %>
-			  </td>
-			  <td align="center" valign="middle" id="booked<%= i %>">
-			  </td>
-			  <td align="center" valign="middle">
-			  </td>		
-			  <td align="center" valign="middle" id="rate<%= i %>">
-				</td>
-			</tr>
-		<% end %>
-	</tbody>
-</table>

@@ -1,72 +1,76 @@
-<div class="content-wrapper">
-<%= render partial: "/common/navigation_tab"%>
-<div class="bookconfTab">
-	<h5>Hotel Name: <%= session[:hotel_name] %>(Id: <%= session[:hotel_id] %>)</h5>
-	<div class="invoices blocks">
-		<div style="display:none;">
-			<%= link_to "Home", dashboard_path, class: "links" %>
-		</div>
-		<h2>Invoices</h2>
-		<div class="link-files">
-			<select id="month">
-				<option value="1">January<option>
-				<option value="2">February<option>
-				<option value="3">March<option>
-				<option value="4">April<option>
-				<option value="5">May<option>
-				<option value="6">June<option>
-				<option value="7">July<option>
-				<option value="8">August<option>
-				<option value="9">September<option>
-				<option value="10">October<option>
-				<option value="11">November<option>
-				<option value="12">December<option>
-			</select>
-			<%= link_to "Download Monthly Invoice", download_reservation_data_month_path(format: "pdf"),  class: "csv" %>
-		</div>
-		<div class="scroll">
-			<table class="bookconf" width="100%" border="0">
-				<thead>
-					<tr>
-						<td align="left" valign="middle">Status</td>
-						<td align="left" valign="middle">Invoice Number</td>
-						<td align="center" valign="middle">Invoice Date</td>
-						<td align="center" valign="middle">Due Date</td>
-						<td align="center" valign="middle">Period</td>
-						<td align="center" valign="middle">Invoice Amount</td>
-						<td align="center" valign="middle">Amount Paid</td>
-				</thead>
-				<tbody>
-					<% @bookings.each do |booking| %>
-						<tr>
-							<td>
-								<%= link_to "Download", status_path(:id => booking.id, :format => "pdf"), class: "links" %>
-							</td>
-							<td>
-								<%= booking.id %>
-							</td>
-							<td>
-								<%= booking.from_date %>
-							</td>
-							<td>
-								<%= booking.from_date.advance(:months => 1) %>
-							</td>
-							<td>
-								<%= booking.from_date %> To <%= booking.from_date.advance(:months => 1) %>
-							</td>
-							<td>
-								<%= booking.price %>
-							</td>
-							<td>
-								<%= booking.price %>
-							</td>
-						</tr>
-					<% end %>
-				</tbody>
-			</table>
-		</div>
-		<%= will_paginate @bookings %>
-	</div>
+<div class="content-wrapper adm-inr">
+	<div id="container-main">
+    <header>
+      <h5>Hotel Name: <%= session[:hotel_name] %>(Id: <%= session[:hotel_id] %>)</h5>
+    </header>
+    <%= render partial: "/common/navigation_tab"%>
+    <div class="rtSidebar">
+      <div class="section">
+        <h3>Invoices</h3>
+        <div class="link-files">
+					<select id="month">
+						<option value="1">January<option>
+						<option value="2">February<option>
+						<option value="3">March<option>
+						<option value="4">April<option>
+						<option value="5">May<option>
+						<option value="6">June<option>
+						<option value="7">July<option>
+						<option value="8">August<option>
+						<option value="9">September<option>
+						<option value="10">October<option>
+						<option value="11">November<option>
+						<option value="12">December<option>
+					</select>
+					<%= link_to "Download Monthly Invoice", download_reservation_data_month_path(format: "pdf"),  class: "csv" %>
+				</div>
+        <div class="bookings blocks">
+          <div class="scroll">
+          	<table class="bookconf" width="100%" border="0">
+							<thead>
+								<tr>
+									<td align="left" valign="middle">Status</td>
+									<td align="left" valign="middle">Invoice Number</td>
+									<td align="center" valign="middle">Invoice Date</td>
+									<td align="center" valign="middle">Due Date</td>
+									<td align="center" valign="middle">Period</td>
+									<td align="center" valign="middle">Invoice Amount</td>
+									<td align="center" valign="middle">Amount Paid</td>
+							</thead>
+							<tbody>
+								<% @bookings.each do |booking| %>
+									<tr>
+										<td>
+											<%= link_to "Download", status_path(:id => booking.id, :format => "pdf"), class: "links" %>
+										</td>
+										<td>
+											<%= booking.id %>
+										</td>
+										<td>
+											<%= booking.from_date %>
+										</td>
+										<td>
+											<%= booking.from_date.advance(:months => 1) %>
+										</td>
+										<td>
+											<%= booking.from_date %> To <%= booking.from_date.advance(:months => 1) %>
+										</td>
+										<td>
+											<%= booking.price %>
+										</td>
+										<td>
+											<%= booking.price %>
+										</td>
+									</tr>
+								<% end %>
+							</tbody>
+						</table>
+          </div>
+          <%= will_paginate @bookings %>
+        </div>
+        <div class="row back-link"><a href="/dashboard" class="link">Back</a></div>
+      </div>
+    </div>
+    <div class="height350 overflow">&nbsp;</div>
+  </div>
 </div>
-</div>
-<div class="height100"></div>
