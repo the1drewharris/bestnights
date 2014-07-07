@@ -202,6 +202,21 @@ class DashboardController < ApplicationController
     end
   end
 
+  def download_statement_data_month
+    @bookings = Booking.where("MONTH(created_at)=? AND hotel_id=?",cookies[:month_reserve].to_i,session[:hotel_id])
+    @commission_rate = CommissionRate.first
+    csv_string = CSV.generate do |csv|
+       csv << ["Booking_Number", "Booked_By", "Guest_Name","Checkin", "Checkout", "Room_Nights", "Commission", "Result", "Original_Amount", "Final_Amount", "Commission_Amount", "Remarks"]
+       @bookings.each do |book|
+          @reserve_price = (book.price.to_i * (@commission_rate.amount).to_f) / 100
+          csv << [book.id, book.traveler.name, book.traveler.name, book.from_date, book.to_date, book.night_number, @commission_rate.amount, "", book.price, book.price.to_f - @reserve_price.to_f, @reserve_price, ""]
+       end
+    end   
+   send_data csv_string,
+   :type => 'text/csv; charset=iso-8859-1; header=present',
+   :disposition => "attachment; filename=bookings.csv"
+  end
+
   def finance_info
     
   end

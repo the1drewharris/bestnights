@@ -22,9 +22,12 @@
 
 		$(".arriv_search").click(function(){
 			window.location.href = "/arrivals?search_date="+$("#search_date").val()
-		}
+		})
 		$("#month").change(function(){
 			$.cookie("month",$("#month").val());
+		})
+		$("#month_reserve").change(function(){
+			$.cookie("month_reserve",$("#month_reserve").val());
 		})
 		
 		$('#traveler_sign_in_booking_btn').click(function() {
