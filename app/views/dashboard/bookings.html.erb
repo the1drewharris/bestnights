@@ -1,44 +1,51 @@
-<div class="content-wrapper">
-<%= render partial: "/common/navigation_tab"%>
-<div class="bookconfTab">
-	<div class="booking blocks">
-		<h5>Hotel Name: <%= session[:hotel_name] %>(Id: <%= session[:hotel_id] %>)</h5>
-	<div style="display:none;"><%= link_to "Home", dashboard_path, class: "links" %></div>
-	<h2>Bookings</h2>
-	<div class="link-files">
-	<%= link_to "Download as CSV", download_booking_data_path(format: "csv"),  class: "csv" %> | <%= link_to "Download as Excel", export_in_excel_path(format: "xls"),  class: "xls" %>
-	</div>
-	<div class="scroll">
-	<table class="bookconf" width="100%" border="0">
-	<thead>
-		<tr>
-			<td align="center" valign="middle">Resrvation No</td>
-			<td align="center" valign="middle">Book Date</td>
-			<td align="center" valign="middle">Arrival</td>
-			<td align="center" valign="middle">Departure</td>
-			<td align="center" valign="middle">Total</td>
-			<td align="left" valign="middle">Booker Name</td>
-		</tr>
-		</thead>
-		<tbody>
-		<% if !@bookings.blank? %>
-			<% @bookings.each do |book| %>
-				<tr>
-					<td align="center" valign="middle"><%= book.id %></td>
-					<td align="center" valign="middle"><%= book.created_at.strftime("%Y-%m-%d") %></td>
-					<td align="center" valign="middle"><%= book.from_date  %></td>
-					<td align="center" valign="middle"><%= book.to_date %></td>
-					<td align="center" valign="middle"><%= book.price %></td>
-					<td align="left" valign="middle"><%= book.traveler.name %></td>
-					<!-- <td><%#= @site_visitors.first["c"] %></td> -->
-				</tr>
-			<% end %>
-		<% end %>
-	</tbody>
-	</table>
-</div>
-<%= will_paginate @bookings %>
-</div>
-</div>
-</div>
-<div class="height100"></div>
+<div class="content-wrapper adm-inr">
+    <div id="container-main">
+      <header>
+        <h5>Hotel Name: Top 2 Los Angeles Hotel(Id: 2)</h5>
+      </header>
+      <%= render partial: "/common/navigation_tab"%>
+      <div class="rtSidebar">
+        <div class="section">
+          <h3>Bookings</h3>
+          <div class="link-files">
+						<%= link_to "Download as CSV", download_booking_data_path(format: "csv"),  class: "csv" %> | <%= link_to "Download as Excel", export_in_excel_path(format: "xls"),  class: "xls" %>
+					</div>
+          <div class="bookings blocks">
+          <div class="scroll">
+            <table class="bookconf" width="100%" border="0">
+              <thead>
+                <tr>
+                  <td align="center" valign="middle">Resrvation No</td>
+                  <td align="center" valign="middle">Book Date</td>
+                  <td align="center" valign="middle">Arrival</td>
+                  <td align="center" valign="middle">Departure</td>
+                  <td align="center" valign="middle">Total</td>
+                  <td align="left" valign="middle">Booker Name</td>
+                </tr>
+              </thead>
+              <tbody>
+                <% if !@bookings.blank? %>
+									<% @bookings.each do |book| %>
+										<tr>
+											<td align="center" valign="middle"><%= book.id %></td>
+											<td align="center" valign="middle"><%= book.created_at.strftime("%Y-%m-%d") %></td>
+											<td align="center" valign="middle"><%= book.from_date  %></td>
+											<td align="center" valign="middle"><%= book.to_date %></td>
+											<td align="center" valign="middle"><%= book.price %></td>
+											<td align="left" valign="middle"><%= book.traveler.name %></td>
+											<!-- <td><%#= @site_visitors.first["c"] %></td> -->
+										</tr>
+									<% end %>
+								<% end %>
+              </tbody>
+            </table>
+          </div>
+          <%= will_paginate @bookings %>
+          </div>
+          <div class="row back-link"><a href="/dashboard" class="link">Back</a></div>
+        </div>
+      </div>
+      <div class="height350 overflow">&nbsp;</div>
+    </div>
+  </div>
+<!-- <div class="height100"></div> -->

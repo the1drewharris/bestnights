@@ -21,6 +21,7 @@
 //= require functions
 //= require autocomplete-rails
 //= require autocomplete-rails
+//= require sidebar
 
 $(document).ready(function() {
 	if(window.location.pathname == "/overview"){

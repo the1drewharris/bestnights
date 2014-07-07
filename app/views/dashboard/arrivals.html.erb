@@ -1,60 +1,73 @@
-<div class="content-wrapper">
-<%= render partial: "/common/navigation_tab"%>
-<div class="bookconfTab">
-	<div class="arrival blocks">
-	<div style="display:none;"><%= link_to "Home", dashboard_path, class: "links" %></div>
-	<h2>Arrivals</h2>
-	<div class="">
-	  <span style="margin-top: 5px;font-size: 1.4em;" class="span1">
-	    Search 
-	  </span>
-	  <span class="">
-	    <%= text_field_tag 'search_date', "", :name => "search_date", :class => "datepicker1" %>
-	  </span>
-	  <span class="">
-	    <input type="submit" value="View" class="arriv_search">
-	  </span>
-	</div>
+<div class="content-wrapper adm-inr">
+    <div id="container-main">
+      <header>
+        <h4>&nbsp;</h4>
+      </header>
+      <%= render partial: "/common/navigation_tab"%>
+      <div class="rtSidebar">
+        <div class="section">
+          <h3>Arrivals</h3>
+          <div class="dt-row">
+            <label>
+             <%= text_field_tag 'search_date', "", :name => "search_date", :class => "datepicker1 textfield" %>
+              <input type="submit" name="button" id="button" value="Search" class="srch arriv_search">
+            </label>
+          </div>
+          <div class="arrival blocks">
+            <div style="display:none;"><a href="/dashboard" class="links">Home</a></div>
+            <ul id="links">
+              <li class="active">
+              	<%= link_to "Today", arrivals_path(:day => "todays"), class: "" %>
+              </li>
+              <li>
+              	<%= link_to "Yesterday", arrivals_path(:day => "yesterday"), class: "" %>
+              </li>
+              <li>
+              	<%= link_to "Future", arrivals_path(:day => "future"), class: "" %>
+              </li>
+            </ul>
+            <table class="bookconf" width="100%" border="0">
+              <thead>
+                <tr>
+                  <td align="center" valign="middle">Resrvation No</td>
+                  <td align="center" valign="middle">Booker Name</td>
+                </tr>
+              </thead>
+              <tbody>
+              	<% if !@arrivals.blank? %>
+									<% @arrivals.each do |arrival| %>
+										<tr>
+											<td align="center" valign="middle"><%= arrival.id %></td>
+											<td align="center" valign="middle"><%= arrival.traveler.name %></td>
+										</tr>
+									<% end %>
+								<% end %>
+              </tbody>
+            </table>
+          </div>
+          <div class="row back-link"><a href="/dashboard" class="link">Back</a></div>
+          
+        </div>
+      </div>
+      <div class="height350 overflow">&nbsp;</div>
+    </div>
+  </div>
 
-	<ul id="links"><li class="active"><%= link_to "Today", arrivals_path(:day => "todays"), class: "" %></li><li><%= link_to "Yesterday", arrivals_path(:day => "yesterday"), class: "" %></li><li><%= link_to "Future", arrivals_path(:day => "future"), class: "" %></li></ul>
-	<table class="bookconf" width="100%" border="0">
-		<thead>
-		<tr>
-			<td align="center" valign="middle">Resrvation No</td>
-			<td align="center" valign="middle">Booker Name</td>
-		</tr>
-	</thead>
-	<tbody>
-		<% if !@arrivals.blank? %>
-		<% @arrivals.each do |arrival| %>
-				<tr>
-					<td align="center" valign="middle"><%= arrival.id %></td>
-					<td align="center" valign="middle"><%= arrival.traveler.name %></td>
-				</tr>
-		<% end %>
-		<% end %>
-	</tbody>
-	</table>
-</div>
-</div>
-</div>
-
-<script>
-	$(document).ready(function(){
-		$( ".datepicker1" ).datepicker({dateFormat: "yy-mm-dd"});
-		var url = $.url(window.location.href)
-		//alert(url.param('day'))
-		if (url.param('day') == 'yesterday'){
-			$("#links li:nth-child(2)").addClass('active');
-			$("#links li:nth-child(2)").siblings("li").removeClass('active');
-		}
-		else if (url.param('day') == 'future'){
-			$("#links li:nth-child(3)").addClass('active');
-			$("#links li:nth-child(3)").siblings("li").removeClass('active');
-		}
-		else{
-			$("#links li:nth-child(1)").addClass('active');
-			$("#links li:nth-child(1)").siblings("li").removeClass('active');
-		}
-	})
-</script>
+  <script type="text/javascript">
+			$(document).ready(function(){
+				$( ".datepicker1" ).datepicker({dateFormat: "yy-mm-dd"});
+				var url = $.url(window.location.href)
+				if (url.param('day') == 'yesterday'){
+					$("#links li:nth-child(2)").addClass('active');
+					$("#links li:nth-child(2)").siblings("li").removeClass('active');
+				}
+				else if (url.param('day') == 'future'){
+					$("#links li:nth-child(3)").addClass('active');
+					$("#links li:nth-child(3)").siblings("li").removeClass('active');
+				}
+				else{
+					$("#links li:nth-child(1)").addClass('active');
+					$("#links li:nth-child(1)").siblings("li").removeClass('active');
+				}
+			})
+		</script>
