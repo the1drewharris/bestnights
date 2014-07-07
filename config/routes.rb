@@ -81,6 +81,7 @@ Bestnights::Application.routes.draw do
   match 'finance_info' => "dashboard#finance_info", :as => 'finance_info'
   match 'invoicing_details' => "dashboard#invoicing_details", :as => 'invoicing_details'
   match 'find_room_details' => "dashboard#find_room_details", :as => 'find_room_details'
+  match 'download_reservation_data_month' => "dashboard#download_reservation_data_month", :as => 'download_reservation_data_month'
   
   # resources :users, except: :create
   resources :users
