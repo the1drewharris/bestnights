@@ -1,76 +1,85 @@
-<div class="content-wrapper">
-<%= render partial: "/common/navigation_tab"%>
-<div class="bookconfTab">
-	<h5>Hotel Name: <%= session[:hotel_name] %>(Id: <%= session[:hotel_id] %>)</h5>
-	<div class="statistics blocks">
-	<div style="display:none;"><%= link_to "Home", dashboard_path, class: "links" %></div>
-	<h2>Statistics</h2>
-		<table class="bookconf" width="100%" border="0">
-	<thead>
-		<tr>
-		 <td align="left" valign="middle">Subject</td>
-		  <td align="center" valign="middle">Today</td>
-		  <td align="center" valign="middle">This week</td>
-		  <td align="center" valign="middle">This Month</td>
-		  <td align="center" valign="middle">This Year</td>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-		  <td align="left" valign="middle">Property Views</td>
-		  <td align="center" valign="middle">
-				<% if !@site_visitors_today.blank?  %>
-					<%= @site_visitors_today.first["c"] %>
-				<% end %>
-		  </td>
-		  <td align="center" valign="middle">
-				<% if !@site_visitors_today.blank?  %>
-					<%= @site_visitors_this_week.count %>
-				<% end %>
-		  </td>		
-		  <td align="center" valign="middle">
-				<% if !@site_visitors_this_month.blank? %>
-					<%= @site_visitors_this_month.first["c"] %>
-				<% end %>
-			</td>
-		  <td align="center" valign="middle">
-		  	<% if !@site_visitors_this_year.blank?  %>
-					<%= @site_visitors_this_year.first["c"] %>
-				<% end %>
-			</td>
-		</tr>
-		<tr>
-		  <td align="left" valign="middle">Booking</td>
-		  <td align="center" valign="middle">
-				<%= @bookings_day_wise.count %>
-			</td>
-			<td align="center" valign="middle">
-				<%= @bookings_week_wise.count %>
-			</td>	
-		  <td align="center" valign="middle">
-				<%= @bookings_month_wise.count %>
-			</td>
-		  <td align="center" valign="middle">
-				<%= @bookings_year_wise.count %>
-			</td>
-		</tr>
-		<tr>
-		  <td align="left" valign="middle">Total Nights Sold</td>
-		  <td align="center" valign="middle">
-				<%= @total_nights_today %>
-			</td>
-			<td align="center" valign="middle">
-				<%= @total_nights_this_week %>
-			</td>	
-		  <td align="center" valign="middle">
-				<%= @total_nights_this_month %>
-			</td>
-		  <td align="center" valign="middle">
-				<%= @total_nights_this_year %>
-			</td>
-		</tr>
-	</tbody>
-</table>
-</div>
-</div>
+<div class="content-wrapper adm-inr">
+	<div id="container-main">
+    <header>
+      <h5>Hotel Name: <%= session[:hotel_name] %>(Id: <%= session[:hotel_id] %>)</h5>
+    </header>
+    <%= render partial: "/common/navigation_tab"%>
+    <div class="rtSidebar">
+      <div class="section">
+        <h3>Statistics</h3>
+        <div class="bookings blocks">
+          <div class="scroll">
+          	<table class="bookconf" width="100%" border="0">
+							<thead>
+								<tr>
+								 <td align="left" valign="middle">Subject</td>
+								  <td align="center" valign="middle">Today</td>
+								  <td align="center" valign="middle">This week</td>
+								  <td align="center" valign="middle">This Month</td>
+								  <td align="center" valign="middle">This Year</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+								  <td align="left" valign="middle">Property Views</td>
+								  <td align="center" valign="middle">
+										<% if !@site_visitors_today.blank?  %>
+											<%= @site_visitors_today.first["c"] %>
+										<% end %>
+								  </td>
+								  <td align="center" valign="middle">
+										<% if !@site_visitors_today.blank?  %>
+											<%= @site_visitors_this_week.count %>
+										<% end %>
+								  </td>		
+								  <td align="center" valign="middle">
+										<% if !@site_visitors_this_month.blank? %>
+											<%= @site_visitors_this_month.first["c"] %>
+										<% end %>
+									</td>
+								  <td align="center" valign="middle">
+								  	<% if !@site_visitors_this_year.blank?  %>
+											<%= @site_visitors_this_year.first["c"] %>
+										<% end %>
+									</td>
+								</tr>
+								<tr>
+								  <td align="left" valign="middle">Booking</td>
+								  <td align="center" valign="middle">
+										<%= @bookings_day_wise.count %>
+									</td>
+									<td align="center" valign="middle">
+										<%= @bookings_week_wise.count %>
+									</td>	
+								  <td align="center" valign="middle">
+										<%= @bookings_month_wise.count %>
+									</td>
+								  <td align="center" valign="middle">
+										<%= @bookings_year_wise.count %>
+									</td>
+								</tr>
+								<tr>
+								  <td align="left" valign="middle">Total Nights Sold</td>
+								  <td align="center" valign="middle">
+										<%= @total_nights_today %>
+									</td>
+									<td align="center" valign="middle">
+										<%= @total_nights_this_week %>
+									</td>	
+								  <td align="center" valign="middle">
+										<%= @total_nights_this_month %>
+									</td>
+								  <td align="center" valign="middle">
+										<%= @total_nights_this_year %>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+          </div>
+        </div>
+        <div class="row back-link"><a href="/dashboard" class="link">Back</a></div>
+      </div>
+    </div>
+    <div class="height350 overflow">&nbsp;</div>
+  </div>
 </div>
