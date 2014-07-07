@@ -22,6 +22,9 @@ class DashboardController < ApplicationController
   end
 
   def arrivals
+    if !params[:search_date].blank?
+      @arrivals = Booking.where("from_date=?", params[:search_date].to_date ).paginate(:page => params[:page], :per_page => 20).order('id DESC')
+    end
     unless !session[:hotel_id].blank? 
       session[:hotel_id] = params[:hotel_id]
     else
@@ -30,7 +33,7 @@ class DashboardController < ApplicationController
     @hotel = Hotel.find(session[:hotel_id])
     session[:hotel_name] = @hotel.name
 
-    if params[:day] == "todays" || params[:day].blank? 
+    if params[:day] == "todays" || params[:day].blank? && params[:search_date].blank?
   	 @arrivals = Booking.where("hotel_id=? AND from_date=?", session[:hotel_id], Date.today ).paginate(:page => params[:page], :per_page => 20).order('id DESC')
   	elsif params[:day] == "yesterday"
      @arrivals = Booking.where("hotel_id=? AND from_date=?", session[:hotel_id], Date.yesterday).paginate(:page => params[:page], :per_page => 20).order('id DESC')

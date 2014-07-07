@@ -19,6 +19,10 @@
 		$(".period").click(function(){
 			window.location.href = "/reservation_statements?from_date="+$("#selectperiod").val()
 		})
+
+		$(".arriv_search").click(function(){
+			window.location.href = "/arrivals?search_date="+$("#search_date").val()
+		})
 		
 		$('#traveler_sign_in_booking_btn').click(function() {
 			var valuesToSubmit = $('#traveler_sign_in_booking').serialize();

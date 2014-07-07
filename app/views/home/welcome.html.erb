@@ -112,7 +112,6 @@
 				<li><label for="roomname">Room Name</label><input name="room[name]" type="text"></li>
 				<li><label for="roomqty">Number of Rooms</label><input name="room[starting_inventory]" type="number" min="1"></li>
 				<li><label for="roomqty">Max. people</label><input name="room[max_people]" type="number" min="1" class="people" max="2"></li>
-				<li><label for="roomqty">Max. children</label><input name="room[max_children]" type="number" min="1"></li>
 				<li>
 					<label for="roomqty">Room Size</label><input name="room[room_size]" type="number" min="1">Square
 					<select name="room[room_unit]" id="room_unit">
@@ -123,10 +122,6 @@
 					</select>
 				</li>
 				<li>
-					<label for="roomqty">Room Description</label>
-					<textarea id="room_description" name="room[description]"></textarea>
-				</li>
-				<li>
 					<label for="smoking">Smoking</label>
 					<select id="smoking" name="client[smoking]">
 						<optgroup label="Smoking Preferences">
@@ -134,6 +129,10 @@
 							<option value="nonsmoking">Non-Smoking</option>
 						</optgroup>
 					</select>
+				</li>
+				<li>
+					<label for="roomqty">Room Description</label>
+					<textarea id="room_description" name="room[description]"></textarea>
 				</li>
 			</ul>
 		</fieldset>

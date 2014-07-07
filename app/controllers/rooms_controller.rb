@@ -4,7 +4,10 @@ class RoomsController < ApplicationController
   layout "admin_basic"
   
   def index
-    if current_user.admin?
+    if (current_user.manager? && !params[:search].blank?) || (current_user.admin? && !params[:search].blank?)
+        @hotel = Hotel.find(:all, :conditions => ['(id LIKE ? or name LIKE ? or city LIKE ?)', "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%"])
+        @rooms = @hotel.first.rooms
+    elsif current_user.admin?
       @rooms = Room.all
     elsif current_user.manager? 
       @rooms = current_user.rooms

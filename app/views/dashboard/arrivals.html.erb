@@ -4,6 +4,18 @@
 	<div class="arrival blocks">
 	<div style="display:none;"><%= link_to "Home", dashboard_path, class: "links" %></div>
 	<h2>Arrivals</h2>
+	<div class="">
+	  <span style="margin-top: 5px;font-size: 1.4em;" class="span1">
+	    Search 
+	  </span>
+	  <span class="">
+	    <%= text_field_tag 'search_date', "", :name => "search_date", :class => "datepicker1" %>
+	  </span>
+	  <span class="">
+	    <input type="submit" value="View" class="arriv_search">
+	  </span>
+	</div>
+
 	<ul id="links"><li class="active"><%= link_to "Today", arrivals_path(:day => "todays"), class: "" %></li><li><%= link_to "Yesterday", arrivals_path(:day => "yesterday"), class: "" %></li><li><%= link_to "Future", arrivals_path(:day => "future"), class: "" %></li></ul>
 	<table class="bookconf" width="100%" border="0">
 		<thead>
@@ -29,7 +41,7 @@
 
 <script>
 	$(document).ready(function(){
-		//alert(window.location.params)
+		$( ".datepicker1" ).datepicker({dateFormat: "yy-mm-dd"});
 		var url = $.url(window.location.href)
 		//alert(url.param('day'))
 		if (url.param('day') == 'yesterday'){

@@ -71,7 +71,7 @@ class HomeController < ApplicationController
     
     sign_in(:user, user)
     
-    redirect_to new_hotel_url
+    redirect_to root_url
   end
  
   
