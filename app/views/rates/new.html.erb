@@ -1,19 +1,22 @@
-<div class="content-wrapper">
-<%= render partial: "/common/navigation_tab"%>
-<div class="bookconfTab">
-<h5>Hotel Name: <%= session[:hotel_name] %>(Id: <%= session[:hotel_id] %>)</h5>
-<form action="/rates" method="post">
-  <div class="clear">&nbsp;</div>
-  <div class="room-type blocks">
-  <div style="display:none;"><%= link_to "Home", dashboard_path, class: "links" %></div>
-    <h2>Change Room Rate</h2>
-    <div class="date-row">
-    <% my_date = Time.now %>
-    <div class="clear"><span>From Date: </span><%= text_field_tag 'from_date', "", :name => "from_date", :class => "datepicker1" %></div>
-    <div class="clear"><span>To Date: </span><%= text_field_tag 'to_date', "", :name => "to_date", :class => "datepicker1" %></div>
-  </div>
-    <table id="which" width="100%" border="0">
-      <tbody>
+<div class="content-wrapper adm-inr">
+  <div id="container-main">
+    <header>
+      <h5>Hotel Name: <%= session[:hotel_name] %>(Id: <%= session[:hotel_id] %>)</h5>
+    </header>
+    <%= render partial: "/common/navigation_tab"%>
+    <div class="rtSidebar">
+      <div class="section">
+        <h3>Change Room Rate</h3>
+          <form action="/rates" method="post">
+          <div class="bookings blocks">
+          <% my_date = Time.now %>
+          <div class="clear"><span>From Date: </span><%= text_field_tag 'from_date', "", :name => "from_date", :class => "datepicker1" %>
+          </div>
+          <div class="clear"><span>To Date: </span><%= text_field_tag 'to_date', "", :name => "to_date", :class => "datepicker1" %>
+          </div>
+          <div class="scroll">
+            <table id="which" width="100%" border="0">
+         <tbody>
         <tr>
           <td align="left" valign="top" width="33%">
             On:
@@ -91,12 +94,16 @@
       </tbody>
     </table>
     <div class="date-row">Room Rate Per Night: <%= text_field_tag 'price', "", :name => "price" %> CAD <%= %></div>
-    <input type="submit" value="Update Rooms for Sell" name="submit" min="1" >
+    <input type="submit" value="Update Rooms for Sell" name="submit" min="1" ></div>
     </div>
   </form>
+      </div>
+    <div class="row back-link"><a href="/dashboard" class="link">Back</a></div>
+  </div>
 </div>
+<div class="height350 overflow">&nbsp;</div>
 </div>
-<div class="height100"></div>
+
 
 <script>
   $(function() {
