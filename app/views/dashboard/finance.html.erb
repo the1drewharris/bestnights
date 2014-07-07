@@ -1,30 +1,46 @@
-<ul id="dashboard">	
-	<h5>Hotel Name: <%= session[:hotel_name] %>(Id: <%= session[:hotel_id] %>)</h5>
-<li>
-		<% if current_user.manager? || current_user.admin?  %>
-		<img src="assets/ico-hotel-statistics.gif" width="48" height="48" border="0" />
-		<%= link_to "Information", finance_info_path %>
-	<% end %>
-</li>
-<li>
-		<% if current_user.manager? || current_user.admin? %>
-		<img src="assets/ico-hotel-arrival.gif" width="48" height="48" border="0" />
-		<%= link_to "Reservation Statements", reservation_statements_path %>
-	<% end %>
-</li>
-<li>
-		<% if current_user.manager? || current_user.admin?  %>
-		<img src="assets/ico-hotel-bookings.gif" width="48" height="48" border="0" />
-		<%= link_to "Invoices", invoice_path %>
-	<% end %>
-</li>
-<li>
-		<% if current_user.manager? || current_user.admin?  %>
-		<img src="assets/ico-hotel-statistics.gif" width="48" height="48" border="0" />
-		<%= link_to "Invoicing Details", invoicing_details_path %>
-	<% end %>
-</li>
-
-</ul>
-<div class="row back-link"><%= link_to "Back", dashboard_path , class: "link" %></div>
-<div class="height100"></div>
+<div class="content-wrapper adm-inr">
+	<div id="container-main">
+    <header>
+      <h5>Hotel Name: <%= session[:hotel_name] %>(Id: <%= session[:hotel_id] %>)</h5>
+    </header>
+    <%= render partial: "/common/navigation_tab"%>
+    <div class="rtSidebar">
+      <div class="section">
+        <h3>Finance</h3>
+        <div class="bookings blocks">
+          <div class="scroll">
+          	<ul id="dashboard">	
+							<h5>Hotel Name: <%= session[:hotel_name] %>(Id: <%= session[:hotel_id] %>)</h5>
+							<li>
+									<% if current_user.manager? || current_user.admin?  %>
+									<img src="assets/ico-hotel-statistics.gif" width="48" height="48" border="0" />
+									<%= link_to "Information", finance_info_path %>
+								<% end %>
+							</li>
+							<li>
+									<% if current_user.manager? || current_user.admin? %>
+									<img src="assets/ico-hotel-arrival.gif" width="48" height="48" border="0" />
+									<%= link_to "Reservation Statements", reservation_statements_path %>
+								<% end %>
+							</li>
+							<li>
+									<% if current_user.manager? || current_user.admin?  %>
+									<img src="assets/ico-hotel-bookings.gif" width="48" height="48" border="0" />
+									<%= link_to "Invoices", invoice_path %>
+								<% end %>
+							</li>
+							<li>
+									<% if current_user.manager? || current_user.admin?  %>
+									<img src="assets/ico-hotel-statistics.gif" width="48" height="48" border="0" />
+									<%= link_to "Invoicing Details", invoicing_details_path %>
+								<% end %>
+							</li>
+						</ul>
+          </div>
+        </div>
+        <div class="row back-link"><a href="/dashboard" class="link">Back</a></div>
+      </div>
+    </div>
+    <div class="height350 overflow">&nbsp;</div>
+  </div>
+</div>
