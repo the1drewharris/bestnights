@@ -80,6 +80,7 @@ Bestnights::Application.routes.draw do
   match 'export_reservation_in_excel' => "dashboard#export_reservation_in_excel", :as => 'export_reservation_in_excel'
   match 'finance_info' => "dashboard#finance_info", :as => 'finance_info'
   match 'invoicing_details' => "dashboard#invoicing_details", :as => 'invoicing_details'
+  match 'find_room_details' => "dashboard#find_room_details", :as => 'find_room_details'
   
   # resources :users, except: :create
   resources :users

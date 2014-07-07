@@ -90,16 +90,17 @@ class DashboardController < ApplicationController
   end
 
   def overview
-    @rooms = Booking.where(:hotel_id => session[:hotel_id])
-    cookies[:from_date] = []
-    cookies[:to_date] = []
-    cookies[:nights] = []
-    @rooms.each do |room|
-      @booked = Booking.find_by_hotel_id_and_room_id(room.hotel_id,room.room_id)
-      cookies[:from_date] << @booked.from_date
-      cookies[:to_date] << @booked.to_date
-      (@booked.from_date..@booked.to_date).to_a.select{|k| cookies[:nights] << k}
-    end
+    # @rooms = Booking.where(:hotel_id => session[:hotel_id])
+    # cookies[:from_date] = []
+    # cookies[:to_date] = []
+    # cookies[:nights] = []
+    # @rooms.each do |room|
+    #   @booked = Booking.find_by_hotel_id_and_room_id(room.hotel_id,room.room_id)
+    #   cookies[:from_date] << @booked.from_date
+    #   cookies[:to_date] << @booked.to_date
+    #   (@booked.from_date..@booked.to_date).to_a.select{|k| cookies[:nights] << k}
+    # end
+    @room_types = RoomType.all
   end
 
   def cancel_booking
@@ -189,6 +190,46 @@ class DashboardController < ApplicationController
 
   def invoicing_details
     @hotel = Hotel.find(session[:hotel_id])    
+  end
+
+  def find_room_details
+    date = "rate_" + params[:date].to_date.strftime("%A").downcase
+    @roomtypes = RoomType.all
+    @rooms = []
+    @finds = {}
+    a = []
+    a1 = []
+    @roomtypes.each_with_index do|roomtype,i|
+      @rate = ActiveRecord::Base.connection.exec_query("SELECT "+date+" FROM room_rates WHERE room_type_id ="+roomtype.id.to_s+" ")
+      if @rate.rows.empty?
+        @p1 = {"rate_#{i}" =>  ""}
+        a << @p1
+      else
+        @p2 ={"rate_#{i}" =>  @rate.rows[0][0]}
+        a1 << @p2
+      end
+    end
+    a << a1
+    b = []
+    @bookings = Booking.where("hotel_id=? AND from_date=?",session[:hotel_id], params[:date])
+    @bookings.each_with_index do |booking|
+      @rooms << Room.where("id=?", booking.room_id)
+    end
+    @room_types = @rooms.flatten.collect(&:room_type_id).uniq
+    @room_types.each do |room_type|
+      @count = 0
+      @rooms.flatten.each do |room|
+        if room.room_type_id == room_type
+          @count += 1
+        end
+      end
+      @book = {"#{room_type}" => @count}
+      b << @book
+    end
+    @finds = {rates: a.reverse.flatten, booked: b}
+    respond_to do |format|
+      format.json{render json: @finds}
+    end
   end
 
   private

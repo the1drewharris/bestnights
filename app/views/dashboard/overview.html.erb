@@ -1,4 +1,29 @@
 <div class="content-wrapper">
-<%= render partial: "/common/navigation_tab"%>
-<div id='calendar'></div>
+	<%= render partial: "/common/navigation_tab"%>
 </div>
+<p>Date: <input type="text" id="datepicker"><input type="submit" id="find" value="Find"></p>
+<table class="bookconf" width="100%" border="0">
+	<thead>
+		<tr>
+		 <td align="left" valign="middle">Room Type</td>
+		  <td align="center" valign="middle">No. of Rooms Booked</td>
+		  <td align="center" valign="middle">No. of Rooms Available</td>
+		  <td align="center" valign="middle">Rate</td>
+		</tr>
+	</thead>
+	<tbody>
+		<% @room_types.each_with_index do |room_type,i| %>
+			<tr>
+			  <td align="left" valign="middle">
+			  	<%= room_type.room_type %>
+			  </td>
+			  <td align="center" valign="middle" id="booked<%= i %>">
+			  </td>
+			  <td align="center" valign="middle">
+			  </td>		
+			  <td align="center" valign="middle" id="rate<%= i %>">
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
