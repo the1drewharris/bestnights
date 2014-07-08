@@ -1,80 +1,79 @@
-<% content_for :title, "BestNights.com - Edit Room" %>
-
-<% if current_user.new_signup? %>
-	<%= link_to "Rooms", rooms_path(:hotel_id => @hotel.id) %>
-<% end %>
-
 <header>
-	<h1>Edit Room</h1>
+  <h1 class="prop-title">Edit Room</h1>
 </header>
-
-<div id="container-main">
-	<%= form_for @room do |f| %>
-		<fieldset>
-		  <ul>
-		  	<li>
-		  		<%= f.label :name %>
-		  		<%= f.text_field :name %>
-		  	</li>		  	
-		  	<li>
-		  		<%= f.label :price %>
-		  		<%= f.text_field :price %>
-		  	</li>
-		  	<li>
-		  		<%= f.label :original_price %>
-		  		<%= f.text_field :original_price %>
-		  	</li>
-		  	<li>
-		  		<%= f.label "Addional adult fee" %>
-		  		<%= f.text_field :additionaladultfee %>
-		  	</li>
-		  	<li>
-		  		<%= f.label :starting_inventory %>
-		  		<%= f.text_field :starting_inventory %>
-		  	</li>
-		  	<li>
-		  		<%= f.label "Bed Numbers" %>
-		  		<%= f.text_field :bed_numbers %>
-		  	</li>
-		  	<li>
-		  		<%= f.label :lunch %>
-		  		<%= f.check_box :lunch %>
-		  	</li>
-		  	<li>
+  <div id="container-main" class="editrooms">
+    <!-- <form accept-charset="UTF-8" action="/rooms/1" class="edit_room" id="edit_room_1" method="post"> -->
+    <%= form_for @room, :html => {:class => "edit_room", :id => "edit_room_1"} do |f| %>
+      <div style="margin:0;padding:0;display:inline">
+        <input name="utf8" type="hidden" value="&#x2713;" />
+        <input name="_method" type="hidden" value="put" />
+        <input name="authenticity_token" type="hidden" value="6tqlXrsLLQZxGVd1I6PkAKSSl3nVh/jZueuuSuDEkrI=" />
+      </div>
+      <fieldset>
+			  <ul>
+			  	<li>
+			  		<%= f.label :name %>
+			  		<%= f.text_field(:name, class: "textfield") %>
+			  	</li>		  	
+			  	<li>
+			  		<%= f.label :price %>
+			  		<%= f.text_field(:price, class: "textfield") %>
+			  	</li>
+			  	<li>
+			  		<%= f.label :original_price %>
+			  		<%= f.text_field(:original_price, class: "textfield") %>
+			  	</li>
+			  	<li>
+			  		<%= f.label "Addional adult fee" %>
+			  		<%= f.text_field(:additionaladultfee, class: "textfield") %>
+			  	</li>
+			  	<li>
+			  		<%= f.label :starting_inventory %>
+			  		<%= f.text_field(:starting_inventory, class: "textfield") %>
+			  	</li>
+			  	<li>
+			  		<%= f.label "Bed Numbers" %>
+			  		<%= f.text_field(:bed_numbers, class: "textfield") %>
+			  	</li>
+			  	<li>
+			  		<%= f.label :lunch %>
+			  		<%= f.check_box(:lunch, class: "check") %>
+			  	</li>
+			  	<li>
 		  		<%= f.label :dinner %>
-		  		<%= f.check_box :dinner %>
+		  		<%= f.check_box(:dinner, class: "check") %>
 		  	</li>
 		  	<li>
 		  		<%= f.label :all_inclusive %>
-		  		<%= f.check_box :all_inclusive %>
+		  		<%= f.check_box(:all_inclusive, class: "check") %>
 		  	</li><br />
 		  	<% if current_user.new_signup? %>
 		  		<%= f.hidden_field :hotel_id, :value => @hotel.id %>
 		  	<% else %>
 			  	<li>
 			  		<%= f.label :hotel %>
-			  		<%= f.select :hotel_id, options_for_select(@hotels.map{|s|[s.name, s.id]}, @room.hotel.id) %>
+			  		<%= f.select :hotel_id, options_for_select(@hotels.map{|s|[s.name, s.id]}, @room.hotel.id), {}, {class: "selectbox"} %>
 			  	</li>
 		  	<% end %>
 		  	<li>
 		  		<%= f.label "Room Type" %>
-		  		<%= f.select :room_type_id, options_for_select(RoomType.all.map{|s|[s.room_type, s.id]}, @room.room_type.id) %>
+		  		<%= f.select :room_type_id, options_for_select(RoomType.all.map{|s|[s.room_type, s.id]}, @room.room_type.id), {}, {class: "selectbox"} %>
 		  	</li>	
-		  	<li>
+		  	<li class="flwidth">
 		  		<%= f.label :description %>
-		  		<%= f.text_area :description %>
+		  		<%= f.text_area :description, class: "textarea" %>
 		  	</li>
-		  	<li>							
+		  	<li class="flwidth">							
 					<label for="client_photos">Photos</label>
 					<div class="dropzone" id="room-dropzone" />
 				</li>
-		  	<li>
+		  	<li class="flwidth">
 					<span class="formLabel">Amenities</span>
 					<div class="checklist">
 						<ul>
 							<% @room_attributes.each do |attr| %>
 								<li>
-									<input name="client[attributes][<%= attr.id %>]" type="checkbox" <%= "checked" if attr.rooms.include?(@room) %>>
+									<input name="client[attributes][<%= attr.id %>]" type="checkbox" class="check" <%= "checked" if attr.rooms.include?(@room) %>>
 									<label for="client[attributes]"><%= attr.attr %></label>
 								</li>
 							<% end %>
@@ -83,16 +82,18 @@
 				</li>
 		  </ul>	
 		</fieldset>
-		<fieldset class="formactions">
-			<%= f.submit %>
-		</fieldset>
-	<% end %>
+    <fieldset class="formactions">
+      <input name="commit" type="submit" value="Update Room" />
+    </fieldset>
+  <!-- </form> -->
+  <% end %>
 </div>
 
-<script>
+
+<script type="text/javascript">
 	$(document).ready(function(){			
 		Dropzone.options.roomDropzone = {
-			url: "/room_photos/<%= @room.id %>",
+			url: "/room_photos/1",
 			addRemoveLinks: true,
 			dictRemoveFileConfirmation: "Are you sure you want to remove this file?",
 			paramName: "picture",
@@ -100,11 +101,12 @@
 				file.id = response.id
 			},
 			init: function () {
-				<% @photos.each do |photo| %>
-					var mockFile = {id: "<%= photo.id %>", name: "<%= photo.picture_file_name %>", size: "<%= photo.picture_file_size %>", type: "<%= photo.picture_content_type %>" };
+					var mockFile = {id: "13", name: "bestnights_coming_soon.jpg", size: "1021941", type: "image/jpeg" };
 					this.options.addedfile.call(this, mockFile);
-					this.options.thumbnail.call(this, mockFile, "<%= photo.picture.url %>");
-				<% end %>    
+					this.options.thumbnail.call(this, mockFile, "assets/bestnights_coming_soon.jpg");
+					var mockFile = {id: "14", name: "130U3304A5.jpg", size: "61407", type: "image/jpeg" };
+					this.options.addedfile.call(this, mockFile);
+					this.options.thumbnail.call(this, mockFile, "assets/130U3304A5.jpg");
       },
       removedfile: function(file) {				
 				$.ajax({

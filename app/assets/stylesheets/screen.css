@@ -1,11 +1,13 @@
-
 /*********************************************
  ****  ELEMENTS
  ********************************************/
 
+/*@import url(http://fonts.googleapis.com/css?family=Raleway:400,100,300,200,500,600,700,800,900);*/
+
 body {
-	background: url(siteimages/bg_body.jpg);
+	background: url(bg_body.jpg);
 	text-align: center;
+	font-family: 'Raleway', sans-serif;
 }
 
 	body a {
@@ -70,7 +72,8 @@ h1 {
 	width: 350px;
 }
 h1.prop-title {
-	font-size: 3.6em;
+	font-size: 3em;
+	font-weight:500;
 	padding: 4px 15px 4px;
 	border-radius: 3px;
 	-moz-border-radius: 3px;
@@ -144,8 +147,7 @@ header {
 		font-size: 1.31em;
 	}
 
-input, {
-	font-family: Helvetica, Arial, sans-serif;
+input {
 	border: 1px solid #c8b68c;
 	padding: 3px;
 	vertical-align: top;
@@ -156,6 +158,7 @@ select,
 textarea {
 	margin: -6px 0 0 0;
 	transition: box-shadow 0.5s;
+	font-family: 'Raleway', sans-serif;
 }
 
 input:focus,
@@ -497,13 +500,13 @@ nav {
 p {
 	margin: 0 0 18px;
 }
-
+/*Added from 07th July 2014*/
 section {
 	padding: 28px;
 	border-top: 1px solid #ccc;
 	margin-top:20px;
 }
-
+/*Added from 07th July 2014*/
 .sections a {
 	color: #83BF17;
 }
@@ -1175,7 +1178,7 @@ footer #footerend {
 	.checkindate span:first-child ~ span,
 	.checkoutdate span:first-child ~ span {
 		display: inline-block;
-		font-family: Helvetica, Arial, sans-serif;
+		font-family: 'Raleway', sans-serif;
 		line-height: 14px;
 	}
 	
@@ -1448,7 +1451,7 @@ footer #footerend {
 	#searchdates div#checkin span:first-child ~ span,
 	#searchdates div#checkout span:first-child ~ span {
 		display: inline-block;
-		font-family: Helvetica, Arial, sans-serif;
+		font-family: 'Raleway', sans-serif;
 	}
 	
 	#searchdates div#checkin span:nth-child(2),
@@ -1533,7 +1536,7 @@ footer #footerend {
 		}
 		
 		#searchfilters fieldset input[name="name"] {
-			font-family: Helvetica, Arial, sans-serif;
+			font-family: 'Raleway', sans-serif;
 			border: 1px solid #c8b68c;
 			background: #fff;
 			width: 100%;
@@ -2168,18 +2171,18 @@ div.tabs ul.ui-tabs-nav li {
 			border-radius: 0;
 		}
 		
-		/*blocked*//*.ui-datepicker-inline,
+		/*.ui-datepicker-inline,
 		.ui-datepicker-header {
 			background: none;
 			border: none;
-		}*/
+		}
 		
 		.ui-datepicker-inline {
 			height: 270px;
 		}
 		
 		
-		/*blocked*//*.ui-datepicker .ui-datepicker-header,
+		.ui-datepicker .ui-datepicker-header,
 		.ui-datepicker .ui-datepicker-header .ui-datepicker-prev {
 			position: absolute;
 			height: 100%;
@@ -2220,7 +2223,7 @@ div.tabs ul.ui-tabs-nav li {
 				width: 100% !important;
 			}
 			
-			/*blocked*//*.ui-datepicker .ui-datepicker-group {
+			/*.ui-datepicker .ui-datepicker-group {
 				width: 300px;
 				height: 259px;
 				position: absolute;
@@ -2243,15 +2246,15 @@ div.tabs ul.ui-tabs-nav li {
 					margin: 0;
 				}
 		
-				/*blocked*//*.ui-datepicker .ui-datepicker-group-first .ui-datepicker-title {
+				/*.ui-datepicker .ui-datepicker-group-first .ui-datepicker-title {
 					padding: 0 0 0 30px;
 				}
 		
 				.ui-datepicker .ui-datepicker-group-last .ui-datepicker-title {
 					padding: 0 30px 0 0;
-				}*/
+				}
 		
-				/*blocked*//*.ui-datepicker table.ui-datepicker-calendar {
+				.ui-datepicker table.ui-datepicker-calendar {
 					position: absolute;
 					top: 27px;
 					margin: 0;
@@ -2278,7 +2281,7 @@ div.tabs ul.ui-tabs-nav li {
 					   padding: 3px 7px;
 					}
 					
-					/*blocked*//*table.ui-datepicker-calendar tr th {
+					/*table.ui-datepicker-calendar tr th {
 						background: none;
 					}
 					
@@ -2316,7 +2319,7 @@ div.tabs ul.ui-tabs-nav li {
 		position: relative;
 	}
 
-/*blocked*//*.ui-datepicker td.date-range-selected > .ui-state-active,
+/*.ui-datepicker td.date-range-selected > .ui-state-active,
 .ui-datepicker td.date-range-selected > .ui-state-default {
    background: none;
 }
@@ -2330,7 +2333,7 @@ tr > td.date-range-selected ~ td.date-range-selected {
 	
 }
 
-/*blocked*//*.ui-datepicker td a.ui-state-default {
+/*.ui-datepicker td a.ui-state-default {
 	background: none;
 	padding: 7px;
 }*/
@@ -2448,28 +2451,9 @@ ul#dashboard li a:hover {
 	color:#333;
 	text-decoration:underline;
 }
-.blocks {
-	width:45%;
-    color: #333333;
-    display: block;
-    margin-bottom: 15px;
-    overflow: hidden;
-    padding: 1.5em 1.8em;
-    border-radius: 5px 5px 5px 5px;
-    -moz-border-radius: 5px 5px 5px 5px;
-    -webkit-border-radius: 5px 5px 5px 5px;
-    text-decoration: none;
-}
 .store-view.blocks {
 	width:auto !important;
 	overflow: auto;
-}
-.arrival {
-	margin:0 auto;
-	border-top: 5px solid #84DE50;
-	background:#EEEEEE;
-    cursor: default;
-    clear: both;
 }
 .booking {
 	margin:0 auto;
@@ -2619,7 +2603,7 @@ ul#dashboard li a:hover {
     padding: 5px 10px;
     display: block;
     outline: none;
-    color:#84DE50;
+    color:#969696!important;
     text-decoration: none;
     text-align: center;
 }
@@ -2677,7 +2661,7 @@ ul#dashboard li a:hover {
 	font-weight: 400;
 }
 .blocks .bookconf {
-	margin-bottom: 15px;
+	margin-bottom: 0;
 }
 .blocks .bookconf tbody td:hover {
     background:#EAEAEA;
@@ -2694,9 +2678,10 @@ ul#dashboard li a:hover {
 	color: #000;
 }
 .scroll {
-	height: 400px;
+	height: 500px;
 	overflow: auto;
 	padding-right: 5px;
+	margin-bottom:10px;
 }
 .scroll-hor {
 	width: 99.4%;
@@ -2715,18 +2700,21 @@ ul#dashboard li a:hover {
 	text-align: right;
 }
 .link-files a {
-	color: #F15D58;
-    font-size: 11px;
-    font-weight: 600;
-    line-height: 28px;
-    margin: 0 0 0 10px;
-    padding: 10px 0 8px 32px;
-    text-decoration: none;
-    text-transform: uppercase;
+	margin: 0 0 0 10px;
+	padding:10px 0 8px 32px;
+	line-height: 28px;
+	font-weight: 600;
+	color: #f15d58;
+	font-size: 11px;
+	text-transform: uppercase;
+	text-decoration: none;
 }
 .link-files a:hover {
 	text-decoration:underline;
-	color: #DD5656;
+	color: #c8b68c;
+}
+.link-files a:first-child {
+	margin: 0 10px;
 }
 .link-files a.csv {
 	background: url(../assets/ico-csv.png) no-repeat 0 0;
@@ -2846,7 +2834,7 @@ ul#dashboard li a:hover {
 	background: #fff;
 }
 
-
+/*Added CSS from 04th JULY 2014*/
 .content-wrapper	{
 	clear:both;
 	overflow:hidden;
@@ -2961,15 +2949,11 @@ ul#dashboard li a:hover {
 	float: left;
 	float:left;
 	color:#333;
-	font-size:13px;
+	font-size:14px;
 	line-height:20px;
 	text-transform:uppercase;
 	padding:0;
 	margin:0 0 0 8px;
-}
-#dropdown > li:first-child {
-	padding:0;
-	margin:0;
 }
 #dropdown li a {
 	color:#dd5656;
@@ -3006,7 +2990,7 @@ ul#dashboard li a:hover {
 #dropdown li a img	{
 	float:left;
 	padding:0;
-	margin:0 5px 0 0;
+	margin:0 6px 0 0;
 	border:none;
 	outline:none;
 }
@@ -3085,6 +3069,7 @@ ul#dashboard li a:hover {
 	font-size:12px;
 	line-height:18px;
 }
+
 /* Sidebar
 ------------------------------------------*/
 .sidebarmenu {
@@ -3108,15 +3093,17 @@ ul#dashboard li a:hover {
 	padding:0.6em 1.4em 1.2em;
 }
 .rtSidebar .section .blocks {
-	background: none repeat scroll 0 0 padding-box #FFFFFF;
-    border-radius: 7px 7px 7px 7px;
-    border-top: 1px solid #CCCCCC;
-    clear: both;
+	background: #FFF;
+	margin: 0 0 0 0;
+	padding:1em;
+	border-top: 1px #CCC solid;
+	border-radius: 7px;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
     color: #333333;
-    margin: 0;
-    padding: 1em;
     text-decoration: none;
-    width: 100%;
+    clear: both;
+	background-clip:padding-box;
 }
 .rtSidebar .section .arrival {
 }
@@ -3229,13 +3216,13 @@ ul#dashboard li a:hover {
 	float:none;
 	width:100%;
 	border:none;
-	font-family:Verdana,Arial,sans-serif;
+	font-family: 'Raleway', sans-serif;
 	vertical-align:top;
 }
 .sidebarmenu ul li .progressbar {
     background: none repeat scroll 0 0 #98be3d;
     display: inline-block;
-    height:41px;
+    height:42px;
     width: 14px;
 	position:absolute;
 	top:0;
@@ -3313,28 +3300,119 @@ ul#dashboard li a:hover {
 .sidebarmenu a.subfolderstyle{
 	background: url(right.gif) no-repeat 97% 50%;
 }
-.taxCont{
-	border: #ccc 1px solid;
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-	-weblit-border-radius: 5px;
-	margin: 19px 0;
-	padding: 19px;
-}
-.taxCont input[type="text"]{
-	width: 280px;
-}
-.taxCont label{
-	width: 100px;
-}
-.taxCont div{
-	display: inline-block;;
-}
-.taxCont div input{
-	margin-right: 40px;
-}
  
 /* Holly Hack for IE \*/
 * html .sidebarmenu ul li { float: left; height: 1%; }
 * html .sidebarmenu ul li a { height: 1%; }
+/* End */
+
+/* Added form 08th July 2014
+------------------------------------------*/
+.editrooms {
+}
+.editrooms fieldset {
+	border-top:none;
+	padding-top:0px;
+	padding-bottom:0px;
+}
+.editrooms fieldset.formactions {
+	padding-top:14px;
+	padding-bottom:14px;
+}
+.editrooms fieldset ul li {
+	float:left;
+	width:48%;
+	margin:0 0 10px 10px;
+	padding:0;
+}
+.editrooms fieldset ul li.flwidth {
+	float:left;
+	width:100%;
+	margin:0 0 10px 10px;
+	padding:0;
+	clear:both;
+	display:block;
+}
+.editrooms fieldset ul li label,
+.editrooms fieldset ul li .formLabel {
+	float:left;
+	width:200px;
+	font-size:14px;
+	line-height:30px;
+	margin:0 10px 0 0;
+	padding:0;
+	display:block;
+	cursor:text;
+}
+.editrooms fieldset ul li input.textfield {
+	background:none repeat scroll 0 0 #F2F2F2;
+	border:1px solid #CCC;
+	padding:5px 8px;
+	border-radius: 2px;
+    -moz-border-radius:2px;
+    -webkit-border-radius:2px;
+    color: #333333;
+	background-clip:padding-box;
+	float:left;
+	margin:0 10px 0 0;
+}
+.editrooms fieldset ul li input.check {
+	margin:8px 0 0 0;
+}
+.editrooms fieldset ul li select.selectbox {
+	background:none repeat scroll 0 0 #F2F2F2;
+	border:1px solid #CCC;
+	padding:3px 8px;
+	border-radius: 2px;
+    -moz-border-radius:2px;
+    -webkit-border-radius:2px;
+    color: #333333;
+	font-size:1em;
+	font-weight:500;
+	background-clip:padding-box;
+	float:left;
+	margin:0 10px 0 0;
+}
+.editrooms fieldset ul li textarea.textarea {
+	background:none repeat scroll 0 0 #F2F2F2;
+	border:1px solid #CCC;
+	font-size:1em;
+	font-weight:500;
+	padding:5px 8px;
+	border-radius: 2px;
+    -moz-border-radius:2px;
+    -webkit-border-radius:2px;
+    color: #333333;
+	background-clip:padding-box;
+	float:left;
+	margin:0 10px 0 0;
+	resize:none;
+	height:100px;
+	display:block;
+	width:74.5%;
+}
+.editrooms fieldset ul li .dropzone {
+	background:none repeat scroll 0 0 #F2F2F2;
+	border:1px solid #CCC;
+	margin:0 0 10px;
+	min-height:inherit;
+	padding:5px;
+	width:74.5%;
+}
+.editrooms fieldset ul li.flwidth .checklist {
+	width:74.5%;
+}
+.editrooms fieldset ul li.flwidth .checklist ul li {
+	width:33%;
+	margin-left:0px;
+	margin-bottom:0px;
+}
+.editrooms fieldset ul li.flwidth .checklist ul li input.check {
+	margin-top:8px;
+	float:left;
+	margin-right:10px;
+}
+.editrooms fieldset ul li.flwidth .checklist ul li label {
+	width:100px;
+}
 /* End */
