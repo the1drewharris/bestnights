@@ -261,7 +261,7 @@
 			
 			function closeSlider() {
 				$("#searchform").animate({"height": sliderHeight}, {duration: "slow" });
-				$("#searchpaneui a").click(function() { openSlider() });
+				// $("#searchpaneui a").click(function() { openSlider() });
 				$('#searchpane .searchpicker').css('visibility','hidden');
 			}
 		
