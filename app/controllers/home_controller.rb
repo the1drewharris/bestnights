@@ -7,8 +7,14 @@ class HomeController < ApplicationController
   autocomplete :hotel, :name
   
   def welcome
-    respond_to do |format|
-      format.html 
+    if current_user.admin?
+      redirect_to hotels_path
+    elsif current_user.manager? 
+      redirect_to my_hotels_path
+    else
+      respond_to do |format|
+        format.html 
+      end
     end
   end
 
@@ -71,7 +77,8 @@ class HomeController < ApplicationController
     
     sign_in(:user, user)
     
-    redirect_to root_url
+    flash[:success] = "Thank you for adding your property. Your account is now pending. You will be notified by email when your property is active."
+    redirect_to new_hotel_url
   end
  
   

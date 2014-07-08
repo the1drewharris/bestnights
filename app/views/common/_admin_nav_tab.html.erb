@@ -1,5 +1,5 @@
 <nav>	
-	<% if can? :index, Hotel %>
+	<% if current_user.admin? %>
 		<%= link_to "Hotels", hotels_path %>
 	<% end %>
 	<% if current_user.admin? %>	
@@ -8,7 +8,7 @@
 	<% if current_user.admin? %>
 		<%= link_to "Room Types", room_types_path %>
 	<% end %>
-	<% if current_user.admin? || current_user.manager? %>	
+	<% if current_user.manager? %>	
 		<%= link_to "My Hotels", my_hotels_path %>
 	<% end %>
 	<% if can? :index, Room %>

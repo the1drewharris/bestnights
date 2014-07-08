@@ -1,7 +1,11 @@
 <% content_for :title, "BestNights.com - Add Hotel" %>
 
 <header>
-	<h1>Add Hotel</h1>
+	<% if current_user.manager? %>
+		<h1>Add another property</h1>
+	<% else %>
+		<h1>Add Hotel</h1>
+	<% end %>
 </header>
 
 <% if current_user.new_signup? %>
@@ -41,37 +45,35 @@
 			  		<%= f.select :user_id, options_for_select(User.all.map{|s|[s.email, s.id]}) %>
 			  	</li>
 			  <% end %>
-			  <li>
-					<%= f.label 'Tax1_label*' %>
-					<%= f.text_field :tax1_label %>
-				</li>
-				<li>
-					<%= f.label :tax1 %>
-					<%= f.text_field :tax1 %>
-				</li>
-				<li>
-					<%= f.label 'Tax2_label*' %>
-					<%= f.text_field :tax2_label %>
-				</li>
-				<li>
-					<%= f.label :tax2 %>
-					<%= f.text_field :tax2 %>
-				</li>
-				<li>
-					<%= f.label 'Tax3_label*' %>
-					<%= f.text_field :tax3_label %>
-				</li>
-				<li>
-					<%= f.label :tax3 %>
-					<%= f.text_field :tax3 %>
-				</li>
-				<li>
-					<%= f.label 'Tax4_label*' %>
-					<%= f.text_field :tax4_label %>
-				</li>
-				<li>
-					<%= f.label :tax4 %>
-					<%= f.text_field :tax4 %>
+			  <li class="taxCont">
+				  <div>
+						<%= f.label 'Tax1_label*' %>
+						<%= f.text_field :tax1_label %>
+					
+						<%= f.label :tax1 %>
+						<%= f.text_field :tax1 %>
+					</div>
+					<div>
+						<%= f.label 'Tax2_label*' %>
+						<%= f.text_field :tax2_label %>
+					
+						<%= f.label :tax2 %>
+						<%= f.text_field :tax2 %>
+					</div>
+					<div>
+						<%= f.label 'Tax3_label*' %>
+						<%= f.text_field :tax3_label %>
+					
+						<%= f.label :tax3 %>
+						<%= f.text_field :tax3 %>
+					</div>
+					<div>
+						<%= f.label 'Tax4_label*' %>
+						<%= f.text_field :tax4_label %>
+					
+						<%= f.label :tax4 %>
+						<%= f.text_field :tax4 %>
+					</div>
 				</li>
 				<li>
 		  		<%= f.label 'Description*' %>
