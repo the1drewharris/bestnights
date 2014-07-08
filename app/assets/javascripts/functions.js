@@ -32,16 +32,22 @@
 		$("#sidebarmenu1 > li > a").click(function(){
 			$.cookie("link",$(this).attr("class"))
 		})
+		var flag = 0
 		$("#sidebarmenu1 > li").each(function(){
 			if($(this).children("a").hasClass($.cookie("link"))){
 				$(this).children("a").addClass("active");
-				$(this).append("<div class='progressbar'>&nbsp;</div>")
+				$(this).append("<div class='progressbar'>&nbsp;</div>");
+				flag = 1;
 				$(this).siblings("li").each(function(){
-					$(this).remove("<div class='progressbar'>&nbsp;</div>");
 					if($(this).children("a").hasClass("active")){
 						$(this).children("a").removeClass("active");
 					}
 				})	
+			}
+			else{
+				if(flag != 1){
+					$(this).append("<div class='progressbar'>&nbsp;</div>")
+				}
 			}
 		})
 		
