@@ -28,16 +28,14 @@ $(document).ready(function() {
 		$( "#datepicker" ).datepicker({
 			dateFormat: "yy-mm-dd"
 		});
-		var data = {date: $("#datepicker").val()}
 		$("#find").click(function(){
+			var data = {date: $("#datepicker").val()}
 			$.ajax({
 				type: "get",
 	      dataType: "json",
 	      url: "/find_room_details",
 	      data: data,
 	      success: function(data){
-	        //window.location.href = "/shopping_cart";
-	        console.log(data);
 	        $.each(data["rates"],function(index,item){
 	        	$("#rate"+index).html(item["rate_"+index])
 	        })
@@ -45,8 +43,6 @@ $(document).ready(function() {
 	        	var key = Object.keys(item)
 	        	$("#booked"+key).html(item[key])
 	        })
-
-	        // $("#rate[1]").html(data["rate"])
 	      }
 			})
 		})

@@ -1,12 +1,11 @@
 <div class="sidebarmenu">
   <ul id="sidebarmenu1">
     <% if current_user.admin? || current_user.manager?  %>
-      <li><%= link_to "Arrivals", arrivals_path, class: "active" %>
-        <div class="progressbar">&nbsp;</div>
+      <li><%= link_to "Arrivals", arrivals_path, class: "link1" %>
       </li>
-      <li><%= link_to "Bookings", bookings_path %></li>
-      <li><%= link_to "Statistics",  statistics_path %></li>
-      <li><%= link_to "Manage Rooms",  rooms_path %></li>
+      <li><%= link_to "Bookings", bookings_path, class: "link2" %></li>
+      <li><%= link_to "Statistics",  statistics_path, class: "link3" %></li>
+      <li><%= link_to "Manage Rooms",  rooms_path, class: "link4" %></li>
       <li><%= link_to "Rates & Availability", rates_path %>
         <ul>
           <li><%= link_to "Change Room Rate", new_rate_path %></li>
@@ -15,7 +14,7 @@
           <li><%= link_to "Copy Yearly Rates", copy_yearly_rates_path %></li>
         </ul>
       </li>
-      <li><%= link_to "Overview", overview_path %></li>
+      <li><%= link_to "Overview", overview_path, class: "link6" %></li>
       <li><%= link_to "Finance", finance_path %>
         <ul>
           <li><%= link_to "Information", finance_info_path %></li>

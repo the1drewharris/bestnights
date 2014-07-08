@@ -29,6 +29,21 @@
 		$("#month_reserve").change(function(){
 			$.cookie("month_reserve",$("#month_reserve").val());
 		})
+		$("#sidebarmenu1 > li > a").click(function(){
+			$.cookie("link",$(this).attr("class"))
+		})
+		$("#sidebarmenu1 > li").each(function(){
+			if($(this).children("a").hasClass($.cookie("link"))){
+				$(this).children("a").addClass("active");
+				$(this).append("<div class='progressbar'>&nbsp;</div>")
+				$(this).siblings("li").each(function(){
+					$(this).remove("<div class='progressbar'>&nbsp;</div>");
+					if($(this).children("a").hasClass("active")){
+						$(this).children("a").removeClass("active");
+					}
+				})	
+			}
+		})
 		
 		$('#traveler_sign_in_booking_btn').click(function() {
 			var valuesToSubmit = $('#traveler_sign_in_booking').serialize();
