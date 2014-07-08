@@ -7,14 +7,8 @@ class HomeController < ApplicationController
   autocomplete :hotel, :name
   
   def welcome
-    if current_user.admin?
-      redirect_to hotels_path
-    elsif current_user.manager? 
-      redirect_to my_hotels_path
-    else
-      respond_to do |format|
-        format.html 
-      end
+    respond_to do |format|
+      format.html 
     end
   end
 

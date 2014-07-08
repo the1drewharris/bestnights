@@ -29,9 +29,13 @@
 		  		<%= f.text_field :city %>
 		  	</li>
 		  	<li>
-		  		<%= f.label :state %>
-		  		<%= f.select :state_id, options_for_select(State.all.map{|s|[s.state_province, s.id]}) %>
-		  	</li>
+			  	<%= f.label :country_id %>
+					<%= f.country_select :country_id, priority: %w(US CA), prompt: 'Please select a country' %>
+			  </li>	
+			  <li>
+					<label for="State/Province" style="float:left">State/Province</label>
+					<%= render partial: 'home/test', locals: {parent_region: f.object.country_id} %>
+				</li>
 		  	<li>
 		  		<%= f.label :zip %>
 		  		<%= f.text_field :zip %>
