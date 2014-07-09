@@ -11,33 +11,33 @@
 <% if current_user.new_signup? %>
 	<%= link_to "Search Hotels", hotels_path %>
 <% end %>
-<div id="container-main">
+<div id="container-main" class="editrooms">
 	<%= form_for @hotel do |f| %>
 		<fieldset>
 		  <ul>
 		  	<li>
 		  		<%= f.label 'Hotel Name*' %>
-		  		<%= f.text_field :name %>
+		  		<%= f.text_field(:name, class: "textfield") %>
 		  	</li>		  	
 		  	<li>
 		  		<%= f.label "Address*" %>
-		  		<%= f.text_field :address1 %>
-		  	</li>
-		  	<li>
-		  		<%= f.label "City*" %>
-		  		<%= f.text_field :city %>
+		  		<%= f.text_field(:address1, class: "textfield") %>
 		  	</li>
 			  <li class="country">
 			  	<%= f.label :country_id %>
-					<%= f.country_select :country_id, priority: %w(US CA), prompt: 'Please select a country' %>
-			  </li>
+				<%= f.country_select( :country_id, priority: %w(US CA), prompt: 'Please select a country', :class => "textfield" )  %>
+			  </li>		  	
+		  	<li>
+		  		<%= f.label "City*" %>
+		  		<%= f.text_field(:city, class: "textfield") %>
+		  	</li>
 			  <li class="state">
 			  	<label for="State/Province" style="float:left">State/Province</label>
 							<%= render partial: '/hotels/test', locals: {parent_region: f.object.country_id} %>
 			  </li>
 		  	<li>
 		  		<%= f.label "Zip/Postal Code*" %>
-		  		<%= f.text_field :zip %>
+		  		<%= f.text_field(:zip, class: "textfield") %>
 		  	</li>
 		  	<% if current_user.admin? %>
 		  		<li>
@@ -45,39 +45,39 @@
 			  		<%= f.select :user_id, options_for_select(User.all.map{|s|[s.email, s.id]}) %>
 			  	</li>
 			  <% end %>
-			  <li class="taxCont">
-				  <div>
+			  <li class="taxCont flwidth">
+				  <div class="cleardv">
 						<%= f.label 'Tax1_label*' %>
-						<%= f.text_field :tax1_label %>
+						<%= f.text_field(:tax1_label, class: "textfield") %>
 					
-						<%= f.label :tax1 %>
-						<%= f.text_field :tax1 %>
+						<%= f.label :tax1, class: "labl" %>
+						<%= f.text_field(:tax1, class: "textfield") %>
 					</div>
-					<div>
+					<div class="cleardv">
 						<%= f.label 'Tax2_label*' %>
-						<%= f.text_field :tax2_label %>
+						<%= f.text_field(:tax2_label, class: "textfield") %>
 					
-						<%= f.label :tax2 %>
-						<%= f.text_field :tax2 %>
+						<%= f.label :tax2, class: "labl" %>
+						<%= f.text_field(:tax2, class: "textfield") %>
 					</div>
-					<div>
+					<div class="cleardv">
 						<%= f.label 'Tax3_label*' %>
-						<%= f.text_field :tax3_label %>
+						<%= f.text_field(:tax3_label, class: "textfield") %>
 					
-						<%= f.label :tax3 %>
-						<%= f.text_field :tax3 %>
+						<%= f.label :tax3, class: "labl" %>
+						<%= f.text_field(:tax3, class: "textfield") %>
 					</div>
-					<div>
+					<div class="cleardv">
 						<%= f.label 'Tax4_label*' %>
-						<%= f.text_field :tax4_label %>
+						<%= f.text_field(:tax4_label, class: "textfield") %>
 					
-						<%= f.label :tax4 %>
-						<%= f.text_field :tax4 %>
+						<%= f.label :tax4, class: "labl" %>
+						<%= f.text_field(:tax4, class: "textfield") %>
 					</div>
 				</li>
-				<li>
+				<li class="flwidth">
 		  		<%= f.label 'Description*' %>
-		  		<%= f.text_area :description %>
+		  		<%= f.text_area :description, class: "textarea" %>
 		  	</li>
 		  </ul>	
 		</fieldset>

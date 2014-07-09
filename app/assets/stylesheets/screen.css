@@ -40,7 +40,9 @@ footer,
 	clear: both;
 	overflow: hidden;
 }
-
+#eyebrow {
+	color:#83BF17;
+}
 footer {
 	position: absolute;
 	bottom: 0;
@@ -481,7 +483,7 @@ nav {
 	nav a:hover,
 	#profileInfo a {
 		font-weight: 200;
-		color: #969696;
+		color: #83BF17;
 		text-decoration: none;
 		margin: 0 12px 0 0;
 	}
@@ -2782,6 +2784,7 @@ ul#dashboard li a:hover {
 	text-align: left;
 	vertical-align: top;
 	text-decoration: none;
+	font-size: 11px;
 }
 #which input {
 	margin: 2px 5px 0 0;
@@ -3359,7 +3362,8 @@ ul#dashboard li a:hover {
 .editrooms fieldset ul li input.check {
 	margin:8px 0 0 0;
 }
-.editrooms fieldset ul li select.selectbox {
+.editrooms fieldset ul li select.selectbox,
+.editrooms fieldset ul li select {
 	background:none repeat scroll 0 0 #F2F2F2;
 	border:1px solid #CCC;
 	padding:3px 8px;
@@ -3372,6 +3376,14 @@ ul#dashboard li a:hover {
 	background-clip:padding-box;
 	float:left;
 	margin:0 10px 0 0;
+}
+.cleardv {
+	margin: 0 0 10px;
+	clear: both;
+	overflow: hidden;
+}
+.labl {
+	width: 210px!important;
 }
 .editrooms fieldset ul li textarea.textarea {
 	background:none repeat scroll 0 0 #F2F2F2;
@@ -3413,6 +3425,21 @@ ul#dashboard li a:hover {
 	margin-right:10px;
 }
 .editrooms fieldset ul li.flwidth .checklist ul li label {
-	width:100px;
+	width:135px;
+}
+.succes-color{
+	background-color: #DD5656;
+}
+#hotel_country_id{
+	width:250px;
+}
+#hotel_state_id{
+	width:250px;
+}
+#hotel_user_id{
+	width:250px;
+}
+#client_comm{
+	width:250px;
 }
 /* End */
