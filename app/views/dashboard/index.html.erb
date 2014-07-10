@@ -1,47 +1,106 @@
-<!-- <ul class="nav" id="navigation">
-  <%# if user_signed_in? %>
-    <li>
-    <%#= link_to 'Logout', destroy_user_session_path, :method=>'delete' %>
-    </li>
-    <li>
-    <%#= link_to 'Edit account', edit_user_registration_path %>
-    </li> 
-    <li>
-    	<%#= link_to 'Admin Panel', hotels_path %>
-    </li> 
-  <%# end %>
-</ul>
-
-<p>This is the dashboard for authenticated user!</p>
- -->
-<ul id="dashboard">	
-	<h5><%= session[:hotel_name] %> (Id: <%= session[:hotel_id] %>) </h5>
-	<li><% if current_user.admin? || current_user.manager? %>
-		<img src="assets/ico-hotel-arrival.gif" width="48" height="48" border="0" />
-		<%= link_to "Arrivals", arrivals_path %>
-	<% end %></li>
-	<li><% if can? :index, Promotion %>
-		<img src="assets/ico-hotel-bookings.gif" width="48" height="48" border="0" />
-		<%= link_to "Bookings", bookings_path %>
-	<% end %></li>
-	<li><% if can? :index, Promotion %>
-		<img src="assets/ico-hotel-statistics.gif" width="48" height="48" border="0" />
-		<%= link_to "Statistics", statistics_path %>
-	<% end %></li>
-	<li><% if can? :index, Room %>
-		<img src="assets/ico-manage-rooms.gif" width="48" height="48" border="0" />
-		<%= link_to "Manage Rooms", rooms_path %>
-	<% end %></li>
-	<li><% if current_user.admin? || current_user.manager?  %>
-		<img src="assets/ico-availability-rates.gif" width="48" height="48" border="0" />
-		<%= link_to "Rates and Availability", rates_path %>
-	<% end %></li>
-	<li><% if current_user.admin? || current_user.manager?  %>
-		<img src="assets/ico-availability-rates.gif" width="48" height="48" border="0" />
-		<%= link_to "Overview", overview_path %>
-	<% end %></li>
-	<li><% if current_user.admin? || current_user.manager?  %>
-		<img src="assets/ico-availability-rates.gif" width="48" height="48" border="0" />
-		<%= link_to "Finance", finance_path %>
-	<% end %></li>
-</ul>
+<header class="no-display">
+  <h1 class="prop-title">Dashboard</h1>
+</header>
+<div id="dashboard" class="dashboard">
+  <section class="dashboard_column">
+    <section class="dashb_block dashb_rooms"> <i class="dashb_icon"></i>
+      <div class="dashb_content">Manage my <em>Rooms</em></div>
+      <div class="dashb_extra_content"><a href="/overview" class="dashb_links">Go to rooms overview</a> <a href="/room_availables/new" class="dashb_links">Open/close rooms wizard</a></div>
+    </section>
+    <a href="/rates/new" class="dashb_block dashb_rates"> <i class="dashb_icon"></i>
+    <div class="dashb_content">Manage my <em>Rates</em></div>
+    </a> </section>
+  <section class="dashboard_column">
+    <section class="dashb_block dashb_viewed"> <i class="dashb_icon"></i>
+      <div class="dashb_content">Today your property is viewed <em>
+      	<% if !@site_visitors_today.blank?  %>
+					<%= @site_visitors_today.first["c"] %>
+				<% end %>
+      </em></div>
+      <table width="100%" border="0" class="dasb_data">
+        <tr>
+          <th align="center" valign="middle">This Week</th>
+          <th align="center" valign="middle">This Month</th>
+          <th align="center" valign="middle">This Year</th>
+        </tr>
+        <tr>
+          <td align="center" valign="middle">
+          	<% if !@site_visitors_today.blank?  %>
+							<%= @site_visitors_this_week.count %>
+						<% end %>
+          </td>
+          <td align="center" valign="middle">
+          	<% if !@site_visitors_this_month.blank? %>
+							<%= @site_visitors_this_month.first["c"] %>
+						<% end %>
+          </td>
+          <td align="center" valign="middle">
+          	<% if !@site_visitors_this_year.blank?  %>
+							<%= @site_visitors_this_year.first["c"] %>
+						<% end %>
+          </td>
+        </tr>
+      </table>
+    </section>
+    <section class="dashb_block dashb_booked no_bordr_btm"> <i class="dashb_icon"></i>
+      <div class="dashb_content">Today your property is Booked <em>
+      	<%= @bookings_day_wise.count %>
+      </em></div>
+      <table width="100%" border="0" class="dasb_data">
+        <tr>
+          <th align="center" valign="middle">This Week</th>
+          <th align="center" valign="middle">This Month</th>
+          <th align="center" valign="middle">This Year</th>
+        </tr>
+        <tr>
+          <td align="center" valign="middle"><%= @bookings_week_wise.count %></td>
+          <td align="center" valign="middle"><%= @bookings_month_wise.count %></td>
+          <td align="center" valign="middle"><%= @bookings_year_wise.count %></td>
+        </tr>
+      </table>
+    </section>
+    <section class="dashb_block dashb_sldnight"> <i class="dashb_icon"></i>
+      <div class="dashb_content">Total Nights Sold today <em><%= @total_nights_today %></em></div>
+      <table width="100%" border="0" class="dasb_data">
+        <tr>
+          <th align="center" valign="middle">This Week</th>
+          <th align="center" valign="middle">This Month</th>
+          <th align="center" valign="middle">This Year</th>
+        </tr>
+        <tr>
+          <td align="center" valign="middle"><%= @total_nights_this_week %></td>
+          <td align="center" valign="middle"><%= @total_nights_this_month %></td>
+          <td align="center" valign="middle"><%= @total_nights_this_year %></td>
+        </tr>
+      </table>
+    </section>
+  </section>
+  <section class="dashboard_column">
+    <section class="dashb_block dashb_box dashb_arrivals"> <i class="dashb_icon"></i>
+      <div class="dashb_content"><em>Arrivals</em>
+        <ul id="links">
+          <li class="active"><a class="" href="<%= request.path %>?hotel_id=<%= session[:hotel_id] %>">Today</a></li>
+          <li><a class="" href="<%= request.path %>?hotel_id=<%= session[:hotel_id] %>&day=yesterday">Yesterday</a></li>
+          <li><a class="" href="<%= request.path %>?hotel_id=<%= session[:hotel_id] %>&day=future">Future</a></li>
+        </ul>
+        <div class="arrivals_content">
+        	<div class="scroll">
+          <div class="tabContent">
+            <div class="arrivals_loader"><img src="assets/loader.gif" alt="" /></div>
+            <ul class="dashb_lists tab-pane active">
+              <% if !@arrivals.blank? %>
+								<% @arrivals.each do |arrival| %>
+									<li>
+										<div class="row"> <span>Reservation No :</span><em><%= arrival.id %></em> </div>
+                		<div class="row"> <span>Booker Name :</span><em><%= arrival.traveler.name %></em> </div>
+									</li>
+								<% end %>
+							<% end %>
+            </ul>
+          </div>
+        </div>
+        </div>
+      </div>
+    </section>
+  </section>
+</div>

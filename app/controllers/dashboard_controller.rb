@@ -11,6 +11,36 @@ class DashboardController < ApplicationController
     end
     @hotel = Hotel.find(session[:hotel_id])
     session[:hotel_name] = @hotel.name
+
+    #Statistics
+    @site_visitors_today = ActiveRecord::Base.connection.exec_query("SELECT COUNT(*) as c from impressions WHERE created_at=CURDATE()")
+    @site_visitors_this_week = ActiveRecord::Base.connection.exec_query("SELECT * FROM impressions  WHERE created_at > DATE_SUB(CURDATE(), INTERVAL 7 DAY)")
+    @site_visitors_this_month = ActiveRecord::Base.connection.exec_query("SELECT COUNT(*) as c from impressions WHERE MONTH(created_at) = MONTH(CURDATE()) AND YEAR(created_at) = YEAR(CURDATE())")
+    @site_visitors_this_year = ActiveRecord::Base.connection.exec_query("SELECT COUNT(*) as c from impressions WHERE YEAR(created_at) = YEAR(CURDATE())")
+    @bookings_day_wise = Booking.where("created_at >= ?", Date.today)
+    @bookings_week_wise = Booking.where("created_at > DATE_SUB(CURDATE(), INTERVAL 7 DAY)")
+    @bookings_month_wise = Booking.where("created_at > DATE_SUB(CURDATE(), INTERVAL 1 MONTH)")
+    @bookings_year_wise = Booking.where("created_at > DATE_SUB(CURDATE(), INTERVAL 1 YEAR)")
+    @total_nights_today = find_nights_today
+    @total_nights_this_week = find_nights_this_week
+    @total_nights_this_month = find_nights_this_month
+    @total_nights_this_year = find_nights_this_year
+
+    #Arrivals
+    unless !session[:hotel_id].blank? 
+      session[:hotel_id] = params[:hotel_id]
+    else
+      session[:hotel_id] = session[:hotel_id]
+    end
+    @hotel = Hotel.find(session[:hotel_id])
+    session[:hotel_name] = @hotel.name
+    if params[:day] == "todays" || params[:day].blank?
+     @arrivals = Booking.where("hotel_id=? AND from_date=?", session[:hotel_id], Date.today ).paginate(:page => params[:page], :per_page => 20).order('id DESC')
+    elsif params[:day] == "yesterday"
+     @arrivals = Booking.where("hotel_id=? AND from_date=?", session[:hotel_id], Date.yesterday).paginate(:page => params[:page], :per_page => 20).order('id DESC')
+    elsif params[:day] == "future"
+     @arrivals = Booking.where("hotel_id=? AND from_date > ?", session[:hotel_id], Date.today).paginate(:page => params[:page], :per_page => 20).order('id DESC')
+    end
   end
 
   def my_hotels
