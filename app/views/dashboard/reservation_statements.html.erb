@@ -1,13 +1,13 @@
 <div class="content-wrapper adm-inr">
 	<div id="container-main">
     <header>
-      <h5><%= session[:hotel_name] %>(Id: <%= session[:hotel_id] %>)</h5>
+      <h1 class="prop-title"><%= session[:hotel_name] %>(Id: <%= session[:hotel_id] %>)</h1>
     </header>
     <%= render partial: "/common/navigation_tab"%>
     <div class="rtSidebar">
       <div class="section">
         <h3>Reservation Statements</h3>
-        <div class="">
+        <div class="titleResrv">
 				  <span style="margin-top: 5px;font-size: 1.4em;" class="span1">
 				    Period
 				  </span>

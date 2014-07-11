@@ -84,6 +84,8 @@ Bestnights::Application.routes.draw do
   match 'download_reservation_data_month' => "dashboard#download_reservation_data_month", :as => 'download_reservation_data_month'
   match 'download_statement_data_month' => "dashboard#download_statement_data_month", :as => 'download_statement_data_month'
   match 'about' => "home#about_us", :as => 'about'
+  match 'travelers_login' => "travelers#travelers_login", :as => 'travelers_login'
+  match 'traveler_login_create' => "travelers#traveler_login_create", :as => 'traveler_login_create', :via => :post
 
   # resources :users, except: :create
   resources :users

@@ -1,4 +1,5 @@
 class HomeController < ApplicationController
+  before_filter :authenticate_user!, only: [:book_hotel]
   impressionist :unique => [:ip_address]
   require 'interfax/base'
   require 'interfax/fax_item'

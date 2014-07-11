@@ -1,11 +1,10 @@
 <% content_for :title, "BestNights.com - Room Type" %>
 <%= link_to "Update Room/Rate details", rate_details_path(room_id: @room.id ) , class: "link_style" %>
-<div class="bookconfTab">
+<div id="container-main">
+		<h1 class="prop-title">View</h2>
 	<div class="view blocks store-view">
-	<div style="display:none;"><%= link_to "Home", dashboard_path, class: "links" %></div>
-	<h2>View</h2>
 	<div class="scroll-hor">
-		<table class="bookconf" width="100%" border="0">
+	<table class="bookconf" width="100%" border="0">
 	<thead>
 		<tr>
 			<td align="left" valign="middle">Room No.</td>

@@ -1,7 +1,7 @@
 class TravelersController < ApplicationController
   before_filter :authenticate_user!, only: [:new, :create]  
   layout "admin_basic", only: [:index, :new, :show, :edit]
-  
+  layout "application", only: [:travelers_login]
   def index
     @travelers = Traveler.search(params[:search])
   end
@@ -14,6 +14,21 @@ class TravelersController < ApplicationController
     @traveler = Traveler.new
   end
   
+  def travelers_login
+    
+  end
+
+  def traveler_login_create
+   @traveler = Traveler.find_by_email(params[:email])
+    session[:traveler] = @traveler
+    if @traveler and @traveler.valid_password?(params[:password])
+      redirect_to book_hotel_path
+      # render :json => @traveler, :status => 200
+    else
+      render :nothing => true, :status => 404
+    end 
+  end
+
   def create
     @traveler = Traveler.new(params[:traveler])
     if @traveler.save

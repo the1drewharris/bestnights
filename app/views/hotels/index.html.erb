@@ -17,6 +17,7 @@
 		<%= link_to "Add", new_hotel_path %>
   </div>
   <% end %>
+  <div class="scroll scroll-hor">
 	<table class="admintablelist">
 		<tr>
 			<th>Name</th>
@@ -27,7 +28,7 @@
 			<% if current_user.admin? %>
 				<th>User</th>
 			<% end %>
-			<th>Actions</th>
+			<th colspan="2" align="center" class="center">Actions</th>
 		</tr>
 		<% @hotels.each do |hotel| %>
 		  <tr>
@@ -55,6 +56,7 @@
 		  </tr>
 		<% end %>
 	</table>
+</div>
 </div>
 
 <%= javascript_include_tag :jquery_ujs %>

@@ -1,0 +1,25 @@
+<div id="wrapper">
+<div id="eyebrow">
+	<%= render :partial => "common/home_nav_tab" %>
+</div>
+<section>
+	
+	<h5>Travelers Login</h5>
+<div>
+	<form id="travelers_login" action="/traveler_login_create" method= "POST">
+		<ul>
+			<li>
+				<label for="email">Email Address</label>
+				<input type="text" name="email" placeholder="email address" >
+			</li>
+			<li>
+				<label for="password">Password</label>
+				<input type="password" name="password" placeholder="password">
+			</li>
+		</ul>
+		<input id="" type="submit" value="sign in" class="button4">
+	</form>
+</div>	
+</section>	
+<%= render :partial => "common/home_footer" %>
+</div>

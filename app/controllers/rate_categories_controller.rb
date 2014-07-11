@@ -1,6 +1,9 @@
 class RateCategoriesController < ApplicationController
   # GET /rate_categories
   # GET /rate_categories.json
+   before_filter :authenticate_user!
+  layout "admin_basic"
+
   def index
     @rate_categories = RateCategory.all
 

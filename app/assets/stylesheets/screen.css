@@ -41,7 +41,7 @@ footer,
 	overflow: hidden;
 }
 #eyebrow {
-	color:#83BF17;
+	color:#FFF;
 }
 footer {
 	position: absolute;
@@ -150,7 +150,9 @@ header {
 	}
 
 input {
-	border: 1px solid #c8b68c;
+	border: 1px solid #CCC;
+	background:#F2F2F2;
+	background-clip: padding-box;
 	padding: 3px;
 	vertical-align: top;
 }
@@ -182,7 +184,7 @@ select {
 		font-size: 1em;
 		font-weight: 500;
 		transition: box-shadow 0.5s ease 0s;
-		padding: 2px 5px 3px;
+		padding:5px 5px 6px;
 		color: #333;
 	}
 	
@@ -272,7 +274,7 @@ select {
 		text-decoration: none;
 		font-size: 0.81em;
 		cursor: pointer;
-		padding: 7px 21px;
+		padding: 6px 21px;
 		font-weight: 700;
 	}
 	.button,
@@ -473,23 +475,29 @@ label,
 		position: absolute;
 		left: 485px;
 	}
-
+	#profileInfo a {
+		font-weight: 200;
+		color: #FFF;
+		text-decoration: none;
+		margin: 0 12px 0 0;
+	}
+	#profileInfo a:hover {
+		color: #83BF17;
+		text-decoration: underline;
+	}
 
 nav {
 	
 }
 
-	nav a,
-	nav a:hover,
-	#profileInfo a {
+	nav a {
 		font-weight: 200;
 		color: #83BF17;
 		text-decoration: none;
 		margin: 0 12px 0 0;
 	}
 	
-	nav a:hover,
-	#profileInfo a:hover {
+	nav a:hover {
 		color: #fff;
 	}
 	
@@ -2648,6 +2656,7 @@ ul#dashboard li a:hover {
 	border:none;
 	border-right: 1px solid #CCC;
 	border-left:1px solid #CCC;
+	border-top:1px solid #CCC;
 	padding:7px 14px;
 	font-weight: 600;
 	font-size: 12px;
@@ -2771,6 +2780,10 @@ ul#dashboard li a:hover {
 	background: none!important;
 	border: none!important;
 	text-shadow: none!important;
+	outline: none;
+}
+.admintablelist .link_hotel:hover{
+	color: #333!important;
 }
 #which{
 	width: 100%;
@@ -3096,10 +3109,10 @@ ul#dashboard li a:hover {
 	padding:0.6em 1.4em 1.2em;
 }
 .rtSidebar .section .blocks {
-	background: #FFF;
+	background: #EBEBE5;
 	margin: 0 0 0 0;
 	padding:1em;
-	border-top: 1px #CCC solid;
+	border: 1px #CCC solid;
 	border-radius: 7px;
     -moz-border-radius: 7px;
     -webkit-border-radius: 7px;
@@ -3107,6 +3120,9 @@ ul#dashboard li a:hover {
     text-decoration: none;
     clear: both;
 	background-clip:padding-box;
+}
+.rtSidebar .section .blocks p {
+	line-height: 28px;
 }
 .rtSidebar .section .arrival {
 }
@@ -3230,10 +3246,11 @@ ul#dashboard li a:hover {
 	position:absolute;
 	top:0;
 	right:0;
+	z-index: 999;
 }
 /* Top level menu links style */
 .sidebarmenu ul li a{
-	font-size:1.5em;
+	font-size:1.2em;
 	background-color:#2b2b2b;
 	border:1px solid #ccc;
 	float:none;
@@ -3245,8 +3262,9 @@ ul#dashboard li a:hover {
 	text-decoration:none;
 	display: block;
 	overflow: auto; /*force hasLayout in IE7 */
-	color: #515151;
+	color: #83BF17;
 	border-top:none;
+	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.45);
 }
 .sidebarmenu ul li a.active {
 	background: rgb(175,229,75); /* Old browsers */
@@ -3286,7 +3304,7 @@ ul#dashboard li a:hover {
 }
 .sidebarmenu ul li li a:hover {
 	background: #2b2b2b; /*background of tabs (default state)*/
-	color: #515151;
+	color: #83BF17;
 }
 .sidebarmenu ul li a:hover{
 	background-color: #2b2b2b;
@@ -3299,6 +3317,7 @@ ul#dashboard li a:hover {
 	top: 0;
 	left:256px!important;
 	visibility: hidden;
+	z-index: 1000;
 }
 .sidebarmenu a.subfolderstyle{
 	background: url(right.gif) no-repeat 97% 50%;
@@ -3671,8 +3690,15 @@ a.dashb_block:hover {
 .arrivals_loader img{
 	display: none;
 }
+.scrollHor {
+	width: 100%;
+	overflow: auto;
+}
 .scroll {
 	height: 300px;
 	overflow: auto;
+}
+.center {
+	text-align: center!important;
 }
 /* End */
