@@ -83,7 +83,8 @@ Bestnights::Application.routes.draw do
   match 'find_room_details' => "dashboard#find_room_details", :as => 'find_room_details'
   match 'download_reservation_data_month' => "dashboard#download_reservation_data_month", :as => 'download_reservation_data_month'
   match 'download_statement_data_month' => "dashboard#download_statement_data_month", :as => 'download_statement_data_month'
-  
+  match 'about' => "home#about_us", :as => 'about'
+
   # resources :users, except: :create
   resources :users
   resources :hotels do

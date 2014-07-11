@@ -27,6 +27,10 @@ class HomeController < ApplicationController
   def contact_us
     
   end
+
+  def about_us
+
+  end
   
   def add_property
     p params[:manager]
