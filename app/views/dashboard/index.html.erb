@@ -2,59 +2,7 @@
   <h1 class="prop-title">Dashboard</h1>
 </header>
 <div id="dashboard" class="dashboard">
-  <div class="sidebarmenu">
-    <ul id="sidebarmenu1">
-      <li>
-        <a href="arrivals.html" title="Arrivals">Arrivals</a>
-      </li>
-      <li>
-        <a href="bookings.html" title="Bookings" class="active">Bookings</a>
-      </li>
-      <li>
-        <a href="javascript:void(0);" title="Statistics">Statistics</a>
-      </li>
-      <li>
-        <a href="javascript:void(0);" title="Manage Rooms">Manage Rooms</a>
-      </li>
-      <li>
-        <a href="javascript:void(0);" title="Rates &amp; Availability">Rates &amp; Availability</a>
-        <ul>
-          <li>
-            <a href="javascript:void(0);" title="Change Room Rate">Change Room Rate</a>
-          </li>
-          <li>
-            <a href="javascript:void(0);" title="Adjust Rooms To Sell">Adjust Rooms To Sell</a>
-          </li>
-          <li>
-            <a href="javascript:void(0);" title="Open/Close Rooms">Open/Close Rooms</a>
-          </li>
-          <li>
-            <a href="javascript:void(0);" title="Copy Yearly Rates">Copy Yearly Rates</a>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a href="javascript:void(0);" title="Overview">Overview</a>
-      </li>
-      <li>
-        <a href="javascript:void(0);" title="Finance">Finance</a>
-        <ul>
-          <li>
-            <a href="javascript:void(0);" title="Information">Information</a>
-          </li>
-          <li>
-            <a href="javascript:void(0);" title="Reservation Statements">Reservation Statements</a>
-          </li>
-          <li>
-            <a href="javascript:void(0);" title="Invoices">Invoices</a>
-          </li>
-          <li>
-            <a href="javascript:void(0);" title="Invoice Details">Invoice Details</a>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </div>
+  <%= render partial: "/common/navigation_tab"%>
   <section class="dashboard_column">
     <section class="dashb_block dashb_rooms"> <i class="dashb_icon"></i>
       <div class="dashb_content">Manage my <em>Rooms</em></div>
