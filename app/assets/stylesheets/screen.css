@@ -3250,7 +3250,7 @@ ul#dashboard li a:hover {
 }
 /* Top level menu links style */
 .sidebarmenu ul li a{
-	font-size:1.2em;
+	font-size:1.5em;
 	background-color:#2b2b2b;
 	border:1px solid #ccc;
 	float:none;
@@ -3262,9 +3262,8 @@ ul#dashboard li a:hover {
 	text-decoration:none;
 	display: block;
 	overflow: auto; /*force hasLayout in IE7 */
-	color: #83BF17;
+	color: #83bf17;
 	border-top:none;
-	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.45);
 }
 .sidebarmenu ul li a.active {
 	background: rgb(175,229,75); /* Old browsers */
@@ -3469,7 +3468,7 @@ ul#dashboard li a:hover {
 .dashboard_column {
 	padding:1em 0;
 	float:left;
-	width:31%;
+	width:22.1%;
 	min-height:30px;
 	display:block;
 	border:none;
@@ -3483,7 +3482,8 @@ ul#dashboard li a:hover {
     display: block;
     margin: 0;
     overflow: hidden;
-    padding: 2em 1em 1.3em;
+	padding:1em 0.5em;
+   /* padding: 2em 1em 1.3em;*/
     text-decoration: none;
 	clear:both;
 	outline:none;
@@ -3498,11 +3498,11 @@ ul#dashboard li a:hover {
     border-bottom:none;
 }
 .dashb_icon {
-    display: inline;
-    float: left;
-    height: 61px;
-    margin: 0 0.5em 0 0;
-    width: 61px;
+  display: inline;
+  float: left;
+	height: 42px;
+  margin: 0 0.5em 0 0;
+  width: 42px;
 	background:url("../assets/ico_dashboard_sprite.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .dashb_block:hover {
@@ -3514,9 +3514,9 @@ a.dashb_block:hover {
 	background-color:#EEE;
 }
 .dashb_content {
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 200;
-    margin: 0 0 21px 70px;
+    margin: 0 0 21px 50px;
 	color:#363635;
 }
 .dashb_extra_content, .tabContent {
@@ -3525,42 +3525,45 @@ a.dashb_block:hover {
     width: 100%;
 }
 .dashb_links {
-    background: url("../assets/dashboard_link_arrow.png") no-repeat scroll right center rgba(0, 0, 0, 0);
-    color: #363635;
-    display: block;
-    margin: 0.5em 0;
-    padding-right: 20px;
+  background: url("../assets/dashboard_link_arrow.png") no-repeat scroll right center rgba(0, 0, 0, 0);
+  color: #363635;
+  display: block;
+  margin: 0.5em 0;
+  padding-right: 20px;
 	font-weight:400;
-	font-size:14px;
+	font-size:12px;
 }
 .dashb_content em {
-    display: block;
-    font-size: 38px;
+  display: block;
+	font-size:25px;
 	font-weight:200;
-    font-style: normal;
-    line-height: 1;
+  font-style: normal;
+  line-height: 1;
 }
 .dashb_rooms .dashb_icon {
-    background-position: -19px -1837px;
+    background-position: -12px -28px;
 }
 .dashb_rates .dashb_icon {
-    background-position: -19px -1940px;
+    background-position: -12px -96px;
 }
 .dashb_viewed .dashb_icon {
-    background-position: -19px -2044px;
+    background-position: -12px -165px;
 }
 .dashb_booked .dashb_icon {
-    background-position: -19px -2148px;
+    background-position: -12px -233px;
 }
 .dashb_sldnight .dashb_icon {
-    background-position: -19px -2251px;
+    background-position: -12px -301px;
+}
+.dashb_arrivals .dashb_icon {
+    background-position: -12px -369px;
 }
 .no_bordr_btm {
 	border-bottom:none!important;
 }
 .dasb_data {
 	font-family:Arial, Helvetica, sans-serif;
-	font-size:14px;
+	font-size:12px;
 	font-weight:400;
 }
 .dasb_data th {
@@ -3568,7 +3571,7 @@ a.dashb_block:hover {
 	font-weight:400;
 }
 .dasb_data td {
-	font-size:18px;
+	font-size:15px;
 	line-height:normal;
 	color:#7ab510;
 	padding:1px;
@@ -3578,7 +3581,8 @@ a.dashb_block:hover {
     border:none;
     border-radius: 0px;
     cursor: default;
-    padding: 1.9em 1.5em;
+	padding:1.2em 1em;
+    /*padding: 1.9em 1.5em;*/
 }
 .dashb_block.dashb_box:hover {
     background:#eee9dc;
@@ -3586,16 +3590,16 @@ a.dashb_block:hover {
 .dashb_arrivals {
 	border:none;
 }
-.dashb_arrivals .dashb_icon {
+/*.dashb_arrivals .dashb_icon {
     background-position: -19px -2354px;
-}
+}*/
 .dashb_arrivals .dashb_content {
     margin-top: 8px;
 }
 .dashb_content #links {
 	clear: left;
     margin-bottom: 10px;
-    margin-left: -68px;
+    margin-left: -50px;
 	display: block;
     list-style: none outside none;
     overflow: hidden;
@@ -3608,10 +3612,11 @@ a.dashb_block:hover {
     display: block;
     float: left;
 	font-family:Arial, Helvetica, sans-serif;
-	font-size:14px;
+	font-size:12px;
     font-weight: 400;
     line-height: 20px;
-    margin: 0 0 0 20px;
+    /*margin: 0 0 0 20px;*/
+	margin: 0 0 0 10px;
     padding: 0;
 	font-weight:400;
 }
@@ -3641,7 +3646,7 @@ a.dashb_block:hover {
     text-decoration: none;
 }
 .arrivals_content {
-	margin-left:-68px;
+	margin-left:-50px;
 }
 .arrivals_loader {
 	text-align:center;
@@ -3683,7 +3688,7 @@ a.dashb_block:hover {
 .dashb_lists li .row em {
 	font-style:normal;
 	color:#99824c;
-	font-size:13px!important;
+	font-size:12px!important;
 	font-weight:400;
 	line-height:20px!important;
 }
@@ -3700,5 +3705,12 @@ a.dashb_block:hover {
 }
 .center {
 	text-align: center!important;
+}
+.dashboard .sidebarmenu {
+	margin:13px 0 0 21px;
+	width:256px;
+}
+.dashboard .sidebarmenu ul {
+	width:256px;
 }
 /* End */

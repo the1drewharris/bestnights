@@ -24,6 +24,9 @@
 //= require sidebar
 
 $(document).ready(function() {
+	if(window.location.pathname == "/dashboard"){
+		$.remove("<div class='progressbar'>&nbsp;</div>")
+	}
 	if(window.location.pathname == "/overview"){
 		$( "#datepicker" ).datepicker({
 			dateFormat: "yy-mm-dd"
