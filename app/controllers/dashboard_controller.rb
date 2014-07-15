@@ -124,16 +124,33 @@ class DashboardController < ApplicationController
 
   def overview
     # @rooms = Booking.where(:hotel_id => session[:hotel_id])
-    # cookies[:from_date] = []
-    # cookies[:to_date] = []
+    # # cookies[:from_date] = []
+    # # cookies[:to_date] = []
     # cookies[:nights] = []
+    # @nights = []
     # @rooms.each do |room|
     #   @booked = Booking.find_by_hotel_id_and_room_id(room.hotel_id,room.room_id)
-    #   cookies[:from_date] << @booked.from_date
-    #   cookies[:to_date] << @booked.to_date
+    #   cookies[:from_date] = @booked.from_date
+    #   cookies[:to_date] = @booked.to_date
     #   (@booked.from_date..@booked.to_date).to_a.select{|k| cookies[:nights] << k}
+    #   @nights << {room.room_id => cookies[:nights]}
+    #   cookies[:nights] = []
     # end
+    @free = []
     @room_types = RoomType.all
+    @room_types.each do |type|
+      @count = 0
+      @rooms = Room.where("room_type_id=? AND hotel_id=?",type.id,session[:hotel_id])
+      @rooms.each do |room|
+        @booking = Booking.find_by_hotel_id_and_room_id(room.id,session[:hotel_id])
+        logger.info"^^^^^^^^^^#{@booking.inspect}^^^^^^^^^^^^"
+        if !@booking.nil?
+          @count += 1
+        end
+        @free << @rooms.count - @count
+      end
+      logger.info"&&&&&&&&&&#{@rooms.count}&&&&&&&&&"
+    end
   end
 
   def cancel_booking

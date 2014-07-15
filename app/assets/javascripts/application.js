@@ -28,7 +28,10 @@ $(document).ready(function() {
 		$.remove("<div class='progressbar'>&nbsp;</div>")
 	}
 	if(window.location.pathname == "/overview"){
-		$( "#datepicker" ).datepicker({
+		$("#from_date").datepicker({
+			dateFormat: "yy-mm-dd"
+		});
+		$("#to_date").datepicker({
 			dateFormat: "yy-mm-dd"
 		});
 		$("#find").click(function(){
