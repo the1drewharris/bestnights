@@ -36,6 +36,10 @@
 			  	<%= f.label 'City*' %>
 			  	<%= f.text_field :city, :autofocus => true %>
 				</li>
+				<li>
+			  	<%= f.label 'Zip*' %>
+			  	<%= f.text_field :zip, :autofocus => true %>
+				</li>
 			  <li>
 			  	<%= f.label :country_id %>
 					<%= f.country_select :country_id, priority: %w(US CA), prompt: 'Please select a country' %>

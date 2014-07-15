@@ -47,7 +47,7 @@
 				  <td><%= hotel.user.email %></td>
 				<% end %>
 				<% if can? :show, hotel %>
-					<td><%= link_to "Show", dashboard_path(hotel_id: hotel.id) %></td>
+					<td><%= link_to "Show", hotel_path(hotel.id) %></td>
 				<% end %>
 		  </tr>
 		<% end %>

@@ -1,13 +1,14 @@
 class HotelAttributesController < ApplicationController
   before_filter :authenticate_user!
-  load_and_authorize_resource  
   layout "admin_basic", only: [:index, :new, :show, :edit]
   
   def index
     if current_user.admin?
       @hotel_attributes = HotelAttribute.search(params[:search])
-    elsif current_user.manager?
+    elsif current_user.manager? && !params[:search].blank?
       @hotel_attributes = current_user.hotel_attributes.search(params[:search])
+    elsif current_user.manager? && params[:search].blank?
+      redirect_to my_hotels_path
     end 
   end
   

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140619065305) do
+ActiveRecord::Schema.define(:version => 20140714114105) do
 
   create_table "agreements", :force => true do |t|
     t.integer  "hotel_id"
@@ -61,6 +61,30 @@ ActiveRecord::Schema.define(:version => 20140619065305) do
     t.datetime "updated_at",  :null => false
   end
 
+  create_table "commission_rates", :force => true do |t|
+    t.float    "amount"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "contact_people", :force => true do |t|
+    t.integer  "hotel_id"
+    t.string   "name"
+    t.string   "title"
+    t.string   "designation"
+    t.string   "gender"
+    t.string   "email"
+    t.string   "phone_number"
+    t.string   "mobile_number"
+    t.text     "address"
+    t.string   "postal_code"
+    t.string   "city"
+    t.string   "country"
+    t.text     "description"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
   create_table "contacts", :force => true do |t|
     t.string   "email"
     t.datetime "created_at", :null => false
@@ -104,7 +128,7 @@ ActiveRecord::Schema.define(:version => 20140619065305) do
   end
 
   create_table "hotels", :force => true do |t|
-    t.integer  "state_id"
+    t.string   "state_id"
     t.string   "name"
     t.text     "description"
     t.string   "address1"
@@ -174,6 +198,12 @@ ActiveRecord::Schema.define(:version => 20140619065305) do
     t.text     "content"
     t.string   "title"
     t.string   "status"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "positions", :force => true do |t|
+    t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -264,6 +294,37 @@ ActiveRecord::Schema.define(:version => 20140619065305) do
     t.datetime "updated_at",         :null => false
   end
 
+  create_table "room_rate_details", :force => true do |t|
+    t.string   "day"
+    t.string   "status"
+    t.string   "rate_per_night"
+    t.boolean  "booked"
+    t.boolean  "canceled"
+    t.string   "policy_group"
+    t.string   "month"
+    t.string   "year"
+    t.date     "from_date"
+    t.date     "to_date"
+    t.integer  "rooms_to_sell"
+    t.integer  "room_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  create_table "room_rates", :force => true do |t|
+    t.integer  "room_id"
+    t.integer  "room_type_id"
+    t.float    "rate_monday"
+    t.float    "rate_tuesday"
+    t.float    "rate_wednesday"
+    t.float    "rate_thursday"
+    t.float    "rate_friday"
+    t.float    "rate_saturday"
+    t.float    "rate_sunday"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
   create_table "room_types", :force => true do |t|
     t.string   "room_type"
     t.datetime "created_at", :null => false
@@ -279,14 +340,17 @@ ActiveRecord::Schema.define(:version => 20140619065305) do
     t.string   "price"
     t.string   "additionaladultfee"
     t.string   "original_price"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
     t.integer  "starting_inventory"
     t.integer  "bed_numbers"
     t.integer  "max_people"
     t.integer  "max_children"
     t.string   "room_size"
     t.string   "room_unit"
+    t.boolean  "lunch",              :default => false
+    t.boolean  "dinner",             :default => false
+    t.boolean  "all_inclusive",      :default => false
   end
 
   create_table "sessions", :force => true do |t|

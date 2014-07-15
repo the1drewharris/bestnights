@@ -7,6 +7,9 @@
 <div id="container-main">
 	<span>
 		<%= @hotel.description %>
+		<% if current_user.admin? %>
+	 		| <%= link_to "Add Contact", new_contact_person_path(hotel_id: @hotel.id ) %>
+	 	<% end %>
 	</span>
 	
 	<br />

@@ -1,5 +1,7 @@
 Bestnights::Application.routes.draw do
   
+  resources :positions
+
   resources :commission_rates
 
   resources :rate_categories
@@ -102,4 +104,5 @@ Bestnights::Application.routes.draw do
   resources :cards
   resources :default_messages
   resources :availabilities
+  resources :contact_people
 end

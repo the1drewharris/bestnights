@@ -17,6 +17,9 @@ class HotelsController < ApplicationController
         @hotels = Hotel.search(params[:search])
       end
     end
+    if @hotels.blank?
+      flash[:success] = "Hotels Not Found"
+    end
   end
   
   def show

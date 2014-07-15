@@ -162,10 +162,9 @@ class HomeController < ApplicationController
   end
   
   def booking_detail
-    
-    @hotel = Hotel.find(params[:hotel_id])
-    
+    begin
     ## all room attributes in the hotel
+    @hotel = Hotel.find(params[:hotel_id])
     @room_attrs = @hotel.room_attributes
     @from_date = session[:checkin]
     @to_date = session[:checkout]
@@ -175,6 +174,11 @@ class HomeController < ApplicationController
     session[:hotels] = nil
     session[:hotel_id] = params[:hotel_id]
     #TODO where is the room that has been booked?
+    rescue ActiveRecord::RecordNotFound
+      flash[:success] = "Please check the Hotel ID"
+      redirect_to root_url
+    end
+    
     
   end
   

@@ -28,6 +28,7 @@ class Hotel < ActiveRecord::Base
   has_many :hotel_attribute_joins, dependent: :destroy
   has_many :hotel_attributes, through: :hotel_attribute_joins
   has_many :users, dependent: :destroy # front desks, not admin and manager
+  has_many :contact_persons, dependent: :destroy
   
   scope :activated, -> { where(status: "active") }
   scope :top5, -> { where(status: "active").order("star DESC").limit(5) }

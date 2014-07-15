@@ -43,5 +43,8 @@
 	<% end %>
 	<% if current_user.admin?  %>	
 		<%= link_to "Set Commission", new_commission_rate_path %>
+	<% end %>
+	<% if current_user.admin?  %>	
+		<%= link_to "Contacts Designation", positions_path %>
 	<% end %>	
 </nav>
