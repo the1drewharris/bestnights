@@ -21,10 +21,11 @@ class TravelersController < ApplicationController
    @traveler = Traveler.find_by_email(params[:email])
     session[:traveler] = @traveler
     if @traveler and @traveler.valid_password?(params[:password])
+      session[:traveler_id] = @traveler.id
       redirect_to book_hotel_path
-      # render :json => @traveler, :status => 200
     else
-      render :nothing => true, :status => 404
+      flash[:success] = "Wrong Credential"
+      redirect_to travelers_login_path
     end 
   end
 
