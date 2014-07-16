@@ -1,7 +1,6 @@
 class TravelersController < ApplicationController
   before_filter :authenticate_user!, only: [:new, :create]  
   layout "admin_basic", only: [:index, :new, :show, :edit]
-  layout "application", only: [:travelers_login]
   def index
     @travelers = Traveler.search(params[:search])
   end
