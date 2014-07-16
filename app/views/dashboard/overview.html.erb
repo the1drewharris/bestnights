@@ -34,17 +34,33 @@
                     <% end %>
                   </tr>
                   <% @room_types.each_with_index do |type,index| %>
+                    <% @room_count = Room.where("room_type_id=? AND hotel_id=?",type.id,session[:hotel_id]).count %>
                   	<tr>
                   		<td class="grid-room-cell"><%= type.room_type %></td>
                   		<% 15.times do |f| %>
-                  			<td class="status status-clickable status-bookable"><span class="status-label status-bookable"> </span></td>
+                        <% @Free.each do |free| %>
+                          <% if free.has_key?(type.id) %>
+                            <% if free[type.id][f] == 0 || @room_count == 0 %>
+                              <td class="status status-clickable status-none"><span class="status-label status-bookable"> </span></td>
+                            <% else %>
+                              <td class="status status-clickable status-bookable"><span class="status-label status-bookable"> </span></td>
+                            <% end %>
+                          <% end %>
+                        <% end %> 
                   		<% end %>
                   	</tr>
                   	<tr>
                   		<td class="grid-room-cell"><a href="#"> Rooms To Sell (Room Level) </a></td>
-                  		<% 15.times do |f| %>
-                  			<td><%= @free[index] %></td>
-                  		<% end %>
+                        <% @Free.each do |free| %>
+                          <% if free.has_key?(type.id) %>
+                            <% free[type.id].each_with_index do |item,index|%>
+                            <td><%= item[index] %></td>
+                            <% end %>
+                          <% end %>
+                        <% end %>
+                      <% (15-@Free.count).times do |f| %>
+                        <td><%= @room_count %></td>
+                      <% end %>
                   	</tr>
                   	<tr>
                   		<td class="grid-rate-cell">
@@ -52,39 +68,43 @@
                   		</td>
                   		<% 15.times do |f| %>
                   			<% r = RoomRate.where("room_type_id=?",type.id) %>
-                  			<td class="status status-clickable status-bookable">
-                  				<% if !r.empty? %>
-	                  				<% if Date.today.advance(days: f).strftime("%A").downcase == "monday" %>
-		                  				<span class="status-label status-bookable">
-		                  						<%= r[0].rate_monday %>
-		                  				</span>
-		                  			<% elsif Date.today.advance(days: f).strftime("%A").downcase == "tuesday" %>
-		                  				<span class="status-label status-bookable">
-		                  						<%= r[0].rate_tuesday %>
-		                  				</span>
-		                  			<% elsif Date.today.advance(days: f).strftime("%A").downcase == "wednesday" %>
-		                  				<span class="status-label status-bookable">
-		                  						<%= r[0].rate_wednesday %>
-		                  				</span>
-		                  			<% elsif Date.today.advance(days: f).strftime("%A").downcase == "thursday" %>
-		                  				<span class="status-label status-bookable">
-		                  						<%= r[0].rate_thursday %>
-		                  				</span>
-		                  			<% elsif Date.today.advance(days: f).strftime("%A").downcase == "friday" %>
-		                  				<span class="status-label status-bookable">
-		                  						<%= r[0].rate_friday %>
-		                  				</span>
-		                  			<% elsif Date.today.advance(days: f).strftime("%A").downcase == "saturday" %>
-		                  				<span class="status-label status-bookable">
-		                  						<%= r[0].rate_saturday %>
-		                  				</span>
-		                  			<% elsif Date.today.advance(days: f).strftime("%A").downcase == "sunday" %>
-		                  				<span class="status-label status-bookable">
-		                  						<%= r[0].rate_sunday %>
-		                  				</span>
-	                  				<% end %>
-                  				<% end %>
-                  			</td>
+                        <% if @room_count == 0 %>
+                          <td class="status status-clickable status-none"></td>
+                        <% else %>
+                    			<td class="status status-clickable status-bookable">
+                    				<% if !r.empty? %>
+  	                  				<% if Date.today.advance(days: f).strftime("%A").downcase == "monday" %>
+  		                  				<span class="status-label status-bookable">
+  		                  						<%= r[0].rate_monday %>
+  		                  				</span>
+  		                  			<% elsif Date.today.advance(days: f).strftime("%A").downcase == "tuesday" %>
+  		                  				<span class="status-label status-bookable">
+  		                  						<%= r[0].rate_tuesday %>
+  		                  				</span>
+  		                  			<% elsif Date.today.advance(days: f).strftime("%A").downcase == "wednesday" %>
+  		                  				<span class="status-label status-bookable">
+  		                  						<%= r[0].rate_wednesday %>
+  		                  				</span>
+  		                  			<% elsif Date.today.advance(days: f).strftime("%A").downcase == "thursday" %>
+  		                  				<span class="status-label status-bookable">
+  		                  						<%= r[0].rate_thursday %>
+  		                  				</span>
+  		                  			<% elsif Date.today.advance(days: f).strftime("%A").downcase == "friday" %>
+  		                  				<span class="status-label status-bookable">
+  		                  						<%= r[0].rate_friday %>
+  		                  				</span>
+  		                  			<% elsif Date.today.advance(days: f).strftime("%A").downcase == "saturday" %>
+  		                  				<span class="status-label status-bookable">
+  		                  						<%= r[0].rate_saturday %>
+  		                  				</span>
+  		                  			<% elsif Date.today.advance(days: f).strftime("%A").downcase == "sunday" %>
+  		                  				<span class="status-label status-bookable">
+  		                  						<%= r[0].rate_sunday %>
+  		                  				</span>
+  	                  				<% end %>
+                    				<% end %>
+                    			</td>
+                        <% end %>  
                   		<% end %>
                   	</tr>
                   	<tr>
@@ -104,28 +124,12 @@
                     <td>Bookable</td>
                   </tr>
                   <tr>
-                    <td class="status status-restricted"><span class="status-label status-restricted"> R </span></td>
-                    <td>Bookable with restrictions</td>
-                  </tr>
-                  <tr>
                     <td class="status status-closed"><span class="status-label status-closed"> </span></td>
                     <td>Closed</td>
                   </tr>
                   <tr>
-                    <td class="status status-soldout"><span class="status-label status-soldout"> ! </span></td>
-                    <td>Soldout</td>
-                  </tr>
-                  <tr>
                     <td class="status status-none"><span class="status-label status-none"> </span></td>
                     <td>No Rooms and/or No Price</td>
-                  </tr>
-                  <tr>
-                    <td><span class="grid-rate-parentchild">P</span></td>
-                    <td>Parent rate</td>
-                  </tr>
-                  <tr>
-                    <td><span class="grid-rate-parentchild">C</span></td>
-                    <td>Child rate</td>
                   </tr>
                 </tbody>
               </table>
