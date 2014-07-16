@@ -1,5 +1,4 @@
 class HomeController < ApplicationController
-  before_filter :authenticate_user!, only: [:book_hotel]
   impressionist :unique => [:ip_address]
   require 'interfax/base'
   require 'interfax/fax_item'
@@ -243,7 +242,7 @@ class HomeController < ApplicationController
       redirect_to book_hotel_path
       # render :json => @traveler, :status => 200
     else
-      render :nothing => true, :status => 404
+      redirect_to root_url
     end
     
   end
@@ -347,13 +346,13 @@ class HomeController < ApplicationController
       chars += line.length
     end
     # @fax_email = FaxMailer.hotel_booking_mail(traveler, amount, cardnumber, ccv, expiration, cardtype, hotel, checkin, checkout, room_ids).deliver
-    @fax_result = SOAP::WSDLDriverFactory.new("https://ws-sl.fax.tc/Outbound.asmx?WSDL").create_rpc_driver.SendCharFax("Username" => "bestnights","Password" => "@BestN1ghts","FileType" => "TXT","FaxNumber"=> "15874090031","Data" => "#{results[0]+"\n"+results[1]+"\n"+results[2]+"\n"+results[3]+"\n"+results[4]+"\n"+results[5]+"\n"+results[6]+"\n"+results[7]+"\n"+results[8]}")
-    logger.info"@@@@@@@@@@@@@@@@@@@@@@@#{@fax_result.inspect}@@@@@@@@@@@@@@@@@@@@@@@@"
-    unless @fax_result["SendCharFaxResult"].include? "-"
-      TravelerPayment.create(amount: amount, traveler_id: traveler.id)
-    else
-      flash[:notice] = "Hotel not booked due wrong params"
-      redirect_to root_path
-    end
+    # @fax_result = SOAP::WSDLDriverFactory.new("https://ws-sl.fax.tc/Outbound.asmx?WSDL").create_rpc_driver.SendCharFax("Username" => "bestnights","Password" => "@BestN1ghts","FileType" => "TXT","FaxNumber"=> "15874090031","Data" => "#{results[0]+"\n"+results[1]+"\n"+results[2]+"\n"+results[3]+"\n"+results[4]+"\n"+results[5]+"\n"+results[6]+"\n"+results[7]+"\n"+results[8]}")
+    # logger.info"@@@@@@@@@@@@@@@@@@@@@@@#{@fax_result.inspect}@@@@@@@@@@@@@@@@@@@@@@@@"
+    # unless @fax_result["SendCharFaxResult"].include? "-"
+    #   TravelerPayment.create(amount: amount, traveler_id: traveler.id)
+    # else
+    #   flash[:notice] = "Hotel not booked due wrong params"
+    #   redirect_to root_path
+    # end
   end
 end
