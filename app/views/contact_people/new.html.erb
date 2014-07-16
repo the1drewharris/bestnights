@@ -1,112 +1,42 @@
-<div class="content-wrapper adm-inr">
-  <div id="container-main">
-<div class="modal-body">
-	<div class="new-contact-type">
-		<div class="new-contact-form" style="display: block;">
-			<legend>Contact Details</legend>
-			<% @contacts.each do |ct| %>
-				<p><%= ct.title %></p>
-				<p><%= ct.description %></p>
-				<p><%= ct.name %></p>
-				<p><%= ct.designation %></p>
-				<p><%= ct.email %></p>
-				<p><%= ct.phone_number %></p>
-				<p><%= ct.mobile_number %></p>
-			<% end %>
-			<%= form_for @contact do |f| %>
-				<fieldset>
-					<legend>Add Information:</legend>
-					<div class="control-group ">
-						<label class="control-label">Name</label>
-						<div class="controls">
-							<input type="text" maxlength="100" size="40" value="" name="name">
-							<span class="help-inline"></span>
-						</div>
-						<label class="control-label">Title</label>
-						<div class="controls">
-							<input type="text" maxlength="100" size="40" value="" name="title">
-							<span class="help-inline"></span>
-						</div>
-						<label class="control-label">Description</label>
-						<div class="controls">
-							<input type="text" maxlength="100" size="200" value="" name="description">
-							<span class="help-inline"></span>
-						</div>
-					</div>
-					<div class="control-group ">
-						<label class="control-label">Position</label>
-						<div class="controls">
-							<%= f.select :name, options_for_select(Position.all.map{|s|[s.name, s.id]}) %>
-							<span class="help-inline"></span>
-						</div>
-					</div>
-					<div class="control-group ">
-					<label class="control-label">Gender</label>
-					<div class="controls">
-					<select name="gender">
-					<option value="">---</option>
-					<option value="female">female</option>
-					<option value="male">male</option>
-					</select>
-					<span class="help-inline"></span>
-					</div>
-					</div>
-				</fieldset>
-
-				<fieldset>
-				<legend>Contact details</legend>
-				<div class="control-group ">
-				<label class="control-label">Email</label>
-				<div class="controls">
-				<input type="text" maxlength="100" value="" name="email">
-				<span class="help-inline">(max. 100 chars) </span>
-				</div>
-				</div>
-				<div class="control-group  ">
-				<label>Phone number</label>
-				<input type="text" maxlength="10" value="" name="telephone_1">
-				</div>
-				<div class="control-group  ">
-				<label>Mobile Number</label>
-				<input type="text" maxlength="10" value="" name="telephone_2">
-				</div>
-				</fieldset>
-				<fieldset>
-				<legend>Address details</legend>
-				<div class="control-group ">
-				<label class="control-label">Address</label>
-				<div class="controls">
-				<input type="text" maxlength="100" size="40" value="" name="address">
-				<span class="help-inline"></span>
-				</div>
-				</div>
-				<div class="control-group ">
-				<label class="control-label">Postal code</label>
-				<div class="controls">
-				<input type="text" maxlength="15" value="" name="zipcode">
-				<span class="help-inline"></span>
-				</div>
-				</div>
-				<div class="control-group ">
-				<label class="control-label">City</label>
-				<div class="controls">
-				<input type="text" maxlength="100" size="40" value="" name="city">
-				<span class="help-inline"></span>
-				</div>
-				</div>
-				<div class="control-group ">
-				<label class="control-label">Country</label>
-				<div class="controls">
-				<%= f.country_select :country, priority: %w(US CA), prompt: 'Please select a country' %>
-				<span class="help-inline"></span>
-				</div>
-				</div>
-				</fieldset>
-				<%= f.submit %>
-			<% end %>
+<div id="dashboard" class="dashboard">
+  <%= render partial: "/common/navigation_tab"%>
+  <div class="rtPanel">
+	  <div class="btnHolder">			
+			<button type="button" name="addContact" class="addContact">Add Contact</button>
 		</div>
-	</div>
-</div>
-<div class="height350 overflow">&nbsp;</div>
-</div>
-</div>
+			<div class="colRow">
+				<% @contacts.each do |ct| %>
+		     	<div class="col3">
+		          <h2><%= ct.title %></h2>
+						<span class="contact-subhead">
+							<%= ct.description %>
+						</span>
+		  			<div class="contact-container">
+		      	<h3><%= ct.name %></h3>
+		          <h4><%= ct.designation %></h4>
+		          <span class="contact-item contact-email"><%= mail_to "#{ct.email}" %></span>
+		          <span class="contact-item contact-phone"><%= ct.phone_number %></span>            
+		          <span class="contact-item contact-fax"><%= ct.phone_number %></span>
+		      	</div>
+		      </div>
+		     <% end %>	          
+		  </div>
+  </div>
+ </div>
+
+	<%= render "contact_people/form" %>
+
+
+<script type="text/javascript">
+$(document).ready(function($){			
+		var addOverlayFullHeight = '<div class="overlayFullHeight"></div>';				   
+	$('.addContact').click(function(){							 
+		  $('body').append(addOverlayFullHeight);
+		  $('.popupOuter').show();								
+		  })				
+	$('.popupOuter .btnClose').click(function(){														 
+				$('.overlayFullHeight').remove();
+				$('.popupOuter').hide();
+								 });
+		 }); 
+</script>

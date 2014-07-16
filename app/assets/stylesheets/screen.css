@@ -3713,4 +3713,32 @@ a.dashb_block:hover {
 .dashboard .sidebarmenu ul {
 	width:256px;
 }
+
+.rtPanel {overflow:hidden; padding:13px 21px 50px 15px;}
+.colRow{ overflow:hidden; padding-bottom:25px;}
+.col3 {float:left; width: 31.6239%; margin-left: 2.5641%; min-height:50px; }
+.col3:first-child {margin-left:0;}
+.col3 h2 { font-size:1.3em; font-weight:bold; text-transform:none; padding-bottom:10px;}
+.col3 .contact-subhead {display:block; min-height:35px; padding-bottom:5px; margin-bottom:10px; border-bottom:3px solid #333333; color:#999999}
+.contact-container {border:1px solid #e0e0e0; padding:5px 5px; min-height:155px;}
+.contact-container h3{font-size:1em; font-weight:bold; text-transform:none; padding-bottom:5px; margin:0;}
+.contact-container h4{font-size:0.9em; font-weight:normal; font-style:italic; text-transform:none; padding-bottom:5px; color:#999999; margin:0 0 10px 0;}
+span.contact-item {background: url(../assets/contact-icons.png) no-repeat; display:block;   padding: 3px 0 3px 24px; margin-bottom:1px;}
+span.contact-item.contact-phone { background-position:0 0;}
+span.contact-item.contact-mobile { background-position:0 -50px;}
+span.contact-item.contact-email { background-position:0 -100px;}
+span.contact-item.contact-fax { background-position:0 -150px;}
+span.contact-item  a {font-weight:normal; color:#83bf17;}
+
+.btnHolder { overflow:hidden; padding:10px; text-align:right; background:#eaeaea; margin-bottom:25px;}
+.popupOuter {background:#ffffff; width:600px; height:400px; padding:15px 15px; position:fixed; top:50%; left:50%; margin-left:-300px; margin-top:-200px; z-index:9999; display:none;  }
+.overlayFullHeight {background: url(../assets/overlay-black.png) repeat 0 0 ; display:block;  height: 100%; width:100%;  left: 0;   position: fixed;    top: 0;  z-index:999;}
+.btnClose { position: absolute;   right: 6px;   top: 6px;}
+.formHolder { height:310px; overflow: auto;}
+.popupOuter h2 {font-size:1.5em; font-weight:bold; text-transform:none; padding-bottom:10px; margin-bottom:20px; text-align:left; border-bottom:1px solid #83bf17;}
+.formHolder .row { overflow:hidden; padding:0 0 0 0; text-align:left; margin-bottom:4px;}
+.formHolder .row label {float:left; width:150px; margin:0 15px 0 0; font-size: 14px;   line-height: 30px; text-align:right;}
+.formHolder .row input[type="text"], .formHolder .row input[type="password"]  { float:left;} 
+.formHolder .row select {background:#F2F2F2; border:1px solid #CCC;	padding:3px 8px;	border-radius: 2px;    -moz-border-radius:2px;    -webkit-border-radius:2px;    color: #333333;	font-size:1em;	font-weight:500;	background-clip:padding-box;	float:left;	margin:0 10px 0 0;}
+.formHolder .row.bntHolder {padding-left:165px;}
 /* End */

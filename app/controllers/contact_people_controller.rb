@@ -22,7 +22,15 @@ class ContactPeopleController < ApplicationController
 		@contact.designation = params[:contact_person][:name]
 		@contact.country = params[:contact_person][:country]
 		@contact.hotel_id = session[:hotel_id]
-		@contact.save
+		@contact.fax = params[:fax]
+		respond_to do |format|
+      if @contact.save      	
+        format.html { redirect_to new_contact_person_path, success: "New Contacts Successfully added" }
+        format.json { render json: @contact, status: :created, location: @contact }
+      else
+        format.html { render action: "new", error: "Please Try again" }
+        format.json { render json: @contact.errors, status: :unprocessable_entity }
+      end
+    end
 	end
 end
-
