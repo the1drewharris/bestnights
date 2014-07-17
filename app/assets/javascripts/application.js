@@ -24,7 +24,7 @@
 //= require sidebar
 
 $(document).ready(function() {
-	if(window.location.pathname == "/dashboard"){
+	if(window.location.pathname == "/dashboard" || window.location.pathname == "/contact_people/new"){
 		$.remove("<div class='progressbar'>&nbsp;</div>")
 	}
 	if(window.location.pathname == "/overview"){

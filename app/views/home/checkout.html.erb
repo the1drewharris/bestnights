@@ -78,7 +78,7 @@
 							<%= f.country_select :country_id, priority: %w(US CA), prompt: 'Please select a country' %>
 				  	</li>						
 						<li>
-							<label for="State/Province" style="float:left">State/Province</label>
+							<label for="State/Province" style="float:left; width:204px;">State/Province</label>
 							<%= render partial: 'home/test', locals: {parent_region: f.object.country_id} %>
 						</li>
 						<li>
@@ -112,7 +112,7 @@
 							</li>
 							<li>
 								<label for="ccexpiry">Credit Card Expiration Date</label>
-								<select id="ccexpirym" name="ccexpirym">
+								<select id="ccexpirym" name="ccexpirym" style="width:auto;">
 									<optgroup label="Month">
 										<% (1..12).each do |v| %>
 											<option value=<%= v.to_s.rjust(2, '0') %> ><%= v.to_s.rjust(2, '0') %></option>
@@ -120,7 +120,7 @@
 									</optgroup>
 								</select>
 								/
-								<select id="ccexpiryy" name="ccexpiryy">
+								<select id="ccexpiryy" name="ccexpiryy" style="width:auto;">
 									<optgroup label="Year">
 										<% (14..25).each do |v| %>
 											<option value=<%= v.to_s %> ><%= v %></option>
@@ -180,7 +180,7 @@
 			</h5>
 			<div>
 				<p><%= @hotel.description %></p>
-				<div><label for="specialrequests">Special Requests</label><textarea></textarea></div>
+				<div><label for="specialrequests">Special Requests</label><textarea class="spl-req"></textarea></div>
 			</div>
 		</section>
 	</section>

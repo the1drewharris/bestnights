@@ -11,14 +11,14 @@ body {
 }
 
 	body a {
-		color: #c8b68c;
+		color: #D35452;
 		font-weight: 700;
 		text-decoration: none;
 	}
 	
 	body a:hover {
 		text-decoration: underline;
-		color: #c8b68c;
+		color: #888;
 	}
 
 fieldset {
@@ -76,6 +76,7 @@ h1 {
 h1.prop-title {
 	font-size: 3em;
 	font-weight:500;
+	margin: 0;
 	padding: 4px 15px 4px;
 	border-radius: 3px;
 	-moz-border-radius: 3px;
@@ -140,7 +141,7 @@ td {
 }
 
 header {
-	margin: 35px 21px;
+	margin: 35px 21px 15px;
 	text-align: left;
 }
 
@@ -164,7 +165,16 @@ textarea {
 	transition: box-shadow 0.5s;
 	font-family: 'Raleway', sans-serif;
 }
-
+select.selectbox,
+select {
+	padding:3px 4px;
+    color: #333333;
+	font-size:1em;
+	font-weight:500;
+	background-clip:padding-box;
+	margin:0 0 0 0;
+	width: 250px;
+}
 input:focus,
 select:focus,
 textarea:focus {
@@ -232,11 +242,11 @@ select {
 	.button5 {
 		display: inline-block;
 		font-size: 0.81em;
-		color: #c8b68c;
-		background: #fff;
+		color: #333;
+		background: #F2F2F2;
 		padding: 7px 21px;
 		margin: 0 7px 0 0;
-		border: 1px solid #c8b68c;
+		border: 1px solid #ccc;
 		cursor: pointer;
 	}
 
@@ -253,7 +263,7 @@ select {
 	button,
 	input[type="submit"],
 	.admintablelist a:hover {
-		color: #c8b68c;
+		color: #333;
 		background: #fff;
 	}
 
@@ -532,8 +542,15 @@ textarea {
 	min-height: 250px;
 	vertical-align: top;
 	margin: 0 0 21px;
+	cursor: text;
 }
-
+.spl-req {
+	min-height: 180px;
+	min-width: 630px;
+	cursor: text;
+	padding-left: 10px;
+	padding-right: 10px;
+}
 ul li {
 
 }
@@ -647,8 +664,126 @@ ul li {
 #container-main {
 	padding: 21px 21px 100px 21px;
 }
-
-
+.faq-section {
+	padding:12px 15px;
+	margin: 0 10px;
+	clear: both;
+	overflow: hidden;
+	background: #e7e7e7;
+	background-clip: padding-box;
+	border: 1px solid #CCC;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-ms-border-radius: 2px;
+	-o-border-radius: 2px;
+	-khtml-border-radius: 2px;
+	border-radius: 2px;
+}
+.faq-section .quer {
+	font-weight: bold;
+	clear: both;
+	display: block;
+	overflow: hidden;
+	margin: 0 0 3px;
+	padding: 0;
+	border: none;
+	outline: none;
+	font-size: 14px;
+	line-height: normal;
+	color: #333;
+	text-shadow:1px 1px 1px rgba(255, 255, 255, 0.5);
+}
+.cont-section {
+	padding:12px 15px;
+	margin: 0 10px;
+	clear: both;
+	overflow: hidden;
+	background: #e7e7e7;
+	background-clip: padding-box;
+	border: 1px solid #CCC;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-ms-border-radius: 2px;
+	-o-border-radius: 2px;
+	-khtml-border-radius: 2px;
+	border-radius: 2px;
+}
+.cont-section .quer {
+	font-weight: bold;
+	clear: both;
+	display: block;
+	overflow: hidden;
+	margin: 0 0 3px;
+	padding: 0;
+	border: none;
+	outline: none;
+	font-size: 14px;
+	line-height: normal;
+	color: #333;
+	text-shadow:1px 1px 1px rgba(255, 255, 255, 0.5);
+}
+.cont-section ul,
+.cont-section ol {
+	margin: 10px 20px;
+	padding: 10px;
+}
+.cont-section ul li,
+.cont-section ol li {
+	margin: 0 0 15px;
+}
+.cont-section ul {
+	list-style: disc;
+}
+.con-section {
+	padding:12px 15px;
+	margin: 0 10px;
+	float: left;
+	width: 47%;
+	background: #e7e7e7;
+	background-clip: padding-box;
+	border: 1px solid #CCC;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-ms-border-radius: 2px;
+	-o-border-radius: 2px;
+	-khtml-border-radius: 2px;
+	border-radius: 2px;
+	min-height: 170px;
+}
+.con-section label {
+	clear: both;
+	display: block;
+	margin: 0 0 10px;
+	width: 75%;
+}
+.con-section h4 {
+	clear: both;
+	margin: 0 0 15px;
+	padding: 0;
+	font-size: 12px;
+	text-transform: none;
+}
+.con-section label input#contact_email {
+	width: 95%;
+}
+.con-section .error h2 {
+	font-size: 12px;
+	color: #D35452;
+}
+.con-section .error li {
+	font-size: 11px;
+	color: red;
+	margin: 5px 0;
+	font-weight: bold;
+}
+.con-section a {
+	color: #D35452;
+	text-decoration: underline;
+}
+.con-section a:hover {
+	color: #888;
+	text-decoration: underline;
+}
 #copyright {
 	float: right;
 	padding-left: 27px;
@@ -815,6 +950,8 @@ footer #footerend {
 
 #latestdeals {
 	margin: 21px 0;
+	clear: both;
+	overflow: hidden;
 }
 
 
@@ -823,10 +960,11 @@ footer #footerend {
 		width: 23%;
 		margin: 0 14px 0 0;
 		display: inline-block;
+		float: left;
 	}
 	
 	#latestdeals li:first-child {
-		border-top: 1px solid #fcd700;
+		/*border-top: 1px solid #fcd700;*/
 	}
 	
 		#latestdeals li ul li,
@@ -1547,7 +1685,7 @@ footer #footerend {
 		
 		#searchfilters fieldset input[name="name"] {
 			font-family: 'Raleway', sans-serif;
-			border: 1px solid #c8b68c;
+			border: 1px solid #CCC;
 			background: #fff;
 			width: 100%;
 			text-align: left;
@@ -2757,7 +2895,7 @@ ul#dashboard li a:hover {
 }
 .link-files a:hover {
 	text-decoration:underline;
-	color: #c8b68c;
+	color: #888;
 }
 .link-files a:first-child {
 	margin: 0 10px;
@@ -3463,6 +3601,8 @@ ul#dashboard li a:hover {
 	min-height:inherit;
 	padding:5px;
 	width:74.5%;
+	min-height: 150px;
+	position: relative;
 }
 .editrooms fieldset ul li.flwidth .checklist {
 	width:74.5%;
@@ -3926,8 +4066,8 @@ table.grid-table td a {
 	font-size:12px;
 }
 table.grid-table td a:hover {
-    color:#c8b68c;
+    color:#333;
 	text-decoration:underline;
 }
 /* End */
->>>>>>> Fixing overview page
+
