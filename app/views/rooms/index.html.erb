@@ -56,6 +56,9 @@
 		  </tr>
 		<% end %>
 	</table>
+	<% if !params[:page].blank? %>
+		<div class="row back-link"><a href="/dashboard" class="link">Back</a></div>
+	<% end %>
 </div>
 
 <%= javascript_include_tag :jquery_ujs %>

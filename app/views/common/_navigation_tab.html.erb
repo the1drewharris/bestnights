@@ -5,7 +5,7 @@
       </li>
       <li><%= link_to "Bookings", bookings_path, class: "link2" %></li>
       <li><%= link_to "Statistics",  statistics_path, class: "link3" %></li>
-      <li><%= link_to "Manage Rooms",  rooms_path, class: "link4" %></li>
+      <li><%= link_to "Manage Rooms",  rooms_path(:page => "dashboard"), class: "link4" %></li>
       <li><%= link_to "Rates & Availability", "#" %>
         <ul>
           <li><%= link_to "Change Room Rate", new_rate_path %></li>
@@ -15,7 +15,7 @@
         </ul>
       </li>
       <li><%= link_to "Overview", overview_path, class: "link6" %></li>
-      <li><%= link_to "Finance", finance_path %>
+      <li><%= link_to "Finance", "#" %>
         <ul>
           <li><%= link_to "Information", finance_info_path %></li>
           <li><%= link_to "Reservation Statements", reservation_statements_path %></li>

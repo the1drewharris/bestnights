@@ -190,15 +190,16 @@
 		<table>
 			<tr>
 				<td>BestNights.com Rate</td>
-				<td>USD <%= @amount %> </td>
+				<td>USD <%= number_with_precision(@amount, :precision => 2, :separator => '.') %> </td>				
 			</tr>
 			<tr>
 				<td>Tax (included)</td>
-				<td><%= (@hotel.tax1.to_f * session[:subtotal])/100 %></td>
+				<td><%= number_with_precision((@hotel.tax1.to_f * session[:subtotal])/100, :precision => 2, :separator => '.') %></td>				
 			</tr>
 			<tr>
 				<td>Total Price</td>
-				<td>USD <%= session[:subtotal] + (@hotel.tax1.to_f * session[:subtotal] )/100 %> </td>
+				<td>USD <%= number_with_precision(session[:subtotal] + (@hotel.tax1.to_f * session[:subtotal] )/100, :precision => 2, :separator => '.') %> </td>
+
 			</tr>
 		</table>
 		
