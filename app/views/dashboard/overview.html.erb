@@ -8,20 +8,13 @@
       <div class="section overview">
         <h3>Rates &amp; Availability overview</h3>
         <div class="bookings blocks">
-          <div class="sel-dt">
-            <span>From Date: </span>
-            <input type="text" value="" name="from_date" id="from_date" class="textfield">
-            <span>To Date: </span>
-            <input type="text" value="" name="to_date" id="to_date" class="textfield">
-            <input type="submit" class="srch arriv_search" value="Select" id="button" name="button">
-          </div>
           <div class="table-grid">
             <div class="scrollHor">
               <table class="grid-table">
                 <thead>
                   <tr>
                     <td colspan="1"></td>
-                    <td colspan="15" class="grid-month-cell"> July 2014 </td>
+                    <td colspan="15" class="grid-month-cell"> <%= Date.today.strftime("%B %Y") %> </td>
                   </tr>
                 </thead>
                 <tbody>
