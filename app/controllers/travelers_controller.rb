@@ -1,6 +1,7 @@
 class TravelersController < ApplicationController
   before_filter :authenticate_user!, only: [:new, :create]  
   layout "admin_basic", only: [:index, :new, :show, :edit]
+  layout "traveler_basic", only: [:booking_history, :edit_traveler]
   def index
     @travelers = Traveler.search(params[:search])
   end
@@ -45,11 +46,14 @@ class TravelersController < ApplicationController
   end
   
   def update
-    traveler = Traveler.find(params[:id])
-    
+    traveler = Traveler.find(params[:id])    
     if traveler.update_attributes(params[:traveler])
-      flash[:success] = "The room type saved successfully!"
-      redirect_to travelers_path
+      flash[:success] = "The traveler updated successfully!"
+      if session[:traveler_id]
+        redirect_to book_hotel_path
+      else
+        redirect_to travelers_path
+      end 
     else
       flash[:errors] = traveler.errors.full_messages
       redirect_to :back  
@@ -59,5 +63,14 @@ class TravelersController < ApplicationController
   def destroy
     Traveler.find(params[:id]).destroy
     redirect_to travelers_path
+  end
+
+  def booking_history
+    @booking_histories = Booking.where("traveler_id=?", params[:traveler_id]).paginate(:page => params[:page], :per_page => 20).order('id DESC')
+  end
+
+  def edit_traveler
+    @traveler = Traveler.find(params[:id])
+    session[:traveler_id] = @traveler.id
   end
 end

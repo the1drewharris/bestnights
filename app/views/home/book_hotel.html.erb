@@ -1,9 +1,6 @@
 <div id="wrapper" class="register">
-	<div id="eyebrow">
-		<%= render :partial => "common/traveler_nav" %>		
-	</div>
 	<div id="container-main">
-		<h5>Payment Information</h5>
+		<h5>Payment Information</h5> <%= link_to "Book History", traveler_booking_history_path(@traveler ) %> | <%= link_to "Edit Profile", edit_traveler_traveler_path(@traveler) %>
 		<%= form_for @traveler, :url => checkout_confirm_path, :method => :post do |f| %>
 		<fieldset>
 			<ul>

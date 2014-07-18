@@ -3,6 +3,7 @@ class HomeController < ApplicationController
   require 'interfax/base'
   require 'interfax/fax_item'
   require 'interfax/incoming'
+  layout "traveler_basic", only: [:book_hotel]
 
   autocomplete :hotel, :name
   

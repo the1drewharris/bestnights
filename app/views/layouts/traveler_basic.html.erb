@@ -1,0 +1,45 @@
+<!doctype html>
+
+<!--[if lt IE 7 ]> <html class="ie ie6 ie-lt10 ie-lt9 ie-lt8 ie-lt7 no-js" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie ie7 ie-lt10 ie-lt9 ie-lt8 no-js" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie ie8 ie-lt10 ie-lt9 no-js" lang="en"> <![endif]-->
+<!--[if IE 9 ]>    <html class="ie ie9 ie-lt10 no-js" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<!-- the "no-js" class is for Modernizr. --> 
+
+<%= render :partial => "common/head" %>
+<body>
+	<p class="success"><%= flash[:success] %></p>		
+		<div id="adminwrapper">
+			<div id="eyebrow">
+					<div class="logo" style="float:left">
+						<%= link_to image_tag("/assets/logo.png"), root_path %>
+					</div>
+					<nav id="phone">
+					<span class="call">1 800 494 BEST (2378)</span>
+					<% if session[:traveler_id] %>
+						<%= link_to "Logout" , destroy_user_session_path, :method => :delete %>
+					<% else %>
+						<% if controller.controller_name == "home" && controller.action_name == "index" %>
+							<%= link_to "Traveler Login",  travelers_login_path %>
+						<% else %>
+							<%= link_to "Login",  new_user_session_path %>
+						<% end %>
+					<% end %>
+					</nav>
+			</div>
+			<% if current_user and !current_user.activated? %>
+			  <p>Your account is pending now</p>
+			<% end %>
+			<%= render :partial => "common/notifications" %>								
+		  <%= yield %>		  
+			<footer>
+				<div>
+					<p id="copyright"><small>&copy; Copyright BestNights.com 2014. All Rights Reserved.</small></p>
+					<nav></nav>
+				</div>
+			</footer>
+		</div>		
+		<%= javascript_include_tag "functions" %>		
+	</body>
+</html>

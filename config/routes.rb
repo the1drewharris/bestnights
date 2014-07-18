@@ -97,7 +97,10 @@ Bestnights::Application.routes.draw do
   resources :room_types
   resources :room_attributes
   resources :hotel_attributes
-  resources :travelers
+  resources :travelers do 
+    get 'booking_history'
+    get 'edit_traveler', on: :member
+  end
   resources :promotions
   resources :rooms
   resources :venues
