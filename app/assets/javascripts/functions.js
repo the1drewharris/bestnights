@@ -315,6 +315,9 @@
 					$(".searchButton").css("display", "inline");
 					$('.intime').val(days[obj.date1.getDay()] + ',' + dates[(obj.date1.getDate()-1)] + ',' + months[obj.date1.getMonth()]);
 					$('.outtime').val(days[obj.date2.getDay()] + ',' + dates[(obj.date2.getDate()-1)] + ',' + months[obj.date2.getMonth()]);
+					var lastTo = obj.value.lastIndexOf("to") 
+					$.cookie("intime", obj.value.substr(0,lastTo-1))
+					$.cookie("outtime", obj.value.substr(lastTo+2))
 				});
 
 

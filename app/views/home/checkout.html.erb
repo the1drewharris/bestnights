@@ -162,16 +162,16 @@
 					<br>
 					<b>Check in:</b> 
 					<span style="background:#FACC2E; color: #CC504A; margin-right:4px; padding: 0 4px;">
-						<% if !session[:checkin].blank? %>
-							<%= session[:checkin].to_date.strftime('%A, %B %d, %G') %>
+						<% if !cookies[:intime].blank? %>
+							<%= cookies[:intime].to_date.strftime('%A, %B %d, %G') %>
 						<% else %>
 						 <%= Date.today %>
 						<% end %>
 					</span>
 					<b>Check out:</b>
 					<span style="background:#FACC2E; color: #CC504A; padding: 0 4px;">
-						<% if !session[:checkout].blank? %>
-							<%= session[:checkout].to_date.strftime('%A, %B %d, %G') %> 
+						<% if !cookies[:outtime].blank? %>
+							<%= cookies[:outtime].to_date.strftime('%A, %B %d, %G') %> 
 						<% else %>
 						 <%= Date.today %>
 						<% end %>
