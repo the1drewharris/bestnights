@@ -107,14 +107,34 @@
 							  <%= ra.attr + ', ' %>
 							<% end %>	
 						</td>
-						<td>&nbsp;</td>
+						<td>
+							<% @free.each do |fr| %>
+								<% if fr.has_key?(room.room_type.id) %>
+									<%= fr[room.room_type.id] %>
+								<% end %>
+							<% end %>
+						</td>
 						<td class="price"><sup>$</sup><%= room.price.to_i %><br><span>Not included: 13.88% tax</span></td>
-						<td><input type="number" min="0" max=<%= room.available_max(@from_date, @to_date) %> value="0" name="number[<%= room.id %>]"></td>
-						<% if room == @hotel.rooms.first %>
-							<td rowspan=<%= @hotel.rooms.count %> >
-								<%= link_to "Book Now", checkout_path(:hotel_id => @hotel.id) , class: "link_style" %>
-							</td>
-						<% end %>
+						<td>
+							<% @free.each do |fr| %>
+								<% if fr.has_key?(room.room_type.id) %>
+									<% if fr[room.room_type.id] != 0 %>
+										<input type="number" min="0" max=<%= room.available_max(@from_date, @to_date) %> value="0" name="number[<%= room.id %>]">
+									<% end %>
+								<% end %>
+							<% end %>
+						</td>
+						<td>
+							<% @free.each do |fr| %>
+								<% if fr.has_key?(room.room_type.id) %>
+									<% if fr[room.room_type.id] != 0 %>
+										<%= link_to "Book Now", checkout_path(:hotel_id => @hotel.id) , class: "link_style" %>
+									<% else %>
+										<p class="red">Sold Out</p>
+									<% end %>
+								<% end %>
+							<% end %>
+						</td>
 					</tr>
 				<% end %>			
 			</form>

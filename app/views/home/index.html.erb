@@ -8,7 +8,7 @@
 			<div style="margin-bottom:6px;"> Click Check-in and Check-out Dates to Search Availability </div>
 			<input type="hidden" id="checkindate" name="date[checkin]" value=<%= session[:checkin] %> >
 			<input type="hidden" id="checkoutdate" name="date[checkout]" value=<%= session[:checkout] %> >
-			<input type="hidden" id="roomtype" name="roomtype" value="2">
+			<input type="hidden" id="roomtype" name="roomtype" value="">
 			<span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
 			<input type="text" placeholder="Enter Destination..." value="<%= session[:search] %>" data-autocomplete="/home/autocomplete_hotel_name" id="hotel_name" name="search" class="ui-autocomplete-input inputCText" autocomplete="off">
 			<input type="submit" class="demo_button_submit" style="visibility: hidden;position: absolute;"/>

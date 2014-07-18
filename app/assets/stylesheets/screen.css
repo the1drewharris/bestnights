@@ -2945,8 +2945,12 @@ ul#dashboard li a:hover {
 	border: 1px solid #777;
 	text-decoration: none;
 }
-.link_style{
+.link_style,
+.red {
 	color: #F15D58;
+}
+p.red{
+	font-weight: bold;
 }
 .admintablelist .link_hotel{
 	color: #F15D58!important;

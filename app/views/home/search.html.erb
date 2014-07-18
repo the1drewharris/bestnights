@@ -85,13 +85,13 @@
 		<h5>Top Results</h5>
 		<div id="">
 			<% @hotels.each do |hotel| %>
-			<p><%= link_to hotel.name, checkout_path(:hotel_id => hotel.id) %></p>
+			<p><%= link_to hotel.name, booking_detail_path(:hotel_id => hotel.id) %></p>
 						<span class="starrating">
 							<% hotel.star.to_i.times do %>
 								&#10029;
 							<% end %>
 						</span>
-						<span class="bt-info"><%= link_to hotel.city, checkout_path(:hotel_id => hotel.id) %>, <%= link_to hotel.zip, checkout_path(:hotel_id => hotel.id) %>
+						<span class="bt-info"><%= link_to hotel.city, booking_detail_path(:hotel_id => hotel.id) %>, <%= link_to hotel.zip, booking_detail_path(:hotel_id => hotel.id) %>
 						</span>		
 			<% end %>
 		</div>
