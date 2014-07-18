@@ -294,7 +294,6 @@ class HomeController < ApplicationController
     to_date = session[:checkout]
     a = session[:checkout].strip
     b = session[:checkin].strip
-    logger.info"========22==#{(a.to_date)}===========24======#{session[:checkin].strip}============"
 
     number_nights = ((a.to_date - b.to_date).to_i) + 1 
     room_ids = []

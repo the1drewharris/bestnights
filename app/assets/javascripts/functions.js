@@ -158,7 +158,7 @@
 				// Actions for bed quantities
 				$( '.roomtypes li:nth-child(1)' ).click(function(){
 					$(this).toggleClass('selected');
-					$(this).parent().next().toggle(500);
+					$(this).parent().next().toggle(550);
 					$(this).siblings('li:nth-child(2),li:nth-child(3)').removeClass('selected');
 					$(this).parent().prev('.roomtype').val('');
 					if ($("#searchform").css('height') != "auto") {
@@ -178,7 +178,7 @@
 				
 				$( '.roomtypes li:nth-child(2)' ).click(function(){
 					$(this).toggleClass( 'selected' );
-					$(this).parent().next().toggle(500);
+					$(this).parent().next().toggle(550);
 					$(this).siblings('li:nth-child(1),li:nth-child(3)').removeClass('selected');
 					$(this).parent().prev('.roomtype').val('');
 					if ($("#searchform").css('height') != "auto") {

@@ -748,7 +748,7 @@ ul li {
 	-o-border-radius: 2px;
 	-khtml-border-radius: 2px;
 	border-radius: 2px;
-	min-height: 170px;
+	min-height: 200px;
 }
 .con-section label {
 	clear: both;
@@ -2987,6 +2987,21 @@ p.red{
  	padding:0;
  	text-align: left;
  	display: inline;
+}
+.scroll #which label,
+.scroll #which .mrgntp15,
+.scroll #which td {
+	font-size: 14px;
+}
+h5.prop-title {
+	font-size: 1.21em;
+	font-weight: normal;
+}
+.error,
+.error h2,
+.error li {
+	font-size: 14px!important;
+	line-height: 19px;
 }
 .row {
 	clear: both;

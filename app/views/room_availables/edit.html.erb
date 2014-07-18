@@ -58,12 +58,12 @@
           </td>
           <td width="33%" align="left" valign="top">
             For:
+            <div class="row">
           <input id="so-0" type="checkbox" value="0" name="so">
           <label for="so-0">All Rooms</label>
-          <br>
+          </div>
           <div> </div>
-          or for one or more of these Rooms:
-          <br>
+          <div class="row mrgntp15">or for one or more of these Rooms:</div>
           <div id="so-inject" style="margin: 0 0 5px;"></div>
           <% RoomType.all.each do |room|%>
             <input type="checkbox" id="" name="room_id[<%= room.id %>]" style="float:left; margin-top:4px;" class="so" >

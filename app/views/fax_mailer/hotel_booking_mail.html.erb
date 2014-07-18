@@ -29,9 +29,18 @@ body * {
       <td height="15" align="left" valign="top"><img src="/assets/spacer.gif" width="15" height="15" alt="" /></td>
     </tr>
     <tr>
-      <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:15px; line-height:21px; color:#000000; font-weight:normal;">#4 - 715 Evans Ct , Kelowna, BC V1X 6G4<br />
+      <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:15px; line-height:21px; color:#000000; font-weight:normal;">
+        <table width="100%" border="0">
+          <tr>
+            <td align="left" valign="top" width="50%" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:0px; padding-bottom:10px;"><%= @hotel.name %> <br />
+              City: <%= @hotel.city %><br />
+              State:<%= @hotel.state_id %><br />
+              Postal Code: <%= @hotel.zip %>
+            </td>
+            <td align="left" valign="top" width="50%">#4 - 715 Evans Ct , Kelowna, BC V1X 6G4<br />
         Toll Free: 1-800-494-BEST(2378)<br />
-        Email: <a href="JavaScript:void(0);" style="color:#000000; text-decoration:none; cursor:text;">info@bestnights.com</a></td>
+        Email: <a href="JavaScript:void(0);" style="color:#000000; text-decoration:none; cursor:text;">info@bestnights.com</a><td>
+      </td>
     </tr>
     <tr>
       <td height="10" align="left" valign="top"><img src="images/spacer.gif" width="10" height="10" alt="" /></td>
@@ -41,7 +50,7 @@ body * {
 <tr>
 <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; border-top:3px solid #000; padding:20px 0px 0px 0px;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr>
-      <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:0px; padding-bottom:10px;">Dear <%= @traveler.firstname %> <%= @traveler.lastname %> :</td>
+      <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:0px; padding-bottom:10px;">Dear <%= @traveler.firstname.upcase %> <%= @traveler.lastname.upcase %> :</td>
     </tr>
     <tr>
       <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:20px; color:#000000; font-weight:normal; padding-left:6px; padding-right:6px; padding-top:0px; padding-bottom:0px;">Thank you for choosing Bestnights.com, It is our pleasure to confirm your reservation as follows.</td>
