@@ -7,12 +7,15 @@
     <div class="rtSidebar">
       <div class="section">
         <h3>Reservation Statements</h3>
-        <div class="titleResrv">
-				  <span style="margin-top: 5px;font-size: 1.4em;" class="span1">
-				    Period
+        <div class="link-files tpl">
+				<%= link_to "Download as CSV", download_reservation_data_path(format: "csv"),  class: "csv", :hotel_id => session[:hotel_id] %>|<%= link_to "Download as Excel", export_reservation_in_excel_path(format: "xls"),  class: "xls",:hotel_id => session[:hotel_id] %> | <%= link_to "Download Monthly Invoice", download_statement_data_month_path(format: "csv"),  class: "csv", :hotel_id => session[:hotel_id] %>
+				</div>
+        <div class="titleResrv margnBT15">
+				  <span class="span1 labeltxt">
+				    Period:
 				  </span>
 				  <span class="">
-				    <select name="period" id="selectperiod">
+				    <select name="period" id="selectperiod" class="selectPriod">
 				    	<% @period_array.uniq.each do |booking| %>
 				    		<% start_date = booking.split(" ") %>
 				    		<option value="<%= start_date[0] %>">
@@ -21,15 +24,10 @@
 				    	<% end %>
 				  	</select>
 				  </span>
-				  <span class="">
+				  <span class="submargn1">
 				    <input type="submit" value="View" class="period">
 				  </span>
-				</div>
-				<div class="link-files">
-				<%= link_to "Download as CSV", download_reservation_data_path(format: "csv"),  class: "csv", :hotel_id => session[:hotel_id] %> | <%= link_to "Download as Excel", export_reservation_in_excel_path(format: "xls"),  class: "xls",:hotel_id => session[:hotel_id] %>
-				</div>
-				<div class="link-files">
-					<select id="month_reserve">
+				  <select id="month_reserve" class="reservemnth">
 						<option value="1">January<option>
 						<option value="2">February<option>
 						<option value="3">March<option>
@@ -43,7 +41,6 @@
 						<option value="11">November<option>
 						<option value="12">December<option>
 					</select>
-					<%= link_to "Download Monthly Invoice", download_statement_data_month_path(format: "csv"),  class: "csv", :hotel_id => session[:hotel_id] %>
 				</div>
         <div class="bookings blocks">
           <div class="scroll">

@@ -12,11 +12,13 @@
 	<p class="success"><%= flash[:success] %></p>		
 		<div id="adminwrapper">
 			<div id="eyebrow">
+				<div class="ltlg">
 					<div class="logo" style="float:left">
 						<%= link_to image_tag("/assets/logo.png"), root_path %>
 					</div>
-					<nav id="phone">
-					<span class="call">1 800 494 BEST (2378)</span>
+					<span class="call blk">1 800 494 BEST (2378)</span>
+				</div>
+					<nav id="phone" class="rt-phn">
 					<% if session[:traveler_id] %>
 						<%= link_to "Logout" , destroy_user_session_path, :method => :delete %>
 					<% else %>

@@ -1,3 +1,6 @@
+<div id="container-main">
+<h1 class="prop-title">Booking History</h1> 
+<div class="conwrap">
 <div class="bookings blocks">
 <div class="scroll">
   <table class="bookconf" width="100%" border="0">
@@ -27,4 +30,6 @@
 </div>
 <%= will_paginate @booking_histories %>
 </div>
-
+</div>
+<div class="row back-link bking"><%= link_to "Back", traveler_path(session[:traveler_id]) , class: "link" %></div>
+</div>

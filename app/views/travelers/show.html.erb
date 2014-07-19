@@ -1,50 +1,35 @@
- <% content_for :title, "BestNights.com - User" %>
+ <% content_for :title, "BestNights.com" %>
 
  <div id="wrapper" class="register">
  	<div id="container-main">
- 		<h5>Traveler Information</h5> <%= link_to "Book History", traveler_booking_history_path(@traveler ) %> | <%= link_to "Edit Profile", edit_traveler_traveler_path(@traveler) %> | <%= link_to "Payment Information", book_hotel_path %>
- 		<div class="info">
- 			<span>
- 				<%= @traveler.name %>
- 			</span>
- 			<br/>
-	 		<span>
-				<%= @traveler.address1 %>
-			</span>
-			<br />	
-			<span>
-				<%= @traveler.city %>
-			</span>
-			<br />	
-			<span>
-				<%= @traveler.state_id %>
-			</span>
-			<br />	
-			<span>
-				<%= @traveler.phone_number %>
-			</span>
+ 		<h1 class="prop-title">Traveler Information</h1> 
+ 		<div class="link-sec"><%= link_to "Book History", traveler_booking_history_path(@traveler ) %> <%= link_to "Edit Profile", edit_traveler_traveler_path(@traveler) %> <%= link_to "Payment Information", book_hotel_path %>
+ 		</div>
+ 		<div class="info blockinfo">
+ 			<ul>
+ 				<li>
+	 				<label>Name:</label>
+	 				<%= @traveler.name %>
+ 				</li>
+ 				<li>
+	 				<label>Address:</label>
+					<%= @traveler.address1 %>
+				</li>
+				<li>
+					<label>City:</label>
+					<%= @traveler.city %>
+				</li>
+				<li>
+					<label>State:</label>
+					<%= @traveler.state_id %>
+				</li>
+				<li>
+					<label>Phone Number:</label>
+					<%= @traveler.phone_number %>
+				</li>
+			</ul>
 		</div>
  	</div>
+ 		<%= render :partial => "common/home_footer" %>
  </div>
 
-<!-- <header>
-	<h1 class="prop-title"><%#= @traveler.name %></h1>
-</header>
-
-<div id="container-main">
-	<span>
-		<%#= @traveler.address1 %>
-	</span>
-	<br />	
-	<span>
-		<%#= @traveler.city %>
-	</span>
-	<br />	
-	<span>
-		<%#= @traveler.state.state_province %>
-	</span>
-	<br />	
-	<span>
-		<%#= @traveler.phone_number %>
-	</span>
-</div> -->
