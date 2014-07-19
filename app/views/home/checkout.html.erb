@@ -193,12 +193,12 @@
 				<td>USD <%= number_with_precision(@amount, :precision => 2, :separator => '.') %> </td>				
 			</tr>
 			<tr>
-				<td>Tax (included)</td>
+				<td>Tax (NOT included)</td>
 				<td><%= number_with_precision((@hotel.tax1.to_f * session[:subtotal])/100, :precision => 2, :separator => '.') %></td>				
 			</tr>
 			<tr>
 				<td>Total Price</td>
-				<td>USD <%= number_with_precision(session[:subtotal] + (@hotel.tax1.to_f * session[:subtotal] )/100, :precision => 2, :separator => '.') %> </td>
+				<td>USD <%= number_with_precision(@amount, :precision => 2, :separator => '.') %> </td>
 
 			</tr>
 		</table>

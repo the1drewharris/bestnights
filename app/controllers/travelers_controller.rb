@@ -1,7 +1,7 @@
 class TravelersController < ApplicationController
   before_filter :authenticate_user!, only: [:new, :create]  
   layout "admin_basic", only: [:index, :new, :show, :edit]
-  layout "traveler_basic", only: [:booking_history, :edit_traveler]
+  layout "traveler_basic", only: [:booking_history, :edit_traveler, :show]
   def index
     @travelers = Traveler.search(params[:search])
   end
@@ -23,7 +23,7 @@ class TravelersController < ApplicationController
     session[:traveler] = @traveler
     if @traveler and @traveler.valid_password?(params[:password])
       session[:traveler_id] = @traveler.id
-      redirect_to book_hotel_path
+      redirect_to traveler_path(@traveler.id)
     else
       flash[:success] = "Wrong Credential"
       redirect_to travelers_login_path

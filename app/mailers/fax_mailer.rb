@@ -14,7 +14,7 @@ class FaxMailer < ActionMailer::Base
   	@room_numbers = room_ids
     @booking = latest_booked
     @room = room
-  	subject = "Booking Hotel"
+  	subject = "Bestnights Booking Confirmation"
     mail(:subject => subject, :to => @traveler.email)
   end
 
