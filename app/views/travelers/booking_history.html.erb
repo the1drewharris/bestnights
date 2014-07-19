@@ -11,6 +11,7 @@
         <td align="center" valign="middle">Arrival</td>
         <td align="center" valign="middle">Departure</td>
         <td align="center" valign="middle">Total</td>
+        <td align="center" valign="middle"></td>
       </tr>
     </thead>
     <tbody>
@@ -22,6 +23,11 @@
 						<td align="center" valign="middle"><%= book.from_date  %></td>
 						<td align="center" valign="middle"><%= book.to_date %></td>
 						<td align="center" valign="middle"><%= book.price %></td>
+            <td align="center" valign="middle">
+              <% if book.from_date >= Date.today && book.is_cancel == false %>
+                <%= link_to "Cancel Booking", traveler_cancel_booking_path(book.id) %>
+              <% end %>
+            </td>
 					</tr>
 				<% end %>
 			<% end %>

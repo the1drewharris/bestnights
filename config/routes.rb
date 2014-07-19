@@ -100,6 +100,7 @@ Bestnights::Application.routes.draw do
   resources :travelers do 
     get 'booking_history'
     get 'edit_traveler', on: :member
+    get 'cancel_booking'
   end
   resources :promotions
   resources :rooms

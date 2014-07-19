@@ -73,4 +73,35 @@ class TravelersController < ApplicationController
     @traveler = Traveler.find(params[:id])
     session[:traveler_id] = @traveler.id
   end
+
+  def cancel_booking
+    @booking = Booking.find_by_traveler_id_and_id(session[:traveler_id],params[:traveler_id])
+    if !@booking.nil?
+      @hotel = Hotel.find(@booking.hotel_id)
+      @traveler = Traveler.find_by_id(session[:traveler_id])
+      @booking.is_cancel = true
+      @booking.save
+      FaxMailer.hotel_cancel_mail(@traveler,@hotel,@booking.id).deliver
+      File.open("#{Rails.root.to_s}/public/"+@traveler.id.to_s+'.txt', 'wb') do|f|
+        f.write('Traveler Name'+':'+@traveler.name+"\n"+'Traveler Email'+':'+@traveler.email)
+      end
+      results = []
+      chars = 0
+      File.open("#{Rails.root.to_s}/public/"+@traveler.id.to_s+'.txt', 'r').each { |line| results << line }
+        results.each do |line|
+        chars += line.length
+      end
+      #File.delete("#{Rails.root.to_s}/public/"+traveler.id.to_s+".txt")
+    
+      @fax_result = SOAP::WSDLDriverFactory.new("https://ws-sl.fax.tc/Outbound.asmx?WSDL").create_rpc_driver.SendCharFax("Username" => "bestnights","Password" => "@BestN1ghts","FileType" => "TXT","FaxNumber"=> "#{@hotel.fax}","Data" => "#{results[0]+"\n"+results[1]}")
+      File.delete("#{Rails.root.to_s}/public/"+@traveler.id.to_s+".txt")
+      unless @fax_result["SendCharFaxResult"].include? "-"
+        # TravelerPayment.create(traveler_id: @traveler.id)
+        redirect_to request.referer
+      else
+        flash[:notice] = "Hotel not canceled due wrong params"
+        redirect_to request.referer
+      end
+    end
+  end
 end

@@ -34,4 +34,12 @@ class FaxMailer < ActionMailer::Base
     subject = "Booking Hotel"
     mail(:subject => subject, :to => @hotel.email)
   end
+
+  def hotel_cancel_mail(traveler,hotel,booking)
+    @traveler = traveler
+    @hotel = hotel
+    @booking = booking
+    subject = "Bestnights Booking Cancelation"
+    mail(:subject => subject, :to => [@hotel.email, "info@bestnights.com"])
+  end
 end
