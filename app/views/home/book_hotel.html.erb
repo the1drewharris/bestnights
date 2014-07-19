@@ -48,6 +48,7 @@
 		</fieldset>
 		<%= f.submit "Continue Booking", :class => "button4" %>
 		<% end %>
+		<div class="row back-link bking"><%= link_to "Back", traveler_path(session[:traveler_id]) , class: "link" %></div>
 	</div>
 	<%= render :partial => "common/home_footer" %>
 </div>

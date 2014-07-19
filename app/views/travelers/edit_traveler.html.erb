@@ -1,9 +1,9 @@
 <% content_for :title, "BestNights.com - Edit Travler" %>
 
+<div id="wrapper" class="register">
 <header>
 	<h1 class="prop-title">Edit Travler</h1>
 </header>
-
 <div id="container-main">
 	<%= form_for @traveler do |f| %>
 		<fieldset>
@@ -50,4 +50,7 @@
 			<%= f.submit %>
 		</fieldset>
 	<% end %>
+	<div class="row back-link bking"><%= link_to "Back", traveler_path(session[:traveler_id]) , class: "link" %></div>
+</div>
+<%= render :partial => "common/home_footer" %>
 </div>

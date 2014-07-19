@@ -8,6 +8,7 @@ class TravelersController < ApplicationController
   
   def show
     @traveler = Traveler.find(params[:id])
+    session[:traveler_id] = @traveler.id
   end
   
   def new
