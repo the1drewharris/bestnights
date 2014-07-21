@@ -31,7 +31,7 @@
 			<th>Actions</th>
 			<th></th>
 		</tr>
-		<% @hotels.each do |hotel| %>
+		<% @hotels.sort_by(&:name).each do |hotel| %>
 		  <tr>
 		  	<td><%= link_to "#{hotel.id}", dashboard_path(:hotel_id => hotel.id), class: "link_hotel" %></td>
 		  	<% if current_user.manager? and current_user.new_signup? %>

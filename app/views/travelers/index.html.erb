@@ -26,7 +26,7 @@
 		</tr>
 		<% @travelers.each do |traveler| %>
 		  <tr>
-		  	<td><%= traveler.name %></td>
+		  	<td><%= traveler.firstname.capitalize %>&nbsp;<%= traveler.lastname.capitalize %></td>
 				<td><%= traveler.city %></td>
 				<td><%= traveler.state.state_province unless traveler.state.nil? %></td>
 				<% if can? :show, traveler %>

@@ -30,7 +30,7 @@
 			<% end %>
 			<th colspan="2" align="center" class="center">Actions</th>
 		</tr>
-		<% @hotels.each do |hotel| %>
+		<% @hotels.sort_by(&:name).each do |hotel| %>
 		  <tr>
 		  	<% if current_user.manager? and current_user.new_signup? %>
 		  		<td><%= link_to hotel.name, new_room_path(:hotel_id => hotel.id) %></td>
