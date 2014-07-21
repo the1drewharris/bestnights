@@ -3,7 +3,7 @@ class Room < ActiveRecord::Base
   
   validates :hotel_id, :room_type_id, presence: true
   validates :price, :original_price, presence: true, numericality: true
-  validates :additionaladultfee, numericality: true
+  # validates :additionaladultfee, numericality: true
   validates :starting_inventory, :bed_numbers, presence: true, numericality: { only_integer: true }
   
   after_initialize :init

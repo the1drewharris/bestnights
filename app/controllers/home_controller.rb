@@ -138,7 +138,7 @@ class HomeController < ApplicationController
       session[:checkin] = params[:date][:checkin]  unless params[:date].nil?
       session[:checkout] = params[:date][:checkout]  unless params[:date].nil?
       session[:search] = params[:search]
-      session[:roomtype] = params[:roomtype]
+      # session[:roomtype] = params[:roomtype]
       
       session[:group] = params[:group]
       gon.group = session[:group] # passing rails variable to js object variable
@@ -243,7 +243,7 @@ class HomeController < ApplicationController
     # session[:subtotal] = @amount
     session[:hotel_id] = params[:hotel_id]
     room = Room.find_by_hotel_id(params[:hotel_id])
-    numbers = session[:roomtype].to_i
+    numbers = params[:room_number].to_i
     @amount = room.price.to_f * numbers
     session[:subtotal] = @amount
   end

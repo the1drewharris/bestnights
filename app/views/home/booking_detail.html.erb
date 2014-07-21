@@ -98,7 +98,7 @@
 				<th scope="col">Reservation</th>
 			</tr>
 						
-			<form action="/checkout" method="get">
+			<form action="/checkout" method="post">
 				<% @hotel.rooms.each do |room| %>
 					<tr>
 						<td><%= room.room_type.room_type %></td>
@@ -119,7 +119,7 @@
 							<% @free.each do |fr| %>
 								<% if fr.has_key?(room.room_type.id) %>
 									<% if fr[room.room_type.id] != 0 %>
-										<input type="number" min="0" max=<%= room.available_max(@from_date, @to_date) %> value="0" name="number[<%= room.id %>]">
+										<input type="number" min="0" max=<%= room.available_max(@from_date, @to_date) %> value="" name="number[<%= room.id %>]">
 									<% end %>
 								<% end %>
 							<% end %>
@@ -128,7 +128,7 @@
 							<% @free.each do |fr| %>
 								<% if fr.has_key?(room.room_type.id) %>
 									<% if fr[room.room_type.id] != 0 %>
-										<%= link_to "Book Now", checkout_path(:hotel_id => @hotel.id) , class: "link_style" %>
+										<%= link_to "Book Now", checkout_path(:hotel_id => @hotel.id, :room_number => '1') , class: "link_style" %>
 									<% else %>
 										<p class="red">Sold Out</p>
 									<% end %>
