@@ -93,6 +93,8 @@ Bestnights::Application.routes.draw do
   resources :users
   resources :hotels do
     post 'register', on: :member
+    get  'confirm'
+    get  'make_pending' 
   end
   resources :room_types
   resources :room_attributes

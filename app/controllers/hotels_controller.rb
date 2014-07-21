@@ -120,5 +120,19 @@ class HotelsController < ApplicationController
     flash[:success] = "The hotel was registered successfully!"
     redirect_to hotels_path
   end
+
+  def confirm
+    @hotel = Hotel.find_by_id(params[:hotel_id])
+    @hotel.status = "active"
+    @hotel.save
+    redirect_to request.referer
+  end
+
+  def make_pending
+    @hotel = Hotel.find_by_id(params[:hotel_id])
+    @hotel.status = "pending"
+    @hotel.save
+    redirect_to request.referer
+  end
   
 end

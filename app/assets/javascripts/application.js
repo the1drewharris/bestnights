@@ -24,6 +24,7 @@
 //= require sidebar
 
 $(document).ready(function() {
+	$(".status-label").tooltip();
 	if(window.location.pathname == "/dashboard" || window.location.pathname == "/contact_people/new"){
 		$.remove("<div class='progressbar'>&nbsp;</div>")
 	}

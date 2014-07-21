@@ -67,31 +67,31 @@
                     			<td class="status status-clickable status-bookable">
                     				<% if !r.empty? %>
   	                  				<% if Date.today.advance(days: f).strftime("%A").downcase == "monday" %>
-  		                  				<span class="status-label status-bookable">
+  		                  				<span class="status-label status-bookable" title= "CAD <%= r[0].rate_monday %>" >
   		                  						<%= r[0].rate_monday %>
   		                  				</span>
   		                  			<% elsif Date.today.advance(days: f).strftime("%A").downcase == "tuesday" %>
-  		                  				<span class="status-label status-bookable">
+  		                  				<span class="status-label status-bookable" title= "CAD <%= r[0].rate_tuesday %>">
   		                  						<%= r[0].rate_tuesday %>
   		                  				</span>
   		                  			<% elsif Date.today.advance(days: f).strftime("%A").downcase == "wednesday" %>
-  		                  				<span class="status-label status-bookable">
+  		                  				<span class="status-label status-bookable" title= "CAD <%= r[0].rate_wednesday %>">
   		                  						<%= r[0].rate_wednesday %>
   		                  				</span>
   		                  			<% elsif Date.today.advance(days: f).strftime("%A").downcase == "thursday" %>
-  		                  				<span class="status-label status-bookable">
+  		                  				<span class="status-label status-bookable" title= "CAD <%= r[0].rate_thursday %>">
   		                  						<%= r[0].rate_thursday %>
   		                  				</span>
   		                  			<% elsif Date.today.advance(days: f).strftime("%A").downcase == "friday" %>
-  		                  				<span class="status-label status-bookable">
+  		                  				<span class="status-label status-bookable" title= "CAD <%= r[0].rate_friday %>">
   		                  						<%= r[0].rate_friday %>
   		                  				</span>
   		                  			<% elsif Date.today.advance(days: f).strftime("%A").downcase == "saturday" %>
-  		                  				<span class="status-label status-bookable">
+  		                  				<span class="status-label status-bookable" title= "CAD <%= r[0].rate_saturday %>">
   		                  						<%= r[0].rate_saturday %>
   		                  				</span>
   		                  			<% elsif Date.today.advance(days: f).strftime("%A").downcase == "sunday" %>
-  		                  				<span class="status-label status-bookable">
+  		                  				<span class="status-label status-bookable" title= "CAD <%= r[0].rate_sunday %>">
   		                  						<%= r[0].rate_sunday %>
   		                  				</span>
   	                  				<% end %>
