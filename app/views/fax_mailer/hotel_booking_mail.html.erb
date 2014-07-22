@@ -58,7 +58,7 @@ body * {
             </tr>
             <tr>
               <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:1px solid #008000; border-bottom:none; border-left:none;">Your Name:</td>
-              <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; font-weight:normal; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:none; border-bottom:none; border-left:none;"><%= @traveler.name %></td>
+              <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; font-weight:normal; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:none; border-bottom:none; border-left:none;"><%= @traveler.firstname.capitalize %>&nbsp;<%= @traveler.lastname.capitalize %></td>
             </tr>
             <tr>
               <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:1px solid #008000; border-bottom:none; border-left:none;">Your E-mail:</td>
@@ -131,6 +131,143 @@ body * {
       </tr>
     </table></td>
 </tr>
+<tr>
+  <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:10px; padding-bottom:10px;">
+     Break Fast:
+    <ul style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:16px; color:#000000; font-weight:normal; clear:both; display:block; overflow:hidden;">
+      <li>
+        Continental breakfast is included in the room rate. 
+      </li>
+    </ul>
+    Taxes:
+    <ul style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:16px; color:#000000; font-weight:normal; clear:both; display:block; overflow:hidden;">
+      <li>
+        Service Charge is not applicable.
+      </li>
+      <li>
+        City/tourist tax is not applicable.
+      </li>
+    </ul>
+    Prepayment:
+    <ul style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:16px; color:#000000; font-weight:normal; clear:both; display:block; overflow:hidden;">
+      <li>
+        No deposit will be charged.
+      </li>
+    </ul>
+    Cancellation Policy:
+    <ul style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:16px; color:#000000; font-weight:normal; clear:both; display:block; overflow:hidden;">
+      <li>
+        If cancelled up to 2 days before date of arrival, no fee will be charged.
+      </li>
+      <li>
+        If cancelled later or in case of no-show, the first night will be charged.
+      </li>
+    </ul>
+  </td>
+</tr>
+
+<tr>
+  <td>
+  <table width="100%" cellspacing="0" cellpadding="0" border="0">
+    <tr>
+      <td width="27%" align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:18px; line-height:20px; color:#2B70FF; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:1px solid #008000; border-bottom:1px solid #008000; border-left:none;">Room Price</td>
+      <td align="right" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:18px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:none; border-bottom:1px solid #008000; border-left:none;">
+        $<%= @room.price %></td>
+    </tr>
+  </table>
+</td>
+</tr>
+<tr>
+<td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:10px; padding-bottom:10px;">How to Cancel or Change Your booking
+</td>
+</tr>
+<tr>
+  <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; padding-left:6px; padding-right:6px; padding-top:10px; padding-bottom:10px;">
+    If you want to cancel or change your booking, please go to <a href="http://www.bestnights.com">www.bestnights.com</a>
+  </td>
+</tr>
+<tr><td style="height:4px;"></td></tr>
+<tr>
+  <td>
+    <table width="100%" cellspacing="0" cellpadding="0" border="0">
+      <td style="width:4px;"></td>
+      <td style="border:1px solid #008000">
+        <table width="100%" cellspacing="0" cellpadding="0" border="0">
+          <tr>
+            <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:10px; padding-bottom:10px;">
+              Hotel Policies
+            </td>
+          </tr>
+          <tr>
+            <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:10px; padding-bottom:10px;">
+              Cancellation & prepayment policy
+              <ul style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:16px; color:#000000; font-weight:normal; clear:both; display:block; overflow:hidden;">
+                <li>
+                  Please check the specific policy of each room above
+                </li>
+              </ul>
+              Children and extra bed policy
+              <ul style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:16px; color:#000000; font-weight:normal; clear:both; display:block; overflow:hidden;">
+                <li>
+                  All children under 2 years are charged EUR 12.84 per night per person for cots.
+                </li>
+                <li>
+                  Maximum capacity of babycots in a room is 2.
+                </li>
+              </ul>
+              Guest Parking
+              <ul style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:16px; color:#000000; font-weight:normal; clear:both; display:block; overflow:hidden;">
+                <li>
+                  Free public parking is possible on site.
+                </li>
+              </ul>
+              Internet
+              <ul style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:16px; color:#000000; font-weight:normal; clear:both; display:block; overflow:hidden;">
+                <li>
+                  No Internet Access available.
+                </li>
+              </ul>
+              Pets
+              <ul style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:16px; color:#000000; font-weight:normal; clear:both; display:block; overflow:hidden;">
+                <li>
+                  Pets are allowed. Charges may be applicable.
+                </li>
+              </ul>
+            </td>
+          </tr> 
+        </table>
+      </td>
+      <td style="width:4px;"></td>
+    </table>
+  </td>
+</tr>
+<tr><td style="height:4px;"></td></tr>
+<tr>
+  <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:10px; padding-bottom:10px;"> Credit Card / Guarantee/ Payment Information</td>
+</tr>  
+<tr>
+  <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:10px; padding-bottom:10px;"> Payment</td>
+</tr>
+<tr>
+  <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; padding-left:6px; padding-right:6px; padding-top:10px; padding-bottom:10px;"> You have now confirmed and guaranteed your booking by credit card. <br />
+    <strong>Bestnights.com does not charge your credit card.</strong><br />
+    Your credit card is required to guarantee your booking. Please note that your credit card may be pre-authorised prior to your arrival. <br />
+    <strong>This hotel accepts the following forms of payment:</strong><br />
+    Visa, Mastercard, Dinners Club, American Express, Discover
+  </td>
+</tr> 
+<tr>
+  <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:10px; padding-bottom:10px;">Customer Service</td>
+</tr>  
+<tr>
+  <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; padding-left:6px; padding-right:6px; padding-top:10px; padding-bottom:10px;">Wishing you a pleasant stay! <br />
+    Bestnights.com online hotel reservations<br />
+    E-mail: <%= mail_to "info@bestnights.com" %><br />
+    Phone In-country: 1 800 494 BEST (2378) <br />
+    Phone International:  1 800 494 BEST (2378)
+  </td>
+</tr>    
+<tr>
 <tr>
   <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:10px; padding-bottom:10px;">Thank you,</td>
 </tr>

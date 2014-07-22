@@ -1,12 +1,15 @@
 class Traveler < ActiveRecord::Base
   
-  devise :database_authenticatable, :trackable, :validatable
+  devise :database_authenticatable, :trackable
          
   attr_accessible :firstname, :lastname, :address1, :address2, :city, :zip, :email,
                   :phone_number, :state_id, :country_id, :password, :password_confirmation
   
   validates :firstname, :lastname, :address1, :city, :state_id, :country_id, :zip, presence: true
   validates :email, presence: true, uniqueness: true
+  validates :password, presence: true
+  validates :password, confirmation: true
+  validates :password, length: {minimum: 6}
   
   belongs_to :country
   belongs_to :state

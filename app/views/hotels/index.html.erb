@@ -54,7 +54,7 @@
 					<% elsif hotel.status == "pending" %>
 						<td><%= link_to "Pending", hotel_confirm_path(hotel) %></td>
 					<% else %>
-						<td><%= hotel.status %></td>
+						<td><%= hotel.status, class: "link_hotel" %></td>
 					<% end %>
 				<% end %>
 				<% if current_user.admin? %>

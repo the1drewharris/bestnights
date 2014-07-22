@@ -286,14 +286,14 @@ class HomeController < ApplicationController
       end
     end
 
-    logger.info"============#{@traveler.country_id}===================="
+    logger.info"============#{@traveler.country_id}==================="
     @country = Carmen::Country.coded(@traveler.country_id )
     @subregion = @country.subregions.coded(@traveler.state_id)
 
     from_date = session[:checkin]
     to_date = session[:checkout]
-    a = session[:checkout].strip
-    b = session[:checkin].strip
+    a = session[:checkout]
+    b = session[:checkin]
 
     number_nights = ((a.to_date - b.to_date).to_i) + 1 
     room_ids = []

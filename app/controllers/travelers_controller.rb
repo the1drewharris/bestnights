@@ -1,7 +1,7 @@
 class TravelersController < ApplicationController
   before_filter :authenticate_user!, only: [:new, :create]  
   layout "admin_basic", only: [:index, :new, :show, :edit]
-  layout "traveler_basic", only: [:booking_history, :edit_traveler, :show]
+  layout "traveler_basic", only: [:booking_history, :edit_traveler, :show, :change_password]
   def index
     @travelers = Traveler.search(params[:search])
   end
@@ -51,7 +51,7 @@ class TravelersController < ApplicationController
     if traveler.update_attributes(params[:traveler])
       flash[:success] = "The traveler updated successfully!"
       if session[:traveler_id]
-        redirect_to book_hotel_path
+        redirect_to traveler_path(traveler)
       else
         redirect_to travelers_path
       end 
@@ -61,6 +61,11 @@ class TravelersController < ApplicationController
     end
   end
   
+  def change_password
+    @traveler = Traveler.find_by_id(params[:id])
+    logger.info"&&&&&&&&&#{@traveler}&&&&&&&&&"
+  end
+
   def destroy
     Traveler.find(params[:id]).destroy
     redirect_to travelers_path

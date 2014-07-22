@@ -1,7 +1,7 @@
-<% content_for :title, "BestNights.com - Edit Travler" %>
+<% content_for :title, "BestNights.com - Edit Traveler" %>
 
 <header>
-	<h1 class="prop-title">Edit Travler</h1>
+	<h1 class="prop-title">Edit Traveler</h1>
 </header>
 
 <div id="container-main">
@@ -9,11 +9,11 @@
 		<fieldset>
 		  <ul>
 		  	<li>
-		  		<%= f.label :firstname %>
+		  		<label>First Name</label>
 		  		<%= f.text_field :firstname %>
 		  	</li>
 		  	<li>
-		  		<%= f.label :lastname %>
+		  		<label>Last Name</label>
 		  		<%= f.text_field :lastname %>
 		  	</li>
 		  	<li>
@@ -25,11 +25,11 @@
 		  		<%= f.text_field :city %>
 		  	</li>
 		  	<li>
-		  		<%= f.label :state %>
+		  		<label>State/Province</label>
 		  		<%= f.select :state_id, options_for_select(State.all.map{|s|[s.state_province, s.id]}) %>
 		  	</li>
 		  	<li>
-		  		<%= f.label :zip %>
+		  		<label>Zip/Postal Code</label>
 		  		<%= f.text_field :zip %>
 		  	</li>
 		  	<li>
