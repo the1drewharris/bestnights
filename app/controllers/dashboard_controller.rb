@@ -125,25 +125,41 @@ class DashboardController < ApplicationController
   def overview
     @free = []
     @Free = []
+    @booked_rooms = []
+    @book_monday = 0
+    @book_tuesday = 0
+    @book_wednesday = 0
+    @book_thursday = 0
+    @book_friday = 0
+    @book_saturday = 0
+    @book_sunday = 0
     @room_types = RoomType.all
     @room_types.each do |type|
       @count = 0
       @rooms = Room.where("room_type_id=? AND hotel_id=?",type.id,session[:hotel_id])
       @rooms.each do |room|
-        @booking = Booking.find_by_hotel_id_and_room_id(room.id,session[:hotel_id])
-        if !@booking.nil?
-          @nights = (@booking.to_date - @booking.from_date).to_i
-          @nights.times do |t|
-            if (@booking.from_date..@booking.to_date).cover?(Date.today.advance(:days => t))
-              @count = 1
+        @bookings = Booking.where("room_id=? AND hotel_id=?",room.id,session[:hotel_id])
+        if !@bookings.nil?
+          @bookings.each do |booking|
+            @nights = (booking.to_date - booking.from_date).to_i
+            @nights.times do |t|
+              if (booking.from_date..booking.to_date).cover?(Date.today.advance(:days => t))
+                instance_variable_set("@book_"+Date.today.advance(days: t).strftime("%A").downcase, instance_variable_get("@book_"+Date.today.advance(days: t).strftime("%A").downcase).to_i + 1)
+                logger.info instance_variable_get("@book_"+Date.today.advance(days: t).strftime("%A").downcase)
+              end
             end
-            @free << @rooms.count - @count
-            @count = 0
           end
         end
       end
-      @Free << {type.id => @free}
-      @free = []
+      @booked_rooms << {type.id => [@book_monday,@book_tuesday,@book_wednesday,@book_thursday, @book_friday,@book_saturday,@book_sunday]}
+      logger.info"*******#{@booked_rooms}************"
+      @book_monday = 0
+      @book_tuesday = 0
+      @book_wednesday = 0
+      @book_thursday = 0
+      @book_friday = 0
+      @book_saturday = 0
+      @book_sunday = 0
     end
   end
 

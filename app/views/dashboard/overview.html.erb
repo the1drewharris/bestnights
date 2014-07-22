@@ -38,9 +38,9 @@
                         <% if @days.include?(Date.today.advance(days: f).strftime("%A").downcase) %>
                           <td class="status status-clickable status-closed"><span class="status-label status-bookable"></span></td>
                         <% else %>
-                          <% @Free.each do |free| %>
-                            <% if free.has_key?(type.id) %>
-                              <% if free[type.id][f] == 0 || @room_count == 0 %>
+                          <% @booked_rooms.each do |booked| %>
+                            <% if booked.has_key?(type.id) %>
+                              <% if booked[type.id][Date.today.advance(days: f).strftime("%u").to_i - 1] == 0 || @room_count == 0 %>
                                 <td class="status status-clickable status-none"><span class="status-label status-bookable"></span></td>
                               <% else %>
                                 <td class="status status-clickable status-bookable"><span class="status-label status-bookable"></span></td>
@@ -51,16 +51,15 @@
                   		<% end %>
                   	</tr>
                   	<tr>
-                  		<td class="grid-room-cell"><a href="#"> Rooms To Sell (Room Level) </a><%= @Free %></td>
-                      <% @Free.each do |free| %>
-                        <% if free.has_key?(type.id) %>
-                          <% free[type.id].each_with_index do |item,index|%>
-                          <td><%= item[index] %></td>
+                  		<td class="grid-room-cell"><a href="#"> Rooms To Sell (Room Level) </a></td>
+                      <% 15.times do |f| %>
+                        <% @booked_rooms.each do |booked| %>
+                          <% if booked.has_key?(type.id) %>
+                            <td>
+                              <%= booked[type.id][Date.today.advance(days: f).strftime("%u").to_i - 1] %>
+                            </td>
                           <% end %>
                         <% end %>
-                      <% end %>
-                      <% (15-@Free.count).times do |f| %>
-                        <td><%= @room_count %></td>
                       <% end %>
                   	</tr>
                   	<tr>
