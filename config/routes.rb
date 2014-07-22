@@ -95,6 +95,7 @@ Bestnights::Application.routes.draw do
     post 'register', on: :member
     get  'confirm'
     get  'make_pending' 
+    get  'edit_commission_rate'
   end
   resources :room_types
   resources :room_attributes

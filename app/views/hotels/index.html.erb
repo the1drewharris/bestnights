@@ -24,6 +24,7 @@
 			<th>City</th>
 			<th>State</th>
 			<th>Address</th>
+			<th>Set Commission</th>
 			<th>Status</th>
 			<% if current_user.admin? %>
 				<th>User</th>
@@ -40,6 +41,13 @@
 				<td><%= hotel.city %></td>
 				<td><%= hotel.state.state_province unless hotel.state.nil? %></td>
 				<td><%= hotel.address1 %></td>
+				<td>
+					<% if hotel.commission_rate.blank? %>
+						<%= link_to "Add Commission", new_commission_rate_path(:hotel_id => hotel.id) %>
+					<% else %>
+						<%= link_to "#{hotel.commission_rate.amount}", hotel_edit_commission_rate_path(hotel.id) %>
+					<% end %>
+				</td>
 				<% if current_user.admin? %>
 					<% if hotel.status == "non-active" %>
 						<td><%= link_to "Not Active", hotel_make_pending_path(hotel) %></td>

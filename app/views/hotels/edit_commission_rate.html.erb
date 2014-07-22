@@ -1,0 +1,19 @@
+<div id="container-main">
+<h1 class="prop-title">Edit Rate</h1> 
+<div class="conwrap">
+<div class="bookings blocks">
+	<%= form_for @commission_rate do |f| %>
+	  <ul>
+	  	<li>
+	  		<%= f.label 'Rate' %>
+	  		<%= f.text_field(:amount, class: "textfield") %> %
+	  	</li>
+	  </ul>
+	<div class="form-actions">
+	  <%= f.button :submit %>
+	</div>
+	<% end %>
+</div>
+</div>
+<div class="row back-link bking"><%= link_to "Back", hotels_path , class: "link" %></div>
+</div>

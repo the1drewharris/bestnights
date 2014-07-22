@@ -161,10 +161,14 @@ class DashboardController < ApplicationController
   end
 
   def invoice
-    @commission_rate = CommissionRate.amount
+    @hotel = Hotel.find_by_id(session[:hotel_id])
     @bookings = Booking.where(:hotel_id => session[:hotel_id]).paginate(:page => params[:page], :per_page => 20).order('id DESC')
     @bookings.each do |booking|
-      booking.price = (booking.price.to_i * (@commission_rate).to_f) / 100
+      if !@hotel.commission_rate.nil?
+        booking.price = (booking.price.to_i * (@hotel.commission_rate.amount).to_f) / 100
+      else
+        booking.price = booking.price.to_i
+      end
     end
   end
 

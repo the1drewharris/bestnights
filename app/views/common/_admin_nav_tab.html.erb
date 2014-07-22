@@ -3,7 +3,7 @@
 		<%= link_to "Hotels", hotels_path %>
 	<% end %>
 	<% if current_user.admin? %>	
-		<%= link_to "Hotel Attributes", hotel_attributes_path %>
+		<%= link_to "Hotel Amenities", hotel_attributes_path %>
 	<% end %>
 	<% if current_user.admin? %>
 		<%= link_to "Room Types", room_types_path %>
@@ -43,9 +43,6 @@
 	<% end %>
 	<% if current_user.admin? || current_user.manager? %>	
 		<%= link_to "Rate Categories", rate_categories_path %>
-	<% end %>
-	<% if current_user.admin?  %>	
-		<%= link_to "Set Commission", new_commission_rate_path %>
 	<% end %>
 	<% if current_user.admin?  %>	
 		<%= link_to "Contacts Designation", positions_path %>

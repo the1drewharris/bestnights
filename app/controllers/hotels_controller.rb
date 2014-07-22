@@ -133,6 +133,9 @@ class HotelsController < ApplicationController
     @hotel.status = "pending"
     @hotel.save
     redirect_to request.referer
+  end 
+
+  def edit_commission_rate
+    @commission_rate = CommissionRate.find_by_hotel_id(params[:hotel_id])
   end
-  
 end

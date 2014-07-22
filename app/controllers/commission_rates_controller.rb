@@ -28,6 +28,7 @@ class CommissionRatesController < ApplicationController
   # GET /commission_rates/new.json
   def new
     @commission_rate = CommissionRate.new
+    session[:hotel_id] = params[:hotel_id]
 
     respond_to do |format|
       format.html # new.html.erb
@@ -44,10 +45,10 @@ class CommissionRatesController < ApplicationController
   # POST /commission_rates.json
   def create
     @commission_rate = CommissionRate.new(params[:commission_rate])
-
+    @commission_rate.hotel_id = session[:hotel_id]
     respond_to do |format|
       if @commission_rate.save
-        format.html { redirect_to @commission_rate, notice: 'Commission rate was successfully created.' }
+        format.html { redirect_to hotels_path, notice: 'Commission rate was successfully created.' }
         format.json { render json: @commission_rate, status: :created, location: @commission_rate }
       else
         format.html { render action: "new" }
@@ -63,7 +64,7 @@ class CommissionRatesController < ApplicationController
 
     respond_to do |format|
       if @commission_rate.update_attributes(params[:commission_rate])
-        format.html { redirect_to @commission_rate, notice: 'Commission rate was successfully updated.' }
+        format.html { redirect_to hotels_path, notice: 'Commission rate was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

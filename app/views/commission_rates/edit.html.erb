@@ -1,6 +1,9 @@
-<h1 class="prop-title">Edit</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @commission_rate, class: "link_style" %> |
-<%= link_to 'Back', commission_rates_path, class: "link_style" %>
+<div id="container-main">
+<h1 class="prop-title">Edit Rate</h1> 
+<div class="conwrap">
+<div class="bookings blocks">
+	<%= render 'form' %>
+</div>
+</div>
+<div class="row back-link bking"><%= link_to "Back", commission_rates_path , class: "link" %></div>
+</div>

@@ -1,11 +1,12 @@
-<%= simple_form_for(@commission_rate) do |f| %>
-  <%= f.error_notification %>
-
-  <div class="form-inputs">
-    <%= f.input :amount %>
-  </div>
-
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
+<%= form_for @commission_rate do |f| %>
+  <ul>
+  	<li>
+  		<%= f.label 'Rate' %>
+  		<%= f.text_field(:amount, class: "textfield") %> %
+  	</li>
+  </ul>
+<div class="form-actions">
+  <%= f.button :submit %>
+</div>
 <% end %>
+
