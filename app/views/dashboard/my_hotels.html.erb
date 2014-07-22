@@ -42,7 +42,11 @@
 				<td><%= hotel.city %></td>
 				<td><%= hotel.state.state_province unless hotel.state.nil? %></td>
 				<td><%= hotel.address1 %></td>
-				<td><%= hotel.status, class: "link_hotel" %></td>
+				<% if hotel.status == "active" %>
+				<td class="active"><%= hotel.status %></td>
+				<% else %>
+				<td><%= hotel.status %></td>
+				<% end %>
 				<% if current_user.admin? %>
 				  <td><%= hotel.user.email %></td>
 				<% end %>
