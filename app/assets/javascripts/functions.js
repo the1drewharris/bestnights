@@ -33,23 +33,25 @@
 			$.cookie("link",$(this).attr("class"))
 		})
 		var flag = 0
-		$("#sidebarmenu1 > li").each(function(){
-			if($(this).children("a").hasClass($.cookie("link"))){
-				$(this).children("a").addClass("active");
-				$(this).append("<div class='progressbar'>&nbsp;</div>");
-				flag = 1;
-				$(this).siblings("li").each(function(){
-					if($(this).children("a").hasClass("active")){
-						$(this).children("a").removeClass("active");
-					}
-				})	
-			}
-			else{
-				if(flag != 1){
-					$(this).append("<div class='progressbar'>&nbsp;</div>")
+		if(window.location.pathname != "/dashboard" || window.location.pathname != "/contact_people/new"){
+			$("#sidebarmenu1 > li").each(function(){
+				if($(this).children("a").hasClass($.cookie("link"))){
+					$(this).children("a").addClass("active");
+					$(this).append("<div class='progressbar'>&nbsp;</div>");
+					flag = 1;
+					$(this).siblings("li").each(function(){
+						if($(this).children("a").hasClass("active")){
+							$(this).children("a").removeClass("active");
+						}
+					})	
 				}
-			}
-		})
+				else{
+					if(flag != 1){
+						$(this).append("<div class='progressbar'>&nbsp;</div>")
+					}
+				}
+			})
+		}
 		
 		$('#traveler_sign_in_booking_btn').click(function() {
 			var valuesToSubmit = $('#traveler_sign_in_booking').serialize();

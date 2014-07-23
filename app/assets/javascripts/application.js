@@ -28,9 +28,6 @@ $(document).ready(function() {
 	$("#room_number").change(function(){
 		$("#link_style").attr("href", $("#link_style").attr("href") + "&room_number=" + $(this).val())
 	})
-	if(window.location.pathname == "/dashboard" || window.location.pathname == "/contact_people/new"){
-		$.remove("<div class='progressbar'>&nbsp;</div>")
-	}
 	if(window.location.pathname == "/overview"){
 		$("#from_date").datepicker({
 			dateFormat: "yy-mm-dd"

@@ -77,7 +77,7 @@ class HomeController < ApplicationController
     sign_in(:user, user)
     
     flash[:success] = "Thank you for adding your property. Your account is now pending. You will be notified by email when your property is active."
-    redirect_to new_hotel_url
+    redirect_to edit_room_url(room.id)
   end
  
   
