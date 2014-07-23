@@ -25,6 +25,9 @@
 
 $(document).ready(function() {
 	$(".status-label").tooltip();
+	$("#room_number").change(function(){
+		$("#link_style").attr("href", $("#link_style").attr("href") + "&room_number=" + $(this).val())
+	})
 	if(window.location.pathname == "/dashboard" || window.location.pathname == "/contact_people/new"){
 		$.remove("<div class='progressbar'>&nbsp;</div>")
 	}
