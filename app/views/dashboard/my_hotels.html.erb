@@ -43,9 +43,9 @@
 				<td><%= hotel.state.state_province.capitalize unless hotel.state.nil? %></td>
 				<td><%= hotel.address1.capitalize %></td>
 				<% if hotel.status == "active" %>
-				<td class="active"><%= hotel.status %></td>
+				<td class="active"><%= hotel.status.capitalize %></td>
 				<% else %>
-				<td><%= hotel.status %></td>
+				<td><%= hotel.status.capitalize %></td>
 				<% end %>
 				<% if current_user.admin? %>
 				  <td><%= hotel.user.email %></td>
