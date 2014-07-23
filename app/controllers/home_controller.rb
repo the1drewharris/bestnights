@@ -277,7 +277,7 @@ class HomeController < ApplicationController
       flash[:errors] = ["confirm your email address"]
       redirect_to :back and return
     end    
-    unless session[:traveler]
+    unless current_traveler
       @traveler = Traveler.find_by_email(params[:traveler][:email])    
       unless @traveler
         @traveler = Traveler.new(params[:traveler])
@@ -289,7 +289,7 @@ class HomeController < ApplicationController
         end
       end
     else
-      @traveler = session[:traveler]
+      @traveler = current_traveler
     end
     @country = Carmen::Country.coded(@traveler.country_id )
     @subregion = @country.subregions.coded(@traveler.state_id)
@@ -366,14 +366,14 @@ class HomeController < ApplicationController
     end
     #File.delete("#{Rails.root.to_s}/public/"+traveler.id.to_s+".txt")
   
-    # @fax_result = SOAP::WSDLDriverFactory.new("https://ws-sl.fax.tc/Outbound.asmx?WSDL").create_rpc_driver.SendCharFax("Username" => "bestnights","Password" => "@BestN1ghts","FileType" => "TXT","FaxNumber"=> "15874090031","Data" => "#{results[0]+"\n"+results[1]+"\n"+results[2]+"\n"+results[3]+"\n"+results[4]+"\n"+results[5]+"\n"+results[6]+"\n"+results[7]+"\n"+results[8]}")
-    # logger.info"@@@@@@@@@@@@@@@@@@@@@@@#{@fax_result.inspect}@@@@@@@@@@@@@@@@@@@@@@@@"
-    # File.delete("#{Rails.root.to_s}/public/"+traveler.id.to_s+".txt")
-    # unless @fax_result["SendCharFaxResult"].include? "-"
-    #   TravelerPayment.create(amount: amount, traveler_id: traveler.id)
-    # else
-    #   flash[:notice] = "Hotel not booked due wrong params"
-    #   redirect_to root_path
-    # end
+    @fax_result = SOAP::WSDLDriverFactory.new("https://ws-sl.fax.tc/Outbound.asmx?WSDL").create_rpc_driver.SendCharFax("Username" => "bestnights","Password" => "@BestN1ghts","FileType" => "TXT","FaxNumber"=> "15874090031","Data" => "#{results[0]+"\n"+results[1]+"\n"+results[2]+"\n"+results[3]+"\n"+results[4]+"\n"+results[5]+"\n"+results[6]+"\n"+results[7]+"\n"+results[8]}")
+    logger.info"@@@@@@@@@@@@@@@@@@@@@@@#{@fax_result.inspect}@@@@@@@@@@@@@@@@@@@@@@@@"
+    File.delete("#{Rails.root.to_s}/public/"+traveler.id.to_s+".txt")
+    unless @fax_result["SendCharFaxResult"].include? "-"
+      TravelerPayment.create(amount: amount, traveler_id: traveler.id)
+    else
+      flash[:notice] = "Hotel not booked due wrong params"
+      redirect_to root_path
+    end
   end
 end

@@ -69,7 +69,7 @@
 		<td><strong>Total:</strong></td>
 		<td><%= @amount %></td>
 	</tr>
-	<% @room = Room.find_by_hotel_id(session[:hotel_id]) %>
+	<% @room = Room.find_by_hotel_id_and_id(session[:hotel_id],session[:room_id]) %>
 	<tr>
 		<td><strong>Room:</strong></td>
 		<td><%= @room.name %>, <%= @room.room_type.room_type %></td>
