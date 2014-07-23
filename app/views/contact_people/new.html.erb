@@ -7,13 +7,13 @@
 			<div class="colRow">
 				<% @contacts.each do |ct| %>
 		     	<div class="col3">
-		          <h2><%= ct.title %></h2>
+		          <h2><%= ct.title.capitalize %></h2>
 						<span class="contact-subhead">
 							<%= ct.description %>
 						</span>
 		  			<div class="contact-container">
-		      	<h3><%= ct.name %></h3>
-		          <h4><%= ct.designation %></h4>
+		      	<h3><%= ct.name.capitalize %></h3>
+		          <h4><%= ct.designation.capitalize %></h4>
 		          <span class="contact-item contact-email"><%= mail_to "#{ct.email}" %></span>
 		          <span class="contact-item contact-phone"><%= ct.phone_number %></span>            
 		          <span class="contact-item contact-fax"><%= ct.phone_number %></span>

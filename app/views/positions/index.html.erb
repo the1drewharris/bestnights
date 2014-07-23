@@ -1,6 +1,8 @@
-<h1>List</h1>
-
-<table>
+<div id="container-main">
+<h1 class="prop-title">Designation</h1> 
+<div class="conwrap">
+<div class="bookings blocks">
+<table class="admintablelist">
   <tr>
     <th>Name</th>
     <th></th>
@@ -10,7 +12,7 @@
 
 <% @positions.each do |position| %>
   <tr>
-    <td><%= position.name %></td>
+    <td><%= position.name.capitalize %></td>
     <td><%= link_to 'Show', position %></td>
     <td><%= link_to 'Edit', edit_position_path(position) %></td>
     <td><%= link_to 'Destroy', position, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -21,3 +23,7 @@
 <br />
 
 <%= link_to 'New Position', new_position_path %>
+</div>
+</div>
+<div class="row back-link bking"><%= link_to "Back", my_hotels_path, class: "link" %></div>
+</div>

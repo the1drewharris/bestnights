@@ -9,10 +9,13 @@
   <table class="admintablelist">
     <tr>
       <th>Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
      </tr>
     <% @rate_categories.each do |rate_category| %>
       <tr>
-        <td><%= rate_category.name %></td>
+        <td><%= rate_category.name.capitalize %></td>
         <% if can? :show, rate_category %>
           <td><%= link_to "Show", rate_category %></td>
         <% end %>
@@ -25,6 +28,7 @@
       </tr>
     <% end %>
   </table>
+  <div class="row back-link bking"><%= link_to "Back", my_hotels_path, class: "link" %></div>
 </div>
 
 <%= javascript_include_tag :jquery_ujs %>

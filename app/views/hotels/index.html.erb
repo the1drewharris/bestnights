@@ -38,9 +38,9 @@
 		  	<% else %>
 		  		<td><%= hotel.name %></td>
 		  	<% end %>		  	
-				<td><%= hotel.city %></td>
-				<td><%= hotel.state.state_province unless hotel.state.nil? %></td>
-				<td><%= hotel.address1 %></td>
+				<td><%= hotel.city.capitalize %></td>
+				<td><%= hotel.state.state_province.capitalize unless hotel.state.nil? %></td>
+				<td><%= hotel.address1.capitalize %></td>
 				<td>
 					<% if hotel.commission_rate.blank? %>
 						<%= link_to "Add Commission", new_commission_rate_path(:hotel_id => hotel.id) %>

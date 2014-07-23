@@ -27,8 +27,8 @@
 		<% @travelers.each do |traveler| %>
 		  <tr>
 		  	<td><%= traveler.firstname.capitalize %>&nbsp;<%= traveler.lastname.capitalize %></td>
-				<td><%= traveler.city %></td>
-				<td><%= traveler.state.state_province unless traveler.state.nil? %></td>
+				<td><%= traveler.city.capitalize %></td>
+				<td><%= traveler.state.state_province.capitalize unless traveler.state.nil? %></td>
 				<% if can? :show, traveler %>
 					<td><%= link_to "Show", traveler_path(traveler) %></td>
 				<% end %>

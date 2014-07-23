@@ -131,6 +131,11 @@ h6 {
 	border-top: 1px #ccc solid;
 }
 
+h6.checkout { font-size: 0.9em; padding: 0 0 0 0; margin: 0 0 0 0; border:none;}
+ul.style1 {paddin:0; margin: 0; list-style: none;}
+ul.style1 li {background:url(../assets/bullet-green.png) no-repeat 0 0; padding: 0 0 5px 20px;}
+.checkoutContHolder { border:1px solid #ccc; padding: 10px; margin-bottom: 15px; background-color: #e7e7e7; border-radius: 3px;} 
+table.chectoutTable tr td { padding: 10px; background-color: #F2F2F2; border-bottom: 2px solid #e7e7e7;}
 div,
 h1,
 label,

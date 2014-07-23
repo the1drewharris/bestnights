@@ -39,9 +39,9 @@
 		  	<% else %>
 		  		<td><%= link_to hotel.name, dashboard_path(hotel_id: hotel.id), class: "link_hotel" %></td>
 		  	<% end %>		  	
-				<td><%= hotel.city %></td>
-				<td><%= hotel.state.state_province unless hotel.state.nil? %></td>
-				<td><%= hotel.address1 %></td>
+				<td><%= hotel.city.capitalize %></td>
+				<td><%= hotel.state.state_province.capitalize unless hotel.state.nil? %></td>
+				<td><%= hotel.address1.capitalize %></td>
 				<% if hotel.status == "active" %>
 				<td class="active"><%= hotel.status %></td>
 				<% else %>

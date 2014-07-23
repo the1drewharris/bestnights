@@ -37,16 +37,12 @@ body * {
               <td colspan="2" align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:1px solid #008000; border-bottom:none; border-left:none;">Thank you for your booking..</td>
             </tr>
             <tr>
-              <td width="27%" align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:1px solid #008000; border-bottom:none; border-left:none;">Bestnights.com booking number:</td>
+              <td width="27%" align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:1px solid #008000; border-bottom:none; border-left:none;">Confirmation Number:</td>
               <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; font-weight:normal; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:none; border-bottom:none; border-left:none;"><strong>
                 <% @booking.each do |b| %>
                   <%= b.id %>
                 <% end %>
               </strong></td>
-            </tr>
-            <tr>
-              <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:1px solid #008000; border-bottom:none; border-left:none;">Pincode:</td>
-              <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; font-weight:normal; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:none; border-bottom:none; border-left:none;"><strong><%= @traveler.zip %></strong></td>
             </tr>
             <tr>
               <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:1px solid #008000; border-bottom:none; border-left:none;">This booking is confirmed on:</td>
@@ -65,9 +61,6 @@ body * {
               <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; font-weight:normal; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:none; border-bottom:none; border-left:none;"><a href="mailto:doroshka@gmail.com" style="color:#000000; text-decoration:underline;"><%= @traveler.email %></a></td>
             </tr>
             <tr>
-              <td colspan="2" align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; font-weight:normal; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:1px solid #008000; border-bottom:none; border-left:none; height:40px;"><em>To change, cancel or send us a message using our online self service tool bestnights. <a href="http://www.bestnights.com">www.bestnights.com</a></em></td>
-            </tr>
-            <tr>
               <td colspan="2" align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:16px; line-height:25px; color:#FF0000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:3px; padding-bottom:3px; text-transform:uppercase; border-top:1px solid #008000;">Your booking:</td>
             </tr>
             <tr>
@@ -79,8 +72,11 @@ body * {
             </tr>
             <tr>
               <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:1px solid #008000; border-bottom:none; border-left:none;">Address:</td>
-              <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:17px; color:#000000; font-weight:normal; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:none; border-bottom:none; border-left:none;"><%= @hotel.address1 %>,<br />
-                <%= @hotel.city %>, <%= @hotel.zip %></td>
+              <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:17px; color:#000000; font-weight:normal; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:none; border-bottom:none; border-left:none;">
+                <%= @hotel.name %><br />
+                <%= @hotel.city %><br />
+                <%= @hotel.address1 %><br />
+                <%= @hotel.zip %></td>
             </tr>
             <tr>
               <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:1px solid #008000; border-bottom:none; border-left:none;">Phone:</td>
@@ -119,13 +115,12 @@ body * {
             </tr>
             <tr>
               <td height="35" align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:18px; line-height:20px; color:#2B70FF; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:1px solid #008000; border-bottom:none; border-left:none;">Total Price</td>
-              <td align="right" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:18px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:none; border-bottom:none; border-left:none;">$<%= @amount %></td>
+              <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:18px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:none; border-bottom:none; border-left:none;">$<%= @amount %></td>
             </tr>
             <tr>
               <td colspan="2" align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:15px; line-height:20px; color:#000000; font-weight:normal; padding-left:6px; padding-right:6px; padding-top:3px; padding-bottom:4px; border-top:1px solid #008000; border-right:none; border-bottom:1px solid #008000; border-left:none;"><strong>Room 1 - <%= @room.name %> - <%= @room.room_type.room_type %><br />
               </strong>                          <p style="margin:4px 0; padding:0 6px; display:block; clear:both; display:block; font-weight:normal;"><strong>Room Description</strong><br />
-                  <%= @room.description  %><br />
-             <strong>Guest Name</strong></p></td>
+                  <%= @room.description  %></p></td>
             </tr>
         </table></td>
       </tr>
@@ -171,7 +166,7 @@ body * {
   <table width="100%" cellspacing="0" cellpadding="0" border="0">
     <tr>
       <td width="27%" align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:18px; line-height:20px; color:#2B70FF; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:1px solid #008000; border-bottom:1px solid #008000; border-left:none;">Room Price</td>
-      <td align="right" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:18px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:none; border-bottom:1px solid #008000; border-left:none;">
+      <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:18px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:none; border-bottom:1px solid #008000; border-left:none;">
         $<%= @room.price %></td>
     </tr>
   </table>
@@ -183,7 +178,7 @@ body * {
 </tr>
 <tr>
   <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; padding-left:6px; padding-right:6px; padding-top:10px; padding-bottom:10px;">
-    If you want to cancel or change your booking, please go to <a href="http://www.bestnights.com">www.bestnights.com</a>
+    If you want to cancel or change your booking, please go to <a href="http://www.bestnights.com">www.bestnights.com</a> and login to your traveller account or call 1-800-494-BEST (2378)
   </td>
 </tr>
 <tr><td style="height:4px;"></td></tr>

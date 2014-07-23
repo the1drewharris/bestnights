@@ -1,11 +1,4 @@
 <div id="wrapper" class="checkout_confirm">
-	<div id="eyebrow">
-		<div class="logo">
-			<%= link_to image_tag("logo.png"), root_path %>
-		</div>
-		<%#= render :partial => "common/home_nav_tab" %>
-	</div>
-	
 	<header>
 		<h1>Your Booking is Complete</h1>
 	</header>
@@ -15,79 +8,166 @@
 			<h5>Your Details</h5>
 			<div>
 				<ul>
-					<li><%= @traveler.firstname.capitalize %>&nbsp;<%= @traveler.lastname.capitalize %></li>
-					<li><%= @traveler.email %></li>
+					<li><strong>Name:</strong> <%= @traveler.firstname.capitalize %>&nbsp;<%= @traveler.lastname.capitalize %></li>
+					<li><strong>Email:</strong><%= @traveler.email %></li>
 					<li>&nbsp;</li>
-					<li><%= @traveler.address1 %></li>
+					<li><strong>Address:</strong><%= @traveler.address1 %></li>
 					<li><%= @traveler.city %>, <%= @subregion.name %> <%= @traveler.zip %> <%= @country.name %></li>  
 					<li>&nbsp;</li>
-					<li><%= @traveler.phone_number %></li>
+					<li><strong>Phone Number:</strong><%= @traveler.phone_number %></li>
 						<li>&nbsp;</li>
 			</ul>
 			</div>
 		</div>
+		<div class="checkoutContHolder">
 		<p>To change, cancel or send us a message using our online self service tool bestnights. <a href="http://www.bestnights.com">www.bestnights.com</a></p>
-
-		<h5>Your Booking</h5>
-		<div>Hotel Information:</div>
-		<p>Hote: <%= @hotel.name %></p>
-		<p>Address: <%= @hotel.address1 %></p>
-		<p>Phone: <%= @hotel.fax %></p>
-		<p>Fax: <%= @hotel.fax %></p>
-		<p>Email: <%= @hotel.email %></p>
-		<h5>Your Reservation details:</h5>
-		<% @latest_booked.each do |book| %>
-			<p>Arrival: <%= book.from_date %></p>
-			<p>Departure: <%= book.to_date %></p>
-			<p>Quantity: <%= @latest_booked.size %></p>
-		<% end %>
-		<p>Total: <%= @amount %></p>
-		<% @room = Room.find_by_hotel_id(session[:hotel_id]) %>
-		<p>Room: <%= @room.name %>, <%= @room.room_type.room_type %></p>
-		<p>Room Price: <%= @room.price %></p>
-		<ul>Break Fast:
-		<li>Continental breakfast is included in the room rate.</li>
-		</ul>
-		<ul>Taxes:
-		   <li> Service Charge is not applicable.</li>
-		   <li> City/tourist tax is not applicable.</li>
-		</ul>
-		<ul>Prepayment:
-		    <li>No deposit will be charged.</li>
-		</ul>
-		<ul>Cancellation Policy:
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" class="chectoutTable">
+	<tr>
+		<td colspan="2"><h5>Your Booking</h5></td>
+	</tr>
+	<tr>
+		<td colspan="2"><h6 class="checkout">Hotel Information:</h6></td>
+	</tr>
+	<tr>
+		<td><strong>Hotel:</strong></td>
+		<td><%= @hotel.name %></td>
+	</tr>
+	<tr>
+		<td><strong>Address:</strong></td>
+		<td><%= @hotel.address1 %></td>
+	</tr>
+	<tr>
+		<td><strong>Phone:</strong></td>
+		<td><%= @hotel.fax %></td>
+	</tr>
+	<tr>
+		<td><strong>Fax:</strong></td>
+		<td><%= @hotel.fax %></td>
+	</tr>
+	<tr>
+		<td><strong>Email:</strong></td>
+		<td><%= @hotel.email %></td>
+	</tr>
+	<tr>
+		<td colspan="2"><h6 class="checkout">Your Reservation details:</h6></td>
+	</tr>
+	<% @latest_booked.each do |book| %>	
+	<tr>		
+		<td><strong>Arrival:</strong></td>
+		<td><%= book.from_date %></td>
+	</tr>
+	<tr>
+		<td><strong>Departure:</strong></td>
+		<td><%= book.to_date %></td>
+	</tr>
+	<tr>
+		<td><strong>Quantity:</strong></td>
+		<td><%= @latest_booked.size %></td>
+		</tr>
+	<% end %>
+	<tr>
+		<td><strong>Total:</strong></td>
+		<td><%= @amount %></td>
+	</tr>
+	<% @room = Room.find_by_hotel_id(session[:hotel_id]) %>
+	<tr>
+		<td><strong>Room:</strong></td>
+		<td><%= @room.name %>, <%= @room.room_type.room_type %></td>
+	</tr>
+	<tr>
+		<td><strong>Room Price:</strong></td>
+		<td><%= @room.price %></td>
+	</tr>
+	<tr>
+		<td><strong>Break Fast:</strong></td>
+		<td>Continental breakfast is included in the room rate.</td>
+	</tr>
+		<tr>
+		<td><strong>Taxes:</strong></td>
+		<td>
+			<ul>
+			   <li> Service Charge is not applicable.</li>
+			   <li> City/tourist tax is not applicable.</li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td><strong>Prepayment:</strong></td>
+		<td>
+			No deposit will be charged.
+		</td>
+	</tr>
+	<tr>
+		<td><strong>Cancellation Policy:</strong></td>
+		<td>
+			<ul>
 		    <li>If cancelled up to 2 days before date of arrival, no fee will be charged.</li>
 		    <li>If cancelled later or in case of no-show, the first night will be charged.</li>
 		</ul>
-		<ul>Hotel Policies:
-<li>If you want to cancel or change your booking, please go to <a href="http://www.bestnights.com">www.bestnights.com</a></li>
-<li>How to Cancel or Change Your booking</li>
-</ul>
-<ul>Cancellation & prepayment policy:
-    <li>Please check the specific policy of each room above</li>
-</ul>
-<ul>Children and extra bed policy
-    <li>All children under 2 years are charged EUR 12.84 per night per person for cots.</li>
-    <li>Maximum capacity of babycots in a room is 2.</li>
-</ul>
-<ul>Guest Parking:
-    <li>Free public parking is possible on site.</li>
-</ul>
-<ul>Internet:
-    <li>No Internet Access available.</li>
-</ul>
-<ul>Pets:
-    <li>Pets are allowed. Charges may be applicable.</li>
-</ul>
-<p>Credit Card / Guarantee/ Payment Information</p>
-<p>Payment</p>
-<p>You have now confirmed and guaranteed your booking by credit card.</p>
-<p>Bestnights.com does not charge your credit card.
-<p>Your credit card is required to guarantee your booking. Please note that your credit card may be pre-authorised prior to your arrival.</p>
-<p>This hotel accepts the following forms of payment:</p>
-<p>Visa, Mastercard, Dinners Club, American Express, Discover </p>
+		</td>
+	</tr>
+	<tr>
+		<td><strong>Hotel Policies:</strong></td>
+		<td>
+			<ul>
+				<li>If you want to cancel or change your booking, please go to <a href="http://www.bestnights.com">www.bestnights.com</a></li>
+				<li>How to Cancel or Change Your booking</li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td><strong>Cancellation & prepayment policy:</strong></td>
+		<td>
+			Please check the specific policy of each room above.
+		</td>
+	</tr>
+	<tr>
+		<td><strong>Children and extra bed policy:</strong></td>
+		<td>
+			<ul>
+				<li>All children under 2 years are charged EUR 12.84 per night per person for cots.</li>
+				<li>Maximum capacity of babycots in a room is 2.</li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td><strong>Guest Parking:</strong></td>
+		<td>
+			Free public parking is possible on site
+		</td>
+	</tr>
+		<tr>
+		<td><strong>Internet:</strong></td>
+		<td>
+			No Internet Access available.
+		</td>
+	</tr>
+	<tr>
+		<td><strong>Pets:</strong></td>
+		<td>
+    Pets are allowed. Charges may be applicable.
+		</td>
+	</tr>
+	<tr>
+		<td><strong>Credit Card / Guarantee/ Payment Information:</strong></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td><strong>Payment:</strong></td>
+		<td>You have now confirmed and guaranteed your booking by credit card.</td>
+	</tr>
+</table>
+<br />
+<h6 class="checkout">Bestnights.com does not charge your credit card.</h3>
+Your credit card is required to guarantee your booking. Please note that your credit card may be pre-authorized prior to your arrival.
+
+<h6 class="checkout">This hotel accepts the following forms of payment:</h6>
+
+<p>Visa, Mastercard, Dinners Club, American Express, Discover</p> 
+
     <p>An email confirmation has been sent to your provided email</p>
     <p>Please check your email spam or junk folder and remove best nights from your spam/junk list.</p>
+  </div>
 		<h3>Where You&rsquo;ll Be Staying</h3>
 		
 		<section id="roomlist">		
