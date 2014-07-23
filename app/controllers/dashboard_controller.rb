@@ -123,8 +123,6 @@ class DashboardController < ApplicationController
   end
 
   def overview
-    @free = []
-    @Free = []
     @booked_rooms = []
     @book_monday = 0
     @book_tuesday = 0
@@ -141,6 +139,7 @@ class DashboardController < ApplicationController
         @bookings = Booking.where("room_id=? AND hotel_id=?",room.id,session[:hotel_id])
         if !@bookings.nil?
           @bookings.each do |booking|
+            logger.info"&&&&&&&&&&&#{booking.inspect}&&&&&&&&&&&"
             @nights = (booking.to_date - booking.from_date).to_i
             @nights.times do |t|
               if (booking.from_date..booking.to_date).cover?(Date.today.advance(:days => t))

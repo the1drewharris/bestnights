@@ -4228,5 +4228,8 @@ table.grid-table td a:hover {
     color:#333;
 	text-decoration:underline;
 }
+span.status-label{
+	padding-left: 17px;
+}
 /* End */
 
