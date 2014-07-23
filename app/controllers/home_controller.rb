@@ -242,7 +242,7 @@ class HomeController < ApplicationController
     # end
     # session[:subtotal] = @amount
     session[:hotel_id] = params[:hotel_id]
-    room = Room.find_by_hotel_id(params[:hotel_id])
+    room = Room.find_by_hotel_id_and_id(params[:hotel_id],params[:room_id])
     numbers = params[:room_number].to_i
     @amount = room.price.to_f * numbers
     session[:subtotal] = @amount

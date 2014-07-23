@@ -20,14 +20,14 @@
 		  		<%= f.label "City*" %>
 		  		<%= f.text_field(:city, class: "textfield") %>
 		  	</li>
-		  	<li class="state">
-		  		<%= f.label "State/Province*" %>
-		  		<%= f.select :state_id, options_for_select(@hotel.country.states.map{|s|[s.state_province, s.id]}, @hotel.state.id), {},  {class: "selectbox"} %>
-		  	</li>
 		  	<li class="country">
-		  		<%= f.label "Country" %>
-		  		<%= f.select :country_id, options_for_select(Country.all.map{|s|[s.country, s.id]}, @hotel.country_id), {}, {class: "selectbox"} %>
-		  	</li>
+			  	<%= f.label :country_id %>
+					<%= f.country_select( :country_id, priority: %w(US CA), prompt: 'Please select a country', :class => "textfield" )  %>
+			  </li>
+			  <li class="state">
+			  	<label for="State/Province" style="float:left">State/Province</label>
+							<%= render partial: '/hotels/test', locals: {parent_region: f.object.country_id} %>
+			  </li>
 		  	<li>
 		  		<%= f.label "Zip/Postal Code*" %>
 		  		<%= f.text_field(:zip, class: "textfield") %>
