@@ -4,7 +4,7 @@ class Hotel < ActiveRecord::Base
                   :tax3_label, :tax3, :tax4_label, :tax4
   
   validates_presence_of :name, :description, :address1, :city, :zip, :user_id, :country_id, :status,
-                        :tax1_label, :tax2_label, :tax3_label, :tax4_label
+                        :tax1_label, :tax2_label, :tax3_label, :tax4_label, :on => :create
   
   validates :email, presence: true,
     if: Proc.new { |a| a.email_or_fax == "email" }
