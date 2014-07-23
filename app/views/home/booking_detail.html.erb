@@ -128,7 +128,7 @@
 							<% @free.each do |fr| %>
 								<% if fr.has_key?(room.room_type.id) %>
 									<% if fr[room.room_type.id] != 0 %>
-										<%= link_to "Book Now", checkout_path(:hotel_id => @hotel.id, :room_id => room.id) , class: "link_style", id: "link_style" %>
+										<%= link_to "Book Now", checkout_path(:hotel_id => @hotel.id, :room_id => room.id, :room_number => 1) , class: "link_style", id: "link_style" %>
 									<% else %>
 										<p class="red">Sold Out</p>
 									<% end %>

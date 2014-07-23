@@ -242,16 +242,18 @@ class HomeController < ApplicationController
     # end
     # session[:subtotal] = @amount
     session[:hotel_id] = params[:hotel_id]
+    session[:room_id] = params[:room_id]
     room = Room.find_by_hotel_id_and_id(params[:hotel_id],params[:room_id])
     numbers = params[:room_number].to_i
     @amount = room.price.to_f * numbers
     session[:subtotal] = @amount
+    session[:roomtype] = params[:room_number].to_i
   end
   
   ## POST JSON
   def traveler_signin_book    
     @traveler = Traveler.find_by_email(params[:email])
-    session[:traveler] = @traveler
+    session[:traveler_id] = @traveler.id
     logger.info"===========#{(params[:password]).inspect}=======#{@traveler.valid_password?(params[:password])}===========#{session[:booking_rooms][:number]}======="
     if @traveler and @traveler.valid_password?(params[:password])
       redirect_to book_hotel_path
@@ -277,7 +279,7 @@ class HomeController < ApplicationController
     end    
     
     @traveler = Traveler.find_by_email(params[:traveler][:email])
-    
+    session[:traveler_id] = @traveler.id
     unless @traveler
       @traveler = Traveler.new(params[:traveler])
       unless @traveler.save
@@ -297,7 +299,7 @@ class HomeController < ApplicationController
 
     number_nights = ((a.to_date - b.to_date).to_i) + 1 
     room_ids = []
-    room = Room.find_by_hotel_id(session[:hotel_id])
+    room = Room.find_by_hotel_id_and_id(session[:hotel_id], session[:room_id])
     numbers = session[:roomtype].to_i
     @amount = room.price.to_f * numbers
     room_ids.push(room.id)
@@ -310,7 +312,7 @@ class HomeController < ApplicationController
     if book(@traveler, session[:subtotal], params[:ccnumber], params[:ccv], expiryDate, params[:cardtype], @hotel, @checkin, @checkout, room_ids )
       ## Create booking record and availability record
 
-        room = Room.find_by_hotel_id(session[:hotel_id])
+        room = Room.find_by_hotel_id_and_id(session[:hotel_id], session[:room_id])
         numbers = session[:roomtype].to_i
         
         booking = Booking.new(hotel_id: room.hotel.id, room_id: room.id, from_date: from_date, to_date: to_date, 
