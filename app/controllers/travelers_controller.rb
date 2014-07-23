@@ -1,5 +1,5 @@
 class TravelersController < ApplicationController
-  before_filter :authenticate_user!, only: [:new, :create]  
+  before_filter :authenticate_user!, only: [:new, :create, :show]  
   layout "admin_basic", only: [:index, :new, :show, :edit]
   layout "traveler_basic", only: [:booking_history, :edit_traveler, :show, :change_password]
   def index

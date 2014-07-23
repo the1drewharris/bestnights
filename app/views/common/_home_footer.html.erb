@@ -12,7 +12,7 @@
 			<ul>
 				<li>Bestnights.com</li>
 				<li><a href="/about">About Us</a></li>
-				<li><%= link_to "add your property", welcome_path %></li>
+				<li><%= link_to "Add Your Property", welcome_path %></li>
 				<li><%= link_to "Feedback", new_contact_path %></li>				
 			</ul>
 		</nav>
@@ -28,7 +28,7 @@
 	<div id="footerend">
 		<p id="copyright">&copy; Copyright BestNights.com 2014. All Rights Reserved.</p>
 		<nav>
-			<a href="#">home</a><span> &bull; </span>
+			<%= link_to "Home", root_path %><span> &bull; </span>
 			<%= link_to "terms of service", terms_of_service_path %><span> &bull; </span> 
 			<%= link_to "Privacy Policy", privacy_path %><span> &bull; </span>
 			<%= link_to "contact us", new_contact_path %><span> &bull; </span>
