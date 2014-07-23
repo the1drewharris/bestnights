@@ -4236,5 +4236,8 @@ table.grid-table td a:hover {
 span.status-label{
 	padding-left: 17px;
 }
+#room_unit{
+	width: 218px!important;
+}
 /* End */
 

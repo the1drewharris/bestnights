@@ -30,6 +30,7 @@
 		<% if !session[:room_id].blank? %>
 			<%= link_to  "Continue Booking",checkout_confirm_path(:email => @traveler.email),  style: "margin-left:-350px;" %>		
 		<% end %>
+		<div class="row back-link bking"><%= link_to "Back", traveler_path(@traveler.id) , class: "link" %></div>
 	</div>
 			<%= render :partial => "common/home_footer" %>
  	</div>
