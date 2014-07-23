@@ -19,7 +19,7 @@
 					<span class="call blk">1 800 494 BEST (2378)</span>
 				</div>
 					<nav id="phone" class="rt-phn">
-					<% if session[:traveler_id] %>
+					<% if current_traveler %>
 						<%= link_to "Logout" , destroy_user_session_path, :method => :delete %>
 					<% else %>
 						<% if controller.controller_name == "home" && controller.action_name == "index" %>
