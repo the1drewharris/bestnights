@@ -27,8 +27,8 @@
 			
 		</div>
 		<div class="link-sec">
-		<% if !session[:hotel_id].blank? %>
-			<%= link_to  "Continue Booking",checkout_confirm_path, style: "margin-left:-350px;" %>		
+		<% if !session[:room_id].blank? %>
+			<%= link_to  "Continue Booking",checkout_confirm_path(:email => @traveler.email),  style: "margin-left:-350px;" %>		
 		<% end %>
 	</div>
 			<%= render :partial => "common/home_footer" %>

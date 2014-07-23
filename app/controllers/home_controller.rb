@@ -265,7 +265,7 @@ class HomeController < ApplicationController
   end
 
   def book_hotel
-    @traveler = Traveler.find(session[:traveler])
+    @traveler = Traveler.find(session[:traveler_id])
     session[:traveler] = @traveler 
   end
   
@@ -278,7 +278,7 @@ class HomeController < ApplicationController
       redirect_to :back and return
     end    
     unless current_traveler
-      @traveler = Traveler.find_by_email(params[:traveler][:email])    
+      @traveler = Traveler.find_by_email(params[:email])    
       unless @traveler
         @traveler = Traveler.new(params[:traveler])
         if @traveler.save
@@ -310,7 +310,7 @@ class HomeController < ApplicationController
     @checkin = session[:checkin]
     @checkout = session[:checkout]
 
-
+puts "===============#{@traveler.inspect}"
     if book(@traveler, session[:subtotal], params[:ccnumber], params[:ccv], params[:cardtype], @hotel, @checkin, @checkout, room_ids )
       ## Create booking record and availability record
 
@@ -355,7 +355,6 @@ class HomeController < ApplicationController
     #TODO make this work with the fax service
     @disclaimer = CGI::unescape("Disclaimer"+"\n"+"* A confirmation has been sent to the guest with all of the booking details"+"\n"+"* It is your duty , as the booking property, to safeguard this fax and the guests credit card info in a secure way that follows your company's security policies")
     File.open("#{Rails.root.to_s}/public/"+traveler.id.to_s+'.txt', 'wb') do|f|
-      logger.info "Traveler Name:::::::::::::::::#{traveler.name}"
       f.write('Traveler Name'+':'+traveler.name+"\n"+'Traveler Email'+':'+traveler.email+"\n"+'Card Number'+':'+traveler.credit_card_number+"\n"+'Card Type'+':'+traveler.credit_card_type+"\n"+'Address'+':'+traveler.address1+"\n"+'Amount'+':'+"#{amount}"+"\n"+'Checkin Date'+':'+checkin.to_s+"\n"+'Checkout Date'+':'+checkout.to_s+"\n"+'Room Number'+':'+"#{room_ids.each { |r| puts r }}"+"\n"+@disclaimer)
     end
     results = []
