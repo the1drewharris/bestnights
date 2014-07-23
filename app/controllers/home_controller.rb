@@ -329,8 +329,8 @@ class HomeController < ApplicationController
         @booking = Booking.where(:traveler_id => @traveler.id, :hotel_id =>  @hotel)
         @numbers = numbers
         @latest_booked = Booking.where(traveler_id: @traveler.id, hotel_id: room.hotel.id).order("created_at DESC").limit(1)
-        # @fax_email = FaxMailer.hotel_booking_mail(@traveler, session[:subtotal], params[:ccnumber], params[:ccv], expiryDate, params[:cardtype], @hotel, @checkin, @checkout, room_ids, @latest_booked, room).deliver
-        # @fax_email_to_hotel = FaxMailer.email_to_hotel(@traveler, session[:subtotal], params[:ccnumber], params[:ccv], expiryDate, params[:cardtype], @hotel, @checkin, @checkout, room_ids, @latest_booked, room).deliver
+        @fax_email = FaxMailer.hotel_booking_mail(@traveler, session[:subtotal], params[:ccnumber], params[:ccv], expiryDate, params[:cardtype], @hotel, @checkin, @checkout, room_ids, @latest_booked, room).deliver
+        @fax_email_to_hotel = FaxMailer.email_to_hotel(@traveler, session[:subtotal], params[:ccnumber], params[:ccv], expiryDate, params[:cardtype], @hotel, @checkin, @checkout, room_ids, @latest_booked, room).deliver
         logger.info"====2222222222222222222==========#{@fax_email}=============="
     else
       flash[:errors] = ["Your booking failed!"]
@@ -361,14 +361,14 @@ class HomeController < ApplicationController
     end
     #File.delete("#{Rails.root.to_s}/public/"+traveler.id.to_s+".txt")
   
-    # @fax_result = SOAP::WSDLDriverFactory.new("https://ws-sl.fax.tc/Outbound.asmx?WSDL").create_rpc_driver.SendCharFax("Username" => "bestnights","Password" => "@BestN1ghts","FileType" => "TXT","FaxNumber"=> "15874090031","Data" => "#{results[0]+"\n"+results[1]+"\n"+results[2]+"\n"+results[3]+"\n"+results[4]+"\n"+results[5]+"\n"+results[6]+"\n"+results[7]+"\n"+results[8]}")
-    # logger.info"@@@@@@@@@@@@@@@@@@@@@@@#{@fax_result.inspect}@@@@@@@@@@@@@@@@@@@@@@@@"
-    # File.delete("#{Rails.root.to_s}/public/"+traveler.id.to_s+".txt")
-    # unless @fax_result["SendCharFaxResult"].include? "-"
-    #   TravelerPayment.create(amount: amount, traveler_id: traveler.id)
-    # else
-    #   flash[:notice] = "Hotel not booked due wrong params"
-    #   redirect_to root_path
-    # end
+    @fax_result = SOAP::WSDLDriverFactory.new("https://ws-sl.fax.tc/Outbound.asmx?WSDL").create_rpc_driver.SendCharFax("Username" => "bestnights","Password" => "@BestN1ghts","FileType" => "TXT","FaxNumber"=> "15874090031","Data" => "#{results[0]+"\n"+results[1]+"\n"+results[2]+"\n"+results[3]+"\n"+results[4]+"\n"+results[5]+"\n"+results[6]+"\n"+results[7]+"\n"+results[8]}")
+    logger.info"@@@@@@@@@@@@@@@@@@@@@@@#{@fax_result.inspect}@@@@@@@@@@@@@@@@@@@@@@@@"
+    File.delete("#{Rails.root.to_s}/public/"+traveler.id.to_s+".txt")
+    unless @fax_result["SendCharFaxResult"].include? "-"
+      TravelerPayment.create(amount: amount, traveler_id: traveler.id)
+    else
+      flash[:notice] = "Hotel not booked due wrong params"
+      redirect_to root_path
+    end
   end
 end
