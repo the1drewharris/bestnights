@@ -95,38 +95,25 @@
 						<ul>
 							<li>
 								<label for="cardtype">Credit Card Type</label>
-								<select id="cardtype" name="cardtype">
-									<optgroup label="Credit Card Type">
-										<option value="visa">Visa</option>
-										<option value="mc">Mastercard</option>
-										<option value="diners">Diners Club</option>
-										<option value="amex">American Express</option>
-										<option value="discover">Discover</option>
-									</optgroup>
-								</select>
+								<%= f.select :credit_card_type, options_for_select([['Visa','visa'],['Mastercard','mc'],['Diners Club','diners'],['American Express','amex'],['Discover','discover']]),id: 'cardtype'%>
 							</li>
-							<li><label for="ccnumber">Credit Card Number</label><input id="ccnumber" name="ccnumber" size="30" type="text"></li>
+							<li><label for="ccnumber">Credit Card Number</label>
+								<%= f.text_field :credit_card_number,:size => "30", id: 'ccnumber'%>
+							</li>
 							<li>
 								<label for="ccv">CCV</label>
-								<input id="ccv" name="ccv" size="3" type="text" maxlength="3">
+								<%= f.text_field :ccv,:maxlength => "3", :size=>"3" %>
 							</li>
 							<li>
 								<label for="ccexpiry">Credit Card Expiration Date</label>
-								<select id="ccexpirym" name="ccexpirym" style="width:auto;">
-									<optgroup label="Month">
-										<% (1..12).each do |v| %>
-											<option value=<%= v.to_s.rjust(2, '0') %> ><%= v.to_s.rjust(2, '0') %></option>
-										<% end %>
-									</optgroup>
-								</select>
-								/
-								<select id="ccexpiryy" name="ccexpiryy" style="width:auto;">
-									<optgroup label="Year">
-										<% (14..25).each do |v| %>
-											<option value=<%= v.to_s %> ><%= v %></option>
-										<% end %>
-									</optgroup>
-								</select>
+<span class="date-select">
+								<%= f.date_select("credit_card_expiry_date", :start_year => 1995,
+                       :use_month_numbers => true,
+                       :discard_day => true,
+                       :date_separator => '/',
+                       :order => [:month,:year],
+                       :html=>{:class => "date-select"} ) %>
+					</span>			
 							</li>
 						</ul>
 					</fieldset>
@@ -152,7 +139,7 @@
 				  		&#10029;
 				  	<% end %>
 				  </span><br>
-				  <%= @hotel.city %>, <%= @hotel.state.abbreviation %>
+				  <%= @hotel.city %>, <%= @hotel.state.abbreviation if @hotel && @hotel.state%>
 				</a>
 				<div class="roomdetail">
 					<b>Room:</b> 
@@ -216,3 +203,16 @@
 	<%= render :partial => "common/home_footer" %>
 	
 </div>
+
+<style type='text/css'>
+.date-select select:nth-child(2) {
+  width: 50px;
+  text-indent: 5px;
+}
+
+.date-select select:nth-child(3) {
+  width: 80px;  
+  text-indent: 5px;
+}
+}
+</style>

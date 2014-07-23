@@ -20,6 +20,7 @@ Bestnights::Application.routes.draw do
   match '/payments/thank_you', :to => 'payments#thank_you', :as => 'payments_thank_you', :via => [:get]
 
   devise_for :users#, :controllers => {:registrations => 'registrations'}
+  devise_for :travelers
       
   root :to => "home#index"
   
@@ -46,7 +47,7 @@ Bestnights::Application.routes.draw do
   match 'hotels/search' => "home#search", :via => :get
   match 'booking_detail' => "home#booking_detail", :via => :get
   match 'checkout' => "home#checkout", :via => :get
-  match 'checkout_confirm' => "home#checkout_confirm", :via => :post
+  match 'checkout_confirm' => "home#checkout_confirm"
   match 'traveler_signin_book' => "home#traveler_signin_book", :via => :post
   match 'check_availability' => "home#check_availability", :via => :post
   match 'fetch_states' => "countries#fetch_states", :via => :post

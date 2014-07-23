@@ -1,15 +1,16 @@
 class Traveler < ActiveRecord::Base
   
-  devise :database_authenticatable, :trackable
+  devise :database_authenticatable, :trackable, :registerable,:recoverable
          
   attr_accessible :firstname, :lastname, :address1, :address2, :city, :zip, :email,
-                  :phone_number, :state_id, :country_id, :password, :password_confirmation
+                  :phone_number, :state_id, :country_id, :password, :password_confirmation, :credit_card_type,
+                  :credit_card_number, :ccv, :credit_card_expiry_date
   
   validates :firstname, :lastname, :address1, :city, :state_id, :country_id, :zip, presence: true
   validates :email, presence: true, uniqueness: true
-  validates :password, presence: true
-  validates :password, confirmation: true
-  validates :password, length: {minimum: 6}
+  validates :password, presence: true, on: :create
+  validates :password, confirmation: true, on: :create
+  validates :password, length: {minimum: 6}, on: :create
   
   belongs_to :country
   belongs_to :state
