@@ -68,14 +68,14 @@ body * {
             </tr>
             <tr>
               <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:1px solid #008000; border-bottom:none; border-left:none;">Hotel:</td>
-              <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:none; border-bottom:none; border-left:none;"><%= @hotel.name %></td>
+              <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:none; border-bottom:none; border-left:none;"><%= @hotel.name.capitalize %></td>
             </tr>
             <tr>
               <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:1px solid #008000; border-bottom:none; border-left:none;">Address:</td>
               <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:17px; color:#000000; font-weight:normal; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:none; border-bottom:none; border-left:none;">
-                <%= @hotel.name %><br />
-                <%= @hotel.city %><br />
-                <%= @hotel.address1 %><br />
+                <%= @hotel.name.capitalize %><br />
+                <%= @hotel.city.capitalize %><br />
+                <%= @hotel.address1.titleize %><br />
                 <%= @hotel.zip %></td>
             </tr>
             <tr>
@@ -109,7 +109,7 @@ body * {
             </tr>
             <tr>
               <td height="35" align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:18px; line-height:20px; color:#2B70FF; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:1px solid #008000; border-bottom:none; border-left:none;">Total Price</td>
-              <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:18px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:none; border-bottom:none; border-left:none;">$<%= @amount %></td>
+              <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:18px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:none; border-bottom:none; border-left:none;">$<%= number_with_precision(@amount, :precision => 2, :separator => '.') %></td>   
             </tr>
             <tr>
               <td colspan="2" align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:15px; line-height:20px; color:#000000; font-weight:normal; padding-left:6px; padding-right:6px; padding-top:3px; padding-bottom:4px; border-top:1px solid #008000; border-right:none; border-bottom:1px solid #008000; border-left:none;"><strong>Room 1 - <%= @room.name %> - <%= @room.room_type.room_type %><br />
@@ -161,7 +161,7 @@ body * {
     <tr>
       <td width="27%" align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:18px; line-height:20px; color:#2B70FF; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:1px solid #008000; border-bottom:1px solid #008000; border-left:none;">Room Price</td>
       <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:18px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:none; border-bottom:1px solid #008000; border-left:none;">
-        $<%= @room.price %></td>
+        $<%= number_with_precision(@room.price, :precision => 2, :separator => '.') %></td>  
     </tr>
   </table>
 </td>

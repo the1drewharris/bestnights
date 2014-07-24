@@ -30,11 +30,11 @@
 	</tr>
 	<tr>
 		<td><strong>Hotel:</strong></td>
-		<td><%= @hotel.name %></td>
+		<td><%= @hotel.name.capitalize %></td>
 	</tr>
 	<tr>
 		<td><strong>Address:</strong></td>
-		<td><%= @hotel.address1 %></td>
+		<td><%= @hotel.address1.titleize %></td>
 	</tr>
 	<tr>
 		<td><strong>Phone:</strong></td>
@@ -67,16 +67,16 @@
 	<% end %>
 	<tr>
 		<td><strong>Total:</strong></td>
-		<td><%= @amount %></td>
+		<td><%= number_with_precision(@amount, :precision => 2, :separator => '.') %></td>
 	</tr>
 	<% @room = Room.find_by_hotel_id_and_id(session[:hotel_id],session[:room_id]) %>
 	<tr>
 		<td><strong>Room:</strong></td>
-		<td><%= @room.name %>, <%= @room.room_type.room_type %></td>
+		<td><%= @room.name.capitalize %>, <%= @room.room_type.room_type.capitalize %></td>
 	</tr>
 	<tr>
 		<td><strong>Room Price:</strong></td>
-		<td><%= @room.price %></td>
+		<td><%= number_with_precision(@room.price, :precision => 2, :separator => '.') %></td>  
 	</tr>
 	<tr>
 		<td><strong>Break Fast:</strong></td>
