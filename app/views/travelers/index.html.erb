@@ -1,9 +1,8 @@
-<% content_for :title, "BestNights.com - Traveler" %>
-
+<div id="container-main">
 <header>
 	<h1 class="prop-title">Traveler</h1>
-</header>
-
+</header> 
+<div class="conwrap">
 <%= form_tag travelers_path, :id => "search_form", :method => 'get' do %>
   <p>
     <%= text_field_tag :search, params[:search] %>
@@ -12,9 +11,6 @@
 <% end %>
 
 <div id="container-main">
-	<div class="formactions">
-		<%= link_to "Add", new_traveler_path %>
-  </div>
 	<table class="admintablelist">
 		<tr>
 			<th>Name</th>
@@ -41,6 +37,12 @@
 		  </tr>
 		<% end %>
 	</table>
+</div>
+	<div class="formactions">
+		<%= link_to "Add", new_traveler_path %>
+  </div>
+  <div class="row back-link bking"><%= link_to "Back", hotels_path , class: "link" %></div>
+</div>
 </div>
 
 <%= javascript_include_tag :jquery_ujs %>

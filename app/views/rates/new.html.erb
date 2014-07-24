@@ -1,7 +1,7 @@
 <div class="content-wrapper adm-inr">
   <div id="container-main">
     <header>
-      <h5 class="prop-title"><%= session[:hotel_name] %>(Id: <%= session[:hotel_id] %>)</h5>
+      <h1 class="prop-title"><%= session[:hotel_name] %>(Id: <%= session[:hotel_id] %>)</h1>
     </header>
     <%= render partial: "/common/navigation_tab"%>
     <div class="rtSidebar">
@@ -19,83 +19,92 @@
          <tbody>
         <tr>
           <td align="left" valign="top" width="33%">
-            On:
-            <div class="row">
+            <div class="row mrgntp15">On:</div>
+            <div class="row break">
             <input id="wd-0" type="checkbox" value="0" name="wd">
             <label for="wd-0">All Days</label>
             </div>
             <div class="row mrgntp15">
-            or one or more of these days:
-          </div>
-          <div class="row">
+              or one or more of these days:
+            </div>
+          <div class="row break">
             <input id="wd-1" type="checkbox" value="1" name="days[monday]" class="wd" >
             <label for="wd-1">Monday</label>
            </div>
-           <div class="row">
+           <div class="row break">
             <input id="wd-2" type="checkbox" value="2" name="days[tuesday]" class="wd" >
             <label for="wd-2">Tuesday</label>
            </div>
-           <div class="row">
+           <div class="row break">
             <input id="wd-3" type="checkbox" value="3" name="days[wednesday]" class="wd" >
             <label for="wd-3">Wedenesday</label>
            </div>
-           <div class="row">
+           <div class="row break">
             <input id="wd-4" type="checkbox" value="4" name="days[thursday]" class="wd" >
             <label for="wd-4">Thursday</label>
            </div>
-           <div class="row">
+           <div class="row break">
             <input id="wd-5" type="checkbox" value="5" name="days[friday]" class="wd" >
             <label for="wd-5">Friday</label>
             </div>
-            <div class="row">
+            <div class="row break">
             <input id="wd-6" type="checkbox" value="6" name="days[saturday]" class="wd" >
             <label for="wd-6">Saturday</label>
             </div>
-            <div class="row">
+            <div class="row break">
             <input id="wd-7" type="checkbox" value="7" name="days[sunday]" class="wd" >
             <label for="wd-7">Sunday</label>
             </div>
           </td>
           <td width="33%" align="left" valign="top">
+          <div class="row mrgntp15">
             For:
-          <div class="row">
-          <input id="so-0" type="checkbox" value="0" name="so">
-          <label for="so-0">All Rate Categories</label>
           </div>
-         <div class="row mrgntp15">
-          or for one or more of these Rooms:
+          <div class="row break">
+            <input id="so-0" type="checkbox" value="0" name="so">
+            <label for="so-0">All Rate Categories</label>
+          </div>
+          <div class="row mrgntp15">
+            or for one or more of these Rooms:
           </div>
           <div id="so-inject" style="margin: 0 0 5px;"></div>
-          <div class="row">
+          <div class="row break">
           <% RateCategory.all.each do |rate|%>
             <input type="checkbox" id="" name="rate_cat_id[<%= rate.id %>]" class="so">
-            <label><%= rate.name %></label><div style="height:12px; clear:both;"></div>
+            <label><%= rate.name %></label><div style="clear:both;"></div>
           <% end %>
           </div>
           </td>
           <td align="left" valign="top">
-          For:
-          <div class="row">
-          <input id="so-0" type="checkbox" value="0" name="so">
-          <label for="so-0">All Rooms</label>
+          <div class="row mrgntp15">
+            For:
+          </div>
+          <div class="row break">
+            <input id="so-0" type="checkbox" value="0" name="so">
+            <label for="so-0">All Rooms</label>
           </div>
           <div class="row mrgntp15">
-          or for one or more of these Rooms:
+            or for one or more of these Rooms:
           </div>
           <div id="so-inject" style="margin: 0 0 5px;"></div>
-          <div class="row">
+          
           <% RoomType.all.each do |room|%>
-            <input type="checkbox" id="" name="room_id[<%= room.id %>]" class="so">
-            <label><%= room.room_type %></label><div style="height:12px; clear:both;"></div>
+            <div class="row break">
+              <input type="checkbox" id="" name="room_id[<%= room.id %>]" class="so">
+              <label><%= room.room_type %></label><div style="clear:both;"></div>
+            </div>
           <% end %>
-        </div>
+        
           </td>
         </tr>
       </tbody>
     </table>
     <div class="date-row">Room Rate Per Night: <%= text_field_tag 'price', "", :name => "price" %> CAD <%= %></div>
-    <input type="submit" value="Update Rooms for Sell" name="submit" min="1" ></div>
+    <input type="submit" value="Update Rooms for Sell" name="submit" min="1" >
+    <div class="height12"></div>
+  </div>
     </div>
+
   </form>
       </div>
   </div>

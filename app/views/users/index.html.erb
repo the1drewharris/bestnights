@@ -32,7 +32,7 @@
 				<td><%= user.status %></td>
 				<td>
 					<% if user.role == "manager" && !user.hotels.empty? %>
-						<%= user.hotels[0].name %>
+						<%= user.hotels[0].name.titleize %>
 					<% end %>
 				</td>
 				<td>
