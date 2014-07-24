@@ -67,8 +67,8 @@
 									<% @room = Room.find(book.room_id) %>
 										<tr>
 											<td align="center" valign="middle"><%= book.id %></td>
-											<td align="center" valign="middle"><%= book.traveler.name %></td>
-											<td align="center" valign="middle"><%= book.traveler.name %></td>
+											<td align="center" valign="middle"><%= book.traveler.name.titleize %></td>
+											<td align="center" valign="middle"><%= book.traveler.name.titleize %></td>
 											<td align="center" valign="middle"><%= book.from_date  %></td>
 											<td align="center" valign="middle"><%= book.to_date %></td>
 											<td align="center" valign="middle"><%= book.night_number %></td>

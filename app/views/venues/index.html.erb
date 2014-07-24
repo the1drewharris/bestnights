@@ -28,9 +28,9 @@
 		<% @venues.each do |venue| %>
 		  <tr>
 		  	<td><%= venue.name %></td>
-				<td><%= venue.address1 %></td>
-				<td><%= venue.address2 %></td>
-				<td><%= venue.city %></td>
+				<td><%= venue.address1.titleize %></td>
+				<td><%= venue.address2.titleize %></td>
+				<td><%= venue.city.titleize %></td>
 				<% if can? :show, venue %>
 					<td><%= link_to "Show", venue_path(venue) %></td>
 				<% end %>

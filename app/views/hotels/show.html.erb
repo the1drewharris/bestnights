@@ -1,50 +1,50 @@
 <div id="container-main">
-<h1 class="prop-title"><%= @hotel.name %>&nbsp;(Id: <%= @hotel.id %>)</h1> 
+<h1 class="prop-title"><%= @hotel.name %>&nbsp;(Id: <%= @hotel.id %>)</h1>
 <div class="conwrap">
 <div id="container-main">
-	<table width="100%"  border="0" cellpadding="0" cellspacing="0" class="chectoutTable">
+    <table width="100%"  border="0" cellpadding="0" cellspacing="0" class="chectoutTable">
 
-	<tr>
-		<td><strong>Hotel Name</string></td>
-		<td><%= @hotel.address1.titleize %></td>		
-	</tr>
-	<tr>
-		<td>Description</td>
-		<td><%= @hotel.description %></td>
-	</tr>
-	<tr>
-		<td><strong>City</string></td>
-		<td><%= @hotel.city.titleize %></td>		
-	</tr>
-	<tr><td><strong>Amenities</strong></td>
-		<td>
-	<% @hotel_attributes.each do |ha| %>
-		<span>
-	    <%= ha.attr %>
-	  </span>
-	<% end %>
-	</td>
-	</tr>
-	<tr>
-		<td>Photo</td>
-		<td>
-	<% @hotel_photos.each do |photo| %>
-	  <span>
-	    <%= image_tag photo.picture.url %>
-	  </span>
-	<% end %>
-	</td>
-	<tr>
-	<tr>
-		<td><% if current_user.admin? %>
-	 		<%= link_to "Add Contact", new_contact_person_path(hotel_id: @hotel.id ) %>
-	 	<% end %></td>
-	 	<td></td>
-	</tr>
-	
-	<% if current_user.front_desk? and current_user.new_signup? %>
-		<%= link_to "Register", register_hotel_path(@hotel), :method => :post %>
-	<% end %>
+    <tr>
+        <td><strong>Hotel Name</string></td>
+        <td><%= @hotel.address1.titleize %></td>       
+    </tr>
+    <tr>
+        <td>Description</td>
+        <td><%= @hotel.description %></td>
+    </tr>
+    <tr>
+        <td><strong>City</string></td>
+        <td><%= @hotel.city.titleize %></td>       
+    </tr>
+    <tr><td><strong>Amenities</strong></td>
+        <td>
+    <% @hotel_attributes.each do |ha| %>
+        <span>
+        <%= ha.attr %>
+      </span>
+    <% end %>
+    </td>
+    </tr>
+    <tr>
+        <td>Photo</td>
+        <td>
+    <% @hotel_photos.each do |photo| %>
+      <span>
+        <%= image_tag photo.picture.url %>
+      </span>
+    <% end %>
+    </td>
+    <tr>
+    <tr>
+        <td><% if current_user.admin? %>
+             <%= link_to "Add Contact", new_contact_person_path(hotel_id: @hotel.id ) %>
+         <% end %></td>
+         <td></td>
+    </tr>
+   
+    <% if current_user.front_desk? and current_user.new_signup? %>
+        <%= link_to "Register", register_hotel_path(@hotel), :method => :post %>
+    <% end %>
 </table>
 </div>
 </div>

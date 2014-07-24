@@ -32,7 +32,7 @@
 				<td><%= promotion.start_date.strftime("%m/%d/%y") %> - <%= promotion.expiry_date.strftime("%m/%d/%y") %></td>
 				<td><%= promotion.times_allowed %></td>
 				<td><%= promotion.discount %></td>
-				<td><%= promotion.hotel.name unless promotion.hotel.nil? %></td>
+				<td><%= promotion.hotel.name.titleize unless promotion.hotel.nil? %></td>
 				<% if can? :show, promotion %>
 					<td><%= link_to "Show", promotion_path(promotion) %></td>
 				<% end %>

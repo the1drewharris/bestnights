@@ -38,7 +38,7 @@
 									<% @arrivals.each do |arrival| %>
 										<tr>
 											<td align="center" valign="middle"><%= arrival.id %></td>
-											<td align="center" valign="middle"><%= arrival.traveler.name %></td>
+											<td align="center" valign="middle"><%= arrival.traveler.name.titleize %></td>
 										</tr>
 									<% end %>
 								<% end %>

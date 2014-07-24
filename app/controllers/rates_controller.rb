@@ -83,7 +83,8 @@ class RatesController < ApplicationController
     
     respond_to do |format|
       if @rate.save
-        format.html { redirect_to new_rate_path, notice: 'rate was successfully updated for sell.' }
+        flash[:success] = 'Rate Was Successfully Updated For Sell.'
+        format.html { redirect_to new_rate_path }
         format.json { render json: @rate, status: :created, location: @rate }
       else
         format.html { render action: "new", notice: 'Please fill all the information.' }
