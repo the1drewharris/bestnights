@@ -63,7 +63,7 @@
 								</thead>
 								<tbody>
 								<% if !@bookings.blank? %>
-									<% @bookings.each do |book| %>
+									<% @bookings.each_with_index do |book,index| %>
 									<% @room = Room.find(book.room_id) %>
 										<tr>
 											<td align="center" valign="middle"><%= book.id %></td>
@@ -72,11 +72,11 @@
 											<td align="center" valign="middle"><%= book.from_date  %></td>
 											<td align="center" valign="middle"><%= book.to_date %></td>
 											<td align="center" valign="middle"><%= book.night_number %></td>
-											<td align="center" valign="middle"><%= @commission_rate.amount %> % </td>
+											<td align="center" valign="middle"><%= @hotel.commission_rate.blank? ? "" : @hotel.commission_rate.amount %> % </td>
 											<td align="left" valign="middle"></td>
 											<td align="center" valign="middle"><%= book.price %></td>
-											<td align="left" valign="middle"><%= (book.price.to_f - @reserve_price.to_f) %></td>
-											<td align="center" valign="middle"><%= @reserve_price %></td>
+											<td align="left" valign="middle"><%= @hotel.commission_rate.blank? ? book.price : (book.price.to_f + @reserve_price[index].to_f) %></td>
+											<td align="center" valign="middle"><%= @reserve_price[index] %></td>
 											<td align="left" valign="middle"></td>
 										</tr>
 									<% end %>

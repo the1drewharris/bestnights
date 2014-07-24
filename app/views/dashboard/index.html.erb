@@ -1,5 +1,5 @@
-<header >
-  <h1 class="prop-title">Dashboard</h1>
+<header>
+  <h1 class="prop-title"><%= session[:hotel_name] %>(Id: <%= session[:hotel_id] %>)</h1>
 </header>
 <div id="dashboard" class="dashboard">
   <%= render partial: "/common/navigation_tab"%>

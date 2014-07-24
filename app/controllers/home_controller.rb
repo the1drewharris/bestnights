@@ -138,6 +138,9 @@ class HomeController < ApplicationController
       session[:checkin] = params[:date][:checkin]  unless params[:date].nil?
       session[:checkout] = params[:date][:checkout]  unless params[:date].nil?
       session[:search] = params[:search]
+      a = session[:checkout]
+      b = session[:checkin]
+      session[:nights] = (a.to_date - b.to_date).to_i
       # session[:roomtype] = params[:roomtype]
       
       session[:group] = params[:group]
@@ -145,7 +148,7 @@ class HomeController < ApplicationController
       
       hotel = HotelSearch.new(params)
       
-      @hotels = Hotel.search(params[:search])
+      @hotels = Hotel.search(params[:search]) 
       # @hotels = Hotel.all
       
       session[:hotel_ids] = []
@@ -245,7 +248,11 @@ class HomeController < ApplicationController
     session[:room_id] = params[:room_id]
     room = Room.find_by_hotel_id_and_id(params[:hotel_id],params[:room_id])
     numbers = params[:room_number].to_i
-    @amount = room.price.to_f * numbers
+    if !session[:nights].nil?
+      @amount = (room.price.to_f * numbers) * session[:nights]
+    else
+      @amount = room.price.to_f * numbers
+    end
     session[:subtotal] = @amount
     session[:roomtype] = params[:room_number].to_i
   end
@@ -303,7 +310,11 @@ class HomeController < ApplicationController
     room_ids = []
     room = Room.find_by_hotel_id_and_id(session[:hotel_id], session[:room_id])
     numbers = session[:roomtype].to_i
-    @amount = room.price.to_f * numbers
+    if !session[:nights].nil?
+      @amount = (room.price.to_f * numbers) * session[:nights]
+    else
+      @amount = room.price.to_f * numbers
+    end
     room_ids.push(room.id)
     session[:subtotal] = @amount
 

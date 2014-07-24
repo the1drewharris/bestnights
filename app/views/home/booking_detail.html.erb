@@ -114,7 +114,7 @@
 								<% end %>
 							<% end %>
 						</td>
-						<td class="price"><sup>$</sup><%= room.price.to_i %><br><span>Not included: 13.88% tax</span></td>
+						<td class="price"><sup>$</sup><%= room.price.to_i %><br></td>
 						<td>
 							<% @free.each do |fr| %>
 								<% if fr.has_key?(room.room_type.id) %>
