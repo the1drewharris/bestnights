@@ -4,34 +4,38 @@
  		<div class="link-sec"><%= link_to "Book History", traveler_booking_history_path(@traveler ) %> <%= link_to "Edit Profile", edit_traveler_traveler_path(@traveler) %> <%= link_to "Payment Information", book_hotel_path %>
  			<%= link_to "Change Password", change_password_traveler_path(@traveler) %>
  		</div>
- 		<div class="info blockinfo">
- 			<ul>
- 				<li>
-	 				<label>Credit Card Type:</label>
-	 				<%= @traveler.try(:credit_card_type).capitalize if @traveler.credit_card_type  %>
- 				</li>
- 				<li>
-	 				<label>Credit Card Number:</label>
-					<%= @traveler.try(:credit_card_number) %>
-				</li>
-				<li>
-					<label>CCV:</label>
-					<%= @traveler.try(:ccv) %>
-				</li>
-				<li>
-					<label>Credit Card Expiration Date:</label>
-					<%= @traveler.credit_card_expiry_date.strftime('%m/%y') if @traveler && @traveler.credit_card_expiry_date %>
-				</li>
-			</ul>
+ 		<form id="checkout" name="checkout" method="post" action="/checkout_confirm" accept-charset="UTF-8" >
+	 		<div class="info blockinfo">
+	 			<ul>
+	 				<li>
+		 				<label>Credit Card Type:</label>
+		 				<%= @traveler.try(:credit_card_type).capitalize if @traveler.credit_card_type  %>
+	 				</li>
+	 				<li>
+		 				<label>Credit Card Number:</label>
+						<%= @traveler.try(:credit_card_number) %>
+						<input type="hidden" value="<%= @traveler.email %>" name="email"></input>
+					</li>
+					<li>
+						<label>CCV:</label>
+						<input type="text" name="ccv"></input>
+					</li>
+					<li>
+						<label>Credit Card Expiration Date:</label>
+						<%= @traveler.credit_card_expiry_date.strftime('%m/%y') if @traveler && @traveler.credit_card_expiry_date %>
+					</li>
+				</ul>
 
-			
-		</div>
-		<div class="link-sec">
-		<% if !session[:room_id].blank? %>
-			<%= link_to  "Continue Booking",checkout_confirm_path(:email => @traveler.email),  style: "margin-left:-350px;" %>		
-		<% end %>
-		<div class="row back-link bking"><%= link_to "Back", traveler_path(@traveler.id) , class: "link" %></div>
-	</div>
+				
+			</div>
+			<div class="link-sec">
+				<% if !session[:room_id].blank? %>
+					<%#= link_to  "Continue Booking",checkout_confirm_path(:email => @traveler.email),  style: "margin-left:-350px;" %>
+					<input type="submit" value="Continue Booking" style="margin-left:-350px;"></style>	
+				<% end %>
+				<div class="row back-link bking"><%= link_to "Back", traveler_path(@traveler.id) , class: "link" %></div>
+			</div>
+		</form>
 			<%= render :partial => "common/home_footer" %>
  	</div>
 
