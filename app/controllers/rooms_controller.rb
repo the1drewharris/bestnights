@@ -63,7 +63,7 @@ class RoomsController < ApplicationController
       end      
     else
       flash[:errors] = @room.errors.full_messages
-      redirect_to :back  
+      redirect_to request.referer  
     end
   end
   

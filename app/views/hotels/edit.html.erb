@@ -46,6 +46,10 @@
 		  		<%= f.text_field(:email, class: "textfield") %>
 		  	</li>
 		  	<li>
+		  		<%= f.label :phone %>
+		  		<%= f.text_field(:phone, class: "textfield") %>
+		  	</li>
+		  	<li>
 		  		<%= f.label :fax %>
 		  		<%= f.text_field(:fax, class: "textfield") %>
 		  	</li>
@@ -147,6 +151,10 @@
 				<li class="flwidth">
 		  		<%= f.label :description %>
 		  		<%= f.text_area(:description, class: "textarea") %>
+		  	</li>
+		  	<li class="flwidth">
+		  		<%= f.label :policy %>
+		  		<%= f.text_area(:policy, class: "textarea") %>
 		  	</li>
 		  	<li class="flwidth">
 		  		<span class="formLabel">Cards</span>

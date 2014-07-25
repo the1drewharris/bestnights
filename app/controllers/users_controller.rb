@@ -28,7 +28,7 @@ class UsersController < ApplicationController
       redirect_to users_path and return
     else
       flash[:errors] = @user.errors.full_messages
-      redirect_to :back 
+      redirect_to request.referer
     end
   end
   
@@ -58,7 +58,7 @@ class UsersController < ApplicationController
         sign_in(user, :bypass => true) if is_current_user
         redirect_to users_path and return
       else
-        redirect_to :back
+        redirect_to request.referer
       end      
     end
   end
@@ -74,7 +74,7 @@ class UsersController < ApplicationController
       flash[:success] = "The manager was saved successfully!"
       redirect_to new_manager_path
     else
-      redirect_to :back  
+      redirect_to request.referer 
     end
   end
   

@@ -22,7 +22,7 @@ class VenuesController < ApplicationController
       redirect_to venues_path
     else
       flash[:errors] = @venue.errors.full_messages
-      redirect_to :back  
+      redirect_to request.referer  
     end
   end
   
@@ -38,7 +38,7 @@ class VenuesController < ApplicationController
       redirect_to venues_path
     else
       flash[:errors] = venue.errors.full_messages
-      redirect_to :back  
+      redirect_to request.referer 
     end
   end
   

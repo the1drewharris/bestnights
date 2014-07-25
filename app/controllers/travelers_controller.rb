@@ -34,7 +34,7 @@ class TravelersController < ApplicationController
   def create
     @traveler = Traveler.new(params[:traveler])
     if @traveler.save
-      flash[:success] = "The room type saved successfully!"
+      flash[:success] = "The traveler saved successfully!"
       redirect_to travelers_path
     else      
       flash[:errors] = @traveler.errors.full_messages
@@ -57,13 +57,12 @@ class TravelersController < ApplicationController
       end 
     else
       flash[:errors] = traveler.errors.full_messages
-      redirect_to :back  
+      redirect_to request.referer
     end
   end
   
   def change_password
     @traveler = Traveler.find_by_id(params[:id])
-    logger.info"&&&&&&&&&#{@traveler}&&&&&&&&&"
   end
 
   def destroy

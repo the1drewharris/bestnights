@@ -34,7 +34,7 @@
   
   # config.action_controller.asset_host = "10.0.0.126:2222"
 
-  config.action_mailer.default_url_options = { :host => '10.0.0.126:2222' }  
+  config.action_mailer.default_url_options = { :host => 'bestnights.indusnetlabs.com' }  
   
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true

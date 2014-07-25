@@ -96,7 +96,8 @@ class HotelsController < ApplicationController
       
       #flash[:success] = "The hotel updated successfully!"
       respond_to do |format|
-        format.html { redirect_to hotels_path, notice: "The hotel updated successfully!" }
+        flash[:success] = "The hotel updated successfully!"
+        format.html { redirect_to hotels_path }
         format.json { render json: @hotel }
       end
       #redirect_to hotels_path

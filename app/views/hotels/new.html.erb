@@ -35,6 +35,10 @@
 			  	<label for="State/Province" style="float:left">State/Province</label>
 							<%= render partial: '/hotels/test', locals: {parent_region: f.object.country_id} %>
 			  </li>
+			  <li>
+		  		<%= f.label "Phone" %>
+		  		<%= f.text_field(:zip, class: "textfield") %>
+		  	</li>
 		  	<li>
 		  		<%= f.label "Zip/Postal Code*" %>
 		  		<%= f.text_field(:zip, class: "textfield") %>
@@ -78,6 +82,10 @@
 				<li class="flwidth">
 		  		<%= f.label 'Description*' %>
 		  		<%= f.text_area :description, class: "textarea" %>
+		  	</li>
+		  	<li class="flwidth">
+		  		<%= f.label 'Policy*' %>
+		  		<%= f.text_area :policy, class: "textarea" %>
 		  	</li>
 		  </ul>	
 		</fieldset>

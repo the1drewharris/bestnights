@@ -5,11 +5,11 @@
     <table width="100%"  border="0" cellpadding="0" cellspacing="0" class="chectoutTable">
 
     <tr>
-        <td><strong>Address</string></td>
+        <td><strong>Address</strong></td>
         <td><%= @hotel.address1.titleize %>, <%= @hotel.city.titleize %></td>       
     </tr>
     <tr>
-        <td>Description</td>
+        <td><strong>Description</strong></td>
         <td><%= @hotel.description %></td>
     </tr>
     <tr><td><strong>Amenities and Facilities</strong></td>
@@ -22,7 +22,7 @@
     </td>
     </tr>
     <tr>
-        <td>Photo</td>
+        <td><strong>Photo</strong></td>
         <td>
     <% @hotel_photos.each do |photo| %>
       <span>
@@ -30,7 +30,11 @@
       </span>
     <% end %>
     </td>
+    </tr>
     <tr>
+        <td><strong>Policy</strong></td>
+        <td><%= @hotel.policy %></td>
+    </tr>
     <tr>
         <td><% if current_user.admin? %>
              <%= link_to "Add Contact", new_contact_person_path(hotel_id: @hotel.id ) %>
