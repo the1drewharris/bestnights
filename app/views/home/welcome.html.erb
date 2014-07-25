@@ -84,7 +84,7 @@
 	</ul>
 </fieldset>
 <fieldset>
-	<legend>Amenities</legend>
+	<legend>Amenities and Facilities</legend>
 		<ul class="col2">
 			<% HotelAttribute.all.each do |ha| %>
 				<li class="checkboxes"><label style="float:left"><%= ha.attr %></label><input type="checkbox" id="" name="hotel_attributes[<%= ha.id %>]" style="float:left; margin-top:4px;" ></li>

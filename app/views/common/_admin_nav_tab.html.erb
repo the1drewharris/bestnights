@@ -3,7 +3,7 @@
 		<%= link_to "Hotels", hotels_path %>
 	<% end %>
 	<% if current_user.admin? %>	
-		<%= link_to "Hotel Amenities", hotel_attributes_path %>
+		<%= link_to "Hotel Amenities and Facilities", hotel_attributes_path %>
 	<% end %>
 	<% if current_user.admin? %>
 		<%= link_to "Room Types", room_types_path %>

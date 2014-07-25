@@ -198,7 +198,7 @@ Your credit card is required to guarantee your booking. Please note that your cr
 				<h6>Contact</h6>
 				<p><%= @hotel.address1 %>, <%= @hotel.city %>, <%= @hotel.state.abbreviation if @hotel && @hotel.state %> <%= @hotel.zip %></p>
 				
-				<h6>Hotel Amenities</h6>
+				<h6>Hotel Amenities and Facilities</h6>
 				<!-- TODO hotel ammenties -->
 				<% @hotel.attributes.each do |attr| %>
 						<%#= attr.attr %>, 

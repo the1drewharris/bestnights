@@ -39,6 +39,27 @@
 		  	<li>
 		  		<%= f.label "Phone" %>
 		  		<%= f.text_field :phone_number %>
+		  	</li>	
+		  	<li>
+		  		<%= f.label "Credit Card Type" %>
+		  		<%= f.text_field :credit_card_type %>
+		  	</li>
+		  	<li>
+		  		<%= f.label "Credit Card Number" %>
+		  		<%= f.text_field :credit_card_number %>
+		  	</li>	
+		  	<li>
+		  		<%= f.label "CCV" %>
+		  		<%= f.text_field :ccv %>
+		  	</li>	
+		  	<li>
+		  		<%= f.label "Card Expiry Date" %>
+		  		<%= f.date_select("credit_card_expiry_date", :start_year => 1995,
+                       :use_month_numbers => true,
+                       :discard_day => true,
+                       :date_separator => '/',
+                       :order => [:month,:year],
+                       :html=>{:class => "date-select"} ) %>
 		  	</li>		  	
 		  </ul>	
 		</fieldset>

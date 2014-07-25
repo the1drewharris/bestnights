@@ -1,11 +1,11 @@
 <% if flash[:success] %>
-	<p class="success succes-color" style="text-align:center;">
+	<p class="success succes-color" style="text-align:center; font-size:16px">
 		<%= flash[:success] %>
 	</p>
 <% end %>
 
 <% if flash[:errors] %>
-	<p class="errors" style="text-align:center;color: red;">
+	<p class="errors" style="text-align:center;color: red;font-size:16px">
 		<% flash[:errors].each do |error| %>
 		  <%= error %>
 		  <br />

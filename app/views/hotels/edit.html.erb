@@ -148,10 +148,6 @@
 		  		<%= f.label :description %>
 		  		<%= f.text_area(:description, class: "textarea") %>
 		  	</li>
-		  	<li>
-		  		<%= f.label "Comission rate" %>
-		  		<%= f.text_field(:comission_rate, :value => @hotel.comission_rate,  :disabled => current_user.manager?,  class: "textfield") %>
-		  	</li>
 		  	<li class="flwidth">
 		  		<span class="formLabel">Cards</span>
 					<div class="checklist">
@@ -170,7 +166,7 @@
 					<div class="dropzone" id="hotel-dropzone" />
 				</li>
 				<li class="flwidth">
-					<span class="formLabel">Amenities</span>
+					<span class="formLabel">Amenities and Facilities</span>
 					<div class="checklist">
 						<ul>
 							<% @hotel_attributes.each do |attr| %>

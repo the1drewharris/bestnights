@@ -49,7 +49,7 @@ class TravelersController < ApplicationController
   def update
     traveler = Traveler.find(params[:id])    
     if traveler.update_attributes(params[:traveler])
-      flash[:success] = "The traveler updated successfully!"
+      flash[:success] = "Change Successful!"
       if session[:traveler_id]
         redirect_to traveler_path(traveler)
       else
