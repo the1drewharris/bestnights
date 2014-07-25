@@ -20,7 +20,7 @@ Bestnights::Application.routes.draw do
   match '/payments/thank_you', :to => 'payments#thank_you', :as => 'payments_thank_you', :via => [:get]
 
   devise_for :users#, :controllers => {:registrations => 'registrations'}
-  devise_for :travelers
+  devise_for :travelers, :skip => :registrations
       
   root :to => "home#index"
   

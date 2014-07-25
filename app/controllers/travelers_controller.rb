@@ -36,9 +36,9 @@ class TravelersController < ApplicationController
     if @traveler.save
       flash[:success] = "The room type saved successfully!"
       redirect_to travelers_path
-    else
+    else      
       flash[:errors] = @traveler.errors.full_messages
-      redirect_to :back  
+      redirect_to new_traveler_path  
     end
   end
   

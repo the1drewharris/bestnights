@@ -5,7 +5,7 @@
 </header>
 
 <div id="container-main">
-	<%= form_for @traveler do |f| %>
+	<%= form_for @traveler,:url => travelers_path(@traveler) do |f| %>
 		<fieldset>
 		  <ul>
 		  	<li>
@@ -21,6 +21,14 @@
 		  		<%= f.text_field :email %>
 		  	</li>
 		  	<li>
+		  		<%= f.label :password %>
+		  		<%= f.password_field :password %>
+		  	</li>
+		  	<li>
+		  		<%= f.label :password_confirmation %>
+		  		<%= f.password_field :password_confirmation %>
+		  	</li>
+		  	<li>
 		  		<%= f.label :address %>
 		  		<%= f.text_field :address1 %>
 		  	</li>
@@ -33,13 +41,15 @@
 					<%= f.country_select :country_id, priority: %w(US CA), prompt: 'Please select a country' %>
 			  </li>	
 			  <li>
-					<label for="State/Province" style="float:left">State/Province</label>
+					<%= f.label :state, 'State/Province',style: 'float:left;margin-left:370px;'%>
 					<%= render partial: 'home/test', locals: {parent_region: f.object.country_id} %>
 				</li>
+
 		  	<li>
 		  		<label>Zip/Postal Code</label>
 		  		<%= f.text_field :zip %>
 		  	</li>
+
 		  	<li>
 		  		<%= f.label "Phone" %>
 		  		<%= f.text_field :phone_number %>
