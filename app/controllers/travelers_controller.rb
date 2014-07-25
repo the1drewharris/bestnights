@@ -38,7 +38,7 @@ class TravelersController < ApplicationController
       redirect_to travelers_path
     else      
       flash[:errors] = @traveler.errors.full_messages
-      redirect_to new_traveler_path  
+      render 'new'  
     end
   end
   

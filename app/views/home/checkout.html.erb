@@ -51,11 +51,11 @@
 						</li> -->						
 						<li>
 				  		<%= f.label :password %>
-				  		<%= f.password_field :password, required: true, minlength: 8 %>
+				  		<%= f.password_field :password, required: true, minlength: 6 %>
 				  	</li>
 				  	<li>
 				  		<%= f.label :password_confirmation %>
-				  		<%= f.password_field :password_confirmation, required: true, minlength: 8,equalTo: "#traveler_password" %>
+				  		<%= f.password_field :password_confirmation, required: true, minlength: 6,equalTo: "#traveler_password" %>
 				  	</li>
 						<li>
 							<label for="address">Address</label>
