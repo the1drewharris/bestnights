@@ -46,7 +46,7 @@
 	</tr>
 	<tr>
 		<td><strong>Policy:</strong></td>
-		<td><%= @hotel.policy? ? "" : @hotel.policy  %></td>
+		<td><%= @hotel.policy.blank? ? "" : @hotel.policy  %></td>
 	</tr>
 	<tr>
 		<td><strong>Address:</strong></td>
