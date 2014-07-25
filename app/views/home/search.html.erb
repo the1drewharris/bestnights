@@ -93,7 +93,7 @@
 						</span>
 						<span class="bt-info"><%= link_to hotel.city.capitalize, booking_detail_path(:hotel_id => hotel.id) %>, <%= link_to hotel.zip, booking_detail_path(:hotel_id => hotel.id) %>
 						</span>
-						<span><strong>Policy:</strong> <%= hotel.policy.titleize %></span>		
+						<span><strong>Policy:</strong> <%= hotel.policy? ? "" : hotel.policy.titleize %></span>		
 			<% end %>
 		</div>
 	</section>
