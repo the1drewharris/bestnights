@@ -282,7 +282,7 @@ class HomeController < ApplicationController
     logger.info"=============22==22====#{params[:email]}================"
     if params[:traveler] && params[:traveler][:email] != params[:emailconfirm]
       flash[:errors] = ["confirm your email address"]
-      redirect_to checkout_path
+      redirect_to checkout_path(hotel_id: session[:hotel_id])
     end    
     unless current_traveler
       @traveler = Traveler.find_by_email(params[:email]) 
@@ -294,7 +294,7 @@ class HomeController < ApplicationController
         else 
         logger.info"&&&&&&&&&&&&&&&&&&&"        
           flash[:errors] = @traveler.errors
-          redirect_to checkout_path
+          redirect_to checkout_path(session[:hotel_id])
         end
       end
     else
@@ -346,8 +346,8 @@ puts "===============#{@traveler.inspect}"
         @booking = Booking.where(:traveler_id => @traveler.id, :hotel_id =>  @hotel)
         @numbers = numbers
         @latest_booked = Booking.where(traveler_id: @traveler.id, hotel_id: room.hotel.id).order("created_at DESC").limit(1)
-        @fax_email = FaxMailer.hotel_booking_mail(@traveler, session[:subtotal], params[:ccnumber], params[:ccv], params[:cardtype], @hotel, @checkin, @checkout, room_ids, @latest_booked, room).deliver
-        @fax_email_to_hotel = FaxMailer.email_to_hotel(@traveler, session[:subtotal], params[:ccnumber], params[:ccv], params[:cardtype], @hotel, @checkin, @checkout, room_ids, @latest_booked, room).deliver
+        @fax_email = FaxMailer.hotel_booking_mail(@traveler, session[:subtotal], params[:ccnumber], params[:ccv], params[:cardtype], @hotel, @checkin, @checkout, room_ids, @latest_booked, room,request.protocol,request.host_with_port).deliver
+        @fax_email_to_hotel = FaxMailer.email_to_hotel(@traveler, session[:subtotal], params[:ccnumber], params[:ccv], params[:cardtype], @hotel, @checkin, @checkout, room_ids, @latest_booked, room,request.protocol,request.host_with_port).deliver
         logger.info"====2222222222222222222==========#{@fax_email}=============="
     else
       flash[:errors] = ["Your booking failed!"]
