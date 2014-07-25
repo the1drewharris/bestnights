@@ -45,17 +45,15 @@
 							<%= f.label :email %>
 		  				<%= f.text_field :email, required: true, email: true %>
 						</li>
-						<!-- <li>
-							<label for="emailconfirm">Confirm Email Address</label>
-							<input id="email_confirm" type="text" name="emailconfirm" placeholder="confirm email address" >
-						</li> -->						
+				
 						<li>
 				  		<%= f.label :password %>
-				  		<%= f.password_field :password, required: true, minlength: 6 %>
+				  		<%= f.password_field :password, required: true, minlength: 6 , :placeholder => "Minimum 6 Characters" %>
 				  	</li>
+
 				  	<li>
 				  		<%= f.label :password_confirmation %>
-				  		<%= f.password_field :password_confirmation, required: true, minlength: 6,equalTo: "#traveler_password" %>
+				  		<%= f.password_field :password_confirmation, required: true, minlength: 6,equalTo: "#traveler_password", :placeholder => "Minimum 6 Characters" %>
 				  	</li>
 						<li>
 							<label for="address">Address</label>
