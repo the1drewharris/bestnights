@@ -24,6 +24,8 @@
 //= require sidebar
 
 $(document).ready(function() {
+    $('#new_traveler').validate();
+
 	$(".status-label").tooltip();
 	$("#room_number").change(function(){
 		$("#link_style").attr("href", $("#link_style").attr("href") + "&room_number=" + $(this).val())

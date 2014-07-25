@@ -4258,5 +4258,11 @@ span.status-label{
 	-moz-border-radius: 3px;
 	padding: 0 2px;
 }
+
+
+.error{
+	color: red;
+}
+
 /* End */
 
