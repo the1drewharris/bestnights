@@ -280,14 +280,14 @@ class HomeController < ApplicationController
   def checkout_confirm
     @hotel = Hotel.find(session[:hotel_id])
     unless current_traveler
-      @traveler = Traveler.find_by_email(params[:email])   
+      @traveler = Traveler.find_by_email(params[:email])  
       unless @traveler
         @traveler = Traveler.new(params[:traveler])
         if @traveler.save
           sign_in @traveler
-        else      
-          flash[:errors] = @traveler.errors
-          redirect_to checkout_path(session[:hotel_id])
+        else     
+          flash[:errors] = @traveler.errors.full_messages
+          redirect_to checkout_path(:hotel_id => @hotel.id, :room_id => session[:room_id])
         end
       end
     else
@@ -316,7 +316,6 @@ class HomeController < ApplicationController
     @checkin = session[:checkin]
     @checkout = session[:checkout]
 
-puts "===============#{@traveler.inspect}"
     if book(@traveler, session[:subtotal], params[:ccnumber], params[:ccv], params[:cardtype], @hotel, @checkin, @checkout, room_ids )
       ## Create booking record and availability record
 
@@ -327,7 +326,6 @@ puts "===============#{@traveler.inspect}"
                         adults: numbers, traveler_id: @traveler.id, night_number: number_nights)
         
         booking.save
-        logger.info"@@@@@@@@@@@@@@@#{from_date}@@@@@@@@@@@@@@@@@@@@#{to_date}@@@@@@@@@@"
         (from_date..to_date).each do |date|
           if availability = Availability.find_by_room_id_and_this_date(room.id, date)
             availability.update_attributes(count: availability.count - numbers)
@@ -341,7 +339,6 @@ puts "===============#{@traveler.inspect}"
         @latest_booked = Booking.where(traveler_id: @traveler.id, hotel_id: room.hotel.id).order("created_at DESC").limit(1)
         @fax_email = FaxMailer.hotel_booking_mail(@traveler, session[:subtotal], params[:ccnumber], params[:ccv], params[:cardtype], @hotel, @checkin, @checkout, room_ids, @latest_booked, room,request.protocol,request.host_with_port).deliver
         @fax_email_to_hotel = FaxMailer.email_to_hotel(@traveler, session[:subtotal], params[:ccnumber], params[:ccv], params[:cardtype], @hotel, @checkin, @checkout, room_ids, @latest_booked, room,request.protocol,request.host_with_port).deliver
-        logger.info"====2222222222222222222==========#{@fax_email}=============="
     else
       flash[:errors] = ["Your booking failed!"]
       redirect_to checkout_path

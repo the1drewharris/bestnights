@@ -7,7 +7,7 @@ class Traveler < ActiveRecord::Base
                   :credit_card_number, :ccv, :credit_card_expiry_date
   
   validates :firstname, :lastname, :address1, :city, :state_id, :country_id, :zip, presence: true
-  validates :email, presence: true, uniqueness: true
+  validates :email, presence: true, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
   validates :password, presence: true, on: :create
   validates :password, confirmation: true, on: :create
   validates :password, length: {minimum: 6}, on: :create
