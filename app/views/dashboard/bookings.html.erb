@@ -6,7 +6,7 @@
       <%= render partial: "/common/navigation_tab"%>
       <div class="rtSidebar">
         <div class="section">
-          <h3>Bookings</h3>
+          <h3 class="title-bcg">Bookings</h3>
           <div class="link-files">
 						<%= link_to "Download as CSV", download_booking_data_path(format: "csv"),  class: "csv" %> | <%= link_to "Download as Excel", export_in_excel_path(format: "xls"),  class: "xls" %>
 					</div>
@@ -32,7 +32,7 @@
 											<td align="center" valign="middle"><%= book.from_date  %></td>
 											<td align="center" valign="middle"><%= book.to_date %></td>
 											<td align="center" valign="middle"><%= book.price %></td>
-											<td align="left" valign="middle"><%= book.traveler.firstname.capitalize %>&nbsp;<%= book.traveler.lastname.capitalize %></td>
+											<td align="left" valign="middle"><%= book.traveler.blank? ? "" : book.traveler.firstname.capitalize %>&nbsp;<%= book.traveler.blank? ? "" : book.traveler.lastname.capitalize %></td>
 											<!-- <td><%#= @site_visitors.first["c"] %></td> -->
 										</tr>
 									<% end %>

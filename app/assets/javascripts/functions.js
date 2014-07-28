@@ -94,23 +94,23 @@
 		}
 		
 		// Fetching states from the country
-		$( ".country > select" ).change(function() {	
+		// $( ".country > select" ).change(function() {	
 			
-			var country_id = $(this).val();
+		// 	var country_id = $(this).val();
 			
-			$.ajax({
-				url: '/fetch_states.json',
-				type: "POST",
-				dataType: "json",
-				data: { country_id: country_id },
-				success: function (data) {
-					$('.state > select').empty();
-					$(data).each(function(i, state){
-						$('.state > select').append('<option value="' + state.id + '">' + state.state_province + '</option>');
-					});
-				}
-			});
-		});
+		// 	$.ajax({
+		// 		url: '/fetch_states.json',
+		// 		type: "POST",
+		// 		dataType: "json",
+		// 		data: { country_id: country_id },
+		// 		success: function (data) {
+		// 			$('.state > select').empty();
+		// 			$(data).each(function(i, state){
+		// 				$('.state > select').append('<option value="' + state.id + '">' + state.state_province + '</option>');
+		// 			});
+		// 		}
+		// 	});
+		// });
 		
 		// sign up page
 		if ($( '.tabs' ).length > 0) {

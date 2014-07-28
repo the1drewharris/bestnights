@@ -7,7 +7,6 @@
 
 <div id="profileInfo">
 	<% unless current_user.new_signup? %>
-		<%= link_to image_tag("/assets/dashboard.png"), my_hotels_path, class: "dashboard-icon" %>
 		You are logged in as 
 		<%= link_to "Site #{role}" , '#' %>
 		<%= link_to "Dashboard" , my_hotels_path %>

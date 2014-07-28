@@ -58,7 +58,7 @@
 					<% end %>
 				<% end %>
 				<% if current_user.admin? %>
-				  <td><%= hotel.user.email %></td>
+				  <td><%= hotel.user.blank? ? "" : hotel.user.email %></td>
 				<% end %>
 				<% if can? :show, hotel %>
 					<td><%= link_to "Show", hotel_path(hotel) %></td>

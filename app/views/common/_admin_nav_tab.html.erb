@@ -1,4 +1,10 @@
-<nav>	
+<nav>
+	<% if current_user.admin? %>
+		<%= link_to image_tag("/assets/dashboard.png"), hotels_path, class: "dashboard-icon" %>	
+	<% elsif current_user.manager? %>
+		<%= link_to image_tag("/assets/dashboard.png"), my_hotels_path, class: "dashboard-icon" %>
+	<% end %>
+
 	<% if current_user.admin? %>
 		<%= link_to "Hotels", hotels_path %>
 	<% end %>
