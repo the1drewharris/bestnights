@@ -12,7 +12,7 @@
 					<li><strong>Email:</strong><%= @traveler.email %></li>
 					<li>&nbsp;</li>
 					<li><strong>Address:</strong><%= @traveler.address1 %></li>
-					<li><%= @traveler.city %>, <%= @subregion.name %> <%= @traveler.zip %> <%= @country.name %></li>  
+					<li><%= @traveler.city %>, <%= @subregion.blank? ? "" : @subregion.name %> <%= @traveler.zip %> <%= @country.name %></li>  
 					<li>&nbsp;</li>
 					<li><strong>Phone Number:</strong><%= @traveler.phone_number %></li>
 						<li>&nbsp;</li>
