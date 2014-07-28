@@ -47,7 +47,8 @@ class RateCategoriesController < ApplicationController
 
     respond_to do |format|
       if @rate_category.save
-        format.html { redirect_to @rate_category, notice: 'Rate category was successfully created.' }
+        flash[:success] = "Rate category was successfully created."
+        format.html { redirect_to @rate_category }
         format.json { render json: @rate_category, status: :created, location: @rate_category }
       else
         format.html { render action: "new" }
@@ -63,6 +64,7 @@ class RateCategoriesController < ApplicationController
 
     respond_to do |format|
       if @rate_category.update_attributes(params[:rate_category])
+        flash[:success] = "Change Successful"
         format.html { redirect_to @rate_category, notice: 'Rate category was successfully updated.' }
         format.json { head :no_content }
       else

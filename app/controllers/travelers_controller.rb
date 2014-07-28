@@ -67,6 +67,7 @@ class TravelersController < ApplicationController
 
   def destroy
     Traveler.find(params[:id]).destroy
+    session[:room_id] = nil
     redirect_to travelers_path
   end
 

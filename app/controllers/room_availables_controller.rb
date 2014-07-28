@@ -56,7 +56,8 @@ layout "admin_basic"
 			@rooms = ""
 		end
 		respond_to do |format|
-      format.html { redirect_to new_room_available_path, notice: 'room was successfully updated for sell.' }
+	  flash[:success] = "Room was successfully updated for sell."
+      format.html { redirect_to new_room_available_path }
       format.json { render json: @room, status: :created, location: @room }
     end
 	end

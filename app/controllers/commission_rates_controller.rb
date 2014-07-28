@@ -48,7 +48,8 @@ class CommissionRatesController < ApplicationController
     @commission_rate.hotel_id = session[:hotel_id]
     respond_to do |format|
       if @commission_rate.save
-        format.html { redirect_to hotels_path, notice: 'Commission rate was successfully created.' }
+        flash[:success] = "Commission rate was successfully created."
+        format.html { redirect_to hotels_path }
         format.json { render json: @commission_rate, status: :created, location: @commission_rate }
       else
         format.html { render action: "new" }
@@ -64,7 +65,8 @@ class CommissionRatesController < ApplicationController
 
     respond_to do |format|
       if @commission_rate.update_attributes(params[:commission_rate])
-        format.html { redirect_to hotels_path, notice: 'Commission rate was successfully updated.' }
+        flash[:success] = "Change Successful"
+        format.html { redirect_to hotels_path }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

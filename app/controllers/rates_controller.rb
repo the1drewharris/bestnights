@@ -145,7 +145,8 @@ class RatesController < ApplicationController
 
     respond_to do |format|
       if @rate.update_attributes(params[:rate])
-        format.html { redirect_to @rate, notice: 'Rate was successfully updated.' }
+        flash[:success] = "Rate was successfully updated."
+        format.html { redirect_to @rate }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
