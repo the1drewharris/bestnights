@@ -105,7 +105,7 @@
 							<li>
 								<label for="ccexpiry">Credit Card Expiration Date</label>
 <span class="date-select">
-								<%= f.date_select("credit_card_expiry_date", :start_year => 1995,
+								<%= f.date_select("credit_card_expiry_date", :start_year => Time.now.year,
                        :use_month_numbers => true,
                        :discard_day => true,
                        :date_separator => '/',
@@ -115,7 +115,7 @@
 							</li>
 						</ul>
 					</fieldset>
-					<%= f.submit "Continue Booking", :class => "button4" %>
+					<%= f.submit "Continue Booking", :class => "button4", :id => "card_validation_check" %>
 				<% end %>	
 			</div>
 		</div>			
@@ -214,3 +214,29 @@
 }
 }
 </style>
+
+<script type="text/javascript">
+$("#card_validation_check").click(function(){
+   ccnum = $("#ccnumber").val();
+   cardtype= $("#cardtype").val();
+   if (ccnum.match("^4[0-9]{12}(?:[0-9]{3})?$") && ccnum.length == 16 && cardtype == "visa") {
+   		alert("VISA");
+   }
+   else if (ccnum.match("^5[1-5][0-9]{14}$") && ccnum.length == 16 && cardtype == "mc"){
+   	  alert("MASTERCARD");
+   }
+   else if(ccnum.match("^3[47][0-9]{13}$") && ccnum.length == 15 && cardtype == "amex") {
+   	   alert("AMERICAN EXPRESS");
+   }
+   else if (ccnum.match("^3(?:0[0-5]|[68][0-9])[0-9]{11}$") && ccnum.length == 14 && cardtype == "diners") {
+   	   alert("DINERS CLUB");
+   }
+   else if (ccnum.match("^6(?:011|5[0-9]{2})[0-9]{12}$") && ccnum.length == 16 && cardtype == "discover") {
+   		alert("DISCOVER");
+   }
+   else {
+   	   alert("Please enter a valid card number and card type");
+   	   return false;
+   }
+})
+</script>
