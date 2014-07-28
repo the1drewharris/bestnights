@@ -46,6 +46,7 @@ class RoomsController < ApplicationController
       @room_rate = RoomRate.new
       @room_rate.room_id = @room.id
       @room_rate.room_type_id = @room.room_type_id
+      @room_rate.hotel_id = @room.hotel_id
       @room_rate.rate_monday = @room.price
       @room_rate.rate_tuesday = @room.price
       @room_rate.rate_wednesday = @room.price
@@ -101,6 +102,22 @@ class RoomsController < ApplicationController
           end
         end
       end
+      logger.info"**********************#{room.price}*********************"
+      @room_rate = RoomRate.find_by_room_id(params[:id])
+      if @room_rate.nil?
+        @room_rate = RoomRate.new
+        @room_rate.room_id = params[:id] 
+        @room_rate.room_type_id = room.room_type_id
+        @room_rate.hotel_id = room.hotel_id
+      end
+      @room_rate.rate_monday = room.price
+      @room_rate.rate_tuesday = room.price
+      @room_rate.rate_wednesday = room.price
+      @room_rate.rate_thursday = room.price
+      @room_rate.rate_friday = room.price
+      @room_rate.rate_saturday = room.price
+      @room_rate.rate_sunday = room.price
+      @room_rate.save
       flash[:success] = "The room type saved successfully!"
       
       if current_user.new_signup?

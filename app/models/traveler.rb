@@ -6,7 +6,10 @@ class Traveler < ActiveRecord::Base
                   :phone_number, :state_id, :country_id, :password, :password_confirmation, :credit_card_type,
                   :credit_card_number, :ccv, :credit_card_expiry_date
   
-  validates :firstname, :lastname, :address1, :city, :state_id, :country_id, :zip, presence: true
+  validates :firstname, :format => { :with => /^[A-Za-z]+[\s?[A-Za-z]*]*$/ , :message => 'is not valid'}, presence: true
+  validates :address1, :state_id, :country_id, presence: true
+  validates :city, presence: true, :format => { :with => /^[A-Za-z]+$/ , :message => 'is not valid'}
+  validates :zip, presence: true, :format => { :with => /^[0-9]+$/, :message => 'is not valid'} 
   validates :email, presence: true, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
   validates :password, presence: true, on: :create
   validates :password, confirmation: true, on: :create

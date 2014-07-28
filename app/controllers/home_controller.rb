@@ -247,11 +247,12 @@ class HomeController < ApplicationController
     session[:hotel_id] = params[:hotel_id]
     session[:room_id] = params[:room_id]
     room = Room.find_by_hotel_id_and_id(params[:hotel_id],params[:room_id])
+    @Room = RoomRate.find(params[:room_id])
     numbers = params[:room_number].to_i
     if !session[:nights].nil?
-      @amount = (room.price.to_f * numbers) * session[:nights]
+      @amount = ((eval "@Room.rate_" + Date.today.strftime("%A").downcase).to_f * numbers) * session[:nights]
     else
-      @amount = room.price.to_f * numbers
+      @amount = (eval "@Room.rate_" + Date.today.strftime("%A").downcase).to_f * numbers
     end
     session[:subtotal] = @amount
     session[:roomtype] = params[:room_number].to_i
@@ -283,7 +284,7 @@ class HomeController < ApplicationController
       @traveler = Traveler.find_by_email(params[:email])  
       unless @traveler
         @traveler = Traveler.new(params[:traveler])
-        if @traveler.save
+        if @traveler.save!
           sign_in @traveler
         else     
           flash[:errors] = @traveler.errors.full_messages
@@ -304,11 +305,12 @@ class HomeController < ApplicationController
     number_nights = ((a.to_date - b.to_date).to_i) + 1 
     room_ids = []
     room = Room.find_by_hotel_id_and_id(session[:hotel_id], session[:room_id])
+    @Room = RoomRate.find(session[:room_id])
     numbers = session[:roomtype].to_i
     if !session[:nights].nil?
-      @amount = (room.price.to_f * numbers) * session[:nights]
+      @amount = ((eval "@Room.rate_" + Date.today.strftime("%A").downcase).to_f * numbers) * session[:nights]
     else
-      @amount = room.price.to_f * numbers
+      @amount = (eval "@Room.rate_" + Date.today.strftime("%A").downcase).to_f * numbers
     end
     room_ids.push(room.id)
     session[:subtotal] = @amount
@@ -340,6 +342,7 @@ class HomeController < ApplicationController
         @fax_email = FaxMailer.hotel_booking_mail(@traveler, session[:subtotal], params[:ccnumber], params[:ccv], params[:cardtype], @hotel, @checkin, @checkout, room_ids, @latest_booked, room,request.protocol,request.host_with_port).deliver
         @fax_email_to_hotel = FaxMailer.email_to_hotel(@traveler, session[:subtotal], params[:ccnumber], params[:ccv], params[:cardtype], @hotel, @checkin, @checkout, room_ids, @latest_booked, room,request.protocol,request.host_with_port).deliver
     else
+      logger.info"%%%%%%%%%%%%%%%%1234"
       flash[:errors] = ["Your booking failed!"]
       redirect_to checkout_path
     end        
