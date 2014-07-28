@@ -247,7 +247,7 @@ class HomeController < ApplicationController
     session[:hotel_id] = params[:hotel_id]
     session[:room_id] = params[:room_id]
     room = Room.find_by_hotel_id_and_id(params[:hotel_id],params[:room_id])
-    @Room = RoomRate.find(params[:room_id])
+    @Room = RoomRate.find_by_room_id(params[:room_id])
     numbers = params[:room_number].to_i
     if !session[:nights].nil?
       @amount = ((eval "@Room.rate_" + Date.today.strftime("%A").downcase).to_f * numbers) * session[:nights]
@@ -305,7 +305,7 @@ class HomeController < ApplicationController
     number_nights = ((a.to_date - b.to_date).to_i) + 1 
     room_ids = []
     room = Room.find_by_hotel_id_and_id(session[:hotel_id], session[:room_id])
-    @Room = RoomRate.find(session[:room_id])
+    @Room = RoomRate.find_by_room_id(session[:room_id])
     numbers = session[:roomtype].to_i
     if !session[:nights].nil?
       @amount = ((eval "@Room.rate_" + Date.today.strftime("%A").downcase).to_f * numbers) * session[:nights]

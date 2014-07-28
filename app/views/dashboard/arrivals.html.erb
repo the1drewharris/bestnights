@@ -31,6 +31,8 @@
                 <tr>
                   <td align="center" valign="middle">Reservation No</td>
                   <td align="center" valign="middle">Booker Name</td>
+                  <td align="center" valign="middle">From Date</td>
+                  <td align="center" valign="middle">To Date</td>
                 </tr>
               </thead>
               <tbody>
@@ -39,6 +41,8 @@
 										<tr>
 											<td align="center" valign="middle"><%= arrival.id %></td>
 											<td align="center" valign="middle"><%= arrival.traveler.name.titleize %></td>
+                      <td align="center" valign="middle"><%= arrival.from_date %></td>
+                      <td align="center" valign="middle"><%= arrival.to_date %></td>
 										</tr>
 									<% end %>
 								<% end %>
