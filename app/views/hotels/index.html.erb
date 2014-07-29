@@ -39,7 +39,7 @@
 		  		<td><%= hotel.name.titleize %></td>
 		  	<% end %>		  	
 				<td><%= hotel.city.capitalize %></td>
-				<td><%= hotel.state.state_province.capitalize unless hotel.state.nil? %></td>
+				<td><%= hotel.state_id %></td>
 				<td><%= hotel.address1.titleize %></td>
 				<td>
 					<% if hotel.commission_rate.blank? %>

@@ -61,8 +61,8 @@
             For:
           </div>
           <div class="row break">
-            <input id="so-0" type="checkbox" value="0" name="so">
-            <label for="so-0">All Rate Categories</label>
+            <input id="rc-0" type="checkbox" value="0" name="so">
+            <label for="rc-0">All Rate Categories</label>
           </div>
           <div class="row mrgntp15">
             or for one or more of these Rooms:
@@ -70,7 +70,7 @@
           <div id="so-inject" style="margin: 0 0 5px;"></div>
           <div class="row break">
           <% RateCategory.all.each do |rate|%>
-            <input type="checkbox" id="" name="rate_cat_id[<%= rate.id %>]" class="so">
+            <input type="checkbox" id="" name="rate_cat_id[<%= rate.id %>]" class="rc">
             <label><%= rate.name %></label><div style="clear:both;"></div>
           <% end %>
           </div>
@@ -136,6 +136,18 @@
       }
       else{
         $(".so").each(function(){
+          this.checked = false;
+        })    
+      }
+    })
+    $("#rc-0").click(function(event){
+      if(this.checked){
+        $(".rc").each(function(){
+          this.checked = true;
+        })
+      }
+      else{
+        $(".rc").each(function(){
           this.checked = false;
         })    
       }
