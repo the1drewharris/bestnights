@@ -4295,5 +4295,13 @@ span.status-label{
 	display: inline-block;
 	width: 250px;
 }
+#error_explanation{
+	padding-bottom: 9px;
+}
+#error_explanation h2{
+	color: #F15D58;
+	font-size: 18px;
+	text-transform: capitalize;
+}
 /* End */
 
