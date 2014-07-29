@@ -6,7 +6,7 @@
     <%= render partial: "/common/navigation_tab"%>
     <div class="rtSidebar">
       <div class="section overview">
-        <h3>Rates &amp; Availability overview</h3>
+        <h3 class="title-bcg">Rates &amp; Availability overview</h3>
         <div class="bookings blocks">
           <div class="table-grid">
             <div class="scrollHor">
@@ -30,9 +30,15 @@
                     <% @room_count = Room.where("room_type_id=? AND hotel_id=?",type.id,session[:hotel_id]).count %>
                   	<tr>
                   		<td class="grid-room-cell"><%= type.room_type %></td>
-                      <% @room_available = RoomAvailable.find_by_room_type_id(type.id) %>
+                      <% @room_available = RoomAvailable.find_by_room_type_id_and_hotel_id(type.id, session[:hotel_id]) %>
                       <% if !@room_available.nil? %>
                         <% @days = @room_available.days.tr('-','').delete(' ').split("\n") %>
+                        <% if !@room_available.availables_days.nil? %>
+                          <% @available_days = @room_available.availables_days.tr('-','').delete(' ').split("\n") %>
+                        <% else %>
+                          <% @available_days = [] %>
+                        <% end %>
+                        <% @rooms_to_sell = @room_available.number %>
                       <% end %>
                   		<% 15.times do |f| %>
                         <% if @days.include?(Date.today.advance(days: f).strftime("%A").downcase) %>
@@ -40,7 +46,7 @@
                         <% else %>
                           <% @booked_rooms.each do |booked| %>
                             <% if booked.has_key?(type.id) %>
-                              <% if booked[type.id][Date.today.advance(days: f).strftime("%u").to_i - 1] == 0 || @room_count == 0 %>
+                              <% if @rooms_to_sell == 0 || @rooms_to_sell - booked[type.id][Date.today.advance(days: f).strftime("%u").to_i - 1] <= 0 || !@available_days.include?(Date.today.advance(days: f).strftime("%A").downcase) %>
                                 <td class="status status-clickable status-none"><span class="status-label status-bookable"></span></td>
                               <% else %>
                                 <td class="status status-clickable status-bookable"><span class="status-label status-bookable"></span></td>
@@ -56,7 +62,15 @@
                         <% @booked_rooms.each do |booked| %>
                           <% if booked.has_key?(type.id) %>
                             <td>
-                              <%= booked[type.id][Date.today.advance(days: f).strftime("%u").to_i - 1] %>
+                              <% if @rooms_to_sell > 0 %>
+                                <% if @available_days.include?(Date.today.advance(days: f).strftime("%A").downcase) %>
+                                  <%= @rooms_to_sell - booked[type.id][Date.today.advance(days: f).strftime("%u").to_i - 1] %>
+                                <% else %>
+                                  0
+                                <% end %>
+                              <% else %>
+                                <%= @rooms_to_sell %>
+                              <% end %>
                             </td>
                           <% end %>
                         <% end %>

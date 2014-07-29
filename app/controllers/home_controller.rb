@@ -179,15 +179,16 @@ class HomeController < ApplicationController
     @free = []
     @room_types = RoomType.all
     @room_types.each do |type|
-      @rooms = Room.where("room_type_id=? AND hotel_id=?",type.id,params[:hotel_id])
+      #@rooms = Room.where("room_type_id=? AND hotel_id=?",type.id,params[:hotel_id])
+      @rooms = RoomAvailable.find_by_room_type_id_and_hotel_id(type.id,params[:hotel_id])
       @count = 0
-      @rooms.each do |room|
-        @booking = Booking.find_by_hotel_id_and_room_id(room.id,session[:hotel_id])
-        if !@booking.nil?
-          @count += 1
-        end
-      end
-      @free << {type.id => @rooms.count - @count}
+      # @rooms.each do |room|
+      #   @booking = Booking.find_by_hotel_id_and_room_id(room.id,session[:hotel_id])
+      #   if !@booking.nil?
+      #     @count += 1
+      #   end
+      # end
+      @free << {type.id => @rooms.number}
     end
     logger.info"************#{@free}*************"
     #TODO where is the room that has been booked?

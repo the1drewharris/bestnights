@@ -11,15 +11,16 @@ layout "admin_basic"
 	def create
 		@days = []
 		@rooms = []
+		@available_days = []
 		if !params[:room_id].blank? 
 			params[:room_id].each do |room|
-				@room = RoomAvailable.find_by_room_type_id(room[0])
+				@room = RoomAvailable.find_by_room_type_id_and_hotel_id(room[0],session[:hotel_id])
 				if @room.nil?
 					@room = RoomAvailable.new
 				end
 				@room.room_type_id = room[0]
 				if params[:closed] == "0"
-					@room.number = 0
+					# @room.number = 0
 					@weekdays = ["monday","tuesday","wednesday","thursday","friday","saturday","sunday"]
 					if !params[:days].blank?
 						params[:days].each do |day|
@@ -29,8 +30,8 @@ layout "admin_basic"
 					@weekdays.each do |day|
 						@days << day
 					end
-				elsif !params[:closed] || params[:closed] == "1"
-					@room.number = 0
+				elsif params[:closed] == "1"
+					# @room.number = 0
 					if !params[:days].blank? 
 						params[:days].each do |day|
 							@days << day[0]
@@ -38,6 +39,16 @@ layout "admin_basic"
 					else
 						@days = ""
 					end
+				elsif !params[:closed]
+					logger.info"^^^^^^^^^^^^^^^^^^^^"
+					if !params[:days].blank? 
+						params[:days].each do |day|
+							@available_days << day[0]
+						end
+					else
+						@available_days = ""
+					end
+					@room.availables_days = @available_days
 				end
 				@room.days = @days
 				if !params[:to_date].blank? 
@@ -50,6 +61,10 @@ layout "admin_basic"
 				else
 					@room.from_date = ""
 				end
+				if params[:rooms_to_sell]
+					@room.number = params[:rooms_to_sell]
+				end
+				@room.hotel_id = session[:hotel_id]
       	@room.save
 			end
 		else
@@ -67,6 +82,7 @@ layout "admin_basic"
 	end
 
 	def update_status
+		logger.info"**************#{params}******************"
 		@room = RoomAvailable.find(1)
 		@room.update_attributes(:status => params["closed"])
 		@room.save

@@ -10,10 +10,6 @@
           <form action="/room_availables" method="post">
           <div class="bookings blocks">
           <% my_date = Time.now %>
-          <div style="margin-bottom:10px; clear:both; overflow:hidden;">
-          <span>From Date: </span><%= text_field_tag 'from_date', "", :name => "from_date", :class => "datepicker1", :readonly => "readonly" %>
-          <span>To Date: </span><%= text_field_tag 'to_date', "", :name => "to_date", :class => "datepicker1", :readonly => "readonly" %>
-          </div>
           <div class="scroll">
             <table id="which" width="100%" border="0">
       <tbody>
