@@ -41,56 +41,27 @@ class RatesController < ApplicationController
   # POST /rates
   # POST /rates.json
   def create
-    logger.info"==================#{params}=================="
-    @day = []
-    @rooms = []
-    @category = []
-    if !params[:rate_cat_id].blank? 
+    @rooms = RoomRate.all
+    @rooms.each do |room|
       params[:days].each do |day|
-        @day << day[0]
+        a = "rate_"
+        f =a + day[0]
+        params[:room_id].each do |room|
+          ActiveRecord::Base.connection.execute("UPDATE room_rates SET " + f.to_s + "=" + params[:price].to_s + " WHERE room_type_id =" + room[0].to_s)
+        end
       end
-    else
-      @day = ""
+      room.save
     end
-
-    if !params[:room_id].blank?
-      params[:room_id].each do |room|
-        @rooms << room[0]
-      end
-    else
-      @rooms = ""
-    end
-
-    if !params[:rate_cat_id].blank?
-      params[:rate_cat_id].each do |rate_category|
-        @category << rate_category[0]
-      end
-    else 
-      @category = ""
-    end
-    if !params[:from_date].blank? 
-      @from_date = DateTime.strptime(params[:from_date], '%m/%d/%Y').to_date
-    else
-      @from_date = ""
-    end
-
-    if !params[:to_date].blank?
-      @to_date = DateTime.strptime(params[:to_date], '%m/%d/%Y').to_date
-    else
-      @to_date = ""
-    end
-    @rate = Rate.new(to_date: @to_date, from_date: @from_date, price: params[:price], day: @day, room_id: @rooms, category: @category  )
-    
     respond_to do |format|
-      if @rate.save
+      # if @rate.save!
         flash[:success] = 'Rate Was Successfully Updated For Sell.'
         format.html { redirect_to new_rate_path }
         format.json { render json: @rate, status: :created, location: @rate }
-      else
-        format.html { render action: "new", notice: 'Please fill all the information.' }
-        format.json { render json: @rate.errors, status: :unprocessable_entity }
-      end
-    end
+      # else
+      #   format.html { render action: "new", notice: 'Please fill all the information.' }
+      #   format.json { render json: @rate.errors, status: :unprocessable_entity }
+      # end
+    end  
   end
 
   def copy_yearly_rates
