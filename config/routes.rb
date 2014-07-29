@@ -20,7 +20,7 @@ Bestnights::Application.routes.draw do
   match '/payments/thank_you', :to => 'payments#thank_you', :as => 'payments_thank_you', :via => [:get]
 
   devise_for :users#, :controllers => {:registrations => 'registrations'}
-  devise_for :travelers, :skip => :registrations
+  devise_for :travelers
       
   root :to => "home#index"
   
@@ -89,6 +89,7 @@ Bestnights::Application.routes.draw do
   match 'about' => "home#about_us", :as => 'about'
   match 'travelers_login' => "travelers#travelers_login", :as => 'travelers_login'
   match 'traveler_login_create' => "travelers#traveler_login_create", :as => 'traveler_login_create', :via => :post
+  match 'traveler' => "travelers#show", :as => 'traveler_detail', :via => :get
 
   # resources :users, except: :create
   resources :users

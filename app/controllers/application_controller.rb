@@ -14,6 +14,8 @@ class ApplicationController < ActionController::Base
       elsif resource.front_desk?      
         hotels_url             
       end
+    elsif resource.is_a?(Traveler)
+      traveler_detail_url
     else
       super
     end

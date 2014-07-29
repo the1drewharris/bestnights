@@ -7,7 +7,7 @@
 	<%= link_to "Logout" , destroy_user_session_path, :method => :delete %>
 <% else %>
 	<% if controller.controller_name == "home" && controller.action_name == "index" %>
-		<%= link_to "Traveler Login",  travelers_login_path %>
+		<%= link_to "Traveler Login",  new_traveler_session_path %>
 	<% else %>
 		<%= link_to "Login",  new_user_session_path %>
 	<% end %>

@@ -1,5 +1,6 @@
 class TravelersController < ApplicationController
-  before_filter :authenticate_user!, only: [:new, :create]  
+  #before_filter :authenticate_user!, only: [:new, :create]
+  before_filter :authenticate_traveler!, only: [:booking_history, :edit_traveler, :show, :change_password]  
   layout "admin_basic", only: [:index, :new, :show, :edit]
   layout "traveler_basic", only: [:booking_history, :edit_traveler, :show, :change_password]
   def index
@@ -7,8 +8,8 @@ class TravelersController < ApplicationController
   end
   
   def show
-    @traveler = Traveler.find(params[:id])
-    session[:traveler_id] = @traveler.id
+    @traveler = current_traveler
+    session[:traveler_id] = current_traveler.id
   end
   
   def new
@@ -43,11 +44,11 @@ class TravelersController < ApplicationController
   end
   
   def edit
-    @traveler = Traveler.find(params[:id])
+    @traveler = Traveler.find(current_traveler.id)
   end
   
   def update
-    traveler = Traveler.find(params[:id])    
+    traveler = Traveler.find(current_traveler.id)    
     if traveler.update_attributes(params[:traveler])
       flash[:success] = "Change Successful!"
       if session[:traveler_id]
@@ -62,7 +63,7 @@ class TravelersController < ApplicationController
   end
   
   def change_password
-    @traveler = Traveler.find_by_id(params[:id])
+    @traveler = Traveler.find_by_id(current_traveler.id)
   end
 
   def destroy
@@ -72,19 +73,19 @@ class TravelersController < ApplicationController
   end
 
   def booking_history
-    @booking_histories = Booking.where("traveler_id=?", params[:traveler_id]).paginate(:page => params[:page], :per_page => 20).order('id DESC')
+    @booking_histories = Booking.where("traveler_id=?", current_traveler.id).paginate(:page => params[:page], :per_page => 20).order('id DESC')
   end
 
   def edit_traveler
-    @traveler = Traveler.find(params[:id])
+    @traveler = Traveler.find(current_traveler.id)
     session[:traveler_id] = @traveler.id
   end
 
   def cancel_booking
-    @booking = Booking.find_by_traveler_id_and_id(session[:traveler_id],params[:traveler_id])
+    @booking = Booking.find_by_traveler_id_and_id(current_traveler.id,params[:book_id])
     if !@booking.nil?
       @hotel = Hotel.find(@booking.hotel_id)
-      @traveler = Traveler.find_by_id(session[:traveler_id])
+      @traveler = Traveler.find_by_id(current_traveler.id)
       @booking.is_cancel = true
       @booking.save
       FaxMailer.hotel_cancel_mail(@traveler,@hotel,@booking.id).deliver
