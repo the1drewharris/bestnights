@@ -5,11 +5,8 @@
 <% end %>
 
 <% if flash[:errors] %>
-	<p class="errors" style="text-align:center;color: red;font-size:16px">
-		<% flash[:errors].each do |error| %>
-		  <%= error %>
-		  <br />
-		<% end %>
+	<p class="errors succes-color" style="text-align:center; font-size:16px">
+		  <%= flash[:errors] %>
 	</p>	
 <% end %>
 

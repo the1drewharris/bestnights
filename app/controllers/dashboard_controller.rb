@@ -4,9 +4,9 @@ class DashboardController < ApplicationController
   layout "admin_basic"
   
   def index
-    unless !session[:hotel_id].blank? 
+    if !params[:hotel_id].blank? 
       session[:hotel_id] = params[:hotel_id]
-    else
+    elsif !session[:hotel_id].blank? 
       session[:hotel_id] = session[:hotel_id]
     end
     @hotel = Hotel.find(session[:hotel_id])
@@ -98,28 +98,38 @@ class DashboardController < ApplicationController
     #   format.xls { send_data @bookings.to_csv(col_sep: "\t") }
     # end
     @bookings = Booking.where(:hotel_id => session[:hotel_id])
-    csv_string = CSV.generate do |csv|
-       csv << ["Booking_Number", "Total", "Arrival","Departure", "Booker_Name", "Night_Number", "Booking_Date"]
-       @bookings.each do |book|
-         csv << [book.id, book.price, book.from_date, book.to_date, book.traveler.name, book.night_number, book.created_at]
-       end
-    end   
-   send_data csv_string,
-   :type => 'text/csv; charset=iso-8859-1; header=present',
-   :disposition => "attachment; filename=bookings.csv"
+    if !@bookings.blank? 
+      csv_string = CSV.generate do |csv|
+         csv << ["Booking_Number", "Total", "Arrival","Departure", "Booker_Name", "Night_Number", "Booking_Date"]
+         @bookings.each do |book|
+           csv << [book.id, book.price, book.from_date, book.to_date, book.traveler.name, book.night_number, book.created_at]
+         end
+      end   
+     send_data csv_string,
+     :type => 'text/csv; charset=iso-8859-1; header=present',
+     :disposition => "attachment; filename=bookings.csv"
+    else
+      flash[:errors] = "There is no data"
+      redirect_to bookings_path
+    end
   end
 
   def export_in_excel
     @bookings = Booking.where(:hotel_id => session[:hotel_id])
-    csv_string = CSV.generate do |csv|
-       csv << ["Booking_Number", "Total", "Arrival","Departure", "Booker_Name", "Night_Number", "Booking_Date"]
-       @bookings.each do |book|
-         csv << [book.id, book.price, book.from_date, book.to_date, book.traveler.name, book.night_number, book.created_at]
-       end
-    end   
-   send_data csv_string,
-   :type => 'text/xls; charset=iso-8859-1; header=present',
-   :disposition => "attachment; filename=bookings.xls"
+    if !@bookings.blank? 
+      csv_string = CSV.generate do |csv|
+         csv << ["Booking_Number", "Total", "Arrival","Departure", "Booker_Name", "Night_Number", "Booking_Date"]
+         @bookings.each do |book|
+           csv << [book.id, book.price, book.from_date, book.to_date, book.traveler.name, book.night_number, book.created_at]
+         end
+      end   
+     send_data csv_string,
+     :type => 'text/xls; charset=iso-8859-1; header=present',
+     :disposition => "attachment; filename=bookings.xls"
+    else
+      flash[:errors] = "There is no data"
+      redirect_to bookings_path
+    end
   end
 
   def overview
@@ -226,32 +236,56 @@ class DashboardController < ApplicationController
 
   def download_reservation_data
     @bookings = Booking.where(:hotel_id => session[:hotel_id])
-    @commission_rate = CommissionRate.first
-    csv_string = CSV.generate do |csv|
-       csv << ["Booking_Number", "Booked_By", "Guest_Name","Checkin", "Checkout", "Room_Nights", "Commission", "Result", "Original_Amount", "Final_Amount", "Commission_Amount", "Remarks"]
-       @bookings.each do |book|
-          @reserve_price = (book.price.to_i * (@commission_rate.amount).to_f) / 100
-          csv << [book.id, book.traveler.name, book.traveler.name, book.from_date, book.to_date, book.night_number, @commission_rate.amount, "", book.price, book.price.to_f - @reserve_price.to_f, @reserve_price, ""]
-       end
-    end   
-   send_data csv_string,
-   :type => 'text/csv; charset=iso-8859-1; header=present',
-   :disposition => "attachment; filename=bookings.csv"
+    @hotel = Hotel.find_by_id(session[:hotel_id])
+    @reserve_price = []
+    @bookings.each do |booking|
+      if !@hotel.commission_rate.nil?
+        @reserve_price << (booking.price.to_i * (@hotel.commission_rate.amount).to_f) / 100
+      else
+        @reserve_price << 0
+      end
+    end
+    if !@bookings.blank?
+      csv_string = CSV.generate do |csv|
+         csv << ["Booking_Number", "Booked_By", "Guest_Name","Checkin", "Checkout", "Room_Nights", "Commission", "Result", "Original_Amount", "Final_Amount", "Commission_Amount", "Remarks"]
+         @bookings.each_with_index do |book,index|
+            csv << [book.id, book.traveler.blank? ? "" : book.traveler.name, book.traveler.blank? ? "" : book.traveler.name, book.from_date, book.to_date, book.night_number, @hotel.commission_rate.blank? ? "" : @hotel.commission_rate.amount, "", book.price, @hotel.commission_rate.blank? ? book.price : (book.price.to_f + @reserve_price[index].to_f), @reserve_price[index], ""]
+         end
+      end   
+     send_data csv_string,
+     :type => 'text/csv; charset=iso-8859-1; header=present',
+     :disposition => "attachment; filename=bookings.csv"
+    else
+      flash[:errors] = "There is no data"
+      redirect_to reservation_statements_path
+    end
   end
 
   def export_reservation_in_excel
     @bookings = Booking.where(:hotel_id => session[:hotel_id])
-    @commission_rate = CommissionRate.first
-    csv_string = CSV.generate do |csv|
-       csv << ["Booking_Number", "Booked_By", "Guest_Name","Checkin", "Checkout", "Room_Nights", "Commission", "Result", "Original_Amount", "Final_Amount", "Commission_Amount", "Remarks"]
-       @bookings.each do |book|
-          @reserve_price = (book.price.to_i * (@commission_rate.amount).to_f) / 100
-          csv << [book.id, book.traveler.name, book.traveler.name, book.from_date, book.to_date, book.night_number, @commission_rate.amount, "", book.price, book.price.to_f - @reserve_price.to_f, @reserve_price, ""]
-       end
+    @hotel = Hotel.find_by_id(session[:hotel_id])
+    @reserve_price = []
+    @bookings.each do |booking|
+      if !@hotel.commission_rate.nil?
+        @reserve_price << (booking.price.to_i * (@hotel.commission_rate.amount).to_f) / 100
+      else
+        @reserve_price << 0
+      end
     end
-    send_data csv_string,
-    :type => 'text/xls; charset=iso-8859-1; header=present',
-    :disposition => "attachment; filename=bookings.xls"
+    if !@bookings.blank?
+      csv_string = CSV.generate do |csv|
+         csv << ["Booking_Number", "Booked_By", "Guest_Name","Checkin", "Checkout", "Room_Nights", "Commission", "Result", "Original_Amount", "Final_Amount", "Commission_Amount", "Remarks"]
+         @bookings.each_with_index do |book,index|
+            csv << [book.id, book.traveler.blank? ? "" : book.traveler.name, book.traveler.blank? ? "" : book.traveler.name, book.from_date, book.to_date, book.night_number, @hotel.commission_rate.blank? ? "" : @hotel.commission_rate.amount, "", book.price, @hotel.commission_rate.blank? ? book.price : (book.price.to_f + @reserve_price[index].to_f), @reserve_price[index], ""]
+         end
+      end   
+     send_data csv_string,
+     :type => 'text/xls; charset=iso-8859-1; header=present',
+     :disposition => "attachment; filename=bookings.xls"
+    else
+      flash[:errors] = "There is no data"
+      redirect_to reservation_statements_path
+    end
   end
 
   def download_reservation_data_month

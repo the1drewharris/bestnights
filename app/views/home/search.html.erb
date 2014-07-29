@@ -84,18 +84,22 @@
 	<section class="resBlock">
 		<h5>Top Results</h5>
 		<div id="">
-			<% @hotels.each do |hotel| %>
-			<p><%= link_to hotel.name.capitalize, booking_detail_path(:hotel_id => hotel.id) %></p>
-						<span class="starrating">
-							<% hotel.star.to_i.times do %>
-								&#10029;
-							<% end %>
-						</span>
-						<span class="bt-info"><%= link_to hotel.city.capitalize, booking_detail_path(:hotel_id => hotel.id) %>, <%= link_to hotel.zip, booking_detail_path(:hotel_id => hotel.id) %>
-						</span>
-						<span><strong>Policy:</strong> 
-							<%= hotel.policy.blank? ? "" : hotel.policy.titleize %>
-						</span>		
+			<% if !@hotels.blank? %>
+				<% @hotels.each do |hotel| %>
+				<p><%= link_to hotel.name.capitalize, booking_detail_path(:hotel_id => hotel.id) %></p>
+							<span class="starrating">
+								<% hotel.star.to_i.times do %>
+									&#10029;
+								<% end %>
+							</span>
+							<span class="bt-info"><%= link_to hotel.city.capitalize, booking_detail_path(:hotel_id => hotel.id) %>, <%= link_to hotel.zip, booking_detail_path(:hotel_id => hotel.id) %>
+							</span>
+							<span><strong>Policy:</strong> 
+								<%= hotel.policy.blank? ? "" : hotel.policy.titleize %>
+							</span>		
+				<% end %>
+			<% else %>
+			 <p> No Result Found </p>
 			<% end %>
 		</div>
 	</section>
