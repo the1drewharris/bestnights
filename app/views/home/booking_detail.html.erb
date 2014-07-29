@@ -24,7 +24,7 @@
 		</div>
 	</section>
 	
-	<a href="#bookingoptions" class="button5" onclick="scrollToAnchor('book');">Book Now</a>
+	<a href="#bookingoptions" class="button5" onclick="scrollToAnchor('book');" id="booking_hotel">Book Now</a>
 	<section class="description">
 		<p><%= @hotel.description %></p>
 		<div class="details">
@@ -108,19 +108,24 @@
 							  <%= ra.attr + ', ' %>
 							<% end %>	
 						</td>
-						<td>
+						<td class="room_available">
 							<% @free.each do |fr| %>
 								<% if fr.has_key?(room.room_type.id) %>
 									<%= fr[room.room_type.id] %>
 								<% end %>
 							<% end %>
 						</td>
+
 						<td class="price"><sup>$</sup>
 							<% if !@room.nil? %>
 								<%= eval "@room.rate_" + Date.today.strftime("%A").downcase %>
 							<% end %>
 							<br></td>
 						<td>
+
+						<td class="price"><sup>$</sup><%= room.price.to_i %><br></td>
+						<td class="room_number">
+
 							<% @free.each do |fr| %>
 								<% if fr.has_key?(room.room_type.id) %>
 									<% if fr[room.room_type.id] != 0 %>
@@ -156,4 +161,22 @@
 	var kept_cur = (new Date("<%= session[:checkout] %>")).getTime(); // kept date
 	var kept_roomtype = "<%= session[:roomtype] %>";
 	var kept_group = gon.group;
+</script>
+
+<script type="text/javascript">
+ //room_number
+ $("#link_style").click(function(){
+ 	var room_needed = $(this).parent().siblings(".room_number").children("#room_number").val();
+ 	var room_avail = parseInt($(this).parent().siblings(".room_available").html());
+ 	if (room_needed <= room_avail && room_needed != '') {
+ 		return true;
+ 	}
+ 	else if (room_needed > 0) {
+ 		alert(room_needed + " " + "rooms are not available");
+ 		return false;
+ 	}
+ 	else {
+ 		return false;
+ 	}
+ })
 </script>
