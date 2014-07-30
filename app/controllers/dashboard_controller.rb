@@ -290,16 +290,21 @@ class DashboardController < ApplicationController
 
   def download_reservation_data_month
     @bookings = Booking.where("MONTH(created_at)=?",cookies[:month].to_i)
-    @bookings.each do |booking|
-      @room = Room.find_by_id(booking.room_id)
-      booking.room_type = @room.room_type
-      booking.save
-    end
-    respond_to do |format|
-      format.html
-      format.pdf do
-        render :pdf => "monthly_invoice_status"
+    if !@bookings.blank? 
+      @bookings.each do |booking|
+        @room = Room.find_by_id(booking.room_id)
+        booking.room_type = @room.room_type
+        booking.save
       end
+      respond_to do |format|
+        format.html
+        format.pdf do
+          render :pdf => "monthly_invoice_status"
+        end
+      end
+    else
+      flash[:errors] = "There is no invoices in this month"
+      redirect_to reservation_statements_path
     end
   end
 

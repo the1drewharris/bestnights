@@ -84,7 +84,7 @@ Bestnights::Application.routes.draw do
   match 'finance_info' => "dashboard#finance_info", :as => 'finance_info'
   match 'invoicing_details' => "dashboard#invoicing_details", :as => 'invoicing_details'
   match 'find_room_details' => "dashboard#find_room_details", :as => 'find_room_details'
-  match 'download_reservation_data_month' => "dashboard#download_reservation_data_month", :as => 'download_reservation_data_month'
+  match 'download_reservation_data_month' => "dashboard#download_reservation_data_month", :as => 'download_reservation_data_month', :via => :get
   match 'download_statement_data_month' => "dashboard#download_statement_data_month", :as => 'download_statement_data_month'
   match 'about' => "home#about_us", :as => 'about'
   match 'travelers_login' => "travelers#travelers_login", :as => 'travelers_login'
