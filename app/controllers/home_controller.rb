@@ -189,7 +189,7 @@ class HomeController < ApplicationController
       #     @count += 1
       #   end
       # end
-      @free << {type.id => @rooms.number}
+      @free << {type.id => @rooms.nil? ? 0 : @rooms.number}
     end
     logger.info"************#{@free}*************"
     #TODO where is the room that has been booked?

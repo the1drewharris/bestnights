@@ -47,13 +47,13 @@ class RoomsController < ApplicationController
       @room_rate.room_id = @room.id
       @room_rate.room_type_id = @room.room_type_id
       @room_rate.hotel_id = @room.hotel_id
-      @room_rate.rate_monday = @room.price
-      @room_rate.rate_tuesday = @room.price
-      @room_rate.rate_wednesday = @room.price
-      @room_rate.rate_thursday = @room.price
-      @room_rate.rate_friday = @room.price
-      @room_rate.rate_saturday = @room.price
-      @room_rate.rate_sunday = @room.price
+      @room_rate.rate_monday = params[:rate_monday]
+      @room_rate.rate_tuesday = params[:rate_tuesday]
+      @room_rate.rate_wednesday = params[:rate_wednesday]
+      @room_rate.rate_thursday = params[:rate_thursday]
+      @room_rate.rate_friday = params[:rate_friday]
+      @room_rate.rate_saturday = params[:rate_saturday]
+      @room_rate.rate_sunday = params[:rate_sunday]
       @room_rate.save
       flash[:success] = "The room type saved successfully!"
       
@@ -110,13 +110,13 @@ class RoomsController < ApplicationController
         @room_rate.room_type_id = room.room_type_id
         @room_rate.hotel_id = room.hotel_id
       end
-      @room_rate.rate_monday = room.price
-      @room_rate.rate_tuesday = room.price
-      @room_rate.rate_wednesday = room.price
-      @room_rate.rate_thursday = room.price
-      @room_rate.rate_friday = room.price
-      @room_rate.rate_saturday = room.price
-      @room_rate.rate_sunday = room.price
+      @room_rate.rate_monday = params[:rate_monday]
+      @room_rate.rate_tuesday = params[:rate_tuesday]
+      @room_rate.rate_wednesday = params[:rate_wednesday]
+      @room_rate.rate_thursday = params[:rate_thursday]
+      @room_rate.rate_friday = params[:rate_friday]
+      @room_rate.rate_saturday = params[:rate_saturday]
+      @room_rate.rate_sunday = params[:rate_sunday]
       @room_rate.save
       flash[:success] = "The room type saved successfully!"
       

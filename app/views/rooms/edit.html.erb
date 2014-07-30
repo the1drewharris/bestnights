@@ -16,12 +16,32 @@
 			  		<%= f.text_field(:name, class: "textfield") %>
 			  	</li>		  	
 			  	<li>
-			  		<%= f.label :price %>
-			  		<%= f.text_field(:price, class: "textfield") %>
+		  		<label>Monday Price</label>
+		  			<%= text_field_tag 'rate_monday', @room.room_rates.blank? ? "" : number_with_precision(@room.room_rates.last.rate_monday, :precision => 2, :separator => '.', :delimiter => ',') %>
 			  	</li>
 			  	<li>
-			  		<%= f.label :original_price %>
-			  		<%= f.text_field(:original_price, class: "textfield") %>
+			  		<label>Tuesday Price</label>
+			  		<%= text_field_tag 'rate_tuesday', @room.room_rates.blank? ? "" : number_with_precision(@room.room_rates.last.rate_tuesday, :precision => 2, :separator => '.', :delimiter => ',') %>
+			  	</li>
+			  	<li>
+			  		<label>Wednesday Price</label>
+			  		<%= text_field_tag 'rate_wednesday', @room.room_rates.blank? ? "" : number_with_precision(@room.room_rates.last.rate_wednesday, :precision => 2, :separator => '.', :delimiter => ',') %>
+			  	</li>
+			  	<li>
+			  		<label>Thursday Price</label>
+			  		<%= text_field_tag 'rate_thursday', @room.room_rates.blank? ? "" : number_with_precision(@room.room_rates.last.rate_thursday, :precision => 2, :separator => '.', :delimiter => ',') %>
+			  	</li>
+			  	<li>
+			  		<label>Friday Price</label>
+			  		<%= text_field_tag 'rate_friday', @room.room_rates.blank? ? "" : number_with_precision(@room.room_rates.last.rate_friday, :precision => 2, :separator => '.', :delimiter => ',') %>
+			  	</li>
+			  	<li>
+			  		<label>Saturday Price</label>
+			  		<%= text_field_tag 'rate_saturday', @room.room_rates.blank? ? "" : number_with_precision(@room.room_rates.last.rate_saturday, :precision => 2, :separator => '.', :delimiter => ',') %>
+			  	</li>
+			  	<li>
+			  		<label>Sunday Price</label>
+			  		<%= text_field_tag 'rate_sunday', @room.room_rates.blank? ? "" : number_with_precision(@room.room_rates.last.rate_sunday, :precision => 2, :separator => '.', :delimiter => ',') %>
 			  	</li>
 			  	<li>
 			  		<%= f.label "Addional adult fee" %>
