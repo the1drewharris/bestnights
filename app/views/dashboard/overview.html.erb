@@ -47,7 +47,7 @@
                           <% @booked_rooms.each do |booked| %>
                             <% if booked.has_key?(type.id) %>
                               <% if @rooms_to_sell == 0 || @rooms_to_sell - booked[type.id][Date.today.advance(days: f).strftime("%u").to_i - 1] <= 0 || !@available_days.include?(Date.today.advance(days: f).strftime("%A").downcase) %>
-                                <td class="status status-clickable status-none"><span class="status-label status-bookable">x</span></td>
+                                <td class="status status-clickable status-none"><span style="padding-left:0px;" class="status-label status-bookable">x</span></td>
                               <% else %>
                                 <td class="status status-clickable status-bookable"><span class="status-label status-bookable"></span></td>
                               <% end %>
@@ -145,7 +145,11 @@
                   </tr>
                   <tr>
                     <td class="status status-none"><span class="status-label status-none"> </span></td>
-                    <td>No Rooms and/or No Price</td>
+                    <td>Room inventory available, but no price set yet</td>
+                  </tr>
+                  <tr>
+                    <td class="status status-none"><span style="padding-left:0px;" class="status-label status-none">X</span></td>
+                    <td>Sold Out (No Inventory)</td>
                   </tr>
                 </tbody>
               </table>

@@ -42,26 +42,23 @@ class RatesController < ApplicationController
   # POST /rates.json
   def create
     @rooms = RoomRate.all
-    @rooms.each do |room|
-      params[:days].each do |day|
-        a = "rate_"
-        f =a + day[0]
-        params[:room_id].each do |room|
-          ActiveRecord::Base.connection.execute("UPDATE room_rates SET " + f.to_s + "=" + params[:price].to_s + " WHERE room_type_id =" + room[0].to_s)
+      if !params[:room_id].blank?
+        @rooms.each do |room|
+          params[:days].each do |day|
+            a = "rate_"
+            f =a + day[0]
+            params[:room_id].each do |room|
+              ActiveRecord::Base.connection.execute("UPDATE room_rates SET " + f.to_s + "=" + params[:price].to_s + " WHERE room_type_id =" + room[0].to_s)
+            end
+          end
+          room.save
         end
-      end
-      room.save
-    end
-    respond_to do |format|
-      # if @rate.save!
         flash[:success] = 'Rate Was Successfully Updated For Sell.'
-        format.html { redirect_to new_rate_path }
-        format.json { render json: @rate, status: :created, location: @rate }
-      # else
-      #   format.html { render action: "new", notice: 'Please fill all the information.' }
-      #   format.json { render json: @rate.errors, status: :unprocessable_entity }
-      # end
-    end  
+        redirect_to new_rate_path
+      else
+        flash[:errors] = 'You need to select days, category and rooms '
+        redirect_to new_rate_path
+      end        
   end
 
   def copy_yearly_rates
