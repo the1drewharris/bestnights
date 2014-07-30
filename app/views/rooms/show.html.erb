@@ -1,5 +1,5 @@
 <% content_for :title, "BestNights.com - Room Type" %>
-<%= link_to "Update Room/Rate details", rate_details_path(room_id: @room.id ) , class: "link_style" %>
+<%#= link_to "Update Room/Rate details", rate_details_path(room_id: @room.id ) , class: "link_style" %>
 <div id="container-main">
 		<h1 class="prop-title">View</h2>
 	<div class="view blocks store-view">
@@ -12,7 +12,7 @@
 		  <td align="center" valign="middle">Room Description</td>
 		  <td align="center" valign="middle">Room Specification</td>
 		  <td align="center" valign="middle">Amenities and Facilities</td>
-		  <td align="left" valign="middle">Price</td>
+		  <td align="left" valign="middle">Price of Different Days</td>
 		  <td align="center" valign="middle">Max People</td>
 		  <td align="center" valign="middle">M,ax Children</td>
 		  <td align="center" valign="middle">Room Size</td>
@@ -48,9 +48,17 @@
 				<% end %>
 			</td>		
 		  <td align="center" valign="middle">
-		  	<% if !@room.price.nil?  %>
-					<%= @room.price %>
-				<% end %>
+		  	<% if !@room.room_rates.first.rate_monday.nil?  %>  
+			  	<ul>
+						<li>Monday: <%= number_with_precision(@room.room_rates.last.rate_monday, :precision => 2, :separator => '.', :delimiter => ',') %></li>
+						<li>Tuesday: <%= number_with_precision(@room.room_rates.last.rate_tuesday, :precision => 2, :separator => '.', :delimiter => ',') %></li>
+						<li>Wednesday: <%= number_with_precision(@room.room_rates.last.rate_wednesday, :precision => 2, :separator => '.', :delimiter => ',') %></li>
+						<li>Thursday: <%= number_with_precision(@room.room_rates.last.rate_thursday, :precision => 2, :separator => '.', :delimiter => ',') %></li>
+						<li>Friday: <%= number_with_precision(@room.room_rates.last.rate_friday, :precision => 2, :separator => '.', :delimiter => ',') %></li>
+						<li>Saturday: <%= number_with_precision(@room.room_rates.last.rate_saturday, :precision => 2, :separator => '.', :delimiter => ',') %></li>
+						<li>Sunday: <%= number_with_precision(@room.room_rates.last.rate_sunday, :precision => 2, :separator => '.', :delimiter => ',') %></li>					
+					</ul>
+			<% end %>
 			</td>
 		  <td align="center" valign="middle">
 		  	<% if !@room.max_people.nil?  %>

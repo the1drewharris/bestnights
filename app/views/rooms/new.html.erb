@@ -17,12 +17,32 @@
 		  		<%= f.text_field :name %>
 		  	</li>
 		  	<li>
-		  		<%= f.label :price %>
-		  		<%= f.text_field :price %>
+		  		<label>Monday Price</label>
+		  		<%= text_field_tag 'rate_monday' %>
 		  	</li>
 		  	<li>
-		  		<%= f.label :original_price %>
-		  		<%= f.text_field :original_price %>
+		  		<label>Tuesday Price</label>
+		  		<%= text_field_tag 'rate_tuesday' %>
+		  	</li>
+		  	<li>
+		  		<label>Wednesday Price</label>
+		  		<%= text_field_tag 'rate_wednesday' %>
+		  	</li>
+		  	<li>
+		  		<label>Thursday Price</label>
+		  		<%= text_field_tag 'rate_thursday' %>
+		  	</li>
+		  	<li>
+		  		<label>Friday Price</label>
+		  		<%= text_field_tag 'rate_friday' %>
+		  	</li>
+		  	<li>
+		  		<label>Saturday Price</label>
+		  		<%= text_field_tag 'rate_saturday' %>
+		  	</li>
+		  	<li>
+		  		<label>Sunday Price</label>
+		  		<%= text_field_tag 'rate_sunday' %>
 		  	</li>
 		  	<li>
 		  		<%= f.label "Additional Adult Fee" %>
