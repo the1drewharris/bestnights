@@ -14,8 +14,9 @@ class Room < ActiveRecord::Base
   has_many :room_photos, dependent: :destroy
   has_many :room_attribute_joins, dependent: :destroy
   has_many :room_attributes, through: :room_attribute_joins
-  has_many :room_rate_details
-  has_many :room_rates
+  has_many :room_rate_details, dependent: :destroy
+  has_many :room_rates, dependent: :destroy
+  has_many :room_availables, dependent: :destroy
   
   def self.latest_rooms
     find :all, :order => "updated_at DESC"
