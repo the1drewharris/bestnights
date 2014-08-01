@@ -27,11 +27,11 @@
 					</li>
 				  <li>
 				  	<%= f.label 'Password*' %>
-			  		<%= f.password_field :password %>
+			  		<%= f.password_field :password, required: true, minlength: 6 , :placeholder => "Minimum 6 Characters" %>
 					</li>
 				  <li>
 				  	<%= f.label 'Password confirmation*' %>
-			  		<%= f.password_field :password_confirmation %>
+			  		<%= f.password_field :password_confirmation, required: true, minlength: 6 , :placeholder => "Minimum 6 Characters" %>
 					</li>
 				  <li>
 				  	<%= f.label 'Address*' %>
