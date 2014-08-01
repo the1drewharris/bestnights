@@ -26,7 +26,7 @@ class HotelAttributesController < ApplicationController
       flash[:success] = "The hotel attribute saved successfully!"
       redirect_to hotel_attributes_path
     else
-      flash[:errors] = @hotel_attribute.errors.full_messages
+      flash[:errors] = "Amenities can't be blank"
       redirect_to :back  
     end
   end
