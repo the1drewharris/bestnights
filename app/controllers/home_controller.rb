@@ -339,6 +339,7 @@ class HomeController < ApplicationController
 
 
     room_ids.push(room.id)
+    @room_amount = (eval "@Room.rate_" + Date.today.strftime("%A").downcase).to_f
     session[:subtotal] = @amount
 
     @checkin = session[:checkin]

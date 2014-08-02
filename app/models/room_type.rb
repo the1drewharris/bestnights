@@ -7,8 +7,8 @@ class RoomType < ActiveRecord::Base
   
   has_many :bookings
   has_many :rooms
-
   has_many :room_types
+  has_many :room_availables
   
   scope :activated, -> { where(status: "active") }
   

@@ -2,6 +2,7 @@ class Booking < ActiveRecord::Base
   attr_accessible :hotel_id, :room_id, :price, :from_date, :to_date, :adults, :children, :message, :traveler_id, :night_number
   belongs_to :hotel
   belongs_to :room_type
+  belongs_to :room
   belongs_to :traveler
   
   validates :hotel_id, :room_id, :from_date, :to_date, presence: true

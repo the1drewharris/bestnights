@@ -133,42 +133,37 @@ class DashboardController < ApplicationController
   end
 
   def overview
-    @booked_rooms = []
-    @book_monday = 0
-    @book_tuesday = 0
-    @book_wednesday = 0
-    @book_thursday = 0
-    @book_friday = 0
-    @book_saturday = 0
-    @book_sunday = 0
+    @room_price = {}
+    @bookings_array = []
+    @booking_hash = {}
     @room_types = RoomType.all
+    @Bookings =  Booking.joins([:room => [:room_type => :room_availables]]).where("rooms.hotel_id = 2").select("room_availables.number, sum(bookings.id) as booked, bookings.hotel_id, sum(bookings.adults) as adults, sum(bookings.children) as children, sum(bookings.price) as price, room_types.id as room_type_id, room_types.room_type as room_type,  bookings.from_date, bookings.to_date").group("room_types.id, bookings.from_date, bookings.to_date")
+    @book_details = @Bookings.group_by(&:room_type_id)
+    if params[:from_date] && params[:to_date]
+      @range = (params[:to_date].to_date - params[:from_date].to_date).to_i + 1
+    else
+      @range = 15
+    end
     @room_types.each do |type|
-      @count = 0
-      @rooms = Room.where("room_type_id=? AND hotel_id=?",type.id,session[:hotel_id])
-      @rooms.each do |room|
-        @bookings = Booking.where("room_id=? AND hotel_id=?",room.id,session[:hotel_id])
-        if !@bookings.nil?
-          @bookings.each do |booking|
-            logger.info"&&&&&&&&&&&#{booking.inspect}&&&&&&&&&&&"
-            @nights = (booking.to_date - booking.from_date).to_i
-            @nights.times do |t|
-              if (booking.from_date..booking.to_date).cover?(Date.today.advance(:days => t))
-                instance_variable_set("@book_"+Date.today.advance(days: t).strftime("%A").downcase, instance_variable_get("@book_"+Date.today.advance(days: t).strftime("%A").downcase).to_i + 1)
-                logger.info instance_variable_get("@book_"+Date.today.advance(days: t).strftime("%A").downcase)
-              end
+      @rates = RoomRate.where("room_type_id=? AND hotel_id=?",type.id, session[:hotel_id])
+      @room_price.merge!(type.id => @rates)
+    end
+    @range.times do |day|
+      @date = Date.today.advance(:days => day)
+      @book_details.each do |bookings|
+        @booking_hash.merge!("#{bookings[0]}" => {}) unless @booking_hash.keys.include?("#{bookings[0]}")
+        bookings[1].each do |booking|
+          if(booking.from_date..booking.to_date).cover?(@date)
+            if @booking_hash["#{bookings[0]}"].keys.include?(@date.to_s)
+              @booking_hash["#{bookings[0]}"][@date.to_s] = (@booking_hash["#{bookings[0]}"][@date.to_s] - booking.booked).to_i
+            else
+              @booking_hash["#{bookings[0]}"].merge!(@date.to_s => (booking.number - booking.booked).to_i)
             end
+          else
+            @booking_hash["#{bookings[0]}"].merge!(@date.to_s => booking.number) unless @booking_hash["#{bookings[0]}"].keys.include?(@date.to_s)
           end
         end
       end
-      @booked_rooms << {type.id => [@book_monday,@book_tuesday,@book_wednesday,@book_thursday, @book_friday,@book_saturday,@book_sunday]}
-      logger.info"*******#{@booked_rooms}************"
-      @book_monday = 0
-      @book_tuesday = 0
-      @book_wednesday = 0
-      @book_thursday = 0
-      @book_friday = 0
-      @book_saturday = 0
-      @book_sunday = 0
     end
   end
 
@@ -178,7 +173,6 @@ class DashboardController < ApplicationController
 
   def finance
     unless !session[:hotel_id].blank?
-      logger.info"*********#{params[:hotel_id]}***********"
       session[:hotel_id] = params[:hotel_id]
     else
       session[:hotel_id] = session[:hotel_id]
