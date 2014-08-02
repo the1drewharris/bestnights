@@ -167,8 +167,9 @@
  	var room_needed = $(this).parent().siblings(".room_number").children("#room_number").val();
  	var room_avail = parseInt($(this).parent().siblings(".room_available").html());
  	if (room_needed <= room_avail && room_needed != '') {
+ 		var room_available = parseInt($(this).parent().siblings(".room_available").html()) - room_needed;
  		link = $(this).attr('href');
- 		link = link + '&room_number='+room_needed ;
+ 		link = link + '&room_number='+room_needed + '&room_available=' + room_available ;
  		window.location.href = link;
  		return true;
  	}

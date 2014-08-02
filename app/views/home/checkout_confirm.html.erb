@@ -73,8 +73,8 @@
 		<td><strong>Total:</strong></td>
 		<td><%= number_with_precision(@amount, :precision => 2, :separator => '.') %></td>
 	</tr>
-	<% @room = Room.find_by_hotel_id_and_id(session[:hotel_id],session[:room_id]) %>
-	<% @Room = RoomRate.find_by_room_id(session[:room_id]) %>
+	<% @room = Room.find_by_hotel_id_and_room_type_id(session[:hotel_id],session[:room_type_id]) %>
+	<% @Room = RoomRate.find_by_room_id(@room.id) %>
 	<tr>
 		<td><strong>Room:</strong></td>
 		<td><%= @room.name.capitalize %>, <%= @room.room_type.room_type.capitalize %></td>

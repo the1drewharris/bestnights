@@ -172,7 +172,7 @@ class HomeController < ApplicationController
     begin
     ## all room attributes in the hotel
     @hotel = Hotel.find(params[:hotel_id])
-    logger.info "=============#{params[:hotel_id]}======================="
+    #logger.info "=============#{params[:hotel_id]}======================="
     @room_attrs = @hotel.room_attributes
     @from_date = session[:checkin]
     @to_date = session[:checkout]
@@ -186,6 +186,7 @@ class HomeController < ApplicationController
     @room_types.each do |type|
       #@rooms = Room.where("room_type_id=? AND hotel_id=?",type.id,params[:hotel_id])
       @rooms = RoomAvailable.find_by_room_type_id_and_hotel_id(type.id,params[:hotel_id])
+      logger.info "=================#{@rooms.number}==============================="
       @count = 0
       # @rooms.each do |room|
       #   @booking = Booking.find_by_hotel_id_and_room_id(room.id,session[:hotel_id])
@@ -241,9 +242,15 @@ class HomeController < ApplicationController
     @hotel = Hotel.find(params[:hotel_id])
     session[:booking_rooms] = params
     gon.group = session[:group] # passing rails variable to js object variable
-    
-    # @amount = 0
-    # session[:booking_rooms][:number].each do |room_number|
+    #@room_types = RoomType.find_by_id(params[:room_type_id])
+    #@room_types.each do |type|
+      @rooms = RoomAvailable.find_by_room_type_id_and_hotel_id(params[:room_type_id],params[:hotel_id])
+     # @total_rooms = @rooms.number
+      @rooms.number = params[:room_available].to_i
+      @rooms.save
+      #logger.info "=============#{params[:room_available]}================================"
+      
+     #end
     #   logger.info"&&&&&&&&&#{room_number.first}&&&&&&&&&&&&&&&&&#{room_number.last}&&&&&&&&&&&&&&&&"
     #   room = Room.find(room_number.first)
     #   numbers = room_number.last.to_i
@@ -289,6 +296,7 @@ class HomeController < ApplicationController
   
   ## POST
   def checkout_confirm
+    @amount = 0
     @hotel = Hotel.find(session[:hotel_id])
     unless current_traveler
       @traveler = Traveler.find_by_email(params[:email])  
@@ -312,17 +320,24 @@ class HomeController < ApplicationController
     a = session[:checkout].nil? ? Time.now()+1 : session[:checkout]
     b = session[:checkin].nil? ? Time.now() : session[:checkin]
 
-    number_nights = ((a.to_date - b.to_date).to_i) + 1 
+    number_nights = ((a.to_date - b.to_date).to_i) + 1
     room_ids = []
     room = Room.find_by_hotel_id_and_room_type_id(session[:hotel_id], session[:room_type_id])
 
     @Room = RoomRate.find_by_room_type_id(session[:room_type_id])
     numbers = session[:roomtype].to_i
-    if !session[:nights].nil? && session[:nights] != 0
-      @amount = ((eval "@Room.rate_" + Date.today.strftime("%A").downcase).to_f * numbers) * session[:nights]
-    else
-      @amount = (eval "@Room.rate_" + Date.today.strftime("%A").downcase).to_f * numbers
+    number_nights.times do |t|
+      @amount = @amount + (a.to_date.advance(:days => t).strftime("%A").downcase).to_f
     end
+    if !session[:nights].nil? && session[:nights] != 0
+      #@amount = ((eval "@Room.rate_" + Date.today.strftime("%A").downcase).to_f * numbers) * session[:nights]
+    else
+      #@amount = (eval "@Room.rate_" + Date.today.strftime("%A").downcase).to_f * numbers
+    end
+
+    #(booking.from_date..booking.to_date).cover?(Date.today.advance(:days => t))
+
+
     room_ids.push(room.id)
     session[:subtotal] = @amount
 
@@ -331,9 +346,16 @@ class HomeController < ApplicationController
       
     if book(@traveler, session[:subtotal], params[:ccnumber], params[:ccv], params[:cardtype], @hotel, @checkin, @checkout, room_ids )
       ## Create booking record and availability record
-
+        numbers = session[:roomtype].to_i
         @room1 = Room.find_by_hotel_id_and_room_type_id(session[:hotel_id], session[:room_type_id])
         @room_rate = RoomRate.find_by_room_id_and_room_type_id(@room1.id, session[:room_type_id])
+        
+        number_nights.times do |t|
+           @amount = @amount + (eval "@room_rate.rate_" + (a.to_date.advance(:days => t).strftime("%A").downcase)).to_f
+        end
+
+        @amount = @amount * numbers
+
         #logger.info "^^^^^^^^^^^^^^^^^^^^^^^#{@room_rate.inspect}^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
         @rate = (eval "@Room.rate_" + Date.today.strftime("%A").downcase).to_f
         numbers = session[:roomtype].to_i
@@ -357,7 +379,7 @@ class HomeController < ApplicationController
 
         @latest_booked = Booking.where(traveler_id: @traveler.id, hotel_id: room.hotel.id).order("created_at DESC").limit(1)
         @fax_email = FaxMailer.hotel_booking_mail(@traveler, @amount, params[:ccnumber], params[:ccv], params[:cardtype], @hotel, @checkin, @checkout, numbers, @latest_booked, @room1,@rate,request.protocol,request.host_with_port).deliver
-        @fax_email_to_hotel = FaxMailer.email_to_hotel(@traveler, @amount, params[:ccnumber], params[:ccv], params[:cardtype], @hotel, @checkin, @checkout, room_ids, @latest_booked, @room1,request.protocol,request.host_with_port).deliver
+       # @fax_email_to_hotel = FaxMailer.email_to_hotel(@traveler, @amount, params[:ccnumber], params[:ccv], params[:cardtype], @hotel, @checkin, @checkout, room_ids, @latest_booked, @room1,request.protocol,request.host_with_port).deliver
     else
       logger.info"%%%%%%%%%%%%%%%%1234"
       flash[:errors] = ["Your booking failed!"]
