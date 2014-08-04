@@ -88,7 +88,7 @@ layout "admin_basic"
 			flash[:success] = "Please Create Rooms First"
 			redirect_to new_room_path
 		else
-			@room = RoomAvailable.find_by_id(1)
+			@room = RoomAvailable.all
 			if @room.nil?
 				flash[:success] = "Please set number of rooms to sell first"
 				redirect_to new_room_available_path
