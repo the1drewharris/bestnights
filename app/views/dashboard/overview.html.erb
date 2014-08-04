@@ -95,7 +95,7 @@
                       <% @range.times do |f| %>
                         <% r = RoomRate.where("room_type_id=? AND hotel_id=?",type.id, session[:hotel_id]) %>
                         <% unless @booking_hash.keys.include?(type.id.to_s) || @booking_hash.empty? %>
-                          <td class="status status-clickable status-none"><%= @booking_hash.empty? %></td>
+                          <td class="status status-clickable status-none"></td>
                         <% else %>
                           <td class="status status-clickable status-bookable">
                             <% if !r.empty? %>

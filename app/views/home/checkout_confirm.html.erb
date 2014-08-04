@@ -219,7 +219,7 @@ Your credit card is required to guarantee your booking. Please note that your cr
 		<table>
 			<tr>
 				<td>BestNights.com Rate</td>
-				<td><%= session[:subtotal] %> </td>
+				<td><%= @amount %> </td>
 			</tr>
 			<tr>
 				<td>Tax (included)</td>
@@ -227,7 +227,7 @@ Your credit card is required to guarantee your booking. Please note that your cr
 			</tr>
 			<tr>
 				<td>Total Price</td>
-				<td><%= session[:subtotal] %></td>
+				<td><%= @amount %></td>
 			</tr>
 		</table>
 		
