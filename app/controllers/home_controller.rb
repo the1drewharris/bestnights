@@ -325,7 +325,7 @@ class HomeController < ApplicationController
 
         @amount = @amount * numbers
       
-    if book(@traveler, @amount, params[:ccnumber], params[:ccv], params[:cardtype], @hotel, @checkin, @checkout, session[:room_needed] )
+    if book(@traveler, @amount, params[:credit_card_number], params[:ccv], params[:credit_card_type], @hotel, @checkin, @checkout, session[:room_needed] )
       ## Create booking record and availability record
        @rate = (eval "@Room.rate_" + Date.today.strftime("%A").downcase).to_f
         numbers = session[:roomtype].to_i
@@ -350,8 +350,8 @@ class HomeController < ApplicationController
         @numbers = numbers
 
         @latest_booked = Booking.where(traveler_id: @traveler.id, hotel_id: room.hotel.id).order("created_at DESC").limit(1)
-        @fax_email = FaxMailer.hotel_booking_mail(@traveler, @amount, params[:ccnumber], params[:ccv], params[:cardtype], @hotel, @checkin, @checkout, numbers, @latest_booked, @room1,@rate,request.protocol,request.host_with_port).deliver
-        @fax_email_to_hotel = FaxMailer.email_to_hotel(@traveler, @amount, params[:ccnumber], params[:ccv], params[:cardtype], @hotel, @checkin, @checkout, room_ids, @latest_booked, @room1,request.protocol,request.host_with_port).deliver
+        @fax_email = FaxMailer.hotel_booking_mail(@traveler, @amount, params[:credit_card_number], params[:ccv], params[:credit_card_type], @hotel, @checkin, @checkout, numbers, @latest_booked, @room1,@rate,request.protocol,request.host_with_port).deliver
+        @fax_email_to_hotel = FaxMailer.email_to_hotel(@traveler, @amount, params[:credit_card_number], params[:ccv], params[:credit_card_type], @hotel, @checkin, @checkout, room_ids, @latest_booked, @room1,request.protocol,request.host_with_port).deliver
     else
       logger.info"%%%%%%%%%%%%%%%%1234"
       flash[:errors] = ["Your booking failed!"]
