@@ -9,18 +9,18 @@ class Booking < ActiveRecord::Base
   validates :price, presence: true, numericality: true
   validates :adults, :children, numericality: { only_integer: true }
   
-  after_initialize :init
-  before_save :calculate_price
+  #after_initialize :init
+  #before_save :calculate_price
   
-  def calculate_price
-    room = Room.find(room_id)
-    hotel = Hotel.find(hotel_id)
-    self.price = room.price.to_f * adults
-  end
+  # def calculate_price
+  #   room = Room.find(room_id)
+  #   hotel = Hotel.find(hotel_id)
+  #   self.price = room.price.to_f * adults
+  # end
   
-  def init
-    self.adults ||= 1
-    self.children ||= 0
-    self.price ||= 0.0
-  end
+  # def init
+  #   self.adults ||= 1
+  #   self.children ||= 0
+  #   self.price ||= 0.0
+  # end
 end
