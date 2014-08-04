@@ -40,7 +40,7 @@
 									<% @arrivals.each do |arrival| %>
 										<tr>
 											<td align="center" valign="middle"><%= arrival.id %></td>
-											<td align="center" valign="middle"><%= arrival.traveler.name.titleize %></td>
+											<td align="center" valign="middle"><%= arrival.traveler.blank? ? "" : arrival.traveler.firstname.titleize %>&nbsp;<%= arrival.traveler.blank? ? "" : arrival.traveler.lastname.titleize %></td>
                       <td align="center" valign="middle"><%= arrival.from_date %></td>
                       <td align="center" valign="middle"><%= arrival.to_date %></td>
 										</tr>

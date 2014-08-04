@@ -93,7 +93,7 @@
 								<% @arrivals.each do |arrival| %>
 									<li>
 										<div class="row"> <span>Reservation No :</span><em><%= arrival.id %></em> </div>
-                		<div class="row"> <span>Booker Name :</span><em><%= arrival.traveler.name %></em> </div>
+                		<div class="row"> <span>Booker Name :</span><em><%= arrival.traveler.blank? ? "" : arrival.traveler.firstname.titleize %>&nbsp;<%= arrival.traveler.blank? ? "" : arrival.traveler.lastname.titleize %></em> </div>
 									</li>
 								<% end %>
 							<% end %>
