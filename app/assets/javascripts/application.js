@@ -25,6 +25,7 @@
 
 $(document).ready(function() {
 	$(".status-label").tooltip();
+
 	if(window.location.pathname == "/overview"){
 		$("#from_date").datepicker({
 			dateFormat: "yy-mm-dd"

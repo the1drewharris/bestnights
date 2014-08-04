@@ -184,16 +184,10 @@ class HomeController < ApplicationController
     @free = []
     @room_types = RoomType.all
     @room_types.each do |type|
-      #@rooms = Room.where("room_type_id=? AND hotel_id=?",type.id,params[:hotel_id])
       @rooms = RoomAvailable.find_by_room_type_id_and_hotel_id(type.id,params[:hotel_id])
       logger.info "=================#{@rooms.number}==============================="
       @count = 0
-      # @rooms.each do |room|
-      #   @booking = Booking.find_by_hotel_id_and_room_id(room.id,session[:hotel_id])
-      #   if !@booking.nil?
-      #     @count += 1
-      #   end
-      # end
+      
       @free << {type.id => @rooms.nil? ? 0 : @rooms.number}
     end
     logger.info"************#{@free}*************"
@@ -242,30 +236,15 @@ class HomeController < ApplicationController
     @hotel = Hotel.find(params[:hotel_id])
     session[:booking_rooms] = params
     gon.group = session[:group] # passing rails variable to js object variable
-    #@room_types = RoomType.find_by_id(params[:room_type_id])
-    #@room_types.each do |type|
-      @rooms = RoomAvailable.find_by_room_type_id_and_hotel_id(params[:room_type_id],params[:hotel_id])
-     # @total_rooms = @rooms.number
-      @rooms.number = params[:room_available].to_i
-      @rooms.save
-      #logger.info "=============#{params[:room_available]}================================"
+     @rooms = RoomAvailable.find_by_room_type_id_and_hotel_id(params[:room_type_id],params[:hotel_id])
+      session[:total_room] = params[:total_room].to_i
+      session[:room_needed] = params[:room_number].to_i
       
-     #end
-    #   logger.info"&&&&&&&&&#{room_number.first}&&&&&&&&&&&&&&&&&#{room_number.last}&&&&&&&&&&&&&&&&"
-    #   room = Room.find(room_number.first)
-    #   numbers = room_number.last.to_i
-    #   @amount = @amount + room.price.to_f * numbers
-    # end
-    # session[:subtotal] = @amount
     session[:hotel_id] = params[:hotel_id]
     session[:room_type_id] = params[:room_type_id]
     room = Room.find_by_hotel_id_and_room_type_id(params[:hotel_id],params[:room_type_id])
-    #room = Room.where("hotel_id = ? and room_type_id = ?", params[:hotel_id], params[:room_type_id])
-    #logger.info "^^^^^^^^^^^^^^^^^#{room.inspect}^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
     @Room = RoomRate.find_by_room_type_id(params[:room_type_id])
-    #@Room = RoomRate.where("room_type_id = ?",params[:room_type_id])
-    #logger.info "===================#{@Room.inspect}================================"
-    numbers = params[:room_number].to_i
+   numbers = params[:room_number].to_i
     if !session[:nights].nil?
       @amount = ((eval "@Room.rate_" + Date.today.strftime("%A").downcase).to_f * numbers) * session[:nights]
     else
@@ -279,7 +258,6 @@ class HomeController < ApplicationController
   def traveler_signin_book    
     @traveler = Traveler.find_by_email(params[:email])
     session[:traveler_id] = @traveler.id
-    logger.info"===========#{(params[:password]).inspect}=======#{@traveler.valid_password?(params[:password])}===========#{session[:booking_rooms][:number]}======="
     if @traveler and @traveler.valid_password?(params[:password])
       redirect_to book_hotel_path
       # render :json => @traveler, :status => 200
@@ -323,51 +301,43 @@ class HomeController < ApplicationController
     number_nights = ((a.to_date - b.to_date).to_i) + 1
     room_ids = []
     room = Room.find_by_hotel_id_and_room_type_id(session[:hotel_id], session[:room_type_id])
-
+   
     @Room = RoomRate.find_by_room_type_id(session[:room_type_id])
     numbers = session[:roomtype].to_i
     number_nights.times do |t|
       @amount = @amount + (a.to_date.advance(:days => t).strftime("%A").downcase).to_f
     end
-    if !session[:nights].nil? && session[:nights] != 0
-      #@amount = ((eval "@Room.rate_" + Date.today.strftime("%A").downcase).to_f * numbers) * session[:nights]
-    else
-      #@amount = (eval "@Room.rate_" + Date.today.strftime("%A").downcase).to_f * numbers
-    end
-
-    #(booking.from_date..booking.to_date).cover?(Date.today.advance(:days => t))
-
-
+    
     room_ids.push(room.id)
     @room_amount = (eval "@Room.rate_" + Date.today.strftime("%A").downcase).to_f
     session[:subtotal] = @amount
 
     @checkin = session[:checkin]
     @checkout = session[:checkout]
-      
-    if book(@traveler, session[:subtotal], params[:ccnumber], params[:ccv], params[:cardtype], @hotel, @checkin, @checkout, room_ids )
-      ## Create booking record and availability record
-        numbers = session[:roomtype].to_i
+     numbers = session[:roomtype].to_i
         @room1 = Room.find_by_hotel_id_and_room_type_id(session[:hotel_id], session[:room_type_id])
         @room_rate = RoomRate.find_by_room_id_and_room_type_id(@room1.id, session[:room_type_id])
-        
+        @rooms = RoomAvailable.find_by_room_type_id_and_hotel_id(session[:room_type_id],session[:hotel_id])
+      
         number_nights.times do |t|
            @amount = @amount + (eval "@room_rate.rate_" + (a.to_date.advance(:days => t).strftime("%A").downcase)).to_f
         end
 
         @amount = @amount * numbers
-
-        #logger.info "^^^^^^^^^^^^^^^^^^^^^^^#{@room_rate.inspect}^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
-        @rate = (eval "@Room.rate_" + Date.today.strftime("%A").downcase).to_f
+      
+    if book(@traveler, @amount, params[:ccnumber], params[:ccv], params[:cardtype], @hotel, @checkin, @checkout, session[:room_needed] )
+      ## Create booking record and availability record
+       @rate = (eval "@Room.rate_" + Date.today.strftime("%A").downcase).to_f
         numbers = session[:roomtype].to_i
         numbers.times do |n|
-          #logger.info "======#{@room1.inspect}==================================="
-          booking = Booking.new(hotel_id: @room1.hotel.id, room_id: @room1.id, from_date: from_date, to_date: to_date, 
+           booking = Booking.new(hotel_id: @room1.hotel.id, room_id: @room1.id, from_date: from_date, to_date: to_date, 
                         adults: numbers, traveler_id: @traveler.id, night_number: number_nights)
         
           booking.save
           logger.info"%%%%%%%&&&&&&&&&&%%%%%%#{booking}%%%%%%%&&&&&&&&&&&"
         end
+        @rooms.number = session[:total_room].to_i - session[:room_needed].to_i
+        @rooms.save
         (from_date..to_date).each do |date|
           if availability = Availability.find_by_room_id_and_this_date(@room1.id, date)
             availability.update_attributes(count: availability.count - numbers)
@@ -381,7 +351,7 @@ class HomeController < ApplicationController
 
         @latest_booked = Booking.where(traveler_id: @traveler.id, hotel_id: room.hotel.id).order("created_at DESC").limit(1)
         @fax_email = FaxMailer.hotel_booking_mail(@traveler, @amount, params[:ccnumber], params[:ccv], params[:cardtype], @hotel, @checkin, @checkout, numbers, @latest_booked, @room1,@rate,request.protocol,request.host_with_port).deliver
-       # @fax_email_to_hotel = FaxMailer.email_to_hotel(@traveler, @amount, params[:ccnumber], params[:ccv], params[:cardtype], @hotel, @checkin, @checkout, room_ids, @latest_booked, @room1,request.protocol,request.host_with_port).deliver
+        @fax_email_to_hotel = FaxMailer.email_to_hotel(@traveler, @amount, params[:ccnumber], params[:ccv], params[:cardtype], @hotel, @checkin, @checkout, room_ids, @latest_booked, @room1,request.protocol,request.host_with_port).deliver
     else
       logger.info"%%%%%%%%%%%%%%%%1234"
       flash[:errors] = ["Your booking failed!"]
@@ -411,14 +381,14 @@ class HomeController < ApplicationController
       chars += line.length
     end
   
-    @fax_result = SOAP::WSDLDriverFactory.new("https://ws-sl.fax.tc/Outbound.asmx?WSDL").create_rpc_driver.SendCharFax("Username" => "bestnights","Password" => "@BestN1ghts","FileType" => "TXT","FaxNumber"=> "18444942378","Data" => "#{results[0]+"\n"+results[1]+"\n"+results[2]+"\n"+results[3]+"\n"+results[4]+"\n"+results[5]+"\n"+results[6]+"\n"+results[7]+"\n"+results[8]}")
-    logger.info"@@@@@@@@@@@@@@@@@@@@@@@#{@fax_result.inspect}@@@@@@@@@@@@@@@@@@@@@@@@"
-    File.delete("#{Rails.root.to_s}/public/"+traveler.id.to_s+".txt")
-    unless @fax_result["SendCharFaxResult"].include? "-"
-     TravelerPayment.create(amount: amount, traveler_id: traveler.id)
-    else
-     flash[:notice] = "Hotel not booked due wrong params"
-     redirect_to root_path
-    end
+   # @fax_result = SOAP::WSDLDriverFactory.new("https://ws-sl.fax.tc/Outbound.asmx?WSDL").create_rpc_driver.SendCharFax("Username" => "bestnights","Password" => "@BestN1ghts","FileType" => "TXT","FaxNumber"=> "18444942378","Data" => "#{results[0]+"\n"+results[1]+"\n"+results[2]+"\n"+results[3]+"\n"+results[4]+"\n"+results[5]+"\n"+results[6]+"\n"+results[7]+"\n"+results[8]}")
+    #logger.info"@@@@@@@@@@@@@@@@@@@@@@@#{@fax_result.inspect}@@@@@@@@@@@@@@@@@@@@@@@@"
+   # File.delete("#{Rails.root.to_s}/public/"+traveler.id.to_s+".txt")
+   # unless @fax_result["SendCharFaxResult"].include? "-"
+   #  TravelerPayment.create(amount: amount, traveler_id: traveler.id)
+   # else
+    # flash[:notice] = "Hotel not booked due wrong params"
+    # redirect_to root_path
+   # end
   end
 end
