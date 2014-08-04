@@ -331,10 +331,10 @@ class HomeController < ApplicationController
         numbers = session[:roomtype].to_i
         numbers.times do |n|
            booking = Booking.new(hotel_id: @room1.hotel.id, room_id: @room1.id, from_date: from_date, to_date: to_date, 
-                        adults: numbers, traveler_id: @traveler.id, night_number: number_nights)
+                        adults: numbers, traveler_id: @traveler.id, night_number: number_nights, price: @amount)
         
           booking.save
-          logger.info"%%%%%%%&&&&&&&&&&%%%%%%#{booking}%%%%%%%&&&&&&&&&&&"
+          logger.info"%%%%%%%&&&&&&&&&&%%%%%%#{booking.inspect}%%%%%%"
         end
         @rooms.number = session[:total_room].to_i - session[:room_needed].to_i
         @rooms.save
@@ -353,7 +353,6 @@ class HomeController < ApplicationController
         @fax_email = FaxMailer.hotel_booking_mail(@traveler, @amount, params[:credit_card_number], params[:ccv], params[:credit_card_type], @hotel, @checkin, @checkout, numbers, @latest_booked, @room1,@rate,request.protocol,request.host_with_port).deliver
         @fax_email_to_hotel = FaxMailer.email_to_hotel(@traveler, @amount, params[:credit_card_number], params[:ccv], params[:credit_card_type], @hotel, @checkin, @checkout, room_ids, @latest_booked, @room1,request.protocol,request.host_with_port).deliver
     else
-      logger.info"%%%%%%%%%%%%%%%%1234"
       flash[:errors] = ["Your booking failed!"]
       redirect_to checkout_path
     end        
