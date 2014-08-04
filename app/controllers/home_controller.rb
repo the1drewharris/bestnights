@@ -366,6 +366,7 @@ class HomeController < ApplicationController
                         adults: numbers, traveler_id: @traveler.id, night_number: number_nights)
         
           booking.save
+          logger.info"%%%%%%%&&&&&&&&&&%%%%%%#{booking}%%%%%%%&&&&&&&&&&&"
         end
         (from_date..to_date).each do |date|
           if availability = Availability.find_by_room_id_and_this_date(@room1.id, date)
