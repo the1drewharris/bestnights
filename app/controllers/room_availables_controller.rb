@@ -1,10 +1,16 @@
 class RoomAvailablesController < ApplicationController
 layout "admin_basic"
 	def new
-		@room = RoomAvailable.new
-		respond_to do |format|
-      format.html
-      format.json
+		@Rooms = Room.find_by_hotel_id(session[:hotel_id])
+		if @Rooms.nil?
+			flash[:success] = "Please Create Rooms First"
+			redirect_to new_room_path
+		else
+			@room = RoomAvailable.new
+			respond_to do |format|
+	      format.html
+	      format.json
+			end
 		end
 	end
 
@@ -40,7 +46,6 @@ layout "admin_basic"
 						@days = ""
 					end
 				elsif !params[:closed]
-					logger.info"^^^^^^^^^^^^^^^^^^^^"
 					if !params[:days].blank? 
 						params[:days].each do |day|
 							@available_days << day[0]
@@ -78,11 +83,20 @@ layout "admin_basic"
 	end
 
 	def edit
-		@room = RoomAvailable.find(5)
+		@Rooms = Room.find_by_hotel_id(session[:hotel_id])
+		if @Rooms.nil?
+			flash[:success] = "Please Create Rooms First"
+			redirect_to new_room_path
+		else
+			@room = RoomAvailable.find_by_id(1)
+			if @room.nil?
+				flash[:success] = "Please set number of rooms to sell first"
+				redirect_to new_room_available_path
+			end
+		end
 	end
 
 	def update_status
-		logger.info"**************#{params}******************"
 		@room = RoomAvailable.find(1)
 		@room.update_attributes(:status => params["closed"])
 		@room.save

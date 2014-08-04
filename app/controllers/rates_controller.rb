@@ -25,11 +25,16 @@ class RatesController < ApplicationController
   # GET /rates/new
   # GET /rates/new.json
   def new
-    @rate = Rate.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @rate }
+    @Rooms = Room.find_by_hotel_id(session[:hotel_id])
+    if @Rooms.nil?
+      flash[:success] = "Please Create Rooms First"
+      redirect_to new_room_path
+    else
+      @rate = Rate.new
+      respond_to do |format|
+        format.html # new.html.erb
+        format.json { render json: @rate }
+      end
     end
   end
 
@@ -42,7 +47,7 @@ class RatesController < ApplicationController
   # POST /rates.json
   def create
     @rooms = RoomRate.all
-      if !params[:room_id].blank?
+      unless params[:room_id].blank? || params[:price].blank?
         @rooms.each do |room|
           params[:days].each do |day|
             a = "rate_"
@@ -58,7 +63,7 @@ class RatesController < ApplicationController
       else
         flash[:errors] = 'You need to select days, category and rooms '
         redirect_to new_rate_path
-      end        
+      end
   end
 
   def copy_yearly_rates

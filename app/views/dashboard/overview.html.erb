@@ -43,7 +43,11 @@
                         <%= type.room_type %>
                       </td>
                       <% @room_available = RoomAvailable.find_by_room_type_id_and_hotel_id(type.id, session[:hotel_id]) %>
-                      <% @available_days = @room_available.availables_days.tr('-','').delete(' ').split("\n") %>
+                      <% unless @room_available.nil? %>
+                        <% @available_days = @room_available.availables_days.tr('-','').delete(' ').split("\n") %>
+                      <% else %>
+                        <% @availables_days = [] %>
+                      <% end %>
                       <% if @booking_hash.keys.include?(type.id.to_s) %>
                         <% @booking_hash[type.id.to_s].each do |key,values| %>
                           <% if @available_days.blank? || !@available_days.include?(key.to_date.strftime("%A").downcase) %>
