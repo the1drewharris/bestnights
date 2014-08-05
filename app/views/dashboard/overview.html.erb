@@ -80,7 +80,11 @@
                       <td class="grid-room-cell"><a href="#"> Rooms To Sell (Room Level) </a></td>
                       <% if @booking_hash.keys.include?(type.id.to_s) %>
                         <% @booking_hash[type.id.to_s].each do |key,values| %>
-                          <td><%= values %></td>
+                          <% if values > 0 %>
+                            <td><%= values %></td>
+                          <% else %>
+                            <td>0</td>
+                          <% end %>
                         <% end %>
                       <% elsif @booking_hash.empty? %>
                         <% @range.times do |day| %>
