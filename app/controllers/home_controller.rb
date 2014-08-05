@@ -185,7 +185,7 @@ class HomeController < ApplicationController
     @room_types = RoomType.all
     @room_types.each do |type|
       @rooms = RoomAvailable.find_by_room_type_id_and_hotel_id(type.id,params[:hotel_id])
-      logger.info "=================#{@rooms.number}==============================="
+      #logger.info "=================#{@rooms.number}==============================="
       @count = 0
       
       @free << {type.id => @rooms.nil? ? 0 : @rooms.number}
