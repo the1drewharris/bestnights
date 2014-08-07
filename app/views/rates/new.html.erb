@@ -10,15 +10,15 @@
           <form action="/rates" method="post">
           <div class="bookings blocks">
           <% my_date = Time.now %>
-          <!-- <div style="margin-bottom:10px; clear:both; overflow:hidden;">
-          <span>From Date: </span><%#= text_field_tag 'from_date', "", :name => "from_date", :class => "datepicker1", :readonly => "readonly"  %>
-          <span>To Date: </span><%#= text_field_tag 'to_date', "", :name => "to_date", :class => "datepicker1", :readonly => "readonly"  %>
-          </div> -->
+          <div style="margin-bottom:10px; clear:both; overflow:hidden;">
+          <span>From Date: </span><%= text_field_tag 'from_date', "", :name => "from_date", :class => "datepicker1", :readonly => "readonly"  %>
+          <span>To Date: </span><%= text_field_tag 'to_date', "", :name => "to_date", :class => "datepicker2", :readonly => "readonly"  %>
+          </div>
           <div class="scroll">
             <table id="which" width="100%" border="0">
          <tbody>
         <tr>
-          <td align="left" valign="top" width="33%">
+          <!-- <td align="left" valign="top" width="33%">
             <div class="row mrgntp15">On:</div>
             <div class="row break">
             <input id="wd-0" type="checkbox" value="0" name="wd">
@@ -55,7 +55,7 @@
             <input id="wd-7" type="checkbox" value="7" name="days[sunday]" class="wd" >
             <label for="wd-7">Sunday</label>
             </div>
-          </td>
+          </td> -->
           <td width="33%" align="left" valign="top">
           <div class="row mrgntp15">
             For:
@@ -116,6 +116,7 @@
 <script>
   $(function() {
     $( ".datepicker1" ).datepicker({format: 'yyyy-mm-dd'});
+    $( ".datepicker2" ).datepicker({format: 'yyyy-mm-dd'});
     $("#wd-0").click(function(event){
       if(this.checked){
         $(".wd").each(function(){

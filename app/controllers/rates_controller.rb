@@ -46,24 +46,25 @@ class RatesController < ApplicationController
   # POST /rates
   # POST /rates.json
   def create
-    @rooms = RoomRate.all
-      unless params[:room_id].blank? || params[:price].blank?
-        @rooms.each do |room|
-          params[:days].each do |day|
-            a = "rate_"
-            f =a + day[0]
-            params[:room_id].each do |room|
-              ActiveRecord::Base.connection.execute("UPDATE room_rates SET " + f.to_s + "=" + params[:price].to_s + " WHERE room_type_id =" + room[0].to_s)
-            end
-          end
-          room.save
+    unless params[:room_id].blank? || params[:price].blank?
+      params[:room_id].each do |room|
+        @room_rate = RoomRate.find_by_room_type_id(room[0].to_s)
+        if @room_rate.blank?
+          @room_rate = RoomRate.new
+          @room_rate.room_type_id = room[0].to_s
+          @room_rate.hotel_id = session[:hotel_id]
         end
-        flash[:success] = 'Rate Was Successfully Updated For Sell.'
-        redirect_to new_rate_path
-      else
-        flash[:errors] = 'You need to select days, category and rooms '
-        redirect_to new_rate_path
+        @room_rate.from_date = params[:from_date]
+        @room_rate.to_date = DateTime.strptime(params[:to_date], '%m/%d/%Y')
+        @room_rate.price = params[:price]
+        @room_rate.save
       end
+      flash[:success] = 'Rate Was Successfully Updated For Sell.'
+      redirect_to new_rate_path
+    else
+      flash[:errors] = 'You need to select days, category and rooms '
+      redirect_to new_rate_path
+    end
   end
 
   def copy_yearly_rates
