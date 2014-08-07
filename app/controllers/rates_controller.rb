@@ -140,4 +140,11 @@ class RatesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def search
+    @rate = RoomRate.find_by_room_type_id_and_hotel_id(params[:room_type_id],session[:hotel_id])
+    respond_to do |format|
+      format.json { render json: @rate }
+    end
+  end
 end

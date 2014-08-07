@@ -90,6 +90,7 @@ Bestnights::Application.routes.draw do
   match 'travelers_login' => "travelers#travelers_login", :as => 'travelers_login'
   match 'traveler_login_create' => "travelers#traveler_login_create", :as => 'traveler_login_create', :via => :post
   match 'traveler' => "travelers#show", :as => 'traveler_detail', :via => :get
+  match 'rates/search/:room_type_id' => "rates#search", :as => 'rate_search'
 
   # resources :users, except: :create
   resources :users

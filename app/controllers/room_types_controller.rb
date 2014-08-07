@@ -1,6 +1,6 @@
 class RoomTypesController < ApplicationController
   before_filter :authenticate_user!
-  load_and_authorize_resource  
+
   layout "admin_basic", only: [:index, :new, :show, :edit]
   
   def index
@@ -8,7 +8,16 @@ class RoomTypesController < ApplicationController
   end
   
   def show
-    @room_type = RoomType.find(params[:id])
+    @room_type = RoomType.find_by_id(params[:id])
+    unless @room_type.blank?
+      @price = @room_type.base_price
+    else
+      @price = 0
+    end
+    respond_to do |format|
+      format.html
+      format.json { render json: @price }
+    end
   end
   
   def new

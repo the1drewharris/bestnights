@@ -19,7 +19,11 @@
 						  <option value=<%= status %> <%= "selected" if @room_type.status == status %> ><%= status %></option>
 						<% end %>
 					</select>
-				</li>  
+				</li>
+				<li>
+					<%= f.label 'Base Price' %>
+					<%= f.text_field :base_price %>
+				</li>
 		  </ul>	
 		</fieldset>
 		<fieldset class="formactions">

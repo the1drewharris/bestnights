@@ -17,32 +17,12 @@
 		  		<%= f.text_field :name %>
 		  	</li>
 		  	<li>
-		  		<label>Monday Price</label>
-		  		<%= text_field_tag 'rate_monday' %>
+		  		<%= f.label "Room Type" %>
+		  		<%= f.select :room_type_id, options_for_select(@room_types.map{|s|[s.room_type, s.id]}) %>
 		  	</li>
 		  	<li>
-		  		<label>Tuesday Price</label>
-		  		<%= text_field_tag 'rate_tuesday' %>
-		  	</li>
-		  	<li>
-		  		<label>Wednesday Price</label>
-		  		<%= text_field_tag 'rate_wednesday' %>
-		  	</li>
-		  	<li>
-		  		<label>Thursday Price</label>
-		  		<%= text_field_tag 'rate_thursday' %>
-		  	</li>
-		  	<li>
-		  		<label>Friday Price</label>
-		  		<%= text_field_tag 'rate_friday' %>
-		  	</li>
-		  	<li>
-		  		<label>Saturday Price</label>
-		  		<%= text_field_tag 'rate_saturday' %>
-		  	</li>
-		  	<li>
-		  		<label>Sunday Price</label>
-		  		<%= text_field_tag 'rate_sunday' %>
+		  		<%= f.label "Base Price" %>
+		  		<%= f.text_field :price, readonly: true %>
 		  	</li>
 		  	<li>
 		  		<%= f.label "Additional Adult Fee" %>
@@ -63,12 +43,7 @@
 			  		<%= f.label :hotel %>
 			  		<%= f.select :hotel_id, options_for_select(@hotels.map{|s|[s.name, s.id]}) %>
 			  	</li>
-		  	<% end %>
-		  		
-		  	<li>
-		  		<%= f.label "Room Type" %>
-		  		<%= f.select :room_type_id, options_for_select(@room_types.map{|s|[s.room_type, s.id]}) %>
-		  	</li>	
+		  	<% end %>	
 		  	<li>
 		  		<%= f.label :description %>
 		  		<%= f.text_area :description %>

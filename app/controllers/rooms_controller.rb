@@ -40,23 +40,20 @@ class RoomsController < ApplicationController
   end
   
   def create
-    logger.info"=================#{params}================"
     @room = Room.new(params[:room])
+    @room.price = params[:room][:price].to_f + params[:room][:additionaladultfee].to_f
     if @room.save
-      @room_rate = RoomRate.new
-      @room_rate.room_id = @room.id
-      @room_rate.room_type_id = @room.room_type_id
-      @room_rate.hotel_id = @room.hotel_id
-      @room_rate.rate_monday = params[:rate_monday]
-      @room_rate.rate_tuesday = params[:rate_tuesday]
-      @room_rate.rate_wednesday = params[:rate_wednesday]
-      @room_rate.rate_thursday = params[:rate_thursday]
-      @room_rate.rate_friday = params[:rate_friday]
-      @room_rate.rate_saturday = params[:rate_saturday]
-      @room_rate.rate_sunday = params[:rate_sunday]
-      @room_rate.save
+      @room_available = RoomAvailable.find_by_room_type_id_and_hotel_id(params[:room][:room_type_id],session[:hotel_id])
+      unless @room_available.blank?
+        @room_available.number += params[:room][:starting_inventory].to_i
+      else
+        @room_available = RoomAvailable.new
+        @room_available.room_type_id = params[:room][:room_type_id]
+        @room_available.number = params[:room][:starting_inventory].to_i
+        @room_available.hotel_id = session[:hotel_id]
+      end
+      @room_available.save
       flash[:success] = "The room type saved successfully!"
-      
       if current_user.new_signup?
         redirect_to rooms_path(:hotel_id => @room.hotel.id)  
       else
