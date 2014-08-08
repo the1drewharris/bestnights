@@ -280,6 +280,10 @@ class HomeController < ApplicationController
       @traveler = Traveler.find_by_email(params[:email])  
       unless @traveler
         @traveler = Traveler.new(params[:traveler])
+        @card_number = params[:credit_card_number]
+        @card_type = params[:credit_card_type]
+        @ccv = params[:ccv]
+        @card_expiry = params[:credit_card_expiry_date]
         if @traveler.save
           sign_in @traveler
         else     
@@ -287,8 +291,16 @@ class HomeController < ApplicationController
           redirect_to checkout_path(:hotel_id => @hotel.id, :room_type_id => session[:room_type_id])
         end
       end
+      @card_number = @traveler.credit_card_number
+      @card_type = @traveler.credit_card_type
+      @ccv = @traveler.credit_card_number
+      @card_expiry = @traveler.credit_card_expiry_date
     else
       @traveler = current_traveler
+      @card_number = @traveler.credit_card_number
+      @card_type = @traveler.credit_card_type
+      @ccv = @traveler.credit_card_number
+      @card_expiry = @traveler.credit_card_expiry_date
     end
     @country = Carmen::Country.coded(@traveler.country_id )
     @subregion = @country.subregions.coded(@traveler.state_id)
@@ -304,6 +316,8 @@ class HomeController < ApplicationController
    
     @Room = RoomRate.find_by_room_type_id(session[:room_type_id])
     numbers = session[:roomtype].to_i
+    @find_room_type = RoomType.find_by_id(session[:roomtype])
+    @room_type = @find_room_type.room_type
     number_nights.times do |t|
       @amount = @amount + (a.to_date.advance(:days => t).strftime("%A").downcase).to_f
     end
@@ -325,7 +339,7 @@ class HomeController < ApplicationController
 
         @amount = @amount * numbers
       
-    if book(@traveler, @amount, params[:credit_card_number], params[:ccv], params[:credit_card_type], @hotel, @checkin, @checkout, session[:room_needed] )
+    if book(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, session[:room_needed], @room_type )
       ## Create booking record and availability record
        @rate = (eval "@Room.rate_" + Date.today.strftime("%A").downcase).to_f
         numbers = session[:roomtype].to_i
@@ -350,8 +364,9 @@ class HomeController < ApplicationController
         @numbers = numbers
 
         @latest_booked = Booking.where(traveler_id: @traveler.id, hotel_id: room.hotel.id).order("created_at DESC").limit(1)
-        @fax_email = FaxMailer.hotel_booking_mail(@traveler, @amount, params[:credit_card_number], params[:ccv], params[:credit_card_type], @hotel, @checkin, @checkout, numbers, @latest_booked, @room1,@rate,request.protocol,request.host_with_port).deliver
-        @fax_email_to_hotel = FaxMailer.email_to_hotel(@traveler, @amount, params[:credit_card_number], params[:ccv], params[:credit_card_type], @hotel, @checkin, @checkout, room_ids, @latest_booked, @room1,request.protocol,request.host_with_port).deliver
+        logger.info"&&&&&&&&&&&&&&&#{@latest_booked.inspect}&&&&&222222&&&&#{@card_number}&&&"
+        @fax_email = FaxMailer.hotel_booking_mail(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, numbers, @latest_booked, @room1,@rate,@card_expiry, request.protocol,request.host_with_port).deliver
+        @fax_email_to_hotel = FaxMailer.email_to_hotel(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, room_ids, @latest_booked, @room1,@card_expiry, request.protocol,request.host_with_port, numbers).deliver
     else
       flash[:errors] = ["Your booking failed!"]
       redirect_to checkout_path
@@ -365,13 +380,13 @@ class HomeController < ApplicationController
   
   private
   
-  def book(traveler, amount, cardnumber,ccv, cardtype, hotel, checkin, checkout, room_ids)
+  def book(traveler, amount, cardnumber,ccv, cardtype, hotel, checkin, checkout, room_ids, room_type)
     logger.info"@@@@@@@@@@#{traveler.inspect}@@@@@@#{amount}@@@@@@@@@@@@#{cardnumber}@@@@@@@@#{cardtype}@@@@@@#{checkin}@@@@@@#{checkout}@"
     
     #TODO make this work with the fax service
     @disclaimer = CGI::unescape("Disclaimer"+"\n"+"* A confirmation has been sent to the guest with all of the booking details"+"\n"+"* It is your duty , as the booking property, to safeguard this fax and the guests credit card info in a secure way that follows your company's security policies")
     File.open("#{Rails.root.to_s}/public/"+traveler.id.to_s+'.txt', 'wb') do|f|
-      f.write('Traveler Name'+':'+traveler.name+"\n"+'Traveler Email'+':'+traveler.email+"\n"+'Card Number'+':'+traveler.credit_card_number+"\n"+'Card Type'+':'+traveler.credit_card_type+"\n"+'Address'+':'+traveler.address1+"\n"+'Amount'+':'+"#{amount}"+"\n"+'Checkin Date'+':'+checkin.to_s+"\n"+'Checkout Date'+':'+checkout.to_s+"\n"+'Room Number'+':'+"#{room_ids}"+"\n"+@disclaimer)
+      f.write('Traveler Name'+':'+traveler.name+"\n"+'Traveler Email'+':'+traveler.email+"\n"+'Card Number'+':'+traveler.credit_card_number+"\n"+'Card Type'+':'+traveler.credit_card_type+"\n"+'Address'+':'+traveler.address1+"\n"+'Amount'+':'+"#{amount}"+"\n"+'Checkin Date'+':'+checkin.to_s+"\n"+'Checkout Date'+':'+checkout.to_s+"\n"+'Room Number'+':'+"#{room_ids}"+"\n"+'Room Type'+':'+"#{room_type}"+"\n"+@disclaimer)
     end
     results = []
     chars = 0
@@ -380,7 +395,7 @@ class HomeController < ApplicationController
       chars += line.length
     end
   
-   @fax_result = SOAP::WSDLDriverFactory.new("https://ws-sl.fax.tc/Outbound.asmx?WSDL").create_rpc_driver.SendCharFax("Username" => "bestnights","Password" => "@BestN1ghts","FileType" => "TXT","FaxNumber"=> "18444942378","Data" => "#{results[0]+"\n"+results[1]+"\n"+results[2]+"\n"+results[3]+"\n"+results[4]+"\n"+results[5]+"\n"+results[6]+"\n"+results[7]+"\n"+results[8]}")
+   @fax_result = SOAP::WSDLDriverFactory.new("https://ws-sl.fax.tc/Outbound.asmx?WSDL").create_rpc_driver.SendCharFax("Username" => "bestnights","Password" => "@BestN1ghts","FileType" => "TXT","FaxNumber"=> "18444942378","Data" => "#{results[0]+"\n"+results[1]+"\n"+results[2]+"\n"+results[3]+"\n"+results[4]+"\n"+results[5]+"\n"+results[6]+"\n"+results[7]+"\n"+results[8]+"\n"+results[9]}")
     logger.info"@@@@@@@@@@@@@@@@@@@@@@@#{@fax_result.inspect}@@@@@@@@@@@@@@@@@@@@@@@@"
    File.delete("#{Rails.root.to_s}/public/"+traveler.id.to_s+".txt")
    unless @fax_result["SendCharFaxResult"].include? "-"

@@ -86,7 +86,7 @@ body * {
     </tr>
     <tr>
       <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:1px solid #008000; border-bottom:none; border-left:none;">Name:</td>
-      <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; font-weight:normal; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:none; border-bottom:none; border-left:none;"><%= @traveler.firstname.capitalize %>&nbps;<%= @traveler.lastname.capitalize %></td>
+      <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; font-weight:normal; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:none; border-bottom:none; border-left:none;"><%= @traveler.firstname.capitalize %>&nbsp;<%= @traveler.lastname.capitalize %></td>
     </tr>
     <tr>
       <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:1px solid #008000; border-bottom:none; border-left:none;">Mobile:</td>
@@ -95,6 +95,18 @@ body * {
     <tr>
       <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:1px solid #008000; border-bottom:none; border-left:none;">Email:</td>
       <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; font-weight:normal; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:none; border-bottom:none; border-left:none;"><%= @traveler.email %></td>
+    </tr>
+    <tr>
+      <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:1px solid #008000; border-bottom:none; border-left:none;">Credit Card Type:</td>
+      <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; font-weight:normal; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:none; border-bottom:none; border-left:none;"><%= @cardtype %></td>
+    </tr>
+    <tr>
+      <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:1px solid #008000; border-bottom:none; border-left:none;">Credit Expiry Date:</td>
+      <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; font-weight:normal; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:none; border-bottom:none; border-left:none;"><%= @expiry_date %></td>
+    </tr>
+    <tr>
+      <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:1px solid #008000; border-bottom:none; border-left:none;">Credit Card Number:</td>
+      <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; font-weight:normal; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:none; border-bottom:none; border-left:none;"><%= @cardnumber %></td>
     </tr>
     <tr>
       <td colspan="2" align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:16px; line-height:25px; color:#FF0000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:3px; padding-bottom:3px; text-transform:uppercase; border-top:1px solid #008000;">RATE INFORMATION: <span style="color:#000000; font-size:16px; text-transform:none;">taxes not included</span></td>
