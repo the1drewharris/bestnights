@@ -81,7 +81,20 @@
                                 <td class="status status-clickable status-closed"><span class="status-label status-bookable"></span></td>
                               <% end %>
                             <% else %>
-                              <td class="status status-clickable status-closed"><span class="status-label status-bookable"></span></td>
+                              <% if @room_status.status == false %>
+                                <% @room_available = RoomAvailable.find_by_room_type_id_and_hotel_id(type.id, session[:hotel_id]) %>
+                                <% unless @room_available.blank? %>
+                                  <% if (@room_available.from_date..@room_available.to_date).cover?(@starting_date.advance(days: day)) %>
+                                    <td class="status status-clickable status-bookable"><span class="status-label status-bookable"></span></td>
+                                  <% else %>
+                                    <td class="status status-clickable status-none"><span style="padding-left:0px;" class="status-label status-bookable">x</span></td>
+                                  <% end %>
+                                <% else %>
+                                  <td class="status status-clickable status-none"><span style="padding-left:0px;" class="status-label status-bookable">x</span></td>
+                                <% end %>
+                              <% else %>
+                                <td class="status status-clickable status-closed"><span class="status-label status-bookable"></span></td>
+                              <% end %>
                             <% end %>
                           <% else %>
                             <td class="status status-clickable status-closed"><span class="status-label status-bookable"></span></td>
