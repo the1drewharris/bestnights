@@ -46,10 +46,10 @@
                       <% if @booking_hash.keys.include?(type.id.to_s) %>
                         <% @count = 0 %>
                         <% @booking_hash[type.id.to_s].each do |key,values| %>
-                          <% if (@room_status.from_date..@room_status.to_date).cover?(Date.today.advance(days: @count)) %>
+                          <% if (@room_status.from_date..@room_status.to_date).cover?(@starting_date.advance(days: @count)) %>
                             <% if @room_status.status == false %>
                               <% @room_available = RoomAvailable.find_by_room_type_id_and_hotel_id(type.id, session[:hotel_id]) %>
-                              <% if (@room_available.from_date..@room_available.to_date).cover?(Date.today.advance(days: @count)) %>
+                              <% if (@room_available.from_date..@room_available.to_date).cover?(@starting_date.advance(days: @count)) %>
                                 <td class="status status-clickable status-bookable"><span class="status-label status-bookable"></span></td>
                               <% else %>
                                 <td class="status status-clickable status-none"><span style="padding-left:0px;" class="status-label status-bookable">x</span></td>
