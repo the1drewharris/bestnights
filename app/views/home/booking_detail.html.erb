@@ -99,49 +99,51 @@
 						
 			<form action="/checkout" method="post">
 				<% @hotel.rooms.each do |room| %>
-					<%# @room = RoomRate.find_by_room_id(room.id) %>
-					<tr>
-						<td><%= room.room_type.room_type %></td>
-						<td>
-							<% room.room_attributes.each do |ra| %>
-							  <%= ra.attr + ', ' %>
-							<% end %>	
-						</td>
-						<td class="room_available">
-							<% @free.each do |fr| %>
-								<% if fr.has_key?(room.room_type.id) %>
-									<%= fr[room.room_type.id] %>
+					<% @status = RoomStatus.find_by_room_type_id_and_hotel_id(room.room_type.id, @hotel.id) %>
+					<% if !@status.blank? && ((@status.from_date..@status.to_date).cover?(Date.today)) && @status.status == false %>
+						<tr>
+							<td><%= room.room_type.room_type %></td>
+							<td>
+								<% room.room_attributes.each do |ra| %>
+								  <%= ra.attr + ', ' %>
+								<% end %>	
+							</td>
+							<td class="room_available">
+								<% @free.each do |fr| %>
+									<% if fr.has_key?(room.room_type.id) %>
+										<%= fr[room.room_type.id] %>
+									<% end %>
 								<% end %>
-							<% end %>
-						</td>
+							</td>
 
-						<td class="price"><sup>$</sup>
-							<%# if !@room.nil? %>
+							<td class="price">
+								<sup>$</sup>
 								<%= room.price %>
-							<%# end %>
-							<br></td>
-						
+								<br>
+							</td>
+							
 
-							<td class="room_number"><% @free.each do |fr| %>
-								<% if fr.has_key?(room.room_type.id) %>
-									<% if fr[room.room_type.id] != 0 %>
-										<input type="number" min="0" max=<%= room.available_max(@from_date, @to_date) %> value="" name="number[<%= room.id %>]" id="room_number">
+								<td class="room_number"><% @free.each do |fr| %>
+									<% if fr.has_key?(room.room_type.id) %>
+										<% if fr[room.room_type.id] != 0 %>
+											<input type="number" min="0" max=<%= room.available_max(@from_date, @to_date) %> value="" name="number[<%= room.id %>]" id="room_number">
+										<% end %>
 									<% end %>
 								<% end %>
-							<% end %>
-						</td>
-						<td>
-							<% @free.each do |fr| %>
-								<% if fr.has_key?(room.room_type.id) %>
-									<% if fr[room.room_type.id] != 0 %>
-										<%= link_to "Book Now", checkout_path(:hotel_id => @hotel.id, :room_type_id => room.room_type.id) , class: "link_style", id: "link_style" %>
-									<% else %>
-										<p class="red">Sold Out</p>
+							</td>
+							<td>
+								<% @free.each do |fr| %>
+									<% if fr.has_key?(room.room_type.id) %>
+										<% if fr[room.room_type.id] != 0 %>
+											<%= link_to "Book Now", checkout_path(:hotel_id => @hotel.id, :room_type_id => room.room_type.id) , class: "link_style", id: "link_style" %>
+										<% else %>
+											<p class="red">Sold Out</p>
+										<% end %>
 									<% end %>
 								<% end %>
-							<% end %>
-						</td>
-					</tr>
+							</td>
+						</tr>
+					<% end %>
 				<% end %>			
 			</form>
 		</table>
