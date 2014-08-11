@@ -5,8 +5,7 @@ class RoomsController < ApplicationController
   
   def index
     if (current_user.manager? && !params[:search].blank?) || (current_user.admin? && !params[:search].blank?)
-        @hotel = Hotel.find(:all, :conditions => ['(id LIKE ? or name LIKE ? or city LIKE ?)', "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%"])
-        @rooms = @hotel.first.rooms
+        @rooms = Room.find(:all, :conditions => ['(id LIKE ? or name LIKE ? or description LIKE ?)', "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%"])
     elsif current_user.admin?
       @rooms = Room.all
     elsif current_user.manager? 
@@ -100,20 +99,13 @@ class RoomsController < ApplicationController
         end
       end
       logger.info"**********************#{room.price}*********************"
-      @room_rate = RoomRate.find_by_room_id(params[:id])
+      @room_rate = RoomRate.find_by_room_type_id(room.room_type.id)
       if @room_rate.nil?
         @room_rate = RoomRate.new
         @room_rate.room_id = params[:id] 
         @room_rate.room_type_id = room.room_type_id
         @room_rate.hotel_id = room.hotel_id
       end
-      @room_rate.rate_monday = params[:rate_monday]
-      @room_rate.rate_tuesday = params[:rate_tuesday]
-      @room_rate.rate_wednesday = params[:rate_wednesday]
-      @room_rate.rate_thursday = params[:rate_thursday]
-      @room_rate.rate_friday = params[:rate_friday]
-      @room_rate.rate_saturday = params[:rate_saturday]
-      @room_rate.rate_sunday = params[:rate_sunday]
       @room_rate.save
       flash[:success] = "The room type saved successfully!"
       

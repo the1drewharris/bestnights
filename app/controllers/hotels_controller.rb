@@ -38,7 +38,9 @@ class HotelsController < ApplicationController
 
   def create
     @hotel = Hotel.new(params[:hotel])
-    @hotel.state_id = params[:traveler][:state_id]
+    if !params[:traveler].nil?
+      @hotel.state_id = params[:traveler][:state_id]
+    end
     # @hotel.status = "non-active" unless params[:hotel][:status]
     # @hotel.comission_rate = 14 unless params[:hotel][:comission_rate]
     
