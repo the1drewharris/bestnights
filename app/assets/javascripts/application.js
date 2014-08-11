@@ -26,15 +26,15 @@
 $(document).ready(function() {
 	$(".status-label").tooltip();
 
+	$("#from_date").datepicker({
+			dateFormat: "yy-mm-dd",
+			minDate: new Date()
+		});
+	$("#to_date").datepicker({
+		dateFormat: "yy-mm-dd",
+		minDate: new Date()
+	});
 	if(window.location.pathname == "/overview"){
-		$("#from_date").datepicker({
-			dateFormat: "yy-mm-dd",
-			minDate: new Date()
-		});
-		$("#to_date").datepicker({
-			dateFormat: "yy-mm-dd",
-			minDate: new Date()
-		});
 		$("#find").click(function(){
 			var data = {date: $("#datepicker").val()}
 			$.ajax({

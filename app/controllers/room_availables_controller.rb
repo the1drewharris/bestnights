@@ -23,8 +23,8 @@ layout "admin_basic"
 					@room.room_type_id = room_type_id[0]
 					@room.hotel_id = session[:hotel_id]
 				end
-				@room.from_date = DateTime.strptime(params[:from_date], '%m/%d/%Y')
-				@room.to_date = DateTime.strptime(params[:to_date], '%m/%d/%Y')
+				@room.from_date = params[:from_date].to_date
+				@room.to_date = params[:to_date].to_date
 				@room.number = params[:rooms_to_sell]
 				@room.save
 			end
@@ -81,8 +81,8 @@ layout "admin_basic"
 			end
 			@status.room_type_id = room[0].to_s
 			@status.hotel_id = session[:hotel_id]
-			@status.from_date = DateTime.strptime(params[:from_date], '%m/%d/%Y')
-			@status.to_date = DateTime.strptime(params[:to_date], '%m/%d/%Y')
+			@status.from_date = params[:from_date].to_date
+			@status.to_date = params[:to_date].to_date
 			@status.status = params[:closed]
 			@status.save
 		end

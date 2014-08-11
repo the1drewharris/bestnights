@@ -48,14 +48,14 @@ class RatesController < ApplicationController
   def create
     unless params[:room_id].blank? || params[:price].blank?
       params[:room_id].each do |room|
-        @room_rate = RoomRate.find_by_room_type_id(room[0].to_s)
+        @room_rate = RoomRate.find_by_room_type_id_and_hotel_id(room[0].to_s, session[:hotel_id])
         if @room_rate.blank?
           @room_rate = RoomRate.new
           @room_rate.room_type_id = room[0].to_s
           @room_rate.hotel_id = session[:hotel_id]
         end
-        @room_rate.from_date = params[:from_date]
-        @room_rate.to_date = DateTime.strptime(params[:to_date], '%m/%d/%Y')
+        @room_rate.from_date = params[:from_date].to_date
+        @room_rate.to_date = params[:to_date].to_date
         @room_rate.price = params[:price]
         @room_rate.save
       end
