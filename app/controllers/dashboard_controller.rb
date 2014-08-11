@@ -162,7 +162,7 @@ class DashboardController < ApplicationController
             if @booking_hash["#{bookings[0]}"].keys.include?(@date.to_s)
               @booking_hash["#{bookings[0]}"][@date.to_s] = (@booking_hash["#{bookings[0]}"][@date.to_s] - booking.booked).to_i
             else
-              @booking_hash["#{bookings[0]}"].merge!(@date.to_s => (booking.number - booking.booked).to_i)
+              @booking_hash["#{bookings[0]}"].merge!(@date.to_s => booking.number.to_i)
             end
           else
             @booking_hash["#{bookings[0]}"].merge!(@date.to_s => booking.number) unless @booking_hash["#{bookings[0]}"].keys.include?(@date.to_s)
