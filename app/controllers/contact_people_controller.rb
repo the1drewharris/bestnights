@@ -28,7 +28,7 @@ class ContactPeopleController < ApplicationController
         format.html { redirect_to new_contact_person_path, success: "New Contacts Successfully added" }
         format.json { render json: @contact, status: :created, location: @contact }
       else
-        format.html { render action: "new", error: "Please Try again" }
+        format.html { redirect_to new_contact_person_path, error: "Please Try again" }
         format.json { render json: @contact.errors, status: :unprocessable_entity }
       end
     end

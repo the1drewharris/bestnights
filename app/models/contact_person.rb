@@ -3,4 +3,5 @@ class ContactPerson < ActiveRecord::Base
   attr_accessible :phone_number, :mobile_number, :address, :postal_code, :city, :country 
   belongs_to :hotel
   belongs_to :position
+  validates :email,:name,:title,:designation, :mobile_number, presence: true
 end

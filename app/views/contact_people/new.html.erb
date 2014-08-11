@@ -5,21 +5,25 @@
 			<button type="button" name="addContact" class="addContact">Add Contact</button>
 		</div>
 			<div class="colRow">
-				<% @contacts.each do |ct| %>
-		     	<div class="col3">
-		          <h2><%= ct.title.blank? ? "" : ct.title.capitalize %></h2>
-						<span class="contact-subhead">
-							<%= ct.description %>
-						</span>
-		  			<div class="contact-container">
-		      	<h3><%= ct.name.capitalize %></h3>
-		          <h4><%= ct.designation.blank? ? "" : ct.designation.capitalize %></h4>
-		          <span class="contact-item contact-email"><%= mail_to "#{ct.email}" %></span>
-		          <span class="contact-item contact-phone"><%= ct.phone_number %></span>            
-		          <span class="contact-item contact-fax"><%= ct.phone_number %></span>
-		      	</div>
-		      </div>
-		     <% end %>	          
+				<% if !@contacts.blank? %>
+					<% @contacts.each do |ct| %>
+			     	<div class="col3">
+			          <h2><%= ct.title.blank? ? "" : ct.title.capitalize %></h2>
+							<span class="contact-subhead">
+								<%= ct.description %>
+							</span>
+			  			<div class="contact-container">
+			      	<h3><%= ct.name.capitalize %></h3>
+			          <h4><%= ct.designation.blank? ? "" : ct.designation.capitalize %></h4>
+			          <span class="contact-item contact-email"><%= mail_to "#{ct.email}" %></span>
+			          <span class="contact-item contact-phone"><%= ct.phone_number %></span>            
+			          <span class="contact-item contact-fax"><%= ct.phone_number %></span>
+			      	</div>
+			      </div>
+			    <% end %>	
+			  <% else %>  
+			  	   
+			  <% end %>
 		  </div>
   </div>
  </div>
