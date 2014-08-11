@@ -74,14 +74,14 @@
 		<td><%= number_with_precision(@amount, :precision => 2, :separator => '.') %></td>
 	</tr>
 	<% @room = Room.find_by_hotel_id_and_room_type_id(session[:hotel_id],session[:room_type_id]) %>
-	<% @Room = RoomRate.find_by_room_id(@room.id) %>
+	<%# @Room = RoomRate.find_by_room_id(@room.id) %>
 	<tr>
 		<td><strong>Room:</strong></td>
 		<td><%= @room.name.capitalize %>, <%= @room.room_type.room_type.capitalize %></td>
 	</tr>
 	<tr>
 		<td><strong>Room Price:</strong></td>
-		<td><%= number_with_precision((eval "@Room.rate_" + Date.today.strftime("%A").downcase).to_f, :precision => 2, :separator => '.') %></td>  
+		<td><%= number_with_precision(@room.price, :precision => 2, :separator => '.') %></td>  
 	</tr>
 	<tr>
 		<td><strong>Break Fast:</strong></td>

@@ -64,13 +64,17 @@
                         <% end %>
                       <% else %>
                         <% @range.times do |day| %>
-                          <% if (@room_status.from_date..@room_status.to_date).cover?(Date.today.advance(days: day)) %>
-                            <% if @room_status.status == false %>
-                              <% @room_available = RoomAvailable.find_by_room_type_id_and_hotel_id(type.id, session[:hotel_id]) %>
-                              <% if (@room_available.from_date..@room_available.to_date).cover?(Date.today.advance(days: day)) %>
-                                <td class="status status-clickable status-bookable"><span class="status-label status-bookable"></span></td>
+                          <% unless @room_status.blank? %>
+                            <% if (@room_status.from_date..@room_status.to_date).cover?(Date.today.advance(days: day)) %>
+                              <% if @room_status.status == false %>
+                                <% @room_available = RoomAvailable.find_by_room_type_id_and_hotel_id(type.id, session[:hotel_id]) %>
+                                <% if (@room_available.from_date..@room_available.to_date).cover?(Date.today.advance(days: day)) %>
+                                  <td class="status status-clickable status-bookable"><span class="status-label status-bookable"></span></td>
+                                <% else %>
+                                  <td class="status status-clickable status-none"><span style="padding-left:0px;" class="status-label status-bookable">x</span></td>
+                                <% end %>
                               <% else %>
-                                <td class="status status-clickable status-none"><span style="padding-left:0px;" class="status-label status-bookable">x</span></td>
+                                <td class="status status-clickable status-closed"><span class="status-label status-bookable"></span></td>
                               <% end %>
                             <% else %>
                               <td class="status status-clickable status-closed"><span class="status-label status-bookable"></span></td>
@@ -86,9 +90,13 @@
                       <% if @booking_hash.keys.include?(type.id.to_s) %>
                         <% @count = 0 %>
                         <% @booking_hash[type.id.to_s].each do |key,values| %>
-                          <% if (@room_available.from_date..@room_available.to_date).cover?(key.to_date) %>
-                            <% if values > 0 %>
-                              <td><%= values %><%#= key %></td>
+                          <% unless @room_available.blank? %>
+                            <% if (@room_available.from_date..@room_available.to_date).cover?(key.to_date) %>
+                              <% if values > 0 %>
+                                <td><%= values %></td>
+                              <% else %>
+                                <td>0</td>
+                              <% end %>
                             <% else %>
                               <td>0</td>
                             <% end %>
@@ -119,7 +127,7 @@
                       <% @range.times do |f| %>
                         <% @rate = RoomRate.where("room_type_id=? AND hotel_id=?",type.id, session[:hotel_id]) %>
                         <% unless @rate.blank? %>
-                            <% if (@rate[0].from_date..@rate[0].to_date).cover?(Date.today.advance(days: f)) %>
+                            <% if (@rate[0].from_date..@rate[0].to_date).cover?(@starting_date.advance(days: f)) %>
                               <td class="status status-clickable status-bookable">
                                 <span class="status-label status-bookable" title= "CAD <%= @rate[0].price %>" >
                                     &nbsp;
