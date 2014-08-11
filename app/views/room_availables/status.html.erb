@@ -1,0 +1,100 @@
+<div class="content-wrapper adm-inr">
+  <div id="container-main">
+    <header>
+      <h1 class="prop-title"><%= session[:hotel_name] %>(ID: <%= session[:hotel_id] %>)</h1>
+    </header>
+    <%= render partial: "/common/navigation_tab"%>
+    <div class="rtSidebar">
+      <div class="section">
+        <h3 class="title-bcg">Open/Close Rooms</h3>
+          <form action="/update_status" method="post">
+          <div class="bookings blocks">
+          <% my_date = Time.now %>
+          <div style="margin-bottom:10px; clear:both; overflow:hidden;">
+          <span>From Date: </span><%= text_field_tag 'from_date', "", :name => "from_date", :class => "datepicker1", :readonly => "readonly" %>
+          <span>To Date: </span><%= text_field_tag 'to_date', "", :name => "to_date", :class => "datepicker1", :readonly => "readonly" %>
+          </div>
+          <div class="scroll">
+            <table id="which" width="100%" border="0">
+      <tbody>
+        <tr>
+          <td width="33%" align="left" valign="top">
+            <div class="row mrgntp15">
+              For:
+            </div>
+            <div class="row break">
+              <input id="so-0" type="checkbox" value="0" name="so">
+              <label for="so-0">All Rooms</label>
+            </div>
+          <div> </div>
+          <div class="row mrgntp15">or for one or more of these Rooms:</div>
+          <div id="so-inject" style="margin: 0 0 5px;"></div>
+          <% RoomType.all.each do |room|%>
+          <div class="row break">
+            <input type="checkbox" id="" name="room_id[<%= room.id %>]" style="float:left;" class="so" >
+            <label><%= room.room_type %></label><div style="clear:both;"></div>
+          </div>
+          <% end %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="wizard-selector">
+      <tbody>
+        <tr>
+          <td>
+            Action to perform:
+          </td>
+          <td>
+            <label>
+              <input type="radio" value="1" checked="" name="closed"> Close
+            </label>
+          </td>
+          <td>
+            <label>
+              <input type="radio" value="0" name="closed"> Open
+            </label>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p><input type="submit" value="Change Status" name="submit" ></p>
+  </div>
+    </div>
+  </form>
+      </div>
+  </div>
+</div>
+<div class="height350 overflow">&nbsp;</div>
+</div>
+
+
+<script>
+  $(function() {
+    $( ".datepicker1" ).datepicker();
+    $("#wd-0").click(function(event){
+      if(this.checked){
+        $(".wd").each(function(){
+          this.checked = true;
+        })
+      }
+      else{
+        $(".wd").each(function(){
+          this.checked = false;
+        })    
+      }
+    })
+    $("#so-0").click(function(event){
+      if(this.checked){
+        $(".so").each(function(){
+          this.checked = true;
+        })
+      }
+      else{
+        $(".so").each(function(){
+          this.checked = false;
+        })    
+      }
+    })
+  });
+</script>

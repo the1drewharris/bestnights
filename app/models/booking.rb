@@ -7,7 +7,7 @@ class Booking < ActiveRecord::Base
   
   validates :hotel_id, :room_id, :from_date, :to_date, presence: true
   validates :price, presence: true, numericality: true
-  validates :adults, numericality: { only_integer: true }
+  # validates :adults, :children, numericality: { only_integer: true }
   
   #after_initialize :init
   #before_save :calculate_price

@@ -99,7 +99,7 @@
 						
 			<form action="/checkout" method="post">
 				<% @hotel.rooms.each do |room| %>
-					<% @room = RoomRate.find_by_room_id(room.id) %>
+					<%# @room = RoomRate.find_by_room_id(room.id) %>
 					<tr>
 						<td><%= room.room_type.room_type %></td>
 						<td>
@@ -116,9 +116,9 @@
 						</td>
 
 						<td class="price"><sup>$</sup>
-							<% if !@room.nil? %>
-								<%= eval "@room.rate_" + Date.today.strftime("%A").downcase %>
-							<% end %>
+							<%# if !@room.nil? %>
+								<%= room.price %>
+							<%# end %>
 							<br></td>
 						
 

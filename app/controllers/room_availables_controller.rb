@@ -50,11 +50,44 @@ layout "admin_basic"
 		end
 	end
 
+	def show
+		@room_available = RoomAvailable.find(params[:id])
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @room_available }
+    end
+	end
+
+	def status
+		@Rooms = Room.find_by_hotel_id(session[:hotel_id])
+		if @Rooms.nil?
+			flash[:success] = "Please Create Rooms First"
+			redirect_to new_room_path
+		else
+			@room = RoomStatus.new
+			respond_to do |format|
+	      format.html
+	      format.json
+			end
+		end
+	end
+
 	def update_status
-		@room = RoomAvailable.find(1)
-		@room.update_attributes(:status => params["closed"])
-		@room.save
-		redirect_to rates_path
+		params[:room_id].each do |room|
+			@status = RoomStatus.find_by_room_type_id_and_hotel_id(room[0].to_s,session[:hotel_id])
+			if @status.blank?
+				@status = RoomStatus.new
+			end
+			@status.room_type_id = room[0].to_s
+			@status.hotel_id = session[:hotel_id]
+			@status.from_date = DateTime.strptime(params[:from_date], '%m/%d/%Y')
+			@status.to_date = DateTime.strptime(params[:to_date], '%m/%d/%Y')
+			@status.status = params[:closed]
+			@status.save
+		end
+	flash[:success] = "Room Statuses have been changed"
+	redirect_to room_availables_status_path
 	end
 
 end
