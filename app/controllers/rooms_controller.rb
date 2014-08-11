@@ -98,7 +98,6 @@ class RoomsController < ApplicationController
           end
         end
       end
-      logger.info"**********************#{room.price}*********************"
       @room_rate = RoomRate.find_by_room_type_id(room.room_type.id)
       if @room_rate.nil?
         @room_rate = RoomRate.new

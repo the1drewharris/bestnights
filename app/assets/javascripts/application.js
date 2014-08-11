@@ -28,10 +28,12 @@ $(document).ready(function() {
 
 	if(window.location.pathname == "/overview"){
 		$("#from_date").datepicker({
-			dateFormat: "yy-mm-dd"
+			dateFormat: "yy-mm-dd",
+			minDate: new Date()
 		});
 		$("#to_date").datepicker({
-			dateFormat: "yy-mm-dd"
+			dateFormat: "yy-mm-dd",
+			minDate: new Date()
 		});
 		$("#find").click(function(){
 			var data = {date: $("#datepicker").val()}
