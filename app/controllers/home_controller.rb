@@ -365,7 +365,7 @@ class HomeController < ApplicationController
 
         @latest_booked = Booking.where(traveler_id: @traveler.id, hotel_id: room.hotel.id).order("created_at DESC").limit(1)
         logger.info"&&&&&&&&&&&&&&&#{@latest_booked.inspect}&&&&&222222&&&&#{@card_number}&&&"
-        @fax_email = FaxMailer.hotel_booking_mail(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, numbers, @latest_booked, @room1,@rate,@card_expiry, request.protocol,request.host_with_port).deliver
+        @fax_email = FaxMailer.hotel_booking_mail(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, numbers, @latest_booked, @room1,@rate,@card_expiry, request.protocol,request.host_with_port, number_nights, @room1.price.to_f).deliver
         @fax_email_to_hotel = FaxMailer.email_to_hotel(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, room_ids, @latest_booked, @room1,@card_expiry, request.protocol,request.host_with_port, numbers).deliver
     else
       flash[:errors] = ["Your booking failed!"]

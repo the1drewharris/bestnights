@@ -1,7 +1,7 @@
 class FaxMailer < ActionMailer::Base
   default from: "info@bestnights.com"
 
-  def hotel_booking_mail(traveler, amount, cardnumber, ccv, cardtype, hotel, checkin, checkout, numbers, latest_booked, room, rate, credit_card_expiry_date, protocol,host)
+  def hotel_booking_mail(traveler, amount, cardnumber, ccv, cardtype, hotel, checkin, checkout, numbers, latest_booked, room, rate, credit_card_expiry_date, protocol,host, number_nights, price)
   	@traveler = traveler
   	@amount = amount
   	@cardnumber = cardnumber
@@ -17,6 +17,8 @@ class FaxMailer < ActionMailer::Base
     @protocol = protocol
     @host = host
     @expiry_date = credit_card_expiry_date
+    @nights = number_nights
+    @price = price
   	subject = "Bestnights Booking Confirmation"
     mail(:subject => subject, :to => @traveler.email)
   end
