@@ -23,7 +23,7 @@ class FaxMailer < ActionMailer::Base
     mail(:subject => subject, :to => @traveler.email)
   end
   
-  def email_to_hotel(traveler, amount, cardnumber, ccv, cardtype, hotel, checkin, checkout, room_ids, latest_booked, room, credit_card_expiry_date, protocol,host, numbers)
+  def email_to_hotel(traveler, amount, cardnumber, ccv, cardtype, hotel, checkin, checkout, room_ids, latest_booked, room, credit_card_expiry_date, protocol,host, numbers, number_nights, price)
     @traveler = traveler
     @amount = amount
     @cardnumber = cardnumber
@@ -38,6 +38,8 @@ class FaxMailer < ActionMailer::Base
     @protocol = protocol
     @host = host
     @expiry_date = credit_card_expiry_date
+    @nights = number_nights
+    @price = price
     subject = "Booking Hotel"
     mail(:subject => subject, :to => @hotel.email)
   end
