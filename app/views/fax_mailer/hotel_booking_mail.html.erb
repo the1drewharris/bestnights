@@ -1,299 +1,198 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>E-mail Template</title>
-<style type="text/css">
-<!--
-@media print {
-body * {
-  padding:0;
-  margin:0;
-}
-}
--->
-</style>
-</head>
-<body>
-<div style="text-align:center; clear:both; overflow:hidden;">
-<div style="width:600px; margin:0 auto; clear:both; overflow:hidden; padding:1px; border:1px solid #008000; display:block; outline:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:normal; color:#000000;">
-<div style="margin:0; clear:both; overflow:hidden; padding:1px; border:4px solid #008000; display:block; outline:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:normal; color:#000000;">
-<div style="margin:0; clear:both; overflow:hidden; padding:0px; border:1px solid #008000; display:block; outline:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:normal; color:#000000;">
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
-<tr>
-  <td align="left" valign="top" style="padding:6px;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>E-mail Template</title>
+  </head>
+  <body>
+    <table width="604" border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="#FFFFFF">
       <tr>
-        <td align="left" valign="top"><img src="http://bestnights.indusnetlabs.com/assets/e-mail-logo.jpg" width="316" height="52" alt="" /></td>
-    </table></td>
-</tr>
-<tr>
-  <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px; color:#000000; border-top:3px solid #000; padding:20px 0px 0px 0px;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-      <tr>
-        <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
-            <tr>
-              <td colspan="2" align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:16px; line-height:25px; color:#FF0000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:3px; padding-bottom:3px; text-transform:uppercase; border-top:1px solid #008000;">Dear <%= @traveler.firstname.capitalize %>&nbsp;<%= @traveler.lastname.capitalize %></td>
-            </tr>
-            <tr>
-              <td colspan="2" align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:16px; line-height:25px; color:#FF0000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:3px; padding-bottom:3px; text-transform:uppercase; border-top:1px solid #008000;">Booking Confirmation:</td>
-            </tr>
-            <tr>
-              <td colspan="2" align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:1px solid #008000; border-bottom:none; border-left:none;">Thank you for your booking..</td>
-            </tr>
-            <tr>
-              <td width="27%" align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:1px solid #008000; border-bottom:none; border-left:none;">Confirmation Number:</td>
-              <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; font-weight:normal; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:none; border-bottom:none; border-left:none;"><strong>
-                <% @booking.each do |b| %>
-                  <%= b.id %>
-                <% end %>
-              </strong></td>
-            </tr>
-            <tr>
-              <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:1px solid #008000; border-bottom:none; border-left:none;">This booking is confirmed on:</td>
-              <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px; color:#000000; font-weight:normal; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:none; border-bottom:none; border-left:none;"><strong>
-                <% @booking.each do |b| %>
-                  <%= b.created_at.strftime("%A, %B %d, %Y") %>
-                <% end %>
-              </strong></td>
-            </tr>
-            <tr>
-              <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:1px solid #008000; border-bottom:none; border-left:none;">Your Name:</td>
-              <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px; color:#000000; font-weight:normal; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:none; border-bottom:none; border-left:none;"><%= @traveler.firstname.capitalize %>&nbsp;<%= @traveler.lastname.capitalize %></td>
-            </tr>
-            <tr>
-              <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:1px solid #008000; border-bottom:none; border-left:none;">Your E-mail:</td>
-              <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px; color:#000000; font-weight:normal; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:none; border-bottom:none; border-left:none;"><a href="mailto:doroshka@gmail.com" style="color:#000000; text-decoration:underline;"><%= @traveler.email %></a></td>
-            </tr>
-            <tr>
-              <td colspan="2" align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:16px; line-height:25px; color:#FF0000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:3px; padding-bottom:3px; text-transform:uppercase; border-top:1px solid #008000;">Your booking:</td>
-            </tr>
-            <tr>
-              <td colspan="2" align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:1px solid #008000; border-bottom:none; border-left:none;">Hotel Information</td>
-            </tr>
-            <tr>
-              <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:1px solid #008000; border-bottom:none; border-left:none;">Hotel:</td>
-              <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:none; border-bottom:none; border-left:none;"><%= @hotel.name.titleize %></td>
-            </tr>
-            <tr>
-              <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:1px solid #008000; border-bottom:none; border-left:none;">Address:</td>
-              <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:17px; color:#000000; font-weight:normal; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:none; border-bottom:none; border-left:none;">
-                <%= @hotel.name.capitalize %><br />
-                <%= @hotel.city.capitalize %><br />
-                <%= @hotel.address1.titleize %><br />
-                <%= @hotel.zip %></td>
-            </tr>
-            <tr>
-              <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:1px solid #008000; border-bottom:none; border-left:none;">Phone:</td>
-              <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px; color:#000000; font-weight:normal; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:none; border-bottom:none; border-left:none;"><%= @hotel.fax %></td>
-            </tr>
-            <tr>
-              <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:1px solid #008000; border-bottom:none; border-left:none;">Fax:</td>
-              <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; font-weight:normal; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:none; border-bottom:none; border-left:none;"><%= @hotel.fax %></td>
-            </tr>
-            <tr>
-              <td colspan="2" align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:16px; line-height:25px; color:#FF0000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:3px; padding-bottom:3px; text-transform:uppercase; border-top:1px solid #008000;">Your Reservation details:</td>
-            </tr>
-            <tr>
-              <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:1px solid #008000; border-bottom:none; border-left:none;">Arrival:</td>
-              <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px; color:#000000; font-weight:normal; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:none; border-bottom:none; border-left:none;"><% @booking.each do |b| %>
-                  <%= b.from_date.strftime("%A, %B %d, %Y") %>
-                <% end %>
-              </td>
-            </tr>
-            <tr>
-              <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:1px solid #008000; border-bottom:none; border-left:none;">Departure:</td>
-              <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px; color:#000000; font-weight:normal; padding-left:6px; padding-right:6px; padding-top:3px; padding-bottom:3px; border-top:1px solid #008000; border-right:none; border-bottom:none; border-left:none;"><% @booking.each do |b| %>
-                  <%= b.to_date.strftime("%A, %B %d, %Y") %>
-                <% end %>
-              </td>
-            </tr>
-            <tr>
-              <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:1px solid #008000; border-bottom:none; border-left:none;">Quantity:</td>
-              <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px; color:#000000; font-weight:normal; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:none; border-bottom:none; border-left:none;"><%= @room_numbers %></td>
-            </tr>
-            <tr>
-              <td height="35" align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:18px; line-height:20px; color:#2B70FF; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:1px solid #008000; border-bottom:none; border-left:none;">Total Price</td>
-              <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:18px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:none; border-bottom:none; border-left:none;">
-                $<%= number_with_precision(@amount, :precision => 2, :separator => '.') %>
-                <table>
-                  <tr>
-                    <% @booking.each do |book| %>
-                      <% @nights.times do |night| %>
-                        <td>
-                          <%= book.from_date.advance(days: night).strftime("%A, %B %d, %Y") %>
-                        </td>
-                      <% end %>
-                    <% end %>
-                  </tr>
-                  <tr>
-                    <% @booking.each do |book| %>
-                      <% @nights.times do |night| %>
-                        <td>
-                          <%= @price %>
-                        </td>
-                      <% end %>
-                    <% end %>
-                  </tr>
-                </table>
-              </td>
-            </tr>
-            <tr>
-              <td colspan="2" align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:15px; line-height:20px; color:#000000; font-weight:normal; padding-left:6px; padding-right:6px; padding-top:3px; padding-bottom:4px; border-top:1px solid #008000; border-right:none; border-bottom:1px solid #008000; border-left:none;"><strong>Room 1 - <%= @room.name %> - <%= @room.room_type.room_type %><br />
-              </strong>                          <p style="margin:4px 0; padding:0 6px; display:block; clear:both; display:block; font-weight:normal;"><strong>Room Description</strong><br />
-                  <%= @room.description  %></p></td>
-            </tr>
-        </table></td>
+        <td>
+          <a href="http://bestnights.indusnetlabs.com">
+            <img src="http://bestnights.indusnetlabs.com/assets/logo.jpg" alt="" title="" style="border: 0;">
+          </a>
+        </td>
       </tr>
-    </table></td>
-</tr>
-<tr>
-  <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:10px; padding-bottom:10px;">
-     Break Fast:
-    <ul style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; clear:both; display:block; overflow:hidden;">
-      <li>
-        Continental breakfast is included in the room rate. 
-      </li>
-    </ul>
-    Taxes:
-    <ul style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; clear:both; display:block; overflow:hidden;">
-      <li>
-        Service Charge is not applicable.
-      </li>
-      <li>
-        City/tourist tax is not applicable.
-      </li>
-    </ul>
-    Prepayment:
-    <ul style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; clear:both; display:block; overflow:hidden;">
-      <li>
-        No deposit will be charged.
-      </li>
-    </ul>
-    Cancellation Policy:
-    <ul style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; clear:both; display:block; overflow:hidden;">
-      <li>
-        If cancelled up to 2 days before date of arrival, no fee will be charged.
-      </li>
-      <li>
-        If cancelled later or in case of no-show, the first night will be charged.
-      </li>
-    </ul>
-  </td>
-</tr>
-
-<tr>
-  <td>
-  <table width="100%" cellspacing="0" cellpadding="0" border="0">
-    <tr>
-      <td width="27%" align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:18px; line-height:20px; color:#2B70FF; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:1px solid #008000; border-bottom:1px solid #008000; border-left:none;">Room Price</td>
-      <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:18px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:2px; padding-bottom:3px; border-top:1px solid #008000; border-right:none; border-bottom:1px solid #008000; border-left:none;">
-        $<%= number_with_precision(@rate, :precision => 2, :separator => '.') %></td>  
-    </tr>
-  </table>
-</td>
-</tr>
-<tr>
-<td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:10px; padding-bottom:10px;">How to Cancel or Change Your booking
-</td>
-</tr>
-<tr>
-  <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px; color:#000000; padding-left:6px; padding-right:6px; padding-top:10px; padding-bottom:10px;">
-    If you want to cancel or change your booking, please go to <a href="http://www.bestnights.com">www.bestnights.com</a> and login to your traveller account or call 1-800-494-BEST (2378)
-  </td>
-</tr>
-<tr><td style="height:4px;"></td></tr>
-<tr>
-  <td>
-    <table width="100%" cellspacing="0" cellpadding="0" border="0">
-      <td style="width:4px;"></td>
-      <td style="border:1px solid #008000">
-        <table width="100%" cellspacing="0" cellpadding="0" border="0">
-          <tr>
-            <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:10px; padding-bottom:10px;">
-              Please check with the selected hotel for individual policies in regards to:
-            </td>
-          </tr>
-          <tr>
-            <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:10px; padding-bottom:10px;">
-              Cancellation 
-              <ul style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; clear:both; display:block; overflow:hidden;">
-                <li>
-                  Please check the specific policy of each room above
-                </li>
-              </ul>
-              Prepayment 
-              <ul style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; clear:both; display:block; overflow:hidden;">
-                <li>
-                </li>
-              </ul>
-              Children
-              <ul style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; clear:both; display:block; overflow:hidden;">
-                <li>
-                  All children under 2 years are charged EUR 12.84 per night per person for cots.
-                </li>
-                <li>
-                  Maximum capacity of babycots in a room is 2.
-                </li>
-              </ul>
-              Parking
-              <ul style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; clear:both; display:block; overflow:hidden;">
-                <li>
-                  Free public parking is possible on site.
-                </li>
-              </ul>
-              Pets
-              <ul style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; clear:both; display:block; overflow:hidden;">
-                <li>
-                  Pets are allowed. Charges may be applicable.
-                </li>
-              </ul>
-            </td>
-          </tr> 
-        </table>
-      </td>
-      <td style="width:4px;"></td>
     </table>
-  </td>
-</tr>
-<tr><td style="height:4px;"></td></tr>
-<tr>
-  <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:10px; padding-bottom:10px;"> Credit Card / Guarantee/ Payment Information</td>
-</tr>  
-<tr>
-  <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:10px; padding-bottom:10px;"> Payment</td>
-</tr>
-<tr>
-  <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px; color:#000000; padding-left:6px; padding-right:6px; padding-top:10px; padding-bottom:10px;"> You have now confirmed and guaranteed your booking by credit card. <br />
-    <strong>Bestnights.com does not charge your credit card.</strong><br />
-    Your credit card is required to guarantee your booking. Please note that your credit card may be pre-authorized prior to your arrival. <br />
-    <strong>This hotel accepts the following forms of payment:</strong><br />
-    Visa, Mastercard, Dinners Club, American Express, Discover
-  </td>
-</tr> 
-<tr>
-  <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:10px; padding-bottom:10px;">Customer Service</td>
-</tr>  
-<tr>
-  <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px; color:#000000; padding-left:6px; padding-right:6px; padding-top:10px; padding-bottom:10px;">Wishing you a pleasant stay! <br />
-    Bestnights.com online hotel reservations<br />
-    E-mail: <%= mail_to "info@bestnights.com" %><br />
-    Phone In-country: 1 800 494 BEST (2378) <br />
-    Phone International:  1 800 494 BEST (2378)
-  </td>
-</tr>    
-<tr>
-<tr>
-  <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:10px; padding-bottom:10px;">Thank you,</td>
-</tr>
-<tr>
-  <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:0px; padding-bottom:0px;">The BestNights Team</td>
-</tr>
-<tr>
-  <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px; color:#000000; font-weight:bold; padding-left:6px; padding-right:6px; padding-top:0px; padding-bottom:0;">&nbsp;</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-</div>
-</body>
+    <table width="604" border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="#FFFFFF" style="font-family:Arial, Helvetica, sans-serif; border-width: 5px; border-color: #008000; border-style: solid; padding: 20px; font-size: 12px; color: #565656; font-weight: bold;">
+      <tr>
+        <td colspan="2">
+          <h2 style="font-size: 22px ; color: #e73d3d; margin-top: 10px; margin-bottom: 20px;">Dear, <%= @traveler.firstname.capitalize %>&nbsp;<%= @traveler.lastname.capitalize %></h2>
+          <h3 style="font-size: 16px ; color: #008000; margin-top: 10px; margin-bottom: 0;">BOOKING CONFIRMATION:</h3>
+          <h4 style="font-size: 12px ; color: #cf4a4a; margin-top: 2px; margin-bottom: 10px;">Thank you for your booking..</h4>
+        </td>
+      </tr>
+      <tr style="line-height: 22px;">
+        <td style="width: 176px;">Confirmation Number</td>
+        <td>: 
+          <% @booking.each do |b| %>
+            <%= b.id %>
+          <% end %>
+        </td>
+      </tr>
+      <tr style="line-height: 22px;">
+        <td style="width: 176px;">This booking is confirmed on</td>
+        <td>:  
+          <% @booking.each do |b| %>
+            <%= b.created_at.strftime("%A, %B %d, %Y") %>
+          <% end %>
+        </td>
+      </tr>
+      <tr style="line-height: 22px;">
+        <td style="width: 176px;">Your Name</td>
+        <td>:  <%= @traveler.firstname.capitalize %>&nbsp;<%= @traveler.lastname.capitalize %></td>
+      </tr>
+      <tr style="line-height: 22px;">
+        <td style="width: 176px;">Your E-mail</td>
+        <td>:  <%= @traveler.email %></td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <h3 style="font-size: 16px ; color: #008000; margin-top: 20px; margin-bottom: 0;">YOUR BOOKING:</h3>
+          <h4 style="font-size: 12px ; color: #cf4a4a; margin-top: 2px; margin-bottom: 10px;">Hotel Information</h4>
+        </td>
+      </tr>
+      <tr style="line-height: 22px;">
+        <td style="width: 176px;">Hotel</td>
+        <td>:  <%= @hotel.name.titleize %></td>
+      </tr>
+      <tr style="line-height: 22px;">
+        <td style="width: 176px;">Address</td>
+        <td>:  <%= @hotel.name.capitalize %>, <%= @hotel.city.capitalize %>, <%= @hotel.address1.titleize %>,<%= @hotel.zip %></td>
+      </tr>
+      <tr style="line-height: 22px;">
+        <td style="width: 176px;">Phone</td>
+        <td>:  
+          <% if @hotel.phone.blank? %>
+            <%= @hotel.phone %>
+          <% else %>
+            <%= @hotel.fax %>
+          <% end %>
+        </td>
+      </tr>
+      <tr style="line-height: 22px;">
+        <td style="width: 176px;">Fax</td>
+        <td>:  <%= @hotel.fax %></td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <h3 style="font-size: 16px ; color: #008000; margin-top: 20px; margin-bottom: 12px;">YOUR RESERVATION DETAILS:</h3>
+        </td>
+      </tr>
+      <tr style="line-height: 22px;">
+        <td style="width: 176px;">Arrival</td>
+        <td>:  
+          <% @booking.each do |b| %>
+            <%= b.from_date.strftime("%A, %B %d, %Y") %>
+          <% end %>
+        </td>
+      </tr>
+      <tr style="line-height: 22px;">
+        <td style="width: 176px;">Departure</td>
+        <td>:  
+          <% @booking.each do |b| %>
+            <%= b.to_date.strftime("%A, %B %d, %Y") %>
+          <% end %>
+        </td>
+      </tr>
+      <tr style="line-height: 22px;">
+        <td style="width: 176px;">Quantity</td>
+        <td>:  <%= @room_numbers %></td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <table cellspacing="0" cellpadding="0" align="center" style="text-align: center; font-size:16px; margin-top: 25px; width: 554px;">
+            <tr style="color:#fff;">
+              <% @booking.each do |book| %>
+                <% @nights.times do |night| %>
+                  <td style="background: #008000; height:40px;  border-right-width: 1px; border-right-color:#009400; border-right-style:solid;"><%= book.from_date.advance(days: night).strftime("%m") %>/<%= book.from_date.advance(days: night).strftime("%d") %></td>
+                <% end %>
+              <% end %>    
+            </tr>
+            <tr style="color:#4c4c4c; font-size: 12px;">
+              <% @booking.each do |book| %>
+                <% @nights.times do |night| %>
+                  <td style="background: #e5e5e5; height:40px;"><%= @price %> CAD</td>
+                <% end %>
+              <% end %>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <h2 style="font-size: 16px ; color: #272727; margin-top: 10px; margin-bottom: 25px;">Total Price : <span style="color: #cf4a4a;">$<%= number_with_precision(@amount, :precision => 2, :separator => '.') %></span></h2>
+          <h2 style="font-size: 14px ; color: #272727; margin-top: 0; margin-bottom: 0;">
+            Room 1 - <%= @room.name %> - <%= @room.room_type.room_type %>
+            <br>
+            Room Description
+          </h2>
+          <h4 style="font-size: 12px ; color: #cf4a4a; margin-top: 7px; margin-bottom: 10px;">How to Cancel or Change Your booking</h4>
+          <p style="color: #6d6d6d; font-size: 12px; line-height: 20px;">
+            If you want to cancel or change your booking, please go to www.bestnights.com and login to your
+    traveller account or call 1-800-494-BEST (2378)
+          </p>
+          <h4 style="font-size: 12px ; color: #cf4a4a; margin-top: 7px; margin-bottom: 20px;">Please check with the selected hotel for individual policies in regards to:</h4>
+          
+          <h3 style="font-size: 14px ; color: #008000; margin-top: 10px; margin-bottom: 3px;">Cancellation</h3>
+          <p style="color: #6d6d6d; font-size: 12px; line-height: 20px; margin-top: 0; margin-bottom:  5px;">Please check the specific policy of each room above</p>
+          
+          <h3 style="font-size: 14px ; color: #008000; margin-top: 10px; margin-bottom: 3px;">Prepayment</h3>
+          <p style="color: #6d6d6d; font-size: 12px; line-height: 20px; margin: 0;">Please check the specific policy of each room above</p>
+          
+          <h3 style="font-size: 14px ; color: #008000; margin-top: 10px; margin-bottom: 3px;">Children</h3>
+          <p style="color: #6d6d6d; font-size: 12px; line-height: 20px; margin: 0;">
+            All children under 2 years are charged EUR 12.84 per night per person for cots. Maximum capacity of babycots in a room is 2.
+          </p>
+          
+          <h3 style="font-size: 14px ; color: #008000; margin-top: 10px; margin-bottom: 3px;">Parking</h3>
+          <p style="color: #6d6d6d; font-size: 12px; line-height: 20px; margin: 0;">Free public parking is possible on site.</p>
+          
+          <h3 style="font-size: 14px ; color: #008000; margin-top: 10px; margin-bottom: 3px;">Pets</h3>
+          <p style="color: #6d6d6d; font-size: 12px; line-height: 20px; margin: 0;">Pets are allowed. Charges may be applicable.</p>
+          
+          <h2 style="font-size: 14px ; color: #272727; margin-top: 25px; margin-bottom: 25px;">Credit Card / Guarantee/ Payment Information</h2>
+          
+          <h3 style="font-size: 14px ; color: #008000; margin-top: 10px; margin-bottom: 3px;">Payment</h3>
+          <p style="color: #6d6d6d; font-size: 12px; line-height: 20px; margin: 0;">You have now confirmed and guaranteed your booking by credit card.</p>
+          
+          <h3 style="font-size: 14px ; color: #008000; margin-top: 10px; margin-bottom: 3px;">Bestnights.com does not charge your credit card.</h3>
+          <p style="color: #6d6d6d; font-size: 12px; line-height: 20px; margin: 0;">
+            Your credit card is required to guarantee your booking. Please note that your credit card may be pre-authorized prior to your arrival.
+          </p>
+          
+          <h3 style="font-size: 14px ; color: #008000; margin-top: 10px; margin-bottom: 3px;">This hotel accepts the following forms of payment:</h3>
+          <p style="color: #6d6d6d; font-size: 12px; line-height: 20px; margin: 0;">Visa, Mastercard, Dinners Club, American Express, Discover</p>
+          
+          <h3 style="font-size: 14px ; color: #008000; margin-top: 10px; margin-bottom: 3px;">Customer Service</h3>
+          <p style="color: #6d6d6d; font-size: 12px; line-height: 20px; margin: 0;">
+            Wishing you a pleasant stay! 
+            <br>
+            Bestnights.com online hotel reservations
+            <br>
+            E-mail: <a href="mailto:info@bestnights.com" style="color: #6d6d6d">info@bestnights.com</a> 
+            <br>
+            Phone In-country: 1 800 494 BEST (2378) 
+            <br>
+            Phone International: 1 800 494 BEST (2378)
+          </p>  
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <table cellspacing="0" cellpadding="0" align="center" style="background: #e5e5e5 ; margin-top: 20px; width: 594px; margin-left: -20px; margin-right: -20px; margin-bottom:-20px; padding-left: 20px; padding-right: 20px; padding-top: 15px; padding-bottom: 15px;">
+            <tr>
+              <td colspan="2">
+                <h4 style="font-size: 12px ; color: #707070; margin-top: 0; margin-bottom: 0;">
+                  -Thank you,
+                  <br>
+                  The BestNights Team
+                </h4>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
 </html>

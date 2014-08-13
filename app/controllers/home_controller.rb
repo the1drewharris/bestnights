@@ -280,10 +280,10 @@ class HomeController < ApplicationController
       @traveler = Traveler.find_by_email(params[:email])  
       unless @traveler
         @traveler = Traveler.new(params[:traveler])
-        @card_number = params[:credit_card_number]
-        @card_type = params[:credit_card_type]
-        @ccv = params[:ccv]
-        @card_expiry = params[:credit_card_expiry_date]
+        @card_number = params[:credit_card_number].blank? ? "" : params[:credit_card_number]
+        @card_type = params[:credit_card_type].blank? ? "" : params[:credit_card_type]
+        @ccv = params[:ccv].blank? ? "" : params[:ccv]
+        @card_expiry = params[:credit_card_expiry_date].blank? ? "" : params[:credit_card_expiry_date]
         if @traveler.save
           sign_in @traveler
         else     
