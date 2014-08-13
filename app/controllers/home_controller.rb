@@ -262,7 +262,7 @@ class HomeController < ApplicationController
       redirect_to book_hotel_path
       # render :json => @traveler, :status => 200
     else
-      redirect_to root_url
+       redirect_to new_traveler_session_path(:success => "Please enter a valid username and password")  
     end
     
   end

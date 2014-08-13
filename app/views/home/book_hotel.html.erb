@@ -13,7 +13,13 @@
 	 				</li>
 	 				<li>
 		 				<label>Credit Card Number:</label>
-						<%= @traveler.try(:credit_card_number) %>
+		 				<% if !@traveler.try(:credit_card_number).blank? %>
+		 				<% (@traveler.try(:credit_card_number).length - 4).times do |i| %>
+		 				   *
+		 				   <% end %>
+						<%= @traveler.try(:credit_card_number).split(//).last(4).join("").to_s %>
+						 <% end %>
+
 						<input type="hidden" value="<%= @traveler.email %>" name="email"></input>
 					</li>
 					<li>
