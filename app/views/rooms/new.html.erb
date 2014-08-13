@@ -21,10 +21,6 @@
 		  		<%= f.select :room_type_id, options_for_select(@room_types.map{|s|[s.room_type, s.id]}) %>
 		  	</li>
 		  	<li>
-		  		<%= f.label "Base Price" %>
-		  		<%= f.text_field :price, readonly: true %>
-		  	</li>
-		  	<li>
 		  		<%= f.label "Additional Adult Fee" %>
 		  		<%= f.text_field :additionaladultfee %>
 		  	</li>

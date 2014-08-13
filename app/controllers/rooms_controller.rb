@@ -40,7 +40,7 @@ class RoomsController < ApplicationController
   
   def create
     @room = Room.new(params[:room])
-    @room.price = params[:room][:price].to_f + params[:room][:additionaladultfee].to_f
+    #@room.price = params[:room][:price].to_f + params[:room][:additionaladultfee].to_f
     if @room.save
       @room_available = RoomAvailable.find_by_room_type_id_and_hotel_id(params[:room][:room_type_id],session[:hotel_id])
       unless @room_available.blank?

@@ -54,33 +54,4 @@ $(document).ready(function() {
 			})
 		})
 	}
-	if(window.location.pathname == "/rooms/new"){
-		$("#room_room_type_id").change(function(){
-			var data = {}
-			var type = $(this).val()
-			$.ajax({
-				type: "get",
-				dataType: "json",
-				url: "/rates/search/"+type,
-				data: data,
-				success: function(data){
-					if(data == null){
-						data = {}
-						$.ajax({
-							type: "get",
-				      dataType: "json",
-				      url: "/room_types/"+type,
-				      data: data,
-				      success: function(data){
-				      	$("#room_price").val(data)
-				      }
-						})
-					}
-					else{
-						$("#room_price").val(data["price"])
-					}
-				}
-			})
-		})
-	}
 });
