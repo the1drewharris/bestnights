@@ -4304,5 +4304,27 @@ span.status-label{
 	font-size: 18px;
 	text-transform: capitalize;
 }
+.searchDestinyButt{
+	text-align: center;
+}
+.searchDestinyButt li{
+	text-align: center;
+	display: inline-block;
+	background: #D35452;
+	color: #fff;
+	font-size: 16px;
+	line-height: 36px;
+	text-decoration: none;
+	padding: 0 19px;
+	margin: 19px 0;
+}
+.searchDestinyButt li a{
+	color: #fff;
+	text-decoration: none;
+}
+.searchDestinyButt li a:hover{
+	color: #fff;
+	text-decoration: none;
+}
 /* End */
 
