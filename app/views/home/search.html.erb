@@ -86,13 +86,13 @@
 		<div id="">
 			<% if !@hotels.blank? %>
 				<% @hotels.each do |hotel| %>
-				<p><%= link_to hotel.name.capitalize, booking_detail_path(:hotel_id => hotel.id) %></p>
+				<p><%= link_to hotel.name.titleize, booking_detail_path(:hotel_id => hotel.id) %></p>
 							<span class="starrating">
 								<% hotel.star.to_i.times do %>
 									&#10029;
 								<% end %>
 							</span>
-							<span class="bt-info"><%= link_to hotel.city.capitalize, booking_detail_path(:hotel_id => hotel.id) %>, <%= link_to hotel.zip, booking_detail_path(:hotel_id => hotel.id) %>
+							<span class="bt-info"><%= link_to hotel.city.titleize, booking_detail_path(:hotel_id => hotel.id) %>, <%= link_to hotel.zip, booking_detail_path(:hotel_id => hotel.id) %>
 							</span>
 							<span><strong>Policy:</strong> 
 								<%= hotel.policy.blank? ? "" : hotel.policy.titleize %>

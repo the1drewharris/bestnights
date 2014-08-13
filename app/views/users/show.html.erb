@@ -1,12 +1,29 @@
- <% content_for :title, "BestNights.com - User" %>
+ <% content_for :title, "BestNights.com" %>
 
-<header>
-	<h1><%= @user.role %></h1>
-</header>
-
-<div id="container-main">
-	<span>
-		<%= @user.email %>
-	</span>	
-</div>
-<div class="row back-link bking"><%= link_to "Back", users_path , class: "link" %></div>
+ <div id="wrapper" class="register">
+ 	<div id="container-main">
+ 		<h1 class="prop-title">User Information</h1> 
+ 		<br />
+ 		<div class="info blockinfo">
+ 			<ul>
+ 				<li>
+	 				<label>Name:</label>
+	 				<%= @user.firstname.capitalize %>&nbsp;<%= @user.lastname.capitalize %>
+ 				</li>
+ 				<li>
+	 				<label>Address:</label>
+					<%= @user.address1.titleize %>
+				</li>
+				<li>
+					<label>City:</label>
+					<%= @user.city.capitalize %>
+				</li>
+				<li>
+					<label>State/Province:</label>
+					<%= @user.state_id %>
+				</li>
+			</ul>
+		</div>
+ 	</div>
+ 		<%= render :partial => "common/home_footer" %>
+ </div>

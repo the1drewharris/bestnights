@@ -10,8 +10,10 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
   
   validates_uniqueness_of :email, message: 'That email already exists'
-  validates_confirmation_of :password
   validates :role, :firstname, :lastname, :address1, :city, :country_id, :status, :zip, presence: true  
+  validates :password, presence: true, on: :create
+  validates :password, confirmation: true, on: :create
+  validates :password, length: {minimum: 6}
   # validates :terms_of_service, acceptance: true
   
   after_initialize :init
