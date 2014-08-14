@@ -1,11 +1,11 @@
 <% content_for :title, "BestNights.com - Add Traveler" %>
 
 <header>
-	<h1 class="prop-title">sfdcgsdAdd Traveler</h1>
+	<h1 class="prop-title">Add Traveler</h1>
 </header>
 
 <div id="container-main">
-	<%= form_for @traveler,:url => travelers_path(@traveler) do |f| %>
+	<%= form_for @traveler, url: travelers_create_path, :method => :post do |f| %>
 		<fieldset>
 		  <ul>
 		  	<li>

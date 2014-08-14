@@ -1,15 +1,18 @@
 class TravelersController < ApplicationController
   #before_filter :authenticate_user!, only: [:new, :create]
-  before_filter :authenticate_traveler!, only: [:booking_history, :edit_traveler, :show, :change_password]  
-  layout "admin_basic", only: [:index, :new, :show, :edit]
+  before_filter :authenticate_traveler!, only: [:booking_history, :edit_traveler, :change_password]  
+  layout "admin_basic", only: [:index, :new, :edit, :show_traveler]
   layout "traveler_basic", only: [:booking_history, :edit_traveler, :show, :change_password]
   def index
     @travelers = Traveler.search(params[:search])
   end
   
   def show
-    @traveler = current_traveler
-    session[:traveler_id] = current_traveler.id
+      @traveler = Traveler.find(current_traveler)
+  end
+
+  def show_traveler
+      @traveler = Traveler.find(params[:id])
   end
   
   def new
