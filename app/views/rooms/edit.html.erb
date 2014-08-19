@@ -83,9 +83,10 @@
 
 
 <script type="text/javascript">
-	$(document).ready(function(){			
+	$(document).ready(function(){	
+		var room_id = '<%= @room.id %>'
 		Dropzone.options.roomDropzone = {
-			url: "/room_photos/1",
+			url: "/room_photos/"+room_id,
 			addRemoveLinks: true,
 			dictRemoveFileConfirmation: "Are you sure you want to remove this file?",
 			paramName: "picture",
