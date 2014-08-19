@@ -1,5 +1,5 @@
 class RoomType < ActiveRecord::Base
-  attr_accessible :room_type, :status, :base_price
+  attr_accessible :room_type, :status
   
   validates :room_type, presence: true, uniqueness: { case_sensitive: false }
   validates :base_price, presence: true
@@ -8,7 +8,7 @@ class RoomType < ActiveRecord::Base
   
   has_many :bookings
   has_many :rooms
-  has_many :room_types
+  has_many :room_sub_types
   has_many :room_availables
   has_many :room_statuses
   

@@ -1,0 +1,25 @@
+<% content_for :title, "BestNights.com - Edit Room Sub Type" %>
+
+<header>
+	<h1 class="prop-title">Edit Room Sub Type</h1>
+</header>
+
+<div id="container-main">
+	<%= form_for @room_sub_type do |f| %>
+		<fieldset>
+		  <ul>
+		  	<li>
+		  		<%= f.label 'Name*' %>
+		  		<%= f.text_field :name %>
+		  	</li>
+		  	<li>
+					<%= f.label :room_type %>
+					<%= f.collection_select :room_type_id, RoomType.all, :id, :room_type, :prompt => true %>
+				</li>
+		  </ul>	
+		</fieldset>
+		<fieldset class="formactions">
+			<%= f.submit %>
+		</fieldset>
+	<% end %>
+</div>

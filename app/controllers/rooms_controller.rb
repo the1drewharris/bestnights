@@ -8,8 +8,9 @@ class RoomsController < ApplicationController
         @rooms = Room.find(:all, :conditions => ['(id LIKE ? or name LIKE ? or description LIKE ?)', "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%"])
     elsif current_user.admin?
       @rooms = Room.all
-    elsif current_user.manager? 
-      @rooms = current_user.rooms
+    elsif current_user.manager?
+      @rooms = Room.where("hotel_id=?",session[:hotel_id])
+      logger.info"&&&&&#{session[:hotel_id]}&&&&&&&&&&&&#{@rooms.inspect}&&&&&&&&&&&&&&&&&&"
     end    
     
     if current_user.new_signup?
@@ -27,6 +28,7 @@ class RoomsController < ApplicationController
   def new
     @room = Room.new
     @room_types = RoomType.activated
+    @room_sub_types = RoomSubType.all
     if current_user.admin?
       @hotels = Hotel.activated
     elsif current_user.manager?
@@ -39,28 +41,34 @@ class RoomsController < ApplicationController
   end
   
   def create
-    @room = Room.new(params[:room])
-    #@room.price = params[:room][:price].to_f + params[:room][:additionaladultfee].to_f
-    if @room.save
-      @room_available = RoomAvailable.find_by_room_type_id_and_hotel_id(params[:room][:room_type_id],session[:hotel_id])
-      unless @room_available.blank?
-        @room_available.number += params[:room][:starting_inventory].to_i
+    @room = Room.where("room_type_id=? AND hotel_id=? AND room_sub_type_id=?", params[:room][:room_type_id], params[:room][:hotel_id],params[:room][:room_sub_type_id])
+    logger.info"*********************#{@room.empty?}************************"
+    if @room.empty?
+      @room = Room.new(params[:room])
+      if @room.save
+        @room_available = RoomAvailable.find_by_room_type_id_and_hotel_id(params[:room][:room_type_id],session[:hotel_id])
+        unless @room_available.blank?
+          @room_available.number += params[:room][:starting_inventory].to_i
+        else
+          @room_available = RoomAvailable.new
+          @room_available.room_type_id = params[:room][:room_type_id]
+          @room_available.number = params[:room][:starting_inventory].to_i
+          @room_available.hotel_id = session[:hotel_id]
+        end
+        @room_available.save
+        flash[:success] = "The room type saved successfully!"
+        if current_user.new_signup?
+          redirect_to rooms_path(:hotel_id => @room.hotel.id)  
+        else
+          redirect_to rooms_path
+        end      
       else
-        @room_available = RoomAvailable.new
-        @room_available.room_type_id = params[:room][:room_type_id]
-        @room_available.number = params[:room][:starting_inventory].to_i
-        @room_available.hotel_id = session[:hotel_id]
+        flash[:errors] = @room.errors.full_messages
+        redirect_to request.referer  
       end
-      @room_available.save
-      flash[:success] = "The room type saved successfully!"
-      if current_user.new_signup?
-        redirect_to rooms_path(:hotel_id => @room.hotel.id)  
-      else
-        redirect_to rooms_path
-      end      
     else
-      flash[:errors] = @room.errors.full_messages
-      redirect_to request.referer  
+      flash[:errors] = "This type of room already exist in this hotel"
+      redirect_to request.referer0
     end
   end
   
