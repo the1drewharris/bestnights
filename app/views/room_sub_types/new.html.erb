@@ -1,0 +1,29 @@
+<% content_for :title, "BestNights.com - Add Room Type" %>
+
+<header>
+	<h1 class="prop-title">Add Room Sub Type</h1>
+</header>
+
+<div id="container-main">
+	<%= form_for @room_sub_type do |f| %>
+		<fieldset>
+		  <ul>
+		  	<li>
+		  		<%= f.label 'Name*' %>
+		  		<%= f.text_field :name %>
+		  	</li>
+		  	<% if current_user.admin? %>
+		  	<li>
+		  		<%= f.label :room_type %>
+					<%= f.collection_select :room_type_id, RoomType.all, :id, :room_type, :prompt => true %>
+				</li>
+				<% end %>
+		  </ul>	
+		</fieldset>
+		<fieldset class="formactions">
+			<%= f.submit %>
+		</fieldset>
+	<% end %>
+</div>
+
+<%= javascript_include_tag :jquery_ujs %>
