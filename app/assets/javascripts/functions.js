@@ -189,7 +189,7 @@
 						$("#searchform").animate({"height": "auto"},"slow");
 					}
 					if ($(this).hasClass("selected")){
-						$("#roomqty").val(2)
+						$("#roomqty").val(1)
 						$(".groupopts ul li").html("<h5>Room 1</h5><ul><li><label>Adults</label><input name='group[beds][1][adultqty]' type='number' min='1' value='1' max='4' class='adult'></li><li><label>Children</label><input name='group[beds][1][childqty]' type='number' min='0' value='0' class='children' max='4'></li></ul>")
 					}
 					$(".adult").change(function(){

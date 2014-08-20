@@ -181,7 +181,9 @@ Your credit card is required to guarantee your booking. Please note that your cr
 					<a href="#" class="button">More Info</a>
 				</div>
 				<a href="#">
-					<img src=<%= @hotel.hotel_photos.first.picture.url %> size="97x97" alt=""  data-jgallery-bg-color="#d1d2c3" data-jgallery-text-color="#272727" style="width:97px;height:97px;"/>
+					<% unless @hotel.hotel_photos.first.nil? %>
+						<img src=<%= @hotel.hotel_photos.first.picture.url %> size="97x97" alt=""  data-jgallery-bg-color="#d1d2c3" data-jgallery-text-color="#272727" style="width:97px;height:97px;"/>
+					<% end %>
 					<b><%= @hotel.name %></b><br>
 					<span class="starrating">
 						<% @hotel.star.to_i.times do %>
