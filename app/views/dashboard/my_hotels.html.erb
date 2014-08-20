@@ -17,19 +17,18 @@
 		<%= link_to "Add", new_hotel_path %>
   </div>
   <% end %>
-	<table class="admintablelist">
+	<table class="admintablelist tableAdmin">
 		<tr>
-			<th>Hotel ID</th>
-			<th>Name</th>
-			<th>City</th>
-			<th>State</th>
-			<th>Address</th>
-			<th>Status</th>
+			<th width="10%">Hotel ID</th>
+			<th width="10%">Name</th>
+			<th width="10%">City</th>
+			<th width="10%">State</th>
+			<th width="25%">Address</th>
+			<th width="10%">Status</th>
 			<% if current_user.admin? %>
-				<th>User</th>
+				<th width="15%">User</th>
 			<% end %>
-			<th>Actions</th>
-			<th></th>
+			<th width="10%">Actions</th>
 		</tr>
 		<% @hotels.sort_by(&:name).each do |hotel| %>
 		  <tr>

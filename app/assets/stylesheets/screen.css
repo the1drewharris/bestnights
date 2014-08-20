@@ -1934,6 +1934,9 @@ footer #footerend {
 	vertical-align: top;
 }
 
+.tableAdmin th, .tableAdmin td{
+	padding:14px 0!important;
+}
 	.checklist ul li {
 		display: inline-block;
 		width: 30%;
