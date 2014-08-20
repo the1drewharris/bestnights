@@ -61,20 +61,34 @@ Bestnights::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  config.action_mailer.default_url_options = { :host => 'bestnights.indusnetlabs.com' }  
+  # config.action_mailer.default_url_options = { :host => 'bestnights.indusnetlabs.com' }  
   
-  config.action_mailer.perform_deliveries = true
-  config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-   address: "mail.web-host.net",
-   port: 2525,
-   authentication: "login",
-   enable_starttls_auto: false,
-   user_name: "customerservice@bestnights.com",
-   password: "Jamesbrown01"
+  # config.action_mailer.perform_deliveries = true
+  # config.action_mailer.raise_delivery_errors = true
+  # config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.smtp_settings = {
+  #  address: "mail.web-host.net",
+  #  port: 2525,
+  #  authentication: "login",
+  #  enable_starttls_auto: false,
+  #  user_name: "customerservice@bestnights.com",
+  #  password: "Jamesbrown01"
 
-    }
+  #   }
+
+  config.action_mailer.smtp_settings = {
+   address: "smtp.gmail.com",
+   port: 587,
+   domain: "google.com",
+   authentication: "plain",
+   enable_starttls_auto: true,
+   user_name: 'jesmine.chaudhuri@indusnet.co.in',
+   password: 'jesmine!@#$'
+   }
+  # ActionMailer Config
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.raise_delivery_errors = true
 
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
