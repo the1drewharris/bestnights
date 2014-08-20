@@ -46,15 +46,14 @@ class RatesController < ApplicationController
   # POST /rates
   # POST /rates.json
   def create
-    logger.info"&&&&&&&&&&&&&&&&&#{params}&&&&&&&&&&&&&&&&&&&&"
     unless params[:room_sub_type_id].blank? || params[:price].blank?
       params[:room_sub_type_id].each do |room|
         @room_rate = RoomRate.find_by_room_sub_type_id_and_hotel_id(room[0].to_s, session[:hotel_id])
+        @sub_type = RoomSubType.find_by_id(room[0].to_s)
         if @room_rate.blank?
           @room_rate = RoomRate.new
           @room_rate.room_sub_type_id = room[0].to_s
           @room_rate.hotel_id = session[:hotel_id]
-          @sub_type = RoomSubType.find_by_id(room[0].to_s)
           @room_rate.room_type_id = @sub_type.room_type_id
           @room_rate.from_date = params[:from_date].to_date
           @room_rate.to_date = params[:to_date].to_date
@@ -64,7 +63,6 @@ class RatesController < ApplicationController
           if (@room_rate.from_date..@room_rate.to_date).cover?(params[:from_date].to_date)
             @room_rate_new_1 = RoomRate.new
             @room_rate_new_2 = RoomRate.new
-            @sub_type = RoomSubType.find_by_id(room[0].to_s)
 
             @room_rate_new_1.room_sub_type_id = room[0].to_s
             @room_rate_new_1.hotel_id = session[:hotel_id]
@@ -96,8 +94,6 @@ class RatesController < ApplicationController
             @room_rate.destroy
           end
         end
-        #@room_rate.from_date = params[:from_date].to_date
-        #@room_rate.to_date = params[:to_date].to_date
       end
       flash[:success] = 'Rate Was Successfully Updated For Sell.'
       redirect_to new_rate_path
