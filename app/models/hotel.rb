@@ -6,6 +6,8 @@ class Hotel < ActiveRecord::Base
   validates_presence_of :name, :description, :address1, :city, :zip, :user_id, :country_id, :status,
                         :tax1_label, :tax2_label, :tax3_label, :tax4_label, :policy, :on => :create
   
+  validates_uniqueness_of :name
+
   validates :email, presence: true,
     if: Proc.new { |a| a.email_or_fax == "email" }
   validates :fax, presence: true,
