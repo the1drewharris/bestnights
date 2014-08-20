@@ -177,7 +177,8 @@
 					<span class="formLabel">Amenities and Facilities</span>
 					<div class="checklist">
 						<ul>
-							<% @hotel_attributes.each do |attr| %>
+							<% @hotel_sorted_attributes = HotelAttribute.all(:order => :attr) %>
+							<% @hotel_sorted_attributes.each do |attr| %>
 								<li>
 									<input name="client[attributes][<%= attr.id %>]" type="checkbox" class="check" <%= "checked" if attr.hotels.include?(@hotel) %>>
 									<label for="client[attributes]"><%= attr.attr %></label>

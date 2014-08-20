@@ -22,7 +22,8 @@
 			<th></th>
 			<th></th>
 		</tr>
-		<% @hotel_attributes.each do |ha| %>
+		<% @hotel_sorted_attributes = HotelAttribute.all(:order => :attr) %>
+		<% @hotel_sorted_attributes.each do |ha| %>
 		  <tr>
 		  	<td><%= ha.attr %></td>
 		  	<% if can? :show, ha %>
