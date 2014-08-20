@@ -33,17 +33,11 @@
           
           <% RoomType.all.each do |room|%>
             <div class="row break">
-              <input type="checkbox" id="rt-0" name="room_id[<%= room.id %>]" class="so">
+              <input type="checkbox" id="" name="room_id[<%= room.id %>]" class="so">
               <label><%= room.room_type %></label><div style="clear:both;"></div>
-              <% @roomsubtypes = RoomSubType.where("room_type_id=?",room.id) %>
-              <% @roomsubtypes.each do |room_sub_type| %>
-                <div class="row break">
-                  <input type="checkbox" id="" name="room_sub_type_id[<%= room_sub_type.id %>]" class="so rt">
-                  <label><%= room_sub_type.name %></label><div style="clear:both;"></div>
-                </div>
-              <% end %>
             </div>
           <% end %>
+        
           </td>
         </tr>
       </tbody>
@@ -86,18 +80,6 @@
       }
       else{
         $(".so").each(function(){
-          this.checked = false;
-        })    
-      }
-    })
-    $("#rt-0").click(function(event){
-      if(this.checked){
-        $(".rt").each(function(){
-          this.checked = true;
-        })
-      }
-      else{
-        $(".rt").each(function(){
           this.checked = false;
         })    
       }

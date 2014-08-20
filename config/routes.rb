@@ -1,7 +1,5 @@
 Bestnights::Application.routes.draw do
   
-  resources :room_sub_types
-
   resources :positions
 
   resources :commission_rates
@@ -106,7 +104,6 @@ Bestnights::Application.routes.draw do
     get  'edit_commission_rate'
   end
   resources :room_types
-  resources :room_sub_types
   resources :room_attributes
   resources :hotel_attributes
   resources :travelers do 
