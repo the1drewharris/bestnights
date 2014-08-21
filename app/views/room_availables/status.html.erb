@@ -30,10 +30,17 @@
           <div class="row mrgntp15">or for one or more of these Rooms:</div>
           <div id="so-inject" style="margin: 0 0 5px;"></div>
           <% RoomType.all.each do |room|%>
-          <div class="row break">
-            <input type="checkbox" id="" name="room_id[<%= room.id %>]" style="float:left;" class="so" >
-            <label><%= room.room_type %></label><div style="clear:both;"></div>
-          </div>
+            <div class="row break">
+              <input type="checkbox" id="rt-<%= room.id %>" name="room_id[<%= room.id %>]" class="parent_room_type so">
+              <label><%= room.room_type %></label><div style="clear:both;"></div>
+              <% @roomsubtypes = RoomSubType.where("room_type_id=?",room.id) %>
+              <% @roomsubtypes.each do |room_sub_type| %>
+                <div class="row break">
+                  <input type="checkbox" id="" name="room_sub_type_id[<%= room_sub_type.id %>]" class="so rt-<%= room.id %>">
+                  <label><%= room_sub_type.name %></label><div style="clear:both;"></div>
+                </div>
+              <% end %>
+            </div>
           <% end %>
           </td>
         </tr>
@@ -95,6 +102,13 @@
           this.checked = false;
         })    
       }
+    })
+    $(".parent_room_type").click(function(event){
+      var calss = $(this).attr("id");
+      var checked = this.checked;            
+      $("."+calss).each(function(){
+        this.checked = checked;
+      })
     })
   });
 </script>
