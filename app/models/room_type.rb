@@ -2,7 +2,6 @@ class RoomType < ActiveRecord::Base
   attr_accessible :room_type, :status
   
   validates :room_type, presence: true, uniqueness: { case_sensitive: false }
-  validates :base_price, presence: true
   
   after_initialize :init
   

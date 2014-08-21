@@ -47,7 +47,7 @@ class RoomSubTypesController < ApplicationController
 
     respond_to do |format|
       if @room_sub_type.save
-        format.html { redirect_to @room_sub_type, notice: 'Room sub type was successfully created.' }
+        format.html { redirect_to room_sub_types_path, success: 'Room sub type was successfully created.' }
         format.json { render json: @room_sub_type, status: :created, location: @room_sub_type }
       else
         format.html { render action: "new" }
@@ -63,7 +63,7 @@ class RoomSubTypesController < ApplicationController
 
     respond_to do |format|
       if @room_sub_type.update_attributes(params[:room_sub_type])
-        format.html { redirect_to @room_sub_type, notice: 'Room sub type was successfully updated.' }
+        format.html { redirect_to @room_sub_type, success: 'Room sub type was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
