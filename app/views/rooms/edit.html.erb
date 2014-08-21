@@ -50,7 +50,11 @@
 		  	<li>
 		  		<%= f.label "Room Type" %>
 		  		<%= f.select :room_type_id, options_for_select(RoomType.all.map{|s|[s.room_type, s.id]}, @room.room_type.id), {}, {class: "selectbox"} %>
-		  	</li>	
+		  	</li>
+		  	<li>
+		  		<%= f.label "Room Sub Type" %>
+		  		<%= f.select :room_sub_type_id, options_for_select(@room_sub_types.map{|s|[s.name, s.id]}) %>
+		  	</li>
 		  	<li class="flwidth">
 		  		<%= f.label :description %>
 		  		<%= f.text_area :description, class: "textarea" %>

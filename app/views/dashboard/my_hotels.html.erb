@@ -28,7 +28,7 @@
 			<% if current_user.admin? %>
 				<th width="15%">User</th>
 			<% end %>
-			
+			<th width="10%">Actions</th>
 		</tr>
 		<% @hotels.sort_by(&:name).each do |hotel| %>
 		  <tr class="show_hotel" hotelid="<%= hotel.id %>"><%#= link_to "#{hotel.id}", dashboard_path(:hotel_id => hotel.id), class: "link_hotel" %>
