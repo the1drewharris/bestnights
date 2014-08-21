@@ -6,6 +6,7 @@ class AvailabilitiesController < ApplicationController
   def index
     if current_user.admin?
       @availabilities = Availability.all
+      
     elsif current_user.manager?
       @availabilities = current_user.availabilities
     end

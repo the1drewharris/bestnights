@@ -30,29 +30,52 @@ layout "admin_basic"
 					@room.to_date = params[:to_date].to_date
 					@room.save
 				else
-					if (@room.from_date..@room.to_date).cover?(params[:from_date].to_date)
-						@room_new_1 = RoomAvailable.new
-						@room_new_2 = RoomAvailable.new
+					unless @room.from_date == params[:from_date].to_date && @room.to_date == params[:to_date].to_date
+						if (@room.from_date..@room.to_date).cover?(params[:from_date].to_date)
+							@room_new_1 = RoomAvailable.new
+							@room_new_2 = RoomAvailable.new
 
-						@room_new_1.room_sub_type_id = room_sub_type_id[0]
-						@room_new_1.hotel_id = session[:hotel_id]
-						@room_new_1.number = @room.number
-						@room_new_1.room_type_id = @sub_type.room_type_id
-						@room_new_1.from_date = @room.from_date
-						@room_new_1.to_date = params[:from_date].to_date.advance(:days => -1)
+							@room_new_1.room_sub_type_id = room_sub_type_id[0]
+							@room_new_1.hotel_id = session[:hotel_id]
+							@room_new_1.number = @room.number
+							@room_new_1.room_type_id = @sub_type.room_type_id
+							@room_new_1.from_date = @room.from_date
+							@room_new_1.to_date = params[:from_date].to_date.advance(:days => -1)
 
-						@room_new_2.room_sub_type_id = room_sub_type_id[0]
-						@room_new_2.hotel_id = session[:hotel_id]
-						@room_new_2.number = params[:rooms_to_sell]
-						@room_new_2.room_type_id = @sub_type.room_type_id
-						@room_new_2.from_date = params[:from_date].to_date
-						@room_new_2.to_date = params[:to_date].to_date
+							@room_new_2.room_sub_type_id = room_sub_type_id[0]
+							@room_new_2.hotel_id = session[:hotel_id]
+							@room_new_2.number = params[:rooms_to_sell]
+							@room_new_2.room_type_id = @sub_type.room_type_id
+							@room_new_2.from_date = params[:from_date].to_date
+							@room_new_2.to_date = params[:to_date].to_date
 
-						@room_new_1.save
-						@room_new_2.save
+							@room_new_1.save
+							@room_new_2.save
+
+							if (@room.from_date..@room.to_date).cover?(params[:to_date].to_date)
+								@room_new_3 = RoomAvailable.new
+								@room_new_3.room_sub_type_id = room_sub_type_id[0]
+								@room_new_3.hotel_id = session[:hotel_id]
+								@room_new_3.number = @room.number
+								@room_new_3.room_type_id = @sub_type.room_type_id
+								@room_new_3.from_date = params[:to_date].to_date.advance(:days => 1)
+								@room_new_3.to_date = @room.to_date
+							end
+
+							@room.destroy
+						end
+					else
+						logger.info"*******&&&&&&&&&&&&&&&&#{@room.number}&&&&&&&&&&&&&&"
+						@room.number = params[:rooms_to_sell]
+						@room.save
 					end
 				end
 			end
+			flash[:success] = "Room was successfully updated for sell."
+			redirect_to new_room_available_path
+		else
+			flash[:errors] = 'You need to select days, category and number of rooms '
+      redirect_to new_room_available_path
 		end
 	end
 

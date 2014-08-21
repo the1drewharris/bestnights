@@ -54,6 +54,8 @@ class RoomsController < ApplicationController
           @room_available.room_sub_type_id = params[:room][:room_sub_type_id]
           @room_available.number = params[:room][:starting_inventory].to_i
           @room_available.hotel_id = session[:hotel_id]
+          @room_available.from_date = Date.today
+          @room_available.to_date = Date.today + 1.year
         end
         @room_available.save
         flash[:success] = "The room type saved successfully!"
@@ -86,6 +88,7 @@ class RoomsController < ApplicationController
     end
     
     @photos = @room.room_photos
+    @room_sub_types = RoomSubType.all
     
   end
   

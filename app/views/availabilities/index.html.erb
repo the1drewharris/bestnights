@@ -20,7 +20,11 @@
 		</tr>
 		<% @availabilities.each do |availability| %>
 		  <tr>
-		  	<td><%= availability.room.name %></td>
+		  	<td>
+		  		<% if availability.room %>
+		  			<%= availability.room.name %>
+		  		<% end %>
+		  	</td>
 		  	<td><%= availability.this_date %></td>
 		  	<td><%= availability.count %></td>
 		  	<td><%= availability.starting_inventory %></td>
