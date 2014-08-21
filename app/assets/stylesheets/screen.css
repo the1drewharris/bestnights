@@ -1218,6 +1218,7 @@ footer #footerend {
 #searchpane {
 	padding: 14px 28px 29px;
 	box-shadow: inset 0 0 7px rgba(43,43,43,0.5);
+	overflow: hidden;
 }
 	#searchpane.calbg {
 		background: rgb(175,229,75); /* Old browsers */
