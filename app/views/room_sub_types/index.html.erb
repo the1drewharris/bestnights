@@ -27,15 +27,9 @@
       <tr>
         <td><%= rst.name %></td>
         <td><%= rst.room_type.room_type %></td>
-        <% if can? :show, rst %>
           <td><%= link_to "Show", room_sub_type_path(rst) %></td>
-        <% end %>
-        <% if can? :edit, rst %>
           <td><%= link_to "Edit", edit_room_sub_type_path(rst) %></td>
-        <% end %>
-        <% if can? :delete, rst %>
           <td><%= link_to "Delete", room_sub_type_path(rst), :method => :delete %></td>
-        <% end %> 
       </tr>
     <% end %>
   </table>

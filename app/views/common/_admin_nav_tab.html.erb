@@ -20,7 +20,8 @@
 	<% if current_user.admin? %>
 		<%= link_to "Rooms", rooms_path %>
 		<%= link_to "Room Sub Types", room_sub_types_path %>
-	<% else current_user.manager? %>	
+	<% else current_user.manager? %>
+		<%= link_to "Room Sub Types", room_sub_types_path %>	
 		<%= link_to "Rooms", rooms_path(:page => "dashboard") %>
 	<% end %>
 
