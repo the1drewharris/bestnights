@@ -46,56 +46,79 @@ class RatesController < ApplicationController
   # POST /rates
   # POST /rates.json
   def create
-    unless params[:room_sub_type_id].blank? || params[:price].blank?
-      params[:room_sub_type_id].each do |room|
-        @room_rate = RoomRate.find_by_room_sub_type_id_and_hotel_id(room[0].to_s, session[:hotel_id])
-        @sub_type = RoomSubType.find_by_id(room[0].to_s)
-        if @room_rate.blank?
-          @room_rate = RoomRate.new
-          @room_rate.room_sub_type_id = room[0].to_s
-          @room_rate.hotel_id = session[:hotel_id]
-          @room_rate.room_type_id = @sub_type.room_type_id
-          @room_rate.from_date = params[:from_date].to_date
-          @room_rate.to_date = params[:to_date].to_date
-          @room_rate.price = params[:price]
-          @room_rate.save
-        else
-          unless @room_rate.from_date == params[:from_date].to_date && @room_rate.to_date == params[:to_date].to_date
-            if (@room_rate.from_date..@room_rate.to_date).cover?(params[:from_date].to_date)
-              @room_rate_new_1 = RoomRate.new
-              @room_rate_new_2 = RoomRate.new
-
-              @room_rate_new_1.room_sub_type_id = room[0].to_s
-              @room_rate_new_1.hotel_id = session[:hotel_id]
-              @room_rate_new_1.room_type_id = @sub_type.room_type_id
-              @room_rate_new_1.from_date = @room_rate.from_date
-              @room_rate_new_1.to_date = params[:from_date].to_date.advance(:days => -1)
-              @room_rate_new_1.price = @room_rate.price
-
-              @room_rate_new_2.room_sub_type_id = room[0].to_s
-              @room_rate_new_2.hotel_id = session[:hotel_id]
-              @room_rate_new_2.room_type_id = @sub_type.room_type_id
-              @room_rate_new_2.from_date = params[:from_date].to_date
-              @room_rate_new_2.to_date = params[:to_date].to_date
-              @room_rate_new_2.price = params[:price]
-
-              @room_rate_new_1.save
-              @room_rate_new_2.save
-
-              if (@room_rate.from_date..@room_rate.to_date).cover?(params[:to_date].to_date)
-                @room_rate_new_3 = RoomRate.new
-                @room_rate_new_3.room_sub_type_id = room[0].to_s
-                @room_rate_new_3.hotel_id = session[:hotel_id]
-                @room_rate_new_3.room_type_id = @sub_type.room_type_id
-                @room_rate_new_3.from_date = params[:to_date].to_date.advance(:days => 1)
-                @room_rate_new_3.to_date = @room_rate.to_date
-                @room_rate_new_3.price = @room_rate.price
-                @room_rate_new_3.save
+    unless (params[:room_sub_type_id].blank? || params[:room_id].blank?) && params[:price].blank?
+      unless params[:room_sub_type_id].blank?
+        params[:room_sub_type_id].each do |room|
+          @room_rate = RoomRate.find_by_room_sub_type_id_and_hotel_id(room[0].to_s, session[:hotel_id])
+          @sub_type = RoomSubType.find_by_id(room[0].to_s)
+          if @room_rate.blank?
+            create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,params[:from_date].to_date,params[:to_date].to_date,params[:price])
+          else
+            unless @room_rate.from_date == params[:from_date].to_date && @room_rate.to_date == params[:to_date].to_date
+              if (@room_rate.from_date..@room_rate.to_date).cover?(params[:from_date].to_date)
+                create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,@room_rate.from_date,params[:from_date].to_date.advance(:days => -1),@room_rate.price)
+                create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,params[:from_date].to_date,params[:to_date].to_date,params[:price])
+                if (@room_rate.from_date..@room_rate.to_date).cover?(params[:to_date].to_date)
+                  create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,params[:to_date].to_date.advance(:days => 1),@room_rate.to_date,@room_rate.price)
+                end
+                @room_rate.destroy
+              else
+                create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,params[:from_date].to_date,params[:to_date].to_date,params[:price])
               end
-              @room_rate.destroy
+            else
+              @room_rate.price = @room_rate.price
+              @room_rate.save
             end
-            @room_rate.price = @room_rate.price
-            @room_rate.save
+          end
+        end
+        if params[:room_id]
+          params[:room_id].each do |room|
+            @room = RoomSubType.find_by_room_type_id(room[0].to_s)
+            if @room.blank? || !params[:room_sub_type_id].include?(@room.id.to_s)
+              @room_rate = RoomRate.find_by_room_type_id_and_hotel_id(room[0].to_s, session[:hotel_id])
+              if @room_rate.blank?
+                create_rate(nil,session[:hotel_id],room[0].to_s,params[:from_date].to_date,params[:to_date].to_date,params[:price])
+              else
+                unless @room_rate.from_date == params[:from_date].to_date && @room_rate.to_date == params[:to_date].to_date
+                  if (@room_rate.from_date..@room_rate.to_date).cover?(params[:from_date].to_date)
+                    create_rate(nil,session[:hotel_id],room[0].to_s,@room_rate.from_date,params[:from_date].to_date.advance(:days => -1),@room_rate.price)
+                    create_rate(nil,session[:hotel_id],room[0].to_s,params[:from_date].to_date,params[:to_date].to_date,params[:price])
+                    if (@room_rate.from_date..@room_rate.to_date).cover?(params[:to_date].to_date)
+                      create_rate(nil,session[:hotel_id],room[0].to_s,params[:to_date].to_date.advance(:days => 1),@room_rate.to_date,@room_rate.price)
+                    end
+                    @room_rate.destroy
+                  else
+                    create_rate(nil,session[:hotel_id],room[0].to_s,params[:from_date].to_date,params[:to_date].to_date,params[:price])
+                  end
+                else
+                  @room_rate.price = @room_rate.price
+                  @room_rate.save
+                end
+              end
+            end
+          end
+        end
+      else
+        params[:room_id].each do |room|
+          @room_rate = RoomRate.find_by_room_type_id_and_hotel_id(room[0].to_s, session[:hotel_id])
+          if @room_rate.blank?
+            create_rate(nil,session[:hotel_id],room[0].to_s,params[:from_date].to_date,params[:to_date].to_date,params[:price])
+          else
+            unless @room_rate.from_date == params[:from_date].to_date && @room_rate.to_date == params[:to_date].to_date
+              if (@room_rate.from_date..@room_rate.to_date).cover?(params[:from_date].to_date)
+                create_rate(nil,session[:hotel_id],room[0].to_s,@room_rate.from_date,params[:from_date].to_date.advance(:days => -1),@room_rate.price)
+                create_rate(nil,session[:hotel_id],room[0].to_s,params[:from_date].to_date,params[:to_date].to_date,params[:price])
+                if (@room_rate.from_date..@room_rate.to_date).cover?(params[:to_date].to_date)
+                  create_rate(nil,session[:hotel_id],room[0].to_s,params[:to_date].to_date.advance(:days => 1),@room_rate.to_date,@room_rate.price)
+                end
+                @room_rate.destroy
+              else
+                create_rate(nil,session[:hotel_id],room[0].to_s,params[:from_date].to_date,params[:to_date].to_date,params[:price])
+              end
+            else
+              @room_rate.price = @room_rate.price
+              @room_rate.save
+            end
           end
         end
       end
@@ -186,5 +209,18 @@ class RatesController < ApplicationController
     respond_to do |format|
       format.json { render json: @rate }
     end
+  end
+
+  private
+
+  def create_rate(room_sub_type_id,hotel_id,room_type_id,from_date,to_date,price)
+    @room_rate = RoomRate.new
+    @room_rate.room_sub_type_id = room_sub_type_id
+    @room_rate.hotel_id = hotel_id
+    @room_rate.room_type_id = room_type_id
+    @room_rate.from_date =from_date
+    @room_rate.to_date = to_date
+    @room_rate.price = price
+    @room_rate.save
   end
 end
