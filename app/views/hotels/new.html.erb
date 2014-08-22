@@ -46,7 +46,7 @@
 		  	<% if current_user.admin? %>
 		  		<li>
 			  		<%= f.label "Manager*" %>
-			  		<%= f.select :user_id, options_for_select(User.all.map{|s|[s.email, s.id]}) %>
+			  		<%= f.select :user_id, options_for_select(User.where({:role => "manager", :status => "active"}).map{|s|[s.email, s.id]}) %>
 			  	</li>
 			  <% end %>
 			  <li class="taxCont flwidth">

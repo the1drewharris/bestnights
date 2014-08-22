@@ -7,16 +7,18 @@
 <!--[if gt IE 9]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <!-- the "no-js" class is for Modernizr. --> 
 
+
 <%= render :partial => "common/head" %>
 <body>	
 		<div id="adminwrapper">
 			<div id="eyebrow">
-				<div class="ltlg">
-					<div class="logo" style="float:left">
-						<%= link_to image_tag("/assets/logo.png"), root_path %>
+					<div id="eyebrow">
+						<%= render :partial => "common/profile_info_nav" %>
+						<span class="logob"><%= link_to image_tag("/assets/logo.png"), root_path %></span>
+						<% unless current_user.new_signup? %>
+							<%= render :partial => "common/admin_nav_tab" %>
+					  <% end %>
 					</div>
-					<span class="call blk">1 800 494 BEST (2378)</span>
-				</div>
 					<nav id="phone" class="rt-phn">
 					<% if current_traveler || !@traveler.blank? %>
 						<%= link_to "Logout" , destroy_user_session_path, :method => :delete %>

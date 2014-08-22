@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   validates :role, :firstname, :lastname, :address1, :city, :country_id, :status, :zip, presence: true  
   validates :password, presence: true, on: :create
   validates :password, confirmation: true, on: :create
-  validates :password, length: {minimum: 6}
+  validates :password, length: {minimum: 6}, on: :create
   # validates :terms_of_service, acceptance: true
   
   after_initialize :init
