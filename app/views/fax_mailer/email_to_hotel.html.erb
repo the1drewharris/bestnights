@@ -13,7 +13,7 @@
     </a>
   </td>
   <td bgcolor="#272727" width="302">
-    <h2 style="font-size: 14px ; color: #ff0000; margin:0; line-height: 17px; font-style: italic; padding-top: 5px; padding-left: 120px">1-888-494-BEST (2378) <br />
+    <h2 style="font-size: 14px ; color: #ef807f; margin:0; line-height: 17px; font-style: italic; padding-top: 5px; padding-left: 120px">1-888-494-BEST (2378) <br />
     info@bestnights.com
     </h2>
   </td>
@@ -43,6 +43,10 @@
   <tr style="line-height: 22px;">
     <td style="width: 176px;">Name</td>
     <td><%= @traveler.firstname.capitalize %>&nbsp;<%= @traveler.lastname.capitalize %></td>
+  </tr>
+  <tr style="line-height: 22px;">
+    <td style="width: 176px;">Address:</td>
+    <td><%= @traveler.address1.titleize %>, <%= @traveler.city.titleize %>, <%= @traveler.zip %></td>
   </tr>
   <tr style="line-height: 22px;">
     <td style="width: 176px;">Mobile:</td>
@@ -103,10 +107,13 @@
     <td style="width: 176px;">RATE INFORMATION: </td>
     <td><span style="color:#000000; font-size:16px; text-transform:none;">taxes not included</span></td>
   </tr>
+    </table>
+  </td>
+</tr>
 
   <tr>
     <td colspan="2">
-      <table cellspacing="0" cellpadding="0" align="center" style="text-align: center; font-size:16px; margin-top: 25px; width: 554px;">
+          <table cellspacing="0" width="100%" cellpadding="0" align="center" style="text-align: center; font-size:16px; border-left: #008000 5px solid; border-right: #008000 5px solid;">
         <tr style="color:#fff;">
           <% @booking.each do |book| %>
             <% @nights.times do |night| %>
@@ -117,13 +124,16 @@
         <tr style="color:#4c4c4c; font-size: 12px;">
           <% @booking.each do |book| %>
             <% @nights.times do |night| %>
-              <td style="background: #e5e5e5; height:40px;"><%= @price %> CAD</td>
+              <td style="background: #ef807f; height:40px;"><%= @price %> CAD</td>
             <% end %>
           <% end %>
         </tr>
       </table>
     </td>
   </tr>
+ <tr>
+ <td colspan="2">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="#FFFFFF" style="font-family:Arial, Helvetica, sans-serif; border-width: 5px; border-color: #008000; border-top-width:0; border-style: solid; padding: 20px; font-size: 12px; color: #565656; font-weight: bold;">
   <tr style="line-height: 22px;">
     <td style="width: 176px;">Room Type:</td>
     <td><%= @room.room_type.room_type %></td>
@@ -167,7 +177,7 @@
         <tr>
           <td colspan="2">
             <h4 style="font-size: 12px ; color: #707070; margin-top: 0; margin-bottom: 0;">
-              -Thank you,
+              Thank you,
               <br>
               The BestNights Team
             </h4>
