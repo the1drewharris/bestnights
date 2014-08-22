@@ -4,7 +4,6 @@
 	</header>
 	<section>
 		<div id="userdetails">
-			<p>Our Contact : 1 800 494 BEST (2378)</p>
 			<h5>Your Details</h5>
 			<div>
 				<ul>
@@ -34,7 +33,7 @@
 	</tr>
 	<tr>
 		<td><strong>Address:</strong></td>
-		<td><%= @hotel.address1.titleize %></td>
+		<td><%= @hotel.address1.titleize %>, <%= @hotel.city.titleize %>, <%= @hotel.zip %></td>
 	</tr>
 	<tr>
 		<td><strong>Phone:</strong></td>
@@ -43,14 +42,6 @@
 	<tr>
 		<td><strong>Fax:</strong></td>
 		<td><%= @hotel.fax %></td>
-	</tr>
-	<tr>
-		<td><strong>Policy:</strong></td>
-		<td><%= @hotel.policy.blank? ? "" : @hotel.policy  %></td>
-	</tr>
-	<tr>
-		<td><strong>Address:</strong></td>
-		<td><%= @hotel.address1.titleize %></td>
 	</tr>
 	<tr>
 		<td colspan="2"><h6 class="checkout">Your Reservation details:</h6></td>
@@ -65,7 +56,7 @@
 		<td><%= book.to_date %></td>
 	</tr>
 	<tr>
-		<td><strong>Quantity:</strong></td>
+		<td><strong>Rooms Booked:</strong></td>
 		<td><%= @latest_booked.size %></td>
 		</tr>
 	<% end %>
@@ -83,27 +74,27 @@
 		<td><strong>Room Price:</strong></td>
 		<td><%= number_with_precision(@room.price, :precision => 2, :separator => '.') %></td>  
 	</tr>
-	<tr>
-		<td><strong>Break Fast:</strong></td>
-		<td>Continental breakfast is included in the room rate.</td>
-	</tr>
 		<tr>
 		<td><strong>Taxes:</strong></td>
 		<td>
 			<ul>
-			   <li> Service Charge is not applicable.</li>
-			   <li> City/tourist tax is not applicable.</li>
+			   <li> Taxes excluded from booking,</li>
+			   <li> Taxes will be charged by the hotel.</li>
 			</ul>
 		</td>
 	</tr>
 	<tr>
 		<td><strong>Prepayment:</strong></td>
 		<td>
-			No deposit will be charged.
+			The Hotel May Pre-Authorize Your Card
 		</td>
 	</tr>
 	<tr>
-		<td><strong>Cancellation Policy:</strong></td>
+		<td><strong>Cancellation Policy:</strong>
+			<ul>
+				<li>Dependent on Hotel</li>
+			</ul>
+		</td>
 		<td>
 			<ul>
 		    <li>If cancelled up to 2 days before date of arrival, no fee will be charged.</li>
@@ -112,45 +103,11 @@
 		</td>
 	</tr>
 	<tr>
-		<td><strong>Hotel Policies:</strong></td>
+		<td><strong>How to Cancel or Change Your Booking:</strong></td>
 		<td>
 			<ul>
 				<li>If you want to cancel or change your booking, please go to <a href="http://www.bestnights.com">www.bestnights.com</a></li>
-				<li>How to Cancel or Change Your booking</li>
 			</ul>
-		</td>
-	</tr>
-	<tr>
-		<td><strong>Cancellation & prepayment policy:</strong></td>
-		<td>
-			Please check the specific policy of each room above.
-		</td>
-	</tr>
-	<tr>
-		<td><strong>Children and extra bed policy:</strong></td>
-		<td>
-			<ul>
-				<li>All children under 2 years are charged EUR 12.84 per night per person for cots.</li>
-				<li>Maximum capacity of babycots in a room is 2.</li>
-			</ul>
-		</td>
-	</tr>
-	<tr>
-		<td><strong>Guest Parking:</strong></td>
-		<td>
-			Free public parking is possible on site
-		</td>
-	</tr>
-		<tr>
-		<td><strong>Internet:</strong></td>
-		<td>
-			No Internet Access available.
-		</td>
-	</tr>
-	<tr>
-		<td><strong>Pets:</strong></td>
-		<td>
-    Pets are allowed. Charges may be applicable.
 		</td>
 	</tr>
 	<tr>
@@ -198,20 +155,10 @@ Your credit card is required to guarantee your booking. Please note that your cr
 					  <%= room.name %>,
 					<% end %>
 					<br>
-					<b>Check in:</b> <%= session[:checkin].to_date.strftime('%A, %B %c, %G') %> &bull; 
-					<b>Check out:</b> <%= session[:checkout].to_date.strftime('%A, %B %c, %G') %></div>
+					<b>Check in:</b> <%= session[:checkin].to_date.strftime('%A, %B %d, %G') %> &bull; 
+					<b>Check out:</b> <%= session[:checkout].to_date.strftime('%A, %B %d, %G') %></div>
 			</h5>
 			<div>
-				<h6>Contact</h6>
-				<p><%= @hotel.address1 %>, <%= @hotel.city %>, <%= @hotel.state.abbreviation if @hotel && @hotel.state %> <%= @hotel.zip %></p>
-				
-				<h6>Hotel Amenities and Facilities</h6>
-				<!-- TODO hotel ammenties -->
-				<% @hotel.attributes.each do |attr| %>
-						<%#= attr.attr %>, 
-				<% end %>
-				<h6>Description</h6>
-				<p><%= @hotel.description %></p>
 				<div><label for="specialrequests">Special Requests</label><textarea></textarea></div>
 			</div>
 		</section>
@@ -224,7 +171,7 @@ Your credit card is required to guarantee your booking. Please note that your cr
 				<td><%= @amount %> </td>
 			</tr>
 			<tr>
-				<td>Tax (included)</td>
+				<td>Tax</td>
 				<td>Taxes not included</td>
 			</tr>
 			<tr>

@@ -156,7 +156,7 @@
 					<b>Check out:</b>
 					<span style="background:#FACC2E; color: #CC504A; padding: 0 4px;">
 						<% if !cookies[:outtime].blank? %>
-							<%= cookies[:outtime].to_date.strftime('%A, %B %d, %G') %> 
+							<%= cookies[:outtime].to_date.strftime('%A, %B %d, %G') %>  
 						<% else %>
 						 <%= Date.today %>
 						<% end %>
