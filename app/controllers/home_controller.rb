@@ -268,8 +268,12 @@ class HomeController < ApplicationController
   end
 
   def book_hotel
-    @traveler = Traveler.find(session[:traveler_id])
-    session[:traveler] = @traveler 
+    unless current_traveler
+      @traveler = Traveler.find(session[:traveler_id])
+    else
+      @traveler = current_traveler
+    end
+      session[:traveler] = @traveler 
   end
   
   ## POST
