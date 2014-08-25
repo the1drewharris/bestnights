@@ -208,66 +208,71 @@ class RatesController < ApplicationController
       end
     end
     if room_id
-      room_type_rate(room_id,days,from_date,to_date,price)
+      @room = RoomSubType.find_by_room_type_id(room[0].to_s)
+      if @room.blank? || !params[:room_sub_type_id].include?(@room.id.to_s)
+        room_type_rate(room_id,days,from_date,to_date,price,room_sub_type_id)
+      end
     end
   end
 
-  def room_type_rate(room_id,days,from_date,to_date,price)
+  def room_type_rate(room_id,days,from_date,to_date,price,room_sub_type_id)
     room_id.each do |room|
-      @room_rate = RoomRate.find_by_room_type_id_and_hotel_id(room[0].to_s, session[:hotel_id])
-      @sub_type = RoomSubType.find_by_id(room[0].to_s)
-      if days.blank?
-        if @room_rate.blank?
-          create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date,to_date.to_date,price)
-        else
-          unless @room_rate.from_date == from_date.to_date && @room_rate.to_date == to_date.to_date
-            if (@room_rate.from_date..@room_rate.to_date).cover?(from_date.to_date)
-              create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,@room_rate.from_date,from_date.to_date.advance(:days => -1),@room_rate.price)
-              create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date,to_date.to_date,price)
-              if (@room_rate.from_date..@room_rate.to_date).cover?(to_date.to_date)
-                create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,to_date.to_date.advance(:days => 1),@room_rate.to_date,@room_rate.price)
-              end
-              @room_rate.destroy
-            else
-              create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date,to_date.to_date,price)
-            end
+      @sub_type = RoomSubType.find_by_room_type_id(room[0].to_s)
+      if @sub_type.blank? || !room_sub_type_id.include?(@room.id.to_s)
+        @room_rate = RoomRate.find_by_room_type_id_and_hotel_id(room[0].to_s, session[:hotel_id])
+        if days.blank?
+          if @room_rate.blank?
+            create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date,to_date.to_date,price)
           else
-            @room_rate.price = @room_rate.price
-            @room_rate.save
+            unless @room_rate.from_date == from_date.to_date && @room_rate.to_date == to_date.to_date
+              if (@room_rate.from_date..@room_rate.to_date).cover?(from_date.to_date)
+                create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,@room_rate.from_date,from_date.to_date.advance(:days => -1),@room_rate.price)
+                create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date,to_date.to_date,price)
+                if (@room_rate.from_date..@room_rate.to_date).cover?(to_date.to_date)
+                  create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,to_date.to_date.advance(:days => 1),@room_rate.to_date,@room_rate.price)
+                end
+                @room_rate.destroy
+              else
+                create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date,to_date.to_date,price)
+              end
+            else
+              @room_rate.price = @room_rate.price
+              @room_rate.save
+            end
           end
-        end
-      else
-        if from_date.blank? && to_date.blank?
-          days.each do |day|
-            ((Date.today + 1.year) - (Date.today)).to_i.times do |date|
-              if Date.today.advance(days: date).strftime("%A").downcase == day[0].to_s
-                if @room_rate.blank?
-                  create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: date),Date.today.advance(days: date),price)
-                else
-                  if (@room_rate.from_date..@room_rate.to_date).cover?(Date.today.advance(days: date))
-                    create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,@room_rate.from_date,Date.today.advance(days: date - 1),@room_rate.price)
+        else
+          if from_date.blank? && to_date.blank?
+            days.each do |day|
+              ((Date.today + 1.year) - (Date.today)).to_i.times do |date|
+                if Date.today.advance(days: date).strftime("%A").downcase == day[0].to_s
+                  if @room_rate.blank?
                     create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: date),Date.today.advance(days: date),price)
-                    @room_rate.destroy
                   else
-                    create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: date),Date.today.advance(days: date),price)
+                    if (@room_rate.from_date..@room_rate.to_date).cover?(Date.today.advance(days: date))
+                      create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,@room_rate.from_date,Date.today.advance(days: date - 1),@room_rate.price)
+                      create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: date),Date.today.advance(days: date),price)
+                      @room_rate.destroy
+                    else
+                      create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: date),Date.today.advance(days: date),price)
+                    end
                   end
                 end
               end
             end
-          end
-        else
-          days.each do |day|
-            (to_date.to_date - from_date.to_date).to_i.times do |date|
-              if from_date.to_date.advance(days: date).strftime("%A").downcase == day[0].to_s
-                if @room_rate.blank?
-                  create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date.advance(days: date),from_date.to_date.advance(days: date),price)
-                else
-                  if (@room_rate.from_date..@room_rate.to_date).cover?(from_date.to_date.advance(days: date))
-                    create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,@room_rate.from_date,from_date.to_date.advance(days: date - 1),@room_rate.price)
+          else
+            days.each do |day|
+              (to_date.to_date - from_date.to_date).to_i.times do |date|
+                if from_date.to_date.advance(days: date).strftime("%A").downcase == day[0].to_s
+                  if @room_rate.blank?
                     create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date.advance(days: date),from_date.to_date.advance(days: date),price)
-                    @room_rate.destroy
                   else
-                    create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date.advance(days: date),from_date.to_date.advance(days: date),price)
+                    if (@room_rate.from_date..@room_rate.to_date).cover?(from_date.to_date.advance(days: date))
+                      create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,@room_rate.from_date,from_date.to_date.advance(days: date - 1),@room_rate.price)
+                      create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date.advance(days: date),from_date.to_date.advance(days: date),price)
+                      @room_rate.destroy
+                    else
+                      create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date.advance(days: date),from_date.to_date.advance(days: date),price)
+                    end
                   end
                 end
               end
