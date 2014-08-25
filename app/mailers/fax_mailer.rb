@@ -3,6 +3,8 @@ class FaxMailer < ActionMailer::Base
 
   def hotel_booking_mail(traveler, amount, cardnumber, ccv, cardtype, hotel, checkin, checkout, numbers, latest_booked, room, rate, credit_card_expiry_date, protocol,host, number_nights, price)
   	@traveler = traveler
+    @country = Carmen::Country.coded(@traveler.country_id )
+    @subregion = @country.subregions.coded(@traveler.state_id)
   	@amount = amount
   	@cardnumber = cardnumber
     @ccv = ccv
@@ -25,6 +27,8 @@ class FaxMailer < ActionMailer::Base
   
   def email_to_hotel(traveler, amount, cardnumber, ccv, cardtype, hotel, checkin, checkout, room_ids, latest_booked, room, credit_card_expiry_date, protocol,host, numbers, number_nights, price)
     @traveler = traveler
+    @country = Carmen::Country.coded(@traveler.country_id )
+    @subregion = @country.subregions.coded(@traveler.state_id)
     @amount = amount
     @cardnumber = cardnumber
     @ccv = ccv

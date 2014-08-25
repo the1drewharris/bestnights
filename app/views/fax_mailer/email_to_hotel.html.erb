@@ -45,8 +45,8 @@
     <td><%= @traveler.firstname.capitalize %>&nbsp;<%= @traveler.lastname.capitalize %></td>
   </tr>
   <tr style="line-height: 22px;">
-    <td style="width: 176px;">Address:</td>
-    <td><%= @traveler.address1.titleize %>, <%= @traveler.city.titleize %>, <%= @traveler.zip %></td>
+    <td style="width: 176px;">Address:</td>  
+    <td>#<%= @traveler.city.titleize %>, <%= @subregion.name %>, <%= @traveler.zip %></td>
   </tr>
   <tr style="line-height: 22px;">
     <td style="width: 176px;">Mobile:</td>
