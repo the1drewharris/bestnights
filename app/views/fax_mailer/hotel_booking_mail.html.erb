@@ -64,7 +64,7 @@
       </tr>
       <tr style="line-height: 22px;">
         <td style="width: 176px;">Address</td>
-        <td>:  <%= @hotel.name.capitalize %>, <%= @hotel.city.capitalize %>, <%= @hotel.address1.titleize %>,<%= @hotel.zip %></td>
+        <td>:  <%#= @hotel.name.capitalize %> <%= @hotel.city.capitalize %>,<%= @hotel.state.state_province %> #<%= @hotel.address1.titleize %>,<%= @hotel.zip %></td>
       </tr>
       <tr style="line-height: 22px;">
         <td style="width: 176px;">Phone</td>
@@ -102,8 +102,8 @@
         </td>
       </tr>
       <tr style="line-height: 22px;">
-        <td style="width: 176px;">Quantity</td>
-        <td>:  <%= @room_numbers %></td>
+        <td style="width: 176px;">Booking Details</td>
+        <td>:<%= @nights %> nights <%= @room_numbers %> rooms</td>
       </tr>
       </table>
       </td>

@@ -1,6 +1,6 @@
 class TravelersController < ApplicationController
   #before_filter :authenticate_user!, only: [:new, :create]
-  before_filter :authenticate_traveler!, only: [:booking_history, :edit_traveler, :change_password]  
+  #before_filter :authenticate_traveler!, only: [:booking_history, :edit_traveler, :change_password]  
   layout "admin_basic", only: [:index, :new, :edit, :show_traveler]
   layout "traveler_basic", only: [:booking_history, :edit_traveler, :show, :change_password]
   def index
@@ -8,11 +8,21 @@ class TravelersController < ApplicationController
   end
   
   def show
-      @traveler = Traveler.find(current_traveler)
+    unless current_traveler
+      @traveler = Traveler.find(session[:traveler_id])
+    else
+      @traveler = current_traveler
+    end
+      #@traveler = Traveler.find(current_traveler)
   end
 
   def show_traveler
-      @traveler = Traveler.find(params[:id])
+    unless current_traveler
+      @traveler = Traveler.find(session[:traveler_id])
+    else
+      @traveler = current_traveler
+    end
+      #@traveler = Traveler.find(params[:id])
   end
   
   def new
@@ -47,11 +57,21 @@ class TravelersController < ApplicationController
   end
   
   def edit
-    @traveler = Traveler.find(current_traveler.id)
+    unless current_traveler
+      @traveler = Traveler.find(session[:traveler_id])
+    else
+      @traveler = current_traveler
+    end
+    #@traveler = Traveler.find(current_traveler.id)
   end
   
   def update
-    traveler = Traveler.find(current_traveler.id)    
+    #traveler = Traveler.find(current_traveler.id)    
+    unless current_traveler
+      traveler = Traveler.find(session[:traveler_id])
+    else
+      traveler = current_traveler
+    end
     if traveler.update_attributes(params[:traveler])
       flash[:success] = "Change Successful!"
       if session[:traveler_id]
@@ -66,7 +86,12 @@ class TravelersController < ApplicationController
   end
   
   def change_password
-    @traveler = Traveler.find_by_id(current_traveler.id)
+    unless current_traveler
+      @traveler = Traveler.find(session[:traveler_id])
+    else
+      @traveler = current_traveler
+    end
+    #@traveler = Traveler.find_by_id(current_traveler.id)
   end
 
   def destroy
@@ -76,19 +101,34 @@ class TravelersController < ApplicationController
   end
 
   def booking_history
-    @booking_histories = Booking.where("traveler_id=?", current_traveler.id).paginate(:page => params[:page], :per_page => 20).order('id DESC')
+    @booking_histories = Booking.where("traveler_id=?", params[:id]).paginate(:page => params[:page], :per_page => 20).order('id DESC')
+    @traveler = Traveler.find_by_id(params[:id])
   end
 
   def edit_traveler
-    @traveler = Traveler.find(current_traveler.id)
+    unless current_traveler
+      @traveler = Traveler.find(session[:traveler_id])
+    else
+      @traveler = current_traveler
+    end
+    #@traveler = Traveler.find(current_traveler.id)
     session[:traveler_id] = @traveler.id
   end
 
   def cancel_booking
-    @booking = Booking.find_by_traveler_id_and_id(current_traveler.id,params[:book_id])
+    #@booking = Booking.find_by_traveler_id_and_id(current_traveler.id,params[:book_id])
+    #unless current_traveler
+      @booking = Booking.find_by_traveler_id_and_id(params[:id],params[:book_id])
+    #else
+      #@booking = Booking.find_by_traveler_id_and_id(current_traveler.id,params[:book_id])
+    #end
     if !@booking.nil?
       @hotel = Hotel.find(@booking.hotel_id)
-      @traveler = Traveler.find_by_id(current_traveler.id)
+      unless current_traveler
+      @traveler = Traveler.find(session[:traveler_id])
+    else
+      @traveler = current_traveler
+    end
       @booking.is_cancel = true
       @booking.save
       FaxMailer.hotel_cancel_mail(@traveler,@hotel,@booking.id).deliver

@@ -54,7 +54,7 @@ Bestnights::Application.routes.draw do
   match 'add_property' => "home#add_property", :via => :post
   match 'terms_of_service' => 'home#terms_of_service', :as => :terms_of_service
   match 'privacy' => 'home#privacy', :as => :privacy
-  match 'book_hotel' => 'home#book_hotel', :as => 'book_hotel'
+  match 'book_hotel/:traveler_id' => 'home#book_hotel', :as => 'book_hotel'
   get '/home/subregion_options' => 'home#subregion_options'
   get '/hotels/subregion_options' => 'home#subregion_options'
   get '/users/subregion_options' => 'home#subregion_options'
@@ -93,6 +93,8 @@ Bestnights::Application.routes.draw do
   match 'rates/search/:room_type_id' => "rates#search", :as => 'rate_search'
   match 'traveler_create' => "travelers#create", :as => :travelers_create, :via => :post
   match 'traveler_details/:id' => "travelers#show_traveler", :as => :show_traveler, :via => :get
+  match 'booking_history/:id' => "travelers#booking_history", :as => :booking_history, :via => :get
+  match 'cancel_booking/:book_id' => "travelers#cancel_booking", :as => :cancel_booking, :via => :get
 
 
   # resources :users, except: :create
@@ -107,7 +109,6 @@ Bestnights::Application.routes.draw do
   resources :room_attributes
   resources :hotel_attributes
   resources :travelers do 
-    get 'booking_history'
     get 'edit_traveler', on: :member
     get 'cancel_booking'
     get 'change_password', on: :member

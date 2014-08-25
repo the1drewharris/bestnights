@@ -1,7 +1,7 @@
 <div id="wrapper" class="register">
  	<div id="container-main">
  		<h1 class="prop-title">Traveler Payment Information</h1> 
- 		<div class="link-sec"><%= link_to "Book History", traveler_booking_history_path(@traveler ) %> <%= link_to "Edit Profile", edit_traveler_traveler_path(@traveler) %> <%= link_to "Payment Information", book_hotel_path %>
+ 		<div class="link-sec"><%= link_to "Book History", booking_history_path(@traveler) %> <%= link_to "Edit Profile", edit_traveler_traveler_path(@traveler) %> <%= link_to "Payment Information", book_hotel_path(@traveler) %>
  			<%= link_to "Change Password", change_password_traveler_path(@traveler) %>
  		</div>
  		<form id="checkout" name="checkout" method="post" action="/checkout_confirm" accept-charset="UTF-8" >

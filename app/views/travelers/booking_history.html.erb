@@ -25,7 +25,7 @@
 						<td align="center" valign="middle"><%= book.price %></td>
             <td align="center" valign="middle">
               <% if book.from_date >= Date.today && book.is_cancel == false %>
-                <%= link_to "Cancel Booking", traveler_cancel_booking_path(:book_id => book.id) %>
+                <%= link_to "Cancel Booking", cancel_booking_path(:book_id => book.id) %>
               <% end %>
             </td>
 					</tr>
@@ -37,5 +37,5 @@
 <%= will_paginate @booking_histories %>
 </div>
 </div>
-<div class="row back-link bking"><%= link_to "Back", traveler_path(session[:traveler_id]) , class: "link" %></div>
+<div class="row back-link bking"><%= link_to "Back", traveler_path(params[:id]) , class: "link" %></div>
 </div>
