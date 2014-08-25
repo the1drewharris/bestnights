@@ -16,8 +16,8 @@ class Hotel < ActiveRecord::Base
   
   after_initialize :init
   
-  # belongs_to :state
-  # belongs_to :country
+  belongs_to :state
+  belongs_to :country
   belongs_to :user
   belongs_to :card
   has_many :rooms, dependent: :destroy
