@@ -257,14 +257,14 @@ class HomeController < ApplicationController
   ## POST JSON
   def traveler_signin_book    
     @traveler = Traveler.find_by_email(params[:email])
-    session[:traveler_id] = @traveler.id
+    session[:traveler] = @traveler
     if @traveler and @traveler.valid_password?(params[:password])
+      session[:traveler_id] = @traveler.id
       redirect_to book_hotel_path
-      # render :json => @traveler, :status => 200
     else
-       redirect_to new_traveler_session_path(:success => "Please enter a valid username and password")  
+      flash[:success] = "Wrong Credential"
+      redirect_to travelers_login_path
     end
-    
   end
 
   def book_hotel

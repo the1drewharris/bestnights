@@ -13,11 +13,7 @@
 		<div id="adminwrapper">
 			<div id="eyebrow">
 					<div id="eyebrow">
-						<%#= render :partial => "common/profile_info_nav" %>
 						<span class="logob"><%= link_to image_tag("/assets/logo.png"), root_path %></span>
-						<% unless current_traveler.new_signup? %>
-							<%= render :partial => "common/admin_nav_tab" %>
-					  <% end %>
 					</div>
 					<nav id="phone" class="rt-phn">
 					<% if current_traveler || !@traveler.blank? %>
@@ -31,9 +27,7 @@
 					<% end %>
 					</nav>
 			</div>
-			<% if current_traveler and !current_traveler.activated? %>
-			  <p>Your account is pending now</p>
-			<% end %>
+
 			<%= render :partial => "common/notifications" %>								
 		  <%= yield %>		  
 			<footer>
