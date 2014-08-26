@@ -545,7 +545,7 @@ sup {
 
 textarea {
 	min-width: 500px;
-	min-height: 250px;
+	min-height: 100px;
 	vertical-align: top;
 	margin: 0 0 21px;
 	cursor: text;

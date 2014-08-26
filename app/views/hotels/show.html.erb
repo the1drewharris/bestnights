@@ -32,8 +32,32 @@
     </td>
     </tr>
     <tr>
-        <td><strong>Policy</strong></td>
-        <td><%= @hotel.policy %></td>
+        <td><strong>Cancellation Policy</strong></td>
+        <td><%= @hotel.cancellation_policy %></td>
+    </tr>
+    <tr>
+        <td><strong>Deposit Policy</strong></td>
+        <td><%= @hotel.deposit_policy %></td>
+    </tr>
+    <tr>
+        <td><strong>Children Policy</strong></td>
+        <td><%= @hotel.children_policy %></td>
+    </tr>
+    <tr>
+        <td><strong>Groups Policy</strong></td>
+        <td><%= @hotel.groups_policy %></td>
+    </tr>
+    <tr>
+        <td><strong>Internet Policy</strong></td>
+        <td><%= @hotel.internet_policy %></td>
+    </tr>
+    <tr>
+        <td><strong>Parking Policy</strong></td>
+        <td><%= @hotel.parking_policy %></td>
+    </tr>
+    <tr>
+        <td><strong>Pets Policy</strong></td>
+        <td><%= @hotel.pets_policy %></td>
     </tr>
     <tr>
         <td><% if current_user.admin? %>

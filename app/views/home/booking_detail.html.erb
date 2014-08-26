@@ -41,8 +41,20 @@
 			</p>
 			<h6>Description</h6>
 			<p><%= @hotel.description %></p>
-			<h6>Policy:</h6> 
-			<p><%= @hotel.policy.blank? ? "" : @hotel.policy.titleize %></p>		
+			<h6>Cancellation Policy:</h6> 
+			<p><%= @hotel.cancellation_policy.blank? ? "" : @hotel.cancellation_policy.titleize %></p>		
+			<h6>Deposit Policy:</h6> 
+			<p><%= @hotel.deposit_policy.blank? ? "" : @hotel.deposit_policy.titleize %></p>	
+			<h6>Children Policy:</h6> 
+			<p><%= @hotel.children_policy.blank? ? "" : @hotel.children_policy.titleize %></p>
+			<h6>Groups Policy:</h6> 
+			<p><%= @hotel.groups_policy.blank? ? "" : @hotel.groups_policy.titleize %></p>	
+			<h6>Internet Policy:</h6> 
+			<p><%= @hotel.internet_policy.blank? ? "" : @hotel.internet_policy.titleize %></p>	
+			<h6>Parking Policy:</h6> 
+			<p><%= @hotel.parking_policy.blank? ? "" : @hotel.parking_policy.titleize %></p>	
+			<h6>Pets Policy:</h6> 
+			<p><%= @hotel.pets_policy.blank? ? "" : @hotel.pets_policy.titleize %></p>		
 		</div>
 	</section>
 	

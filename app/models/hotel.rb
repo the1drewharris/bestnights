@@ -1,7 +1,8 @@
 class Hotel < ActiveRecord::Base
   attr_accessible :name, :description, :address1, :city, :state_id, :zip, :user_id, :country_id, :star, :status, 
                   :comission_rate, :card_id, :email_or_fax, :email, :fax, :tax1_label, :tax1, :tax2_label, :tax2, 
-                  :tax3_label, :tax3, :tax4_label, :tax4, :policy, :phone
+                  :tax3_label, :tax3, :tax4_label, :tax4, :policy, :phone, :cancellation_policy, :deposit_policy,
+                  :children_policy, :groups_policy, :internet_policy, :parking_policy, :pets_policy
   
   validates_presence_of :name, :description, :address1, :city, :zip, :user_id, :country_id, :status,
                         :tax1_label, :tax2_label, :tax3_label, :tax4_label, :policy, :on => :create
