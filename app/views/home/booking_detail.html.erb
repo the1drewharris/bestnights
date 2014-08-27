@@ -132,18 +132,20 @@
 									<% end %>
 								<% end %>
 
-								<% @rates = RoomRate.where("room_type_id=? AND hotel_id=?", room.room_type_id, @hotel_id) %>
+								<%= session[:checkout] %>
+								<% @rates = RoomRate.where("room_sub_type_id=? AND hotel_id=?", room.room_sub_type_id, @hotel.id) %>
 								<% unless @rates.empty? %>
 									<% @rates.each do |rate| %>
-										<td class="price">
-											<sup>$</sup>
-											<% if !rate.blank? && (rate.from_date..rate.to_date).cover?(Date.today) %>
-												<%= rate.price %>
-											<% else %>
-												0.00
-											<% end %>
-											<br>
-										</td>
+										<% if !rate.blank? %>
+											<td class="price">
+												<% (session[:checkout].to_date - session[:checkin].to_date).to_i.times do |day| %>
+												<% if (rate.from_date..rate.to_date).cover?(session[:checkin].to_date.advance(days: day)) %>
+													<sup>$</sup>											
+														<%= rate.price %>
+													<% end %>
+												<% end %>
+											</td>
+										<% end %>
 									<% end %>
 								<% else %>
 									<td class="price">
