@@ -139,6 +139,7 @@ class HomeController < ApplicationController
       
       # reset_session
       
+      logger.info"******111*****#{params[:date]}************************"
       session[:checkin] = params[:date][:checkin]  unless params[:date].nil?
       session[:checkout] = params[:date][:checkout]  unless params[:date].nil?
       session[:search] = params[:search]
@@ -305,6 +306,7 @@ class HomeController < ApplicationController
     @country = Carmen::Country.coded(@traveler.country_id )
     @subregion = @country.subregions.coded(@traveler.state_id)
 
+    logger.info"**********************#{session[:checkin]}**************#{session[:checkout]}***********"
     from_date = session[:checkin]
     to_date = session[:checkout]
     a = session[:checkout].nil? ? Time.now()+1 : session[:checkout]
@@ -331,8 +333,9 @@ class HomeController < ApplicationController
      numbers = session[:roomtype].to_i
         @room1 = Room.find_by_hotel_id_and_room_type_id(session[:hotel_id], session[:room_type_id])
         #@room_rate = RoomRate.find_by_room_id_and_room_type_id(@room1.id, session[:room_type_id])
-        @rooms = RoomAvailable.find_by_room_type_id_and_hotel_id(session[:room_type_id],session[:hotel_id])
-      
+        #@rooms = RoomAvailable.find_by_room_type_id_and_hotel_id(session[:room_type_id],session[:hotel_id])
+        @rooms = RoomAvailable.where("room_sub_type_id=? AND hotel_id=?", @room1.room_sub_type_id,session[:hotel_id])
+
         number_nights.times do |t|
            @amount = @amount + @room1.price.to_f
         end
@@ -348,10 +351,28 @@ class HomeController < ApplicationController
                         adults: numbers, traveler_id: @traveler.id, night_number: number_nights, price: @amount)
         
           booking.save
-          logger.info"%%%%%%%&&&&&&&&&&%%%%%%#{booking.inspect}%%%%%%"
         end
-        @rooms.number = session[:total_room].to_i - session[:room_needed].to_i
-        @rooms.save
+        @rooms.each do |room|
+          unless room.from_date == from_date.to_date && room.to_date == to_date.to_date
+            if (room.from_date..room.to_date).include?(from_date.to_date)
+              if room.from_date < from_date.to_date.advance(days: -1)
+                logger.info"&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"
+                create_sell(room.room_sub_type_id,session[:hotel_id],room.room_type_id,room.from_date,from_date.to_date.advance(days: -1),room.number)
+              end
+              logger.info"^^^^#{session[:total_room]}^^^^^^^^^^^^^^^^#{session[:room_needed]}^^^^^^^^^"
+              create_sell(room.room_sub_type_id,session[:hotel_id],room.room_type_id,from_date.to_date,to_date.to_date,session[:total_room].to_i - session[:room_needed].to_i)
+              if (room.from_date..room.to_date).include?(to_date.to_date)
+                create_sell(room.room_sub_type_id,session[:hotel_id],room.room_type_id,to_date.to_date.advance(days: 1),room.to_date,room.number)
+              end
+              room.destroy
+            end
+          else
+            room.number = room.number
+            room.save
+          end
+        end
+        #@rooms.number = session[:total_room].to_i - session[:room_needed].to_i
+        #@rooms.save
         (from_date..to_date).each do |date|
           if availability = Availability.find_by_room_id_and_this_date(@room1.id, date)
             availability.update_attributes(count: availability.count - numbers)

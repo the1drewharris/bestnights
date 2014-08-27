@@ -143,6 +143,7 @@ class DashboardController < ApplicationController
       @starting_date = Date.today
     end
     @Bookings =  Booking.joins([:room => [:room_type => :room_availables]]).where("rooms.hotel_id = ?", session[:hotel_id]).select("room_availables.number, count(bookings.id) as booked, bookings.hotel_id, sum(bookings.adults) as adults, sum(bookings.children) as children, sum(bookings.price) as price, room_types.id as room_type_id, room_types.room_type as room_type,  bookings.from_date, bookings.to_date").group("room_types.id, bookings.from_date, bookings.to_date")
+    logger.info"********************#{@Bookings.inspect}***********************"
     @book_details = @Bookings.group_by(&:room_type_id)
     if params[:from_date] && params[:to_date]
       @range = (params[:to_date].to_date - params[:from_date].to_date).to_i + 1
