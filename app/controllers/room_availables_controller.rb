@@ -19,7 +19,7 @@ layout "admin_basic"
       unless params[:room_sub_type_id].blank?
         room_sub_type_sell(params[:room_sub_type_id],params[:days],params[:from_date],params[:to_date],params[:rooms_to_sell],params[:room_id])
       else
-        room_type_sell(params[:room_id],params[:days],params[:from_date],params[:to_date],params[:rooms_to_sell])
+        room_type_sell(params[:room_id],params[:days],params[:from_date],params[:to_date],params[:rooms_to_sell],params[:room_sub_type_id])
       end
       flash[:success] = 'Room Was Successfully Updated For Sell.'
       redirect_to new_room_available_path
@@ -86,6 +86,7 @@ layout "admin_basic"
   def room_sub_type_sell(room_sub_type_id,days,from_date,to_date,rooms_to_sell,room_id)
     room_sub_type_id.each do |room|
       @room_sell = RoomAvailable.find_by_room_sub_type_id_and_hotel_id(room[0].to_s, session[:hotel_id])
+      logger.info"^^^^^^^^^^^^^^^^#{@room_sell.inspect}^^^^^^^^^^^^^^^^^^^"
       @sub_type = RoomSubType.find_by_id(room[0].to_s)
       if days.blank?
         if @room_sell.blank?
@@ -93,17 +94,19 @@ layout "admin_basic"
         else
           unless @room_sell.from_date == from_date.to_date && @room_sell.to_date == to_date.to_date
             if (@room_sell.from_date..@room_sell.to_date).cover?(from_date.to_date)
-              create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,@room_sell.from_date,from_date.to_date.advance(:days => -1),@room_sell.rooms_to_sell)
+              if @room_sell.from_date < from_date.to_date.advance(:days => -1)
+                create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,@room_sell.from_date,from_date.to_date.advance(:days => -1),@room_sell.number)
+              end
               create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date,to_date.to_date,rooms_to_sell)
               if (@room_sell.from_date..@room_sell.to_date).cover?(to_date.to_date)
-                create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,to_date.to_date.advance(:days => 1),@room_sell.to_date,@room_sell.rooms_to_sell)
+                create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,to_date.to_date.advance(:days => 1),@room_sell.to_date,@room_sell.number)
               end
               @room_sell.destroy
             else
               create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date,to_date.to_date,rooms_to_sell)
             end
           else
-            @room_sell.rooms_to_sell = @room_sell.rooms_to_sell
+            @room_sell.number = @room_sell.number
             @room_sell.save
           end
         end
@@ -148,11 +151,11 @@ layout "admin_basic"
       end
     end
     if room_id
-      room_type_sell(room_id,days,from_date,to_date,rooms_to_sell)
+      room_type_sell(room_id,days,from_date,to_date,rooms_to_sell,room_sub_type_id)
     end
   end
 
-  def room_type_sell(room_id,days,from_date,to_date,rooms_to_sell)
+  def room_type_sell(room_id,days,from_date,to_date,rooms_to_sell,room_sub_type_id)
     room_id.each do |room|
     	@sub_type = RoomSubType.find_by_room_type_id(room[0].to_s)
       if @sub_type.blank? || !room_sub_type_id.include?(@sub_type.id.to_s)
@@ -220,16 +223,16 @@ layout "admin_basic"
     end
   end
 
-  def create_sell(room_sub_type_id,hotel_id,room_type_id,from_date,to_date,rooms_to_sell)
-    @room_sell = RoomAvailable.new
-    @room_sell.room_sub_type_id = room_sub_type_id
-    @room_sell.hotel_id = hotel_id
-    @room_sell.room_type_id = room_type_id
-    @room_sell.from_date =from_date
-    @room_sell.to_date = to_date
-    @room_sell.number = rooms_to_sell
-    @room_sell.save
-  end
+  # def create_sell(room_sub_type_id,hotel_id,room_type_id,from_date,to_date,rooms_to_sell)
+  #   @room_sell = RoomAvailable.new
+  #   @room_sell.room_sub_type_id = room_sub_type_id
+  #   @room_sell.hotel_id = hotel_id
+  #   @room_sell.room_type_id = room_type_id
+  #   @room_sell.from_date =from_date
+  #   @room_sell.to_date = to_date
+  #   @room_sell.number = rooms_to_sell
+  #   @room_sell.save
+  # end
 
   def room_sub_type_status(room_sub_type_id,days,from_date,to_date,status,room_id)
     room_sub_type_id.each do |room|
