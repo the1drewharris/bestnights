@@ -208,7 +208,7 @@ class RatesController < ApplicationController
       end
     end
     if room_id
-      @room = RoomSubType.find_by_room_type_id(room[0].to_s)
+      @room = RoomSubType.find_by_room_type_id(room_id.keys[0].to_s)
       if @room.blank? || !params[:room_sub_type_id].include?(@room.id.to_s)
         room_type_rate(room_id,days,from_date,to_date,price,room_sub_type_id)
       end
@@ -218,7 +218,7 @@ class RatesController < ApplicationController
   def room_type_rate(room_id,days,from_date,to_date,price,room_sub_type_id)
     room_id.each do |room|
       @sub_type = RoomSubType.find_by_room_type_id(room[0].to_s)
-      if @sub_type.blank? || !room_sub_type_id.include?(@room.id.to_s)
+      if @sub_type.blank? || !room_sub_type_id.include?(room.id.to_s)
         @room_rate = RoomRate.find_by_room_type_id_and_hotel_id(room[0].to_s, session[:hotel_id])
         if days.blank?
           if @room_rate.blank?
