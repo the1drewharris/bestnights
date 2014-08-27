@@ -1920,7 +1920,7 @@ footer #footerend {
 	
 	.admintablelist th,
 	.admintablelist td {
-		padding: 7px 14px;
+		padding: 7px 2px;
 		text-align: left;
 		vertical-align: middle;
 	}
@@ -2045,6 +2045,11 @@ footer #footerend {
 .roomdetail {
 	margin: 11px 0 0 0;
 	text-transform: none;
+}
+.chkinout b{
+	display: inline-block;
+    margin-bottom: 4px;
+    width: 91px;
 }
 
 .sidesticky {
@@ -4329,6 +4334,43 @@ span.status-label{
 .searchDestinyButt li a:hover{
 	color: #fff;
 	text-decoration: none;
+}
+.fLeft{
+	float: left;
+}
+[class^="hotel-"],
+[class*=" hotel-"] {
+	display: inline-block;
+	width: 14px;
+	height: 14px;
+	margin-top: 1px;
+	*margin-right: .3em;
+	line-height: 31px;
+	vertical-align: text-top;
+	background-image: url(../assets/hotel-icon.png);
+	background-position: 0px 31px;
+	background-repeat: no-repeat;
+}
+
+[class^="hotel-"]:last-child,
+[class*=" hotel-"]:last-child {
+  	*margin-left: 0;
+}
+.hotel-view {
+  	background-position:0 0;
+}
+.hotel-edit {
+  	background-position:0 -14px;
+}
+.hotel-delete {
+  	background-position:0 -28px;
+}
+a.tableDetails{
+	padding: 4px;
+}
+
+.show_hotel {
+	cursor:pointer;
 }
 /* End */
 

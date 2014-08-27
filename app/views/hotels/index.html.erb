@@ -20,16 +20,16 @@
   <div class="scroll scroll-hor">
 	<table class="admintablelist">
 		<tr>
-			<th>Name</th>
-			<th>City</th>
-			<th>State</th>
-			<th>Address</th>
-			<th>Set Commission</th>
-			<th>Status</th>
+			<th width="10%">Name</th>
+			<th width="10%">City</th>
+			<th width="5%">State</th>
+			<th width="15%">Address</th>
+			<th width="10%">Set<br>Commission</th>
+			<th width="10%">Status</th>
 			<% if current_user.admin? %>
-				<th>User</th>
+				<th width="20%">User</th>
 			<% end %>
-			<th colspan="2" align="center" class="center">Actions</th>
+			<th width="10%" colspan="2" align="center" class="center">Actions</th>
 		</tr>
 		<% @hotels.sort_by(&:name).each do |hotel| %>
 		  <tr>
@@ -43,7 +43,7 @@
 				<td><%= hotel.address1.titleize %></td>
 				<td>
 					<% if hotel.commission_rate.blank? %>
-						<%= link_to "Add Commission", new_commission_rate_path(:hotel_id => hotel.id) %>
+						<%= link_to "Commission", new_commission_rate_path(:hotel_id => hotel.id) %>
 					<% else %>
 						<%= link_to "#{hotel.commission_rate.amount}", hotel_edit_commission_rate_path(hotel.id) %>
 					<% end %>
@@ -61,13 +61,14 @@
 				  <td><%= hotel.user.blank? ? "" : hotel.user.email %></td>
 				<% end %>
 				<% if can? :show, hotel %>
-					<td><%= link_to "Show", hotel_path(hotel) %></td>
+				<td><%= link_to '<i class="hotel-view"></i>'.html_safe, hotel_path(hotel), :class => "tableDetails", :title => "Show" %>
 				<% end %>
 				<% if can? :edit, hotel %>
-					<td><%= link_to "Edit", edit_hotel_path(hotel) %></td>
+				<%= link_to '<i class="hotel-edit"></i>'.html_safe, edit_hotel_path(hotel), :class => "tableDetails", :title => "Edit" %>
 				<% end %>	
 				<% if can? :delete, hotel %>
-					<td><%= link_to "Delete", hotel_path(hotel), :method => :delete %></td>
+				<%= link_to '<i class="hotel-delete"></i>'.html_safe, hotel_path(hotel), :method => :delete, :class => "tableDetails", :title => "Delete" %>
+				</td>
 				<% end %>
 		  </tr>
 		<% end %>
@@ -76,3 +77,9 @@
 </div>
 
 <%= javascript_include_tag :jquery_ujs %>
+
+<script type="text/javascript">
+$(".hotel-delete").click(function(){
+	confirm("Are you sure?");
+});
+</script>

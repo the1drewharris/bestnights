@@ -436,6 +436,7 @@
 		if ($( ".bookingdetail" ).length > 0) {
 			$( '#gallery' ).jGallery( {
 				mode : 'standard',
+				height: '400px',
 				slideshowAutostart : true
 			});
 		}

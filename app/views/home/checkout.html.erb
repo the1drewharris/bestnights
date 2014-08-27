@@ -131,37 +131,44 @@
 					<% unless @hotel.hotel_photos.empty? %>
 						<img src=<%= @hotel.hotel_photos.first.picture.url %> size="97x97" alt=""  data-jgallery-bg-color="#d1d2c3" data-jgallery-text-color="#272727" style="width:97px;height:97px;"/>
 					<% end %>	
-					<b><%= @hotel.name %></b><br>
-					<span class="starrating">
-						<% @hotel.star.to_i.times do %>
-				  		&#10029;
-				  	<% end %>
-				  </span><br>
-				  <%= @hotel.city %>, <%= @hotel.state.state_province if @hotel && @hotel.state%>
+					
+					<div class="fLeft">
+						<b><%= @hotel.name %></b><br>
+						<span class="starrating">
+							<% @hotel.star.to_i.times do %>
+					  		&#10029;
+					  	<% end %>
+					  </span><br>
+					  <%= @hotel.city %>, <%= @hotel.state.state_province if @hotel && @hotel.state%>
+
+					  <div class="roomdetail chkinout">
+						<b>Room:</b> 
+						<% @hotel.rooms.each do |room| %>
+						  <%= room.name %>,
+						<% end %>
+						<br>
+						<b>Check in:</b> 
+						<span style="background:#FACC2E; color: #CC504A; margin-right:4px; padding: 0 4px;">
+							<% if !cookies[:intime].blank? %>
+								<%= cookies[:intime].to_date.strftime('%A, %B %d, %G') %>
+							<% else %>
+							 <%= Date.today %>
+							<% end %>
+						</span>
+						<div class="clear"></div>
+						<b>Check out:</b>
+						<span style="background:#FACC2E; color: #CC504A; padding: 0 4px;">
+							<% if !cookies[:outtime].blank? %>
+								<%= cookies[:outtime].to_date.strftime('%A, %B %d, %G') %>  
+							<% else %>
+							 <%= Date.today %>
+							<% end %>
+						</span>
+						</div>
+					<div>
+
 				</a>
-				<div class="roomdetail">
-					<b>Room:</b> 
-					<% @hotel.rooms.each do |room| %>
-					  <%= room.name %>,
-					<% end %>
-					<br>
-					<b>Check in:</b> 
-					<span style="background:#FACC2E; color: #CC504A; margin-right:4px; padding: 0 4px;">
-						<% if !cookies[:intime].blank? %>
-							<%= cookies[:intime].to_date.strftime('%A, %B %d, %G') %>
-						<% else %>
-						 <%= Date.today %>
-						<% end %>
-					</span>
-					<b>Check out:</b>
-					<span style="background:#FACC2E; color: #CC504A; padding: 0 4px;">
-						<% if !cookies[:outtime].blank? %>
-							<%= cookies[:outtime].to_date.strftime('%A, %B %d, %G') %>  
-						<% else %>
-						 <%= Date.today %>
-						<% end %>
-					</span>
-					</div>
+				
 			</h5>
 			<div>
 				<p><%= @hotel.description %></p>

@@ -28,10 +28,10 @@
 			<% if current_user.admin? %>
 				<th width="15%">User</th>
 			<% end %>
-			<th width="10%">Actions</th>
+			
 		</tr>
 		<% @hotels.sort_by(&:name).each do |hotel| %>
-		  <tr>
+		  <tr class="show_hotel" hotelid="<%= hotel.id %>"><%#= link_to "#{hotel.id}", dashboard_path(:hotel_id => hotel.id), class: "link_hotel" %>
 		  	<td><%= link_to "#{hotel.id}", dashboard_path(:hotel_id => hotel.id), class: "link_hotel" %></td>
 		  	<% if current_user.manager? and current_user.new_signup? %>
 		  		<td><%= link_to hotel.name, dashboard_path(:hotel_id => hotel.id) %></td>
@@ -49,9 +49,9 @@
 				<% if current_user.admin? %>
 				  <td><%= hotel.user.email %></td>
 				<% end %>
-				<% if can? :show, hotel %>
-					<td><%= link_to "Show", hotel_path(hotel.id) %></td>
-				<% end %>
+				<%#if can? :show, hotel %>
+					<!--<td><%#= link_to "Show", hotel_path(hotel.id) %></td>-->
+				<%# end %>
 		  </tr>
 		<% end %>
 	</table>

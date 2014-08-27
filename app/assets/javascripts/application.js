@@ -54,4 +54,7 @@ $(document).ready(function() {
 			})
 		})
 	}
+	$(".show_hotel").click(function(){
+		window.location.href = "/hotels/" + $(this).attr('hotelid');
+	});
 });
