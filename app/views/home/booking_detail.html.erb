@@ -131,8 +131,6 @@
 										</td>
 									<% end %>
 								<% end %>
-
-								<%= session[:checkout] %>
 								<% @rates = RoomRate.where("room_sub_type_id=? AND hotel_id=?", room.room_sub_type_id, @hotel.id) %>
 								<% unless @rates.empty? %>
 									<% @rates.each do |rate| %>
