@@ -236,7 +236,9 @@
 							$(this).next().children('li:last-child').remove();
 						}
 					}
-					$("#searchform").css("height", "auto");
+					
+					$("#searchform").css("height", "auto !important");
+					
 					
 				});
 				
@@ -253,14 +255,14 @@
 					var current = $(this);
 					current.attr("box_h", current.height());
 				}
-			 );
+			);
 			
 			$("#searchform").css("height", sliderHeight);
-			$("#searchpane input").focus(function() { openSlider() });
+			$("#hotel_name").on('click',function() { openSlider() });
 			$("#check-in").on("click",function() { openSlider() })
+			$("#check-out").on("click",function() { openSlider() })
 				
 			function openSlider() {
-				
 				var open_height = $("#searchform").attr("box_h") + "px";
 				$("#searchform").animate({"height": open_height}, {duration: "slow" });
 				$("#searchpaneui a").click(function() { closeSlider() });
