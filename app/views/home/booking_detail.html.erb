@@ -105,6 +105,7 @@
 			<tr>
 				<th scope="col">Room Type</th>
 				<th scope="col">Conditions</th>
+				<th scope="col">Adult</th>
 				<th scope="col">Max</th>
 				<th scope="col">BestNights.com Price</th>
 				<th scope="col">Number of Rooms</th>
@@ -116,43 +117,71 @@
 					<% @statuses = RoomStatus.where("room_type_id=? AND hotel_id=?",room.room_type.id, @hotel.id) %>
 					<% @statuses.each do |status| %>
 						<% if !status.blank? && ((status.from_date..status.to_date).cover?(Date.today)) %>
-							<tr>
+							<tr>								
 								<td><%= room.room_type.room_type %></td>
 								<td>
-									<% room.room_attributes.each do |ra| %>
-									  <%= ra.attr + ', ' %>
-									<% end %>	
+									<div class="room-available type">
+										<table class="data-tbl">
+											<tr>
+												<td>
+												<% room.room_attributes.each do |ra| %>
+												  <%= ra.attr + ', ' %>
+												<% end %>	
+											</td>
+											</tr>
+										</table>
+									</div>
 								</td>
+								<td></td>
+								<td class="room_available">
 								<% @availables = RoomAvailable.where("room_sub_type_id=? AND hotel_id=?",room.room_sub_type_id, @hotel.id ) %>
-								<% @availables.each do |available| %>
-									<% if !available.blank? && (available.from_date..available.to_date).cover?(Date.today) %>
-										<td class="room_available">
-											<%= available.number %>
-										</td>
-									<% end %>
-								<% end %>
-								<% @rates = RoomRate.where("room_sub_type_id=? AND hotel_id=?", room.room_sub_type_id, @hotel.id) %>
-								<% unless @rates.empty? %>
-									<% @rates.each do |rate| %>
-										<% if !rate.blank? %>
-											<td class="price">
-												<% (session[:checkout].to_date - session[:checkin].to_date).to_i.times do |day| %>
-												<% if (rate.from_date..rate.to_date).cover?(session[:checkin].to_date.advance(days: day)) %>
-													<sup>$</sup>											
-														<%= rate.price %>
+								<div class="room-available max">
+									<table class="data-tbl">
+										<tr>
+										<% @availables.each do |available| %>
+											<% if !available.blank? %>
+													<% (session[:checkout].to_date - session[:checkin].to_date).to_i.times do |day| %>
+														<% if (available.from_date..available.to_date).cover?(session[:checkin].to_date.advance(days: day)) %>	
+																<td>
+																<span class="data-tbl-date">29/8/14</span>														
+																<%= available.number %>	
+																</td>														
+														<% end %>
+													<% end %>										
+											<% end %>
+										<% end %>
+										</tr>
+									</table>
+								</div>
+							</td>
+
+							<td class="price">
+								<div class="room-available">
+									<table class="data-tbl">	
+										<tr>
+										<% @rates = RoomRate.where("room_sub_type_id=? AND hotel_id=?", room.room_sub_type_id, @hotel.id) %>
+										<% unless @rates.empty? %>
+											<% @rates.each do |rate| %>
+												<% if !rate.blank? %>											
+													<% (session[:checkout].to_date - session[:checkin].to_date).to_i.times do |day| %>
+														<% if (rate.from_date..rate.to_date).cover?(session[:checkin].to_date.advance(days: day)) %>		
+																<td>	
+																	<span class="data-tbl-date">29-08-2014</span>
+																	$<%= rate.price %>
+																</td>
+															<% end %>
+														<% end %>											
 													<% end %>
 												<% end %>
-											</td>
+										<% else %>									
+												<sup>$</sup>0.00<br>									
 										<% end %>
-									<% end %>
-								<% else %>
-									<td class="price">
-										<sup>$</sup>0.00<br>
-									</td>
-								<% end %>
-								
+										<tr>
+									</table>
+								</div>
+							</td>
 
-									<td class="room_number"><% @free.each do |fr| %>
+									<td class="room_number vertical-m"><% @free.each do |fr| %>
 										<% if fr.has_key?(room.room_type.id) %>
 											<% if fr[room.room_type.id] != 0 %>
 												<input type="number" min="0" max=<%= room.available_max(@from_date, @to_date) %> value="" name="number[<%= room.id %>]" id="room_number">
