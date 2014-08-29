@@ -37,63 +37,23 @@
                     	</td>
                     <% end %>
                   </tr>
-                  <% @room_sub_types.each_with_index do |type, index| %>
+                  <% @room_sub_types.each_with_index do |sub_type, index| %>
                     <tr>
                       <td class="grid-room-cell">
-                        <%= type.name %>
+                        <%= sub_type.name %>
                       </td>
-                      <% @status_hash.each do |status| %>
-                        <%#= status %>
-                        <% if status[0] == type.id.to_s %>
-                          <% status[1].each do |stat| %>
-                            <%#= stat[1] %>
-                            <% if stat[1] == "none" %>
-                              <td class="status status-clickable status-none"><span style="padding-left:0px;" class="status-label status-bookable">x</span></td>
-                            <% else %>
-                              <td class="status status-clickable status-<%= stat[1] %>"><span class="status-label status-bookable"></span></td>
-                            <% end %>
-                          <% end %>
+                      <% @status_hash["#{sub_type.id}"].each do |date| %>
+                        <% if date[1] == "none" %>
+                          <td class="status status-clickable status-none"><span style="padding-left:0px;" class="status-label status-bookable">x</span></td>
+                        <% else %>
+                          <td class="status status-clickable status-<%= date[1] %>"><span class="status-label status-bookable"></span></td>
                         <% end %>
                       <% end %>
                     </tr>
                     <tr>
                       <td class="grid-room-cell"><a href="#"> Rooms To Sell (Room Level) </a></td>
-                      <% if @booking_hash.keys.include?(type.room_type_id.to_s) %>
-                        <% @count = 0 %>
-                        <% unless @booking_hash[type.id.to_s].blank? %>
-                          <% @booking_hash[type.id.to_s].each do |key,values| %>
-                            <% @room_availables = RoomAvailable.where("room_sub_type_id=? AND hotel_id=?", type.id, session[:hotel_id]) %>
-                            <% unless @room_availables.blank? %>
-                              <% @room_availables.each do |room_available| %>
-                                <% if (room_available.from_date..room_available.to_date).cover?(key.to_date) %>
-                                  <% if values > 0 %>
-                                    <td><%= values %></td>
-                                  <% else %>
-                                    <td>0</td>
-                                  <% end %>
-                                <% else %>
-                                  <td>0</td>
-                                <% end %>
-                              <% end %>
-                            <% else %>
-                              <td>0</td>
-                            <% end %>
-                          <% end %>
-                        <% end %>
-                      <% elsif @booking_hash.empty? %>
-                        <% @range.times do |day| %>
-                          <td>
-                            <% unless @room_available.blank? %>
-                              <%= @room_available.number %>
-                            <% else %>
-                              0
-                            <% end %>
-                          </td>
-                        <% end %>
-                      <% else %>
-                        <% @range.times do |day| %>
-                          <td>0</td>
-                        <% end %>
+                      <% @available_hash["#{sub_type.id}"].each do |available| %>
+                        <td><%= available[1] %></td>
                       <% end %>
                     </tr>
                     <tr>
@@ -101,7 +61,7 @@
                         <a href="#" class="grid-rate-cell"> Standard Rate </a>
                       </td>
                       <% @range.times do |f| %>
-                        <% @rate = RoomRate.where("room_type_id=? AND hotel_id=?",type.id, session[:hotel_id]) %>
+                        <% @rate = RoomRate.where("room_sub_type_id=? AND hotel_id=?",sub_type.id, session[:hotel_id]) %>
                         <% unless @rate.blank? %>
                             <% if (@rate[0].from_date..@rate[0].to_date).cover?(@starting_date.advance(days: f)) %>
                               <td class="status status-clickable status-bookable">
