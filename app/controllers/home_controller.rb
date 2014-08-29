@@ -334,7 +334,6 @@ class HomeController < ApplicationController
     @checkout = session[:checkout]
      numbers = session[:roomtype].to_i
         @room1 = Room.find_by_hotel_id_and_room_type_id(session[:hotel_id], session[:room_type_id])
-        #@room_rate = RoomRate.find_by_room_id_and_room_type_id(@room1.id, session[:room_type_id])
         @rooms = RoomAvailable.find_by_room_type_id_and_hotel_id(session[:room_type_id],session[:hotel_id])
       
         number_nights.times do |t|
@@ -352,7 +351,6 @@ class HomeController < ApplicationController
                         adults: numbers, traveler_id: @traveler.id, night_number: number_nights, price: @amount)
         
           booking.save
-          #logger.info"%%%%%%%&&&&&&&&&&%%%%%%#{booking.inspect}%%%%%%"
         end
         @rooms.number = session[:total_room].to_i - session[:room_needed].to_i
         @rooms.save
@@ -368,8 +366,6 @@ class HomeController < ApplicationController
         @numbers = numbers
 
         @latest_booked = Booking.where(traveler_id: @traveler.id, hotel_id: room.hotel.id).order("created_at DESC").limit(1)
-        #logger.info"&&&&&&&&&&&&&&&#{@latest_booked.inspect}&&&&&222222&&&&#{@card_number}&&&"
-        #logger.info "==========#{@hotel.state.state_province}============="
         @fax_email = FaxMailer.hotel_booking_mail(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, numbers, @latest_booked, @room1,@rate,@card_expiry, request.protocol,request.host_with_port, number_nights, @room1.price.to_f).deliver
         @fax_email_to_hotel = FaxMailer.email_to_hotel(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, room_ids, @latest_booked, @room1, @card_expiry, request.protocol,request.host_with_port, numbers, number_nights, @room1.price.to_f ).deliver
     else
