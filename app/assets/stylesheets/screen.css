@@ -4064,7 +4064,6 @@ a.dashb_block:hover {
 .dashboard .sidebarmenu ul {
 	width:256px;
 }
-<<<<<<< HEAD
 
 .rtPanel {overflow:hidden; padding:13px 21px 50px 15px;}
 .colRow{ overflow:hidden; padding-bottom:25px;}
@@ -4094,7 +4093,6 @@ span.contact-item  a {font-weight:normal; color:#83bf17;}
 .formHolder .row select {background:#F2F2F2; border:1px solid #CCC;	padding:3px 8px;	border-radius: 2px;    -moz-border-radius:2px;    -webkit-border-radius:2px;    color: #333333;	font-size:1em;	font-weight:500;	background-clip:padding-box;	float:left;	margin:0 10px 0 0;}
 .formHolder .row.bntHolder {padding-left:165px;}
 /* End */
-=======
 .sel-dt {
 	clear:both;
 	padding:0;
@@ -4330,5 +4328,30 @@ span.status-label{
 	color: #fff;
 	text-decoration: none;
 }
+
+.room-available{
+	overflow: auto;
+	width: 200px;
+}
+.room-available.type{
+	height: 75px;
+}
+.room-available.max{
+	width: 125px;
+}
+.data-tbl td{
+	height: 56px;
+	width: 50px;
+	text-align: center;
+}
+.data-tbl-date{
+	display: block;
+	margin-bottom: 8px;
+	border-bottom: 1px solid #000;
+}
+.vertical-m{
+	vertical-align: middle !important;
+}
+
 /* End */
 
