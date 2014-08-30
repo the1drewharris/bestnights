@@ -42,11 +42,20 @@
                       <td class="grid-room-cell">
                         <%= sub_type.name %>
                       </td>
-                      <% @status_hash["#{sub_type.id}"].each do |date| %>
-                        <% if date[1] == "none" %>
-                          <td class="status status-clickable status-none stat" date="<%= date[0] %>" subtype="<%= sub_type.id %>" type="<%= sub_type.room_type_id %>" status="bookable" ><span style="padding-left:0px;" class="status-label status-bookable">x</span></td>
-                        <% else %>
-                          <td class="status status-clickable status-<%= date[1] %> stat" date="<%= date[0] %>" subtype="<%= sub_type.id %>" type="<%= sub_type.room_type_id %>" status="closed"><span class="status-label status-bookable"></span></td>
+                      <% @range.times do |day| %>
+                        <% @status_hash["#{sub_type.id}"].each do |date| %>
+                          <% if date[0].to_date == @starting_date.advance(days: day) %>
+                            <% if date[1] == "none" %>
+                              <td class="status status-clickable status-none stat" date="<%= date[0] %>" subtype="<%= sub_type.id %>" type="<%= sub_type.room_type_id %>" status="bookable" ><span style="padding-left:0px;" class="status-label status-bookable">x</span></td>
+                            <% else %>
+                              <td class="status status-clickable status-<%= date[1] %> stat" date="<%= date[0] %>" subtype="<%= sub_type.id %>" type="<%= sub_type.room_type_id %>" status="closed"><span class="status-label status-bookable"></span></td>
+                            <% end %>
+                          <% end %>
+                        <% end %>
+                      <% end %>
+                      <% if @range > @status_hash["#{sub_type.id}"].length %>
+                        <% (@range - @status_hash["#{sub_type.id}"].length).times do |day| %>
+                          <td class="status status-clickable status-closed stat" date="<%= @starting_date.advance(days: day + @status_hash["#{sub_type.id}"].length) %>" subtype="<%= sub_type.id %>" type="<%= sub_type.room_type_id %>" status="closed"><span class="status-label status-bookable"></span></td>
                         <% end %>
                       <% end %>
                     </tr>
