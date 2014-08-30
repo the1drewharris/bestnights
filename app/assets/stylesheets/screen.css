@@ -254,6 +254,11 @@ select {
 		border: 1px solid #ccc;
 		cursor: pointer;
 	}
+	.admintablelist a.fixed{
+		padding: 7px 0;
+		text-align: center;
+		width: 48px;
+	}
 
 	button,
 	input[type="submit"],
@@ -4371,6 +4376,12 @@ a.tableDetails{
 
 .show_hotel {
 	cursor:pointer;
+}
+.mBot0{
+	margin-bottom: 0px!important;
+}
+.mBot10{
+	margin-bottom: 10px;
 }
 /* End */
 
