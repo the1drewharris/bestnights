@@ -139,6 +139,7 @@ class DashboardController < ApplicationController
     @status_hash = {}
     @available_hash = {}
     @flag = 0
+    @data = []
     @room_types = RoomType.all
     @room_sub_types = RoomSubType.all
     if params[:from_date]
@@ -183,25 +184,28 @@ class DashboardController < ApplicationController
           @status_hash.merge!("#{sub_type.id}" => {})
           @statuses = RoomStatus.where("room_sub_type_id=? AND hotel_id=?", sub_type.id, session[:hotel_id])
           unless @statuses.empty?
-            @booking_hash["#{type.id}"].each do |date|
-              @statuses.each do |status|
+            @statuses.each do |status|
+              @booking_hash["#{type.id}"].each do |date|
                 if (status.from_date..status.to_date).cover?(date[0].to_date)
                   @flag = 1
-                end
-                unless @flag == 0
-                  if status.status == true
-                    @status_hash["#{sub_type.id}"].merge!("#{date[0]}" => "closed")
-                  else
+                  if status.status == false
                     if date[1].to_i > 0
+                      @data << {date[0] => "bookable"}
                       @status_hash["#{sub_type.id}"].merge!("#{date[0]}" => "bookable")
                     else
+                      @data << {date[0] => "none"}
                       @status_hash["#{sub_type.id}"].merge!("#{date[0]}" => "none")
                     end
+                  else
+                    @data << {date[0] => "closed"}
+                    @status_hash["#{sub_type.id}"].merge!("#{date[0]}" => "closed")
                   end
-                  @flag = 0
-                else
-                  @status_hash["#{sub_type.id}"].merge!("#{date[0]}" => "closed")
                 end
+              end
+            end
+            @range.times do |day|
+              if !@status_hash["#{sub_type.id}"].keys.include?(@starting_date.advance(days: day).to_s)
+                @status_hash["#{sub_type.id}"].merge!("#{@starting_date.advance(days: day)}" => "closed")
               end
             end
           else
@@ -244,8 +248,7 @@ class DashboardController < ApplicationController
           @available_hash["#{sub_type.id}"].merge!("#{@date}" => 0)
         end
       end
-    end
-    logger.info"%%%%%%%%%%%%%%%#{@available_hash}%%%%%%%%%%%%%%%%"      
+    end    
   end
 
   def cancel_booking
