@@ -106,7 +106,7 @@
 					<% @statuses.each do |status| %>
 						<% if !status.blank? && ((status.from_date..status.to_date).cover?(Date.today)) %>
 							<tr>								
-								<td><%= room.room_type.room_type %></td>
+								<td><%= room.room_sub_type.name %></td>
 								<td>
 									<div class="room-available type">
 										<table class="data-tbl">
@@ -178,14 +178,19 @@
 									<% end %>
 								</td>
 								<td>
-									<% @free.each do |fr| %>
-										<% if fr.has_key?(room.room_type.id) %>
-											<% if fr[room.room_type.id] != 0 %>
-												<%= link_to "Book Now", checkout_path(:hotel_id => @hotel.id, :room_type_id => room.room_type.id) , class: "link_style", id: "link_style" %>
+									<%  @availables.each do |available| %>
+										<% if !available.blank? %>
+											<% if available.number > 0 %>
+												<% @flag = 1 %>
 											<% else %>
-												<p class="red">Sold Out</p>
+												<% @flag = 1 %>
 											<% end %>
 										<% end %>
+									<% end %>
+									<% if @flag == 1%>
+										<%= link_to "Book Now", checkout_path(:hotel_id => @hotel.id, :room_type_id => room.room_type.id) , class: "link_style", id: "link_style" %>
+									<% else %>
+										<p class="red">Sold Out</p>
 									<% end %>
 								</td>
 							</tr>
@@ -210,24 +215,25 @@
 
 <script type="text/javascript">
  //room_number
- $(".link_style").click(function(e){
- 	e.preventDefault();
- 	var room_needed = $(this).parent().siblings(".room_number").children("#room_number").val();
- 	var room_avail = parseInt($(this).parent().siblings(".room_available").html());
- 	if (room_needed <= room_avail && room_needed != '') {
- 		//var room_available = parseInt($(this).parent().siblings(".room_available").html()) - room_needed;
- 		link = $(this).attr('href');
- 		link = link + '&room_number='+room_needed + '&total_room=' + room_avail;
- 		window.location.href = link;
- 		return true;
- 	}
- 	else if (room_needed > 0) {
- 		alert(room_needed + " " + "rooms are not available");
- 		return false;
- 	}
- 	else {
- 		return false;
- 	}
+ // $(".link_style").click(function(e){
+ // 	e.preventDefault();
+ // 	var room_needed = $(this).parent().siblings(".room_number").children("#room_number").val();
+ // 	var room_avail = parseInt($(this).parent().siblings(".room_available").children("data-tbl").children("tbody").children("tr").children("td").children(".data-tbl-date").html());
+ // 	alert(room_avail)
+ // 	if (room_needed <= room_avail && room_needed != '') {
+ // 		//var room_available = parseInt($(this).parent().siblings(".room_available").html()) - room_needed;
+ // 		link = $(this).attr('href');
+ // 		link = link + '&room_number='+room_needed + '&total_room=' + room_avail;
+ // 		window.location.href = link;
+ // 		return true;
+ // 	}
+ // 	else if (room_needed > 0) {
+ // 		alert(room_needed + " " + "rooms are not available");
+ // 		return false;
+ // 	}
+ // 	else {
+ // 		return false;
+ // 	}
 
- })
+ // })
 </script>
