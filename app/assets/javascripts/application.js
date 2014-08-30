@@ -22,7 +22,6 @@
 //= require autocomplete-rails
 //= require autocomplete-rails
 //= require sidebar
-
 $(document).ready(function() {
 	$(".status-label").tooltip();
 
@@ -54,4 +53,49 @@ $(document).ready(function() {
 			})
 		})
 	}
+
+	$(".stat").click(function(){
+		var element = $(this);
+		if($(this).hasClass("status-closed")){
+			var status = "0"
+		}
+		else{
+			var status = "1"
+		}
+		var sub_type = $(this).attr("subtype");
+		var room_sub_type_id = {};
+		room_sub_type_id[sub_type] = "on";
+		var type = $(this).attr("type")
+		var room_type_id = {};
+		room_type_id[type] = "on";
+		var data = {"from_date": $(this).attr("date"), "to_date": $(this).attr("date"), "room_sub_type_id": room_sub_type_id, "room_id": room_type_id, "closed": status};
+		$.ajax({
+      type: "post",
+      dataType: "json",
+      url: "/update_status",
+      data: data,
+      success: function(data){
+      	if($(element).hasClass("status-closed")){
+      		if($(element).attr("prevclass") == "status-bookable"){
+      			$(element).addClass("status-bookable");
+      		}
+      		else{
+      			$(element).addClass("status-none");
+      			$(element).children("span").html("x");
+      		}
+      		$(element).removeClass("status-closed");
+      	}
+      	else if($(element).hasClass("status-none")){
+      		$(element).attr("prevclass", "status-none");
+      		$(element).removeClass("status-none");
+      		$(element).addClass("status-closed");	
+      	}
+      	else{
+      		$(element).attr("prevclass", "status-bookable");
+      		$(element).removeClass("status-bookable");
+      		$(element).addClass("status-closed");	
+      	}
+      }
+    })
+	})
 });
