@@ -70,7 +70,7 @@ class RoomsController < ApplicationController
       end
     else
       flash[:errors] = "This type of room already exist in this hotel"
-      redirect_to request.referer0
+      redirect_to request.referer
     end
   end
   
@@ -112,7 +112,7 @@ class RoomsController < ApplicationController
       @room_rate = RoomRate.find_by_room_type_id(room.room_type.id)
       if @room_rate.nil?
         @room_rate = RoomRate.new
-        @room_rate.room_id = params[:id] 
+        @room_rate.room_sub_type_id = room.room_sub_type_id
         @room_rate.room_type_id = room.room_type_id
         @room_rate.hotel_id = room.hotel_id
       end

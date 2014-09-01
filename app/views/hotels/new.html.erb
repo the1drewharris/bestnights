@@ -43,6 +43,10 @@
 		  		<%= f.label "Zip/Postal Code*" %>
 		  		<%= f.text_field(:zip, class: "textfield") %>
 		  	</li>
+		  	<li>
+		  		<%= f.label "Fax*" %>
+		  		<%= f.text_field(:fax, class: "textfield") %>
+		  	</li>
 		  	<% if current_user.admin? %>
 		  		<li>
 			  		<%= f.label "Manager*" %>

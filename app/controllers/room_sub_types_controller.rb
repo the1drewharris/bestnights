@@ -50,7 +50,7 @@ class RoomSubTypesController < ApplicationController
         format.html { redirect_to room_sub_types_path, success: 'Room sub type was successfully created.' }
         format.json { render json: @room_sub_type, status: :created, location: @room_sub_type }
       else
-        format.html { render action: "new" }
+        format.html { redirect_to new_room_sub_type_path, errors: 'Please select room type ' }
         format.json { render json: @room_sub_type.errors, status: :unprocessable_entity }
       end
     end
