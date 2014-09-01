@@ -8,9 +8,8 @@ class Hotel < ActiveRecord::Base
   
   validates :email, presence: true,
     if: Proc.new { |a| a.email_or_fax == "email" }
-  validates :fax, presence: true,
-    if: Proc.new { |a| a.email_or_fax == "fax" }
-  validates :tax1, :tax2, :tax3, :tax4, :numericality => true
+
+  validates :tax1, :tax2, :tax3, :tax4, :fax, :numericality => true
   validates :zip, :numericality => true
   
   after_initialize :init
