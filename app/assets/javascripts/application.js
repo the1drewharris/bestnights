@@ -57,6 +57,27 @@ $(document).ready(function() {
 		window.location.href = "/hotels/" + $(this).attr('hotelid');
 	});
 
+  $(".fax_content").click(function(){
+	  $("#traveler_name").html($.cookie("name"))
+	  $("#hotel_name").html($.cookie("hotel_name"))
+	  $("#traveler_address").html($.cookie("address"))
+	  $("#traveler_phone").html($.cookie("phone_number"))
+	  $("#traveler_email").html($.cookie("email"))
+	  $("#amount").html($.cookie("amount"))
+	  $("#cardtype").html($.cookie("cardtype"))
+	  $("#card_number").html($.cookie("card_number"))
+	  $("#reservation_number").html($.cookie("reservation_number"))
+	  $("#arrival_date").html($.cookie("arrival_date"))
+	  $("#departure_date").html($.cookie("departure_date"))
+	  $("#number_night").html($.cookie("number_night"))
+	  $("#no_adult").html($.cookie("no_adult"))
+	  $("#remarks").html($.cookie("remarks"))
+	  $("#room_type").html($.cookie("room_type"))
+	  $("#total_price").html($.cookie("reservation_number"))
+	  $("#expiry_date").html($.cookie("credit_card_expiry_date"))
+	  $("#created_at").html($.cookie("created_at")
+  )
+
 	$(".stat").click(function(){
 		var element = $(this);
 		if($(this).hasClass("status-closed")){
