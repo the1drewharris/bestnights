@@ -14,7 +14,7 @@
 		  	</li>
 		  	<% if current_user.admin? %>
 		  	<li>
-		  		<%= f.label :room_type %>
+		  		<%= f.label 'Room Type*' %>
 					<%= f.collection_select :room_type_id, RoomType.all, :id, :room_type, :prompt => true %>
 				</li>
 				<% end %>

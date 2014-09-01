@@ -9,11 +9,6 @@ class RoomTypesController < ApplicationController
   
   def show
     @room_type = RoomType.find_by_id(params[:id])
-    unless @room_type.blank?
-      @price = @room_type.base_price
-    else
-      @price = 0
-    end
     respond_to do |format|
       format.html
       format.json { render json: @price }

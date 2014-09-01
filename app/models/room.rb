@@ -2,7 +2,7 @@ class Room < ActiveRecord::Base
   attr_accessible :hotel_id, :room_type_id, :name, :description, :price, :additionaladultfee, :original_price, :starting_inventory, :bed_numbers, :max_people, :max_children, :room_size, :room_unit, :lunch, :dinner, :all_inclusive, :room_sub_type_id
   
   validates :hotel_id, :room_type_id, presence: true
-  validates :starting_inventory, :bed_numbers, presence: true, numericality: { only_integer: true }
+  validates :starting_inventory, :bed_numbers, presence: true, inclusion: { in: 0..10000 }
   
   after_initialize :init
   before_save :set_value_before_save
