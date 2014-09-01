@@ -143,8 +143,8 @@
 													<% (session[:checkout].to_date - session[:checkin].to_date).to_i.times do |day| %>
 														<% if (available.from_date..available.to_date).cover?(session[:checkin].to_date.advance(days: day)) %>	
 																<td>
-																<span class="data-tbl-date">29/8/14</span>														
-																<%= available.number %>	
+																<span class="data-tbl-date">29/8/14</span>
+																<span><%= available.number %></span>
 																</td>														
 														<% end %>
 													<% end %>										
@@ -227,25 +227,24 @@
 
 <script type="text/javascript">
  //room_number
- // $(".link_style").click(function(e){
- // 	e.preventDefault();
- // 	var room_needed = $(this).parent().siblings(".room_number").children("#room_number").val();
- // 	var room_avail = parseInt($(this).parent().siblings(".room_available").children("data-tbl").children("tbody").children("tr").children("td").children(".data-tbl-date").html());
- // 	alert(room_avail)
- // 	if (room_needed <= room_avail && room_needed != '') {
- // 		//var room_available = parseInt($(this).parent().siblings(".room_available").html()) - room_needed;
- // 		link = $(this).attr('href');
- // 		link = link + '&room_number='+room_needed + '&total_room=' + room_avail;
- // 		window.location.href = link;
- // 		return true;
- // 	}
- // 	else if (room_needed > 0) {
- // 		alert(room_needed + " " + "rooms are not available");
- // 		return false;
- // 	}
- // 	else {
- // 		return false;
- // 	}
+ $(".link_style").click(function(e){
+ 	e.preventDefault();
+ 	var room_needed = $(this).parent().siblings(".room_number").children("#room_number").val();
+ 	var room_avail = parseInt($(this).parent().siblings(".room_available").children(".room-available").children(".data-tbl").children("tbody").children("tr").children("td").children(".data-tbl-date").siblings("span").html());
+ 	if (room_needed <= room_avail && room_needed != '') {
+ 		//var room_available = parseInt($(this).parent().siblings(".room_available").html()) - room_needed;
+ 		link = $(this).attr('href');
+ 		link = link + '&room_number='+room_needed + '&total_room=' + room_avail;
+ 		window.location.href = link;
+ 		return true;
+ 	}
+ 	else if (room_needed > 0) {
+ 		alert(room_needed + " " + "rooms are not available");
+ 		return false;
+ 	}
+ 	else {
+ 		return false;
+ 	}
 
- // })
+ })
 </script>

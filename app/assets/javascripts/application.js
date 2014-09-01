@@ -85,13 +85,16 @@ $(document).ready(function() {
       		else{
       			$(element).addClass("status-none");
       			$(element).children("span").html("x");
+      			$(element).children("span").css("padding-left", "0px");
       		}
       		$(element).removeClass("status-closed");
       	}
       	else if($(element).hasClass("status-none")){
       		$(element).attr("prevclass", "status-none");
       		$(element).removeClass("status-none");
-      		$(element).addClass("status-closed");	
+      		$(element).addClass("status-closed");
+      		$(element).children("span").html("");
+      		$(element).children("span").removeAttr('style');
       	}
       	else{
       		$(element).attr("prevclass", "status-bookable");
