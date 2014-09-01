@@ -58,7 +58,7 @@ class RoomsController < ApplicationController
           @room_available.to_date = Date.today + 1.year
         end
         @room_available.save
-        flash[:success] = "The room type saved successfully!"
+        flash[:success] = "The room saved successfully!"
         if current_user.new_signup?
           redirect_to rooms_path(:hotel_id => @room.hotel.id)  
         else

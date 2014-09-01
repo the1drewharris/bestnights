@@ -12,12 +12,10 @@
 		  		<%= f.label 'Name*' %>
 		  		<%= f.text_field :name %>
 		  	</li>
-		  	<% if current_user.admin? %>
 		  	<li>
 		  		<%= f.label 'Room Type*' %>
 					<%= f.collection_select :room_type_id, RoomType.all, :id, :room_type, :prompt => true %>
 				</li>
-				<% end %>
 		  </ul>	
 		</fieldset>
 		<fieldset class="formactions">

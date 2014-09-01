@@ -355,10 +355,8 @@ class HomeController < ApplicationController
         end
 
         @amount = @amount * numbers
-      
-    if book(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, session[:room_needed], @room_type )
-      ## Create booking record and availability record
-       @rate = @room1.price.to_f
+
+        #Bookings data saving
         numbers = session[:roomtype].to_i
         numbers.times do |n|
            booking = Booking.new(hotel_id: @room1.hotel.id, room_id: @room1.id, from_date: from_date, to_date: to_date, 
@@ -366,6 +364,42 @@ class HomeController < ApplicationController
         
           booking.save
         end
+        # This cookies are used for Fax contant save in html format
+        cookies[:name] = @traveler.name
+        cookies[:hotel_name] = @hotel.name
+        cookies[:address] = @traveler.address1
+        cookies[:city] = @traveler.city
+        cookies[:zip] = @traveler.zip
+        cookies[:phone_number] = @traveler.phone_number
+        cookies[:email] = @traveler.email
+        cookies[:cardtype] = @traveler.credit_card_type
+        cookies[:card_number] = @traveler.credit_card_number
+        cookies[:ccv] = @traveler.ccv
+        cookies[:credit_card_expiry_date] = @traveler.credit_card_expiry_date
+        @get_bookings = Booking.where(traveler_id: @traveler.id, hotel_id: room.hotel.id).order("created_at DESC").limit(1)
+        @get_bookings.each do |booking|
+          cookies[:reservation_number] = booking.id
+          cookies[:arrival_date] = booking.from_date
+          cookies[:departure_date] = booking.to_date
+          cookies[:night_number] = booking.night_number
+          cookies[:adults] = booking.adults
+          cookies[:remarks] = booking.message
+          cookies[:created_at] = booking.created_at
+        end
+        cookies[:total_price] = @amount
+        cookies[:room_type] = room.room_type.room_type 
+        cookies[:amount] = @amount 
+      
+    if book(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, session[:room_needed], @room_type )
+      ## Create booking record and availability record
+       @rate = @room1.price.to_f
+        # numbers = session[:roomtype].to_i
+        # numbers.times do |n|
+        #    booking = Booking.new(hotel_id: @room1.hotel.id, room_id: @room1.id, from_date: from_date, to_date: to_date, 
+        #                 adults: numbers, traveler_id: @traveler.id, night_number: number_nights, price: @amount)
+        
+        #   booking.save
+        # end
         @rooms.each do |room|
           unless room.from_date == from_date.to_date && room.to_date == to_date.to_date
             if (room.from_date..room.to_date).include?(from_date.to_date)
@@ -421,24 +455,47 @@ class HomeController < ApplicationController
     
     #TODO make this work with the fax service
     @disclaimer = CGI::unescape("Disclaimer"+"\n"+"* A confirmation has been sent to the guest with all of the booking details"+"\n"+"* It is your duty , as the booking property, to safeguard this fax and the guests credit card info in a secure way that follows your company's security policies")
-    File.open("#{Rails.root.to_s}/public/"+traveler.id.to_s+'.txt', 'wb') do|f|
-      f.write('Traveler Name'+':'+traveler.name+"\n"+'Traveler Email'+':'+traveler.email+"\n"+'Card Number'+':'+traveler.credit_card_number+"\n"+'Card Type'+':'+traveler.credit_card_type+"\n"+'Address'+':'+traveler.address1+"\n"+'Amount'+':'+"#{amount}"+"\n"+'Checkin Date'+':'+checkin.to_s+"\n"+'Checkout Date'+':'+checkout.to_s+"\n"+'Room Number'+':'+"#{room_ids}"+"\n"+'Room Type'+':'+"#{room_type}"+"\n"+@disclaimer)
-    end
+    # File.open("#{Rails.root.to_s}/public/"+traveler.id.to_s+'.txt', 'wb') do|f|
+    #   f.write('Traveler Name'+':'+traveler.name+"\n"+'Traveler Email'+':'+traveler.email+"\n"+'Card Number'+':'+traveler.credit_card_number+"\n"+'Card Type'+':'+traveler.credit_card_type+"\n"+'Address'+':'+traveler.address1+"\n"+'Amount'+':'+"#{amount}"+"\n"+'Checkin Date'+':'+checkin.to_s+"\n"+'Checkout Date'+':'+checkout.to_s+"\n"+'Room Number'+':'+"#{room_ids}"+"\n"+'Room Type'+':'+"#{room_type}"+"\n"+@disclaimer)
+    # end
     results = []
     chars = 0
-    File.open("#{Rails.root.to_s}/public/"+traveler.id.to_s+'.txt', 'r').each { |line| results << line }
+    data = ""
+    File.open("#{Rails.root.to_s}/public/fax_content.html", 'r').each { |line| results << line }
       results.each do |line|
       chars += line.length
+      data += line
     end
   
-   # @fax_result = SOAP::WSDLDriverFactory.new("https://ws-sl.fax.tc/Outbound.asmx?WSDL").create_rpc_driver.SendCharFax("Username" => "bestnights","Password" => "@BestN1ghts","FileType" => "TXT","FaxNumber"=> "18444942378","Data" => "#{results[0]+"\n"+results[1]+"\n"+results[2]+"\n"+results[3]+"\n"+results[4]+"\n"+results[5]+"\n"+results[6]+"\n"+results[7]+"\n"+results[8]+"\n"+results[9]}")
+   # @fax_result = SOAP::WSDLDriverFactory.new("https://ws-sl.fax.tc/Outbound.asmx?WSDL").create_rpc_driver.SendCharFax("Username" => "bestnights","Password" => "@BestN1ghts","FileType" => "TXT","FaxNumber"=> "18444942378","Data" => data)
    #  logger.info"@@@@@@@@@@@@@@@@@@@@@@@#{@fax_result.inspect}@@@@@@@@@@@@@@@@@@@@@@@@"
-   # File.delete("#{Rails.root.to_s}/public/"+traveler.id.to_s+".txt")
+   # # File.delete("#{Rails.root.to_s}/public/"+traveler.id.to_s+".txt")
    # unless @fax_result["SendCharFaxResult"].include? "-"
    #  TravelerPayment.create(amount: amount, traveler_id: traveler.id)
    # else
    #  flash[:notice] = "Hotel not booked due wrong params"
    #  redirect_to root_path
    # end
+   cookies[:name] = ActiveSupport::JSON.encode({})
+   cookies[:hotel_name] = ActiveSupport::JSON.encode({})
+   cookies[:address] = ActiveSupport::JSON.encode({})
+   cookies[:city] = ActiveSupport::JSON.encode({})
+   cookies[:zip] = ActiveSupport::JSON.encode({})
+   cookies[:phone_number] = ActiveSupport::JSON.encode({})
+   cookies[:email] = ActiveSupport::JSON.encode({})
+   cookies[:cardtype] = ActiveSupport::JSON.encode({})
+   cookies[:card_number] = ActiveSupport::JSON.encode({})
+   cookies[:ccv] = ActiveSupport::JSON.encode({})
+   cookies[:credit_card_expiry_date] = ActiveSupport::JSON.encode({})
+   cookies[:reservation_number] = ActiveSupport::JSON.encode({})
+   cookies[:arrival_date] = ActiveSupport::JSON.encode({})
+   cookies[:departure_date] = ActiveSupport::JSON.encode({})
+   cookies[:night_number] = ActiveSupport::JSON.encode({})
+   cookies[:adults] = ActiveSupport::JSON.encode({})
+   cookies[:remarks] = ActiveSupport::JSON.encode({})
+   cookies[:created_at] = ActiveSupport::JSON.encode({})
+   cookies[:total_price] = ActiveSupport::JSON.encode({})
+   cookies[:room_type] = ActiveSupport::JSON.encode({})
+   cookies[:amount] = ActiveSupport::JSON.encode({}) 
   end
 end
