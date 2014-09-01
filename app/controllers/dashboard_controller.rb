@@ -48,7 +48,7 @@ class DashboardController < ApplicationController
       @hotels = Hotel.all
     elsif current_user.manager?
       @hotels = current_user.hotels
-    end 
+    end
   end
 
   def arrivals

@@ -74,7 +74,7 @@ layout "admin_basic"
         end
       else
         params[:room_id].each do |room|
-          room_type_status(room[0].to_s,params[:days],params[:from_date],params[:to_date],params[:closed])
+          room_type_status(room[0].to_s,params[:days],params[:from_date],params[:to_date],params[:closed],params[:room_sub_type_id])
         end
       end
       flash[:success] = 'Room statuses have been changed.'
@@ -88,10 +88,8 @@ layout "admin_basic"
 	private
 
   def room_sub_type_sell(room_sub_type_id,days,from_date,to_date,rooms_to_sell,room_id)
-    logger.info"%%%%%%%%%%%%%%%%"
     room_sub_type_id.each do |room|
       @room_sell = RoomAvailable.find_by_room_sub_type_id_and_hotel_id(room[0].to_s, session[:hotel_id])
-      logger.info"^^^^^^^^^^^^^^^^#{@room_sell.inspect}^^^^^^^^^^^^^^^^^^^"
       @sub_type = RoomSubType.find_by_id(room[0].to_s)
       if days.blank?
         if @room_sell.blank?
@@ -247,7 +245,6 @@ layout "admin_basic"
             create_status(room_sub_type_id.to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date,to_date.to_date,status)
           end
         else
-          logger.info"11111ddd"
           @room_status.status = @room_status.status
           @room_status.save
         end
@@ -273,7 +270,7 @@ layout "admin_basic"
         end
       else
         days.each do |day|
-          (to_date.to_date - from_date.to_date).to_i.times do |date|
+          ((to_date.to_date - from_date.to_date).to_i + 1).times do |date|
             if from_date.to_date.advance(days: date).strftime("%A").downcase == day[0].to_s
               if @room_status.blank?
                 create_status(room_sub_type_id.to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date.advance(days: date),from_date.to_date.advance(days: date),status)
@@ -300,24 +297,23 @@ layout "admin_basic"
 
   def room_type_status(room_id,days,from_date,to_date,status,room_sub_type_id)
   	@sub_type = RoomSubType.find_by_room_type_id(room_id.to_s)
-    logger.info"*************#{room_sub_type_id}*********#{room_id.to_s}*******8"
-    if @sub_type.blank? || @sub_type.id.to_s != room_sub_type_id
-      logger.info"^^^^^^^^^^^^^^^^^^^^^^^"
+    @status = RoomStatus.find_by_room_type_id(room_id.to_s)
+    if @sub_type.blank? && @status.blank?
       @room_status = RoomStatus.find_by_room_type_id_and_hotel_id(room_id.to_s, session[:hotel_id])
       if days.blank?
         if @room_status.blank?
-          create_status(room_id.to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date,to_date.to_date,status)
+          create_status("",session[:hotel_id],@sub_type.room_type_id,from_date.to_date,to_date.to_date,status)
         else
           unless @room_status.from_date == from_date.to_date && @room_status.to_date == to_date.to_date
             if (@room_status.from_date..@room_status.to_date).cover?(from_date.to_date)
-              create_status(room_id.to_s,session[:hotel_id],@sub_type.room_type_id,@room_status.from_date,from_date.to_date.advance(:days => -1),@room_status.status)
-              create_status(room_id.to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date,to_date.to_date,status)
+              create_status("",session[:hotel_id],@sub_type.room_type_id,@room_status.from_date,from_date.to_date.advance(:days => -1),@room_status.status)
+              create_status("",session[:hotel_id],@sub_type.room_type_id,from_date.to_date,to_date.to_date,status)
               if (@room_status.from_date..@room_status.to_date).cover?(to_date.to_date)
-                create_status(room_id.to_s,session[:hotel_id],@sub_type.room_type_id,to_date.to_date.advance(:days => 1),@room_status.to_date,@room_status.status)
+                create_status("",session[:hotel_id],@sub_type.room_type_id,to_date.to_date.advance(:days => 1),@room_status.to_date,@room_status.status)
               end
               @room_status.destroy
             else
-              create_status(room_id.to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date,to_date.to_date,status)
+              create_status("",session[:hotel_id],@sub_type.room_type_id,from_date.to_date,to_date.to_date,status)
             end
           else
             @room_status.status = @room_status.status
@@ -330,14 +326,14 @@ layout "admin_basic"
             ((Date.today + 1.year) - (Date.today)).to_i.times do |date|
               if Date.today.advance(days: date).strftime("%A").downcase == day[0].to_s
                 if @room_status.blank?
-                  create_status(room_id.to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: date),Date.today.advance(days: date),status)
+                  create_status("",session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: date),Date.today.advance(days: date),status)
                 else
                   if (@room_status.from_date..@room_status.to_date).cover?(Date.today.advance(days: date))
-                    create_status(room_id.to_s,session[:hotel_id],@sub_type.room_type_id,@room_status.from_date,Date.today.advance(days: date - 1),@room_status.status)
-                    create_status(room_id.to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: date),Date.today.advance(days: date),status)
+                    create_status("",session[:hotel_id],@sub_type.room_type_id,@room_status.from_date,Date.today.advance(days: date - 1),@room_status.status)
+                    create_status("",session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: date),Date.today.advance(days: date),status)
                     @room_status.destroy
                   else
-                    create_status(room_id.to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: date),Date.today.advance(days: date),status)
+                    create_status("",session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: date),Date.today.advance(days: date),status)
                   end
                 end
               end
@@ -345,17 +341,17 @@ layout "admin_basic"
           end
         else
           days.each do |day|
-            (to_date.to_date - from_date.to_date).to_i.times do |date|
+            ((to_date.to_date - from_date.to_date).to_i + 1).times do |date|
               if from_date.to_date.advance(days: date).strftime("%A").downcase == day[0].to_s
                 if @room_status.blank?
-                  create_status(room_id.to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date.advance(days: date),from_date.to_date.advance(days: date),status)
+                  create_status("",session[:hotel_id],room_id.to_s,from_date.to_date.advance(days: date),from_date.to_date.advance(days: date),status)
                 else
                   if (@room_status.from_date..@room_status.to_date).cover?(from_date.to_date.advance(days: date))
-                    create_status(room_id.to_s,session[:hotel_id],@sub_type.room_type_id,@room_status.from_date,from_date.to_date.advance(days: date - 1),@room_status.status)
-                    create_status(room_id.to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date.advance(days: date),from_date.to_date.advance(days: date),status)
+                    create_status("",session[:hotel_id],room_id.to_s,@room_status.from_date,from_date.to_date.advance(days: date - 1),@room_status.status)
+                    create_status("",session[:hotel_id],room_id.to_s,from_date.to_date.advance(days: date),from_date.to_date.advance(days: date),status)
                     @room_status.destroy
                   else
-                    create_status(room_id.to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date.advance(days: date),from_date.to_date.advance(days: date),status)
+                    create_status("",session[:hotel_id],room_id.to_s,from_date.to_date.advance(days: date),from_date.to_date.advance(days: date),status)
                   end
                 end
               end
@@ -369,30 +365,32 @@ layout "admin_basic"
   def create_status(room_sub_type_id,hotel_id,room_type_id,from_date,to_date,status)
     @room_statuses = RoomStatus.where("from_date=? AND to_date=?", from_date, to_date)
     unless @room_statuses.empty?
-      @room_statuses.each do |room_status|
-        if room_status.room_type_id == room_type_id.to_i && room_status.room_sub_type_id == room_sub_type_id.to_i && room_status.hotel_id == hotel_id.to_i
-          room_status.status = status
-          room_status.save
-        else
-          @room_status = RoomStatus.new
-          @room_status.room_sub_type_id = room_sub_type_id
-          @room_status.hotel_id = hotel_id
-          @room_status.room_type_id = room_type_id
-          @room_status.from_date =from_date
-          @room_status.to_date = to_date
-          @room_status.status = status
-          @room_status.save
+      @flag = 0
+      @room_statuses.each do |room|
+        if room.room_type_id == room_type_id.to_i && room.room_sub_type_id == room_sub_type_id.to_i && room.hotel_id == hotel_id.to_i
+          room.status = status
+          room.save
+        elsif @flag == 0
+          @room = RoomStatus.new
+          @room.room_sub_type_id = room_sub_type_id
+          @room.hotel_id = hotel_id
+          @room.room_type_id = room_type_id
+          @room.from_date =from_date
+          @room.to_date = to_date
+          @room.status = status
+          @room.save
+          @flag = 1
         end
       end
     else
-      @room_status = RoomStatus.new
-      @room_status.room_sub_type_id = room_sub_type_id
-      @room_status.hotel_id = hotel_id
-      @room_status.room_type_id = room_type_id
-      @room_status.from_date =from_date
-      @room_status.to_date = to_date
-      @room_status.status = status
-      @room_status.save
+      @room = RoomStatus.new
+      @room.room_sub_type_id = room_sub_type_id
+      @room.hotel_id = hotel_id
+      @room.room_type_id = room_type_id
+      @room.from_date =from_date
+      @room.to_date = to_date
+      @room.status = status
+      @room.save
     end    
   end
   
