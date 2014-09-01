@@ -165,7 +165,7 @@
 												<% if !rate.blank? %>											
 													<% (session[:checkout].to_date - session[:checkin].to_date).to_i.times do |day| %>
 														<% if (rate.from_date..rate.to_date).cover?(session[:checkin].to_date.advance(days: day)) %>
-																<%= session[:rate] = rate.price %>
+																<% session[:rate] = rate.price %>
 																<td>	
 																	<span class="data-tbl-date">29-08-2014</span>
 																	$<%= rate.price %>
