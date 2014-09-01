@@ -72,5 +72,11 @@
 </table>
 </div>
 </div>
-<div class="row back-link bking"><%= link_to "Back", hotels_path , class: "link" %></div>
+<div class="row back-link bking">
+  <% if current_user.admin? %>
+    <%= link_to "Back", hotels_path , class: "link" %>
+  <% else %>
+    <%= link_to "Back", my_hotels_path , class: "link" %>
+  <% end %>
+</div>
 </div>
