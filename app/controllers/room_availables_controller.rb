@@ -97,16 +97,17 @@ layout "admin_basic"
         else
           unless @room_sell.from_date == from_date.to_date && @room_sell.to_date == to_date.to_date
             if (@room_sell.from_date..@room_sell.to_date).cover?(from_date.to_date)
-              if @room_sell.from_date < from_date.to_date.advance(:days => -1)
-                create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,@room_sell.from_date,from_date.to_date.advance(:days => -1),@room_sell.number)
+              ((to_date.to_date - from_date.to_date).to_i + 1).times do |date|
+                create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date.advance(days: date),from_date.to_date.advance(:days => date),@room_sell.number)
               end
-              create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date,to_date.to_date,rooms_to_sell)
               if (@room_sell.from_date..@room_sell.to_date).cover?(to_date.to_date)
                 create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,to_date.to_date.advance(:days => 1),@room_sell.to_date,@room_sell.number)
               end
               @room_sell.destroy
             else
-              create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date,to_date.to_date,rooms_to_sell)
+              ((to_date.to_date - from_date.to_date).to_i + 1).times do |date|
+                create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date.advance(days: date),from_date.to_date.advance(days: date),rooms_to_sell)
+              end
             end
           else
             @room_sell.number = @room_sell.number
@@ -116,7 +117,7 @@ layout "admin_basic"
       else
         if from_date.blank? && to_date.blank?
           days.each do |day|
-            ((Date.today + 1.year) - (Date.today)).to_i.times do |date|
+            (((Date.today + 1.year) - (Date.today)) + 1).to_i.times do |date|
               if Date.today.advance(days: date).strftime("%A").downcase == day[0].to_s
                 if @room_sell.blank?
                   create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: date),Date.today.advance(days: date),rooms_to_sell)
@@ -124,7 +125,6 @@ layout "admin_basic"
                   if (@room_sell.from_date..@room_sell.to_date).cover?(Date.today.advance(days: date))
                     create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,@room_sell.from_date,Date.today.advance(days: date - 1),@room_sell.number)
                     create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: date),Date.today.advance(days: date),rooms_to_sell)
-                    @room_sell.destroy
                   else
                     create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: date),Date.today.advance(days: date),rooms_to_sell)
                   end
@@ -134,7 +134,7 @@ layout "admin_basic"
           end
         else
           days.each do |day|
-            (to_date.to_date - from_date.to_date).to_i.times do |date|
+            ((to_date.to_date - from_date.to_date) + 1).to_i.times do |date|
               if from_date.to_date.advance(days: date).strftime("%A").downcase == day[0].to_s
                 if @room_sell.blank?
                   create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date.advance(days: date),from_date.to_date.advance(days: date),rooms_to_sell)
@@ -142,7 +142,6 @@ layout "admin_basic"
                   if (@room_sell.from_date..@room_sell.to_date).cover?(from_date.to_date.advance(days: date))
                     create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,@room_sell.from_date,from_date.to_date.advance(days: date - 1),@room_sell.number)
                     create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date.advance(days: date),from_date.to_date.advance(days: date),rooms_to_sell)
-                    @room_sell.destroy
                   else
                     create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date.advance(days: date),from_date.to_date.advance(days: date),rooms_to_sell)
                   end
@@ -165,18 +164,18 @@ layout "admin_basic"
 	      @room_sell = RoomAvailable.find_by_room_type_id_and_hotel_id(room[0].to_s, session[:hotel_id])
 	      if days.blank?
 	        if @room_sell.blank?
-	          create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date,to_date.to_date,rooms_to_sell)
+	          create_sell("",session[:hotel_id],room[0].to_s,from_date.to_date,to_date.to_date,rooms_to_sell)
 	        else
 	          unless @room_sell.from_date == from_date.to_date && @room_sell.to_date == to_date.to_date
 	            if (@room_sell.from_date..@room_sell.to_date).cover?(from_date.to_date)
-	              create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,@room_sell.from_date,from_date.to_date.advance(:days => -1),@room_sell.number)
-	              create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date,to_date.to_date,rooms_to_sell)
+	              create_sell("",session[:hotel_id],room[0].to_s,@room_sell.from_date,from_date.to_date.advance(:days => -1),@room_sell.number)
+	              create_sell("",session[:hotel_id],room[0].to_s,from_date.to_date,to_date.to_date,rooms_to_sell)
 	              if (@room_sell.from_date..@room_sell.to_date).cover?(to_date.to_date)
-	                create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,to_date.to_date.advance(:days => 1),@room_sell.to_date,@room_sell.number)
+	                create_sell("",session[:hotel_id],room[0].to_s,to_date.to_date.advance(:days => 1),@room_sell.to_date,@room_sell.number)
 	              end
 	              @room_sell.destroy
 	            else
-	              create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date,to_date.to_date,rooms_to_sell)
+	              create_sell("",session[:hotel_id],room[0].to_s,from_date.to_date,to_date.to_date,rooms_to_sell)
 	            end
 	          else
 	            @room_sell.number = @room_sell.number
@@ -186,17 +185,17 @@ layout "admin_basic"
 	      else
 	        if from_date.blank? && to_date.blank?
 	          days.each do |day|
-	            ((Date.today + 1.year) - (Date.today)).to_i.times do |date|
+	            (((Date.today + 1.year) - (Date.today)) + 1).to_i.times do |date|
 	              if Date.today.advance(days: date).strftime("%A").downcase == day[0].to_s
 	                if @room_sell.blank?
-	                  create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: date),Date.today.advance(days: date),rooms_to_sell)
+	                  create_sell("",session[:hotel_id],room[0].to_s,Date.today.advance(days: date),Date.today.advance(days: date),rooms_to_sell)
 	                else
 	                  if (@room_sell.from_date..@room_sell.to_date).cover?(Date.today.advance(days: date))
-	                    create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,@room_sell.from_date,Date.today.advance(days: date - 1),@room_sell.number)
-	                    create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: date),Date.today.advance(days: date),rooms_to_sell)
+	                    create_sell("",session[:hotel_id],room[0].to_s,@room_sell.from_date,Date.today.advance(days: date - 1),@room_sell.number)
+	                    create_sell("",session[:hotel_id],room[0].to_s,Date.today.advance(days: date),Date.today.advance(days: date),rooms_to_sell)
 	                    @room_sell.destroy
 	                  else
-	                    create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: date),Date.today.advance(days: date),rooms_to_sell)
+	                    create_sell("",session[:hotel_id],room[0].to_s,Date.today.advance(days: date),Date.today.advance(days: date),rooms_to_sell)
 	                  end
 	                end
 	              end
@@ -204,17 +203,17 @@ layout "admin_basic"
 	          end
 	        else
 	          days.each do |day|
-	            (to_date.to_date - from_date.to_date).to_i.times do |date|
+	            ((to_date.to_date - from_date.to_date) + 1).to_i.times do |date|
 	              if from_date.to_date.advance(days: date).strftime("%A").downcase == day[0].to_s
 	                if @room_sell.blank?
-	                  create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date.advance(days: date),from_date.to_date.advance(days: date),rooms_to_sell)
+	                  create_sell("",session[:hotel_id],room[0].to_s,from_date.to_date.advance(days: date),from_date.to_date.advance(days: date),rooms_to_sell)
 	                else
 	                  if (@room_sell.from_date..@room_sell.to_date).cover?(from_date.to_date.advance(days: date))
-	                    create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,@room_sell.from_date,from_date.to_date.advance(days: date - 1),@room_sell.number)
-	                    create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date.advance(days: date),from_date.to_date.advance(days: date),rooms_to_sell)
+	                    create_sell("",session[:hotel_id],room[0].to_s,@room_sell.from_date,from_date.to_date.advance(days: date - 1),@room_sell.number)
+	                    create_sell("",session[:hotel_id],room[0].to_s,from_date.to_date.advance(days: date),from_date.to_date.advance(days: date),rooms_to_sell)
 	                    @room_sell.destroy
 	                  else
-	                    create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date.advance(days: date),from_date.to_date.advance(days: date),rooms_to_sell)
+	                    create_sell("",session[:hotel_id],room[0].to_s,from_date.to_date.advance(days: date),from_date.to_date.advance(days: date),rooms_to_sell)
 	                  end
 	                end
 	              end
@@ -235,14 +234,17 @@ layout "admin_basic"
       else
         if @room_status.from_date != from_date.to_date && @room_status.to_date != to_date.to_date
           if (@room_status.from_date..@room_status.to_date).cover?(from_date.to_date)
-            create_status(room_sub_type_id.to_s,session[:hotel_id],@sub_type.room_type_id,@room_status.from_date,from_date.to_date.advance(:days => -1),@room_status.status)
-            create_status(room_sub_type_id.to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date,to_date.to_date,status)
+            ((to_date.to_date - from_date.to_date).to_i + 1).times do |date|
+              create_status(room_sub_type_id.to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date.advance(days: date),from_date.to_date.advance(:days => date),@room_status.status)
+            end
             if (@room_status.from_date..@room_status.to_date).cover?(to_date.to_date)
               create_status(room_sub_type_id.to_s,session[:hotel_id],@sub_type.room_type_id,to_date.to_date.advance(:days => 1),@room_status.to_date,@room_status.status)
             end
             @room_status.destroy
           else
-            create_status(room_sub_type_id.to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date,to_date.to_date,status)
+            ((to_date.to_date - from_date.to_date).to_i + 1).times do |date|
+              create_status(room_sub_type_id.to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date.advance(days: date),from_date.to_date.advance(days: date),status)
+            end
           end
         else
           @room_status.status = @room_status.status
@@ -260,7 +262,6 @@ layout "admin_basic"
                 if (@room_status.from_date..@room_status.to_date).cover?(Date.today.advance(days: date))
                   create_status(room_sub_type_id.to_s,session[:hotel_id],@sub_type.room_type_id,@room_status.from_date,Date.today.advance(days: date - 1),@room_status.status)
                   create_status(room_sub_type_id.to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: date),Date.today.advance(days: date),status)
-                  @room_status.destroy
                 else
                   create_status(room_sub_type_id.to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: date),Date.today.advance(days: date),status)
                 end
@@ -278,7 +279,6 @@ layout "admin_basic"
                 if (@room_status.from_date..@room_status.to_date).cover?(from_date.to_date.advance(days: date))
                   create_status(room_sub_type_id.to_s,session[:hotel_id],@sub_type.room_type_id,@room_status.from_date,from_date.to_date.advance(days: date - 1),@room_status.status)
                   create_status(room_sub_type_id.to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date.advance(days: date),from_date.to_date.advance(days: date),status)
-                  @room_status.destroy
                 else
                   create_status(room_sub_type_id.to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date.advance(days: date),from_date.to_date.advance(days: date),status)
                 end
@@ -363,14 +363,18 @@ layout "admin_basic"
   end
 
   def create_status(room_sub_type_id,hotel_id,room_type_id,from_date,to_date,status)
-    @room_statuses = RoomStatus.where("from_date=? AND to_date=?", from_date, to_date)
-    unless @room_statuses.empty?
-      @flag = 0
-      @room_statuses.each do |room|
-        if room.room_type_id == room_type_id.to_i && room.room_sub_type_id == room_sub_type_id.to_i && room.hotel_id == hotel_id.to_i
-          room.status = status
-          room.save
-        elsif @flag == 0
+    unless from_date > to_date
+      @room_statuses = RoomStatus.where("from_date=? AND to_date=?", from_date, to_date)
+      unless @room_statuses.empty?
+        @flag = 0
+        @room_statuses.each do |room|
+          if room.room_type_id == room_type_id.to_i && room.room_sub_type_id == room_sub_type_id.to_i && room.hotel_id == hotel_id.to_i
+            room.status = status
+            room.save
+            @flag = 1
+          end
+        end
+        if @flag == 0
           @room = RoomStatus.new
           @room.room_sub_type_id = room_sub_type_id
           @room.hotel_id = hotel_id
@@ -379,19 +383,18 @@ layout "admin_basic"
           @room.to_date = to_date
           @room.status = status
           @room.save
-          @flag = 1
         end
+      else
+        @room = RoomStatus.new
+        @room.room_sub_type_id = room_sub_type_id
+        @room.hotel_id = hotel_id
+        @room.room_type_id = room_type_id
+        @room.from_date =from_date
+        @room.to_date = to_date
+        @room.status = status
+        @room.save
       end
-    else
-      @room = RoomStatus.new
-      @room.room_sub_type_id = room_sub_type_id
-      @room.hotel_id = hotel_id
-      @room.room_type_id = room_type_id
-      @room.from_date =from_date
-      @room.to_date = to_date
-      @room.status = status
-      @room.save
-    end    
+    end
   end
   
 end

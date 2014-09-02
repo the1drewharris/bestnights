@@ -52,7 +52,7 @@ class CommissionRatesController < ApplicationController
         format.html { redirect_to hotels_path }
         format.json { render json: @commission_rate, status: :created, location: @commission_rate }
       else
-        flash[:errors] = "Please enter value.."
+        flash[:errors] = "Please enter a correct value.."
         format.html { render action: "new" }
         format.json { render json: @commission_rate.errors, status: :unprocessable_entity }
       end
