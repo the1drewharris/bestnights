@@ -75,8 +75,8 @@ $(document).ready(function() {
 	  $("#room_type").html($.cookie("room_type"))
 	  $("#total_price").html($.cookie("reservation_number"))
 	  $("#expiry_date").html($.cookie("credit_card_expiry_date"))
-	  $("#created_at").html($.cookie("created_at")
-  )
+	  $("#created_at").html($.cookie("created_at"))
+  })
 
 	$(".stat").click(function(){
 		var element = $(this);

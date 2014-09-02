@@ -70,17 +70,22 @@
                         <a href="#" class="grid-rate-cell"> Standard Rate </a>
                       </td>
                       <% @range.times do |f| %>
-                        <% @rate = RoomRate.where("room_sub_type_id=? AND hotel_id=?",sub_type.id, session[:hotel_id]) %>
-                        <% unless @rate.blank? %>
-                            <% if (@rate[0].from_date..@rate[0].to_date).cover?(@starting_date.advance(days: f)) %>
+                        <% @rates = RoomRate.where("room_sub_type_id=? AND hotel_id=?",sub_type.id, session[:hotel_id]) %>
+                        <% unless @rates.blank? %>
+                          <% @flag = 0 %>
+                          <% @rates.each do |rate| %>
+                            <% if (rate.from_date..rate.to_date).cover?(@starting_date.advance(days: f)) %>
+                              <% @flag = 1 %>
                               <td class="status status-clickable status-bookable">
-                                <span class="status-label status-bookable" title= "CAD <%= @rate[0].price %>" >
+                                <span class="status-label status-bookable" title= "CAD <%= rate.price %>" >
                                     &nbsp;
                                 </span>
                               </td>
-                            <% else %>
-                              <td class="status status-clickable status-none"></td>
                             <% end %>
+                          <% end %>
+                          <% if @flag == 0 %>
+                            <td class="status status-clickable status-none"></td>
+                          <% end %>
                         <% else %>
                           <td class="status status-clickable status-none"></td>
                         <% end %>

@@ -258,7 +258,7 @@ class HomeController < ApplicationController
     end
     logger.info"&&&&&&&&&&&&&&&&&#{@amount}&&&&&&&&&&&&&&&&&"
     session[:subtotal] = @amount
-    session[:roomtype] = params[:room_number].to_i
+    session[:roomtype] = params[:room_type_id].to_i
   end
   
   ## POST JSON
@@ -328,6 +328,7 @@ class HomeController < ApplicationController
    
     @Room = RoomRate.find_by_room_type_id(session[:room_type_id])
     numbers = session[:roomtype].to_i
+    logger.info"^^^^^^^^^^#{session[:roomtype]}^^^^^^^^^^^^^^6"
     @find_room_type = RoomType.find_by_id(session[:roomtype])
     @room_type = @find_room_type.room_type
     # number_nights.times do |t|
@@ -353,7 +354,13 @@ class HomeController < ApplicationController
         #@room_rate = RoomRate.find_by_room_id_and_room_type_id(@room1.id, session[:room_type_id])
         #@rooms = RoomAvailable.find_by_room_type_id_and_hotel_id(session[:room_type_id],session[:hotel_id])
         @rooms = RoomAvailable.where("room_sub_type_id=? AND hotel_id=?", @room1.room_sub_type_id,session[:hotel_id])
-
+        @rooms.each do |room|
+          if (room.from_date..room.to_date).cover?(session[:checkin].to_date) || (room.from_date..room.to_date).cover?(session[:checkin].to_date)
+            if room.number < params[:room_number]
+              redirect_to root_path
+            end
+          end
+        end
         number_nights.times do |t|
            @amount = @amount + @room1.price.to_f
         end
@@ -465,11 +472,11 @@ class HomeController < ApplicationController
     results = []
     chars = 0
     data = ""
-    File.open("#{Rails.root.to_s}/public/fax_content.html", 'r').each { |line| results << line }
-      results.each do |line|
-      chars += line.length
-      data += line
-    end
+    # File.open("#{Rails.root.to_s}/public/fax_content.html", 'r').each { |line| results << line }
+    #   results.each do |line|
+    #   chars += line.length
+    #   data += line
+    # end
   
    # @fax_result = SOAP::WSDLDriverFactory.new("https://ws-sl.fax.tc/Outbound.asmx?WSDL").create_rpc_driver.SendCharFax("Username" => "bestnights","Password" => "@BestN1ghts","FileType" => "TXT","FaxNumber"=> "18444942378","Data" => data)
    #  logger.info"@@@@@@@@@@@@@@@@@@@@@@@#{@fax_result.inspect}@@@@@@@@@@@@@@@@@@@@@@@@"

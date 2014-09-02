@@ -4,15 +4,38 @@ class ApplicationController < ActionController::Base
   skip_before_filter :protect_from_forgery, :only => [:destroy]
 
   def create_sell(room_sub_type_id,hotel_id,room_type_id,from_date,to_date,rooms_to_sell)
-    logger.info"&&&&&&&&&&&&&"
-    @room = RoomAvailable.new
-    @room.room_sub_type_id = room_sub_type_id
-    @room.hotel_id = hotel_id
-    @room.room_type_id = room_type_id
-    @room.from_date =from_date
-    @room.to_date = to_date
-    @room.number = rooms_to_sell
-    @room.save
+    unless from_date > to_date
+      @rooms = RoomAvailable.where("from_date=? AND to_date=?", from_date, to_date)
+      unless @rooms.empty?
+        @flag = 0
+        @rooms.each do |room|
+          if room.room_type_id == room_type_id.to_s && room.room_sub_type_id == room_sub_type_id.to_i && room.hotel_id == hotel_id.to_i
+            room.number = rooms_to_sell
+            room.save
+            @flag = 1
+          end
+        end
+        if @flag == 0
+          @room = RoomAvailable.new
+          @room.room_sub_type_id = room_sub_type_id
+          @room.hotel_id = hotel_id
+          @room.room_type_id = room_type_id
+          @room.from_date =from_date
+          @room.to_date = to_date
+          @room.number = rooms_to_sell
+          @room.save
+        end
+      else
+        @room = RoomAvailable.new
+        @room.room_sub_type_id = room_sub_type_id
+        @room.hotel_id = hotel_id
+        @room.room_type_id = room_type_id
+        @room.from_date =from_date
+        @room.to_date = to_date
+        @room.number = rooms_to_sell
+        @room.save
+      end
+    end
   end
 
   protected 

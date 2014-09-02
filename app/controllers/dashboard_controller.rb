@@ -176,6 +176,7 @@ class DashboardController < ApplicationController
         end
       end
     end
+    logger.info"(((((((((((((((((#{@booking_hash}((((((((((((((((((((((("
     @room_types.each do |type|
       @sub_types = RoomSubType.where("room_type_id=?",type.id)
       unless @sub_types.empty?
@@ -208,7 +209,31 @@ class DashboardController < ApplicationController
                     else
                       @status_hash["#{sub_type.id}"].merge!("#{date[0]}" => "closed")
                     end
-                    logger.info"^^^^^^^^^^^^^#{@status_hash}^^^^^^^^^^^^^^^^^^^^^^^"
+                  end
+                end
+              else
+                @range.times do |day|
+                  if (status.from_date..status.to_date).cover?(@starting_date.advance(days: day))
+                    if status.status == false
+                      @room_number = 0
+                      @availables = RoomAvailable.where("room_sub_type_id=? AND hotel_id=?", sub_type.id, session[:hotel_id])
+                      unless @availables.blank?
+                        @availables.each do |available|
+                          if (available.from_date..available.to_date).cover?(@starting_date.advance(days: day))
+                            @room_number += available.number
+                          end
+                        end
+                        if @room_number > 0
+                          @status_hash["#{sub_type.id}"].merge!("#{@starting_date.advance(days: day)}" => "bookable")
+                        else
+                          @status_hash["#{sub_type.id}"].merge!("#{@starting_date.advance(days: day)}" => "none")
+                        end
+                      else
+                        @status_hash["#{sub_type.id}"].merge!("#{@starting_date.advance(days: day)}" => "none")
+                      end
+                    else
+                      @status_hash["#{sub_type.id}"].merge!("#{@starting_date.advance(days: day)}" => "closed")
+                    end
                   end
                 end
               end
@@ -227,6 +252,7 @@ class DashboardController < ApplicationController
         end
       end
     end
+    logger.info"^^^^^^^^^^^^^#{@status_hash}^^^^^^^^^^^^^^^^^^^^^^^"
     @room_sub_types.each do |sub_type|
       @available_hash.merge!("#{sub_type.id}" => {})
       unless @booking_hash["#{sub_type.room_type_id}"].blank?
@@ -255,9 +281,24 @@ class DashboardController < ApplicationController
       else
         @range.times do |time|
           @date = @starting_date.advance(days: time)
-          @available_hash["#{sub_type.id}"].merge!("#{@date}" => 0)
+          @rooms = RoomAvailable.where("room_sub_type_id=? AND hotel_id=?", sub_type.id, session[:hotel_id])
+          unless @rooms.empty?
+            @flag = 0
+            @rooms.each do |room|
+              if (room.from_date..room.to_date).cover?(@date)
+                @available_hash["#{sub_type.id}"].merge!("#{@date}" => room.number)
+                @flag = 1
+              end
+            end
+            if @flag == 0
+              @available_hash["#{sub_type.id}"].merge!("#{@date}" => 0)
+            end
+          else
+            @available_hash["#{sub_type.id}"].merge!("#{@date}" => 0)
+          end
         end
       end
+      logger.info"^^^^^^^^^^^^^^^^#{@available_hash}^^^^^^^^^^^^2222"
     end    
   end
 
