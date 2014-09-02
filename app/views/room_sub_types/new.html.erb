@@ -14,7 +14,7 @@
 		  	</li>
 		  	<li>
 		  		<%= f.label 'Room Type*' %>
-					<%= f.collection_select :room_type_id, RoomType.all, :id, :room_type, :prompt => true %>
+					<%= f.collection_select :room_type_id, RoomType.where("status =?", "active"), :id, :room_type, :prompt => true %>
 				</li>
 		  </ul>	
 		</fieldset>

@@ -128,14 +128,14 @@ class HotelsController < ApplicationController
   def confirm
     @hotel = Hotel.find_by_id(params[:hotel_id])
     @hotel.status = "active"
-    @hotel.save
+    @hotel.save(validate: false)
     redirect_to request.referer
   end
 
   def make_pending
     @hotel = Hotel.find_by_id(params[:hotel_id])
     @hotel.status = "pending"
-    @hotel.save
+    @hotel.save(validate: false)
     redirect_to request.referer
   end 
 

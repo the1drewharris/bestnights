@@ -155,8 +155,14 @@ Your credit card is required to guarantee your booking. Please note that your cr
 					  <%= room.name %>,
 					<% end %>
 					<br>
-					<b>Check in:</b> <%= session[:checkin].to_date.strftime('%A, %B %d, %G') %> &bull; 
-					<b>Check out:</b> <%= session[:checkout].to_date.strftime('%A, %B %d, %G') %></div>
+					<b>Check in:</b> 
+					<span style="background:#FACC2E; color: #CC504A; margin-right:4px; padding: 0 4px;">
+						<%= session[:checkin].to_date.strftime('%A, %B %d, %G') %> &bull; 
+					</span>
+					<b>Check out:</b>
+					<span style="background:#FACC2E; color: #CC504A; padding: 0 4px;">
+						<%= session[:checkout].to_date.strftime('%A, %B %d, %G') %></div>
+					</span>
 			</h5>
 			<div>
 				<div><label for="specialrequests">Special Requests</label><textarea></textarea></div>
