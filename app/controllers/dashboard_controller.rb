@@ -149,7 +149,7 @@ class DashboardController < ApplicationController
     end
     @Bookings =  Booking.joins([:room => [:room_type => :room_availables]]).where("rooms.hotel_id = ?", session[:hotel_id]).select("room_availables.number, count(bookings.id) as booked, bookings.hotel_id, sum(bookings.adults) as adults, sum(bookings.children) as children, sum(bookings.price) as price, room_types.id as room_type_id, room_types.room_type as room_type,  bookings.from_date, bookings.to_date").group("room_types.id, bookings.from_date, bookings.to_date")
     @book_details = @Bookings.group_by(&:room_type_id)
-    logger.info"******11**************#{@Bookings.inspect}***********************"
+    logger.info"******11**************#{@book_details.inspect}***********************"
     if params[:from_date] && params[:to_date]
       @range = (params[:to_date].to_date - params[:from_date].to_date).to_i + 1
     else
@@ -166,7 +166,7 @@ class DashboardController < ApplicationController
         bookings[1].each do |booking|
           if(booking.from_date..booking.to_date).cover?(@date)
             if @booking_hash["#{bookings[0]}"].keys.include?(@date.to_s)
-              @booking_hash["#{bookings[0]}"][@date.to_s] = ((@booking_hash["#{bookings[0]}"][@date.to_s] - booking.booked).to_i) + @booking_hash["#{bookings[0]}"][@date.to_s]
+              @booking_hash["#{bookings[0]}"][@date.to_s] = booking.number + @booking_hash["#{bookings[0]}"][@date.to_s].to_i
             else
               @booking_hash["#{bookings[0]}"].merge!(@date.to_s => booking.number.to_i)
             end
@@ -176,7 +176,6 @@ class DashboardController < ApplicationController
         end
       end
     end
-    logger.info"*******************#{@booking_hash}***********************"
     @room_types.each do |type|
       @sub_types = RoomSubType.where("room_type_id=?",type.id)
       unless @sub_types.empty?
@@ -185,20 +184,31 @@ class DashboardController < ApplicationController
           @statuses = RoomStatus.where("room_sub_type_id=? AND hotel_id=?", sub_type.id, session[:hotel_id])
           unless @statuses.empty?
             @statuses.each do |status|
-              @booking_hash["#{type.id}"].each do |date|
-                if (status.from_date..status.to_date).cover?(date[0].to_date)
-                  @flag = 1
-                  if status.status == false
-                    if date[1].to_i > 0
-                      @data << {date[0] => "bookable"}
-                      @status_hash["#{sub_type.id}"].merge!("#{date[0]}" => "bookable")
+              unless @booking_hash["#{type.id}"].blank?
+                @booking_hash["#{type.id}"].each do |date|
+                  if (status.from_date..status.to_date).cover?(date[0].to_date)
+                    @flag = 1
+                    if status.status == false
+                      @room_number = 0
+                      @availables = RoomAvailable.where("room_sub_type_id=? AND hotel_id=?", sub_type.id, session[:hotel_id])
+                      unless @availables.blank?
+                        @availables.each do |available|
+                          if (available.from_date..available.to_date).cover?(date[0].to_date)
+                            @room_number += available.number
+                          end
+                        end
+                        if @room_number > 0
+                          @status_hash["#{sub_type.id}"].merge!("#{date[0]}" => "bookable")
+                        else
+                          @status_hash["#{sub_type.id}"].merge!("#{date[0]}" => "none")
+                        end
+                      else
+                        @status_hash["#{sub_type.id}"].merge!("#{date[0]}" => "none")
+                      end
                     else
-                      @data << {date[0] => "none"}
-                      @status_hash["#{sub_type.id}"].merge!("#{date[0]}" => "none")
+                      @status_hash["#{sub_type.id}"].merge!("#{date[0]}" => "closed")
                     end
-                  else
-                    @data << {date[0] => "closed"}
-                    @status_hash["#{sub_type.id}"].merge!("#{date[0]}" => "closed")
+                    logger.info"^^^^^^^^^^^^^#{@status_hash}^^^^^^^^^^^^^^^^^^^^^^^"
                   end
                 end
               end
