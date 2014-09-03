@@ -42,7 +42,7 @@
 			<h6>Description</h6>
 			<p><%= @hotel.description %></p>
 			<h6>Policy:</h6> 
-			<p><%= @hotel.policy.blank? ? "" : hotel.policy.titleize %></p>		
+			<p><%= @hotel.policy.blank? ? "" : @hotel.policy.titleize %></p>		
 		</div>
 	</section>
 	
@@ -92,9 +92,9 @@
 		<table>
 			<tr>
 				<th scope="col">Room Type</th>
-				<th scope="col">Conditions</th>
+				<th scope="col">Description</th>
 				<th scope="col">Adult</th>
-				<th scope="col">Max</th>
+				<th scope="col">Room Available</th>
 				<th scope="col">BestNights.com Price</th>
 				<th scope="col">Number of Rooms</th>
 				<th scope="col">Reservation</th>
@@ -112,10 +112,8 @@
 										<table class="data-tbl">
 											<tr>
 												<td>
-												<% room.room_attributes.each do |ra| %>
-												  <%= ra.attr + ', ' %>
-												<% end %>	
-											</td>
+													<%= room.description %>
+												</td>
 											</tr>
 										</table>
 									</div>
@@ -131,7 +129,7 @@
 													<% (session[:checkout].to_date - session[:checkin].to_date).to_i.times do |day| %>
 														<% if (available.from_date..available.to_date).cover?(session[:checkin].to_date.advance(days: day)) %>	
 																<td>
-																<span class="data-tbl-date">29/8/14</span>
+																<span class="data-tbl-date"><%= session[:checkin].to_date.advance(days: day) %></span>
 																<span><%= available.number %></span>
 																</td>														
 														<% end %>
@@ -155,7 +153,7 @@
 														<% if (rate.from_date..rate.to_date).cover?(session[:checkin].to_date.advance(days: day)) %>
 																<% session[:rate] = rate.price %>
 																<td>	
-																	<span class="data-tbl-date">29-08-2014</span>
+																	<span class="data-tbl-date"><%= session[:checkin].to_date.advance(days: day) %></span>
 																	$<%= rate.price %>
 																</td>
 															<% end %>
