@@ -1,5 +1,26 @@
-<% content_for :title, "BestNights.com - Room Type" %>
+ <% content_for :title, "BestNights.com" %>
 
-<header>
-	<h1><%#= @hotel_attribute.attr %></h1>
-</header>
+ <div id="wrapper" class="register">
+ 	<div id="container-main">
+ 		<h1 class="prop-title">Availabilities</h1> 
+ 		<div class="link-sec">
+ 		</div>
+ 		<div class="info blockinfo">
+ 			<ul>
+ 				<li>
+	 				<label>Count:</label>
+	 				<%= @availability.count %>
+ 				</li>
+ 				<li>
+	 				<label>Starting Inventory:</label>
+					<%= @availability.starting_inventory %>
+				</li>
+				<li>
+					<label>Room:</label>
+					<%= @availability.room.name %>
+				</li>
+			</ul>
+		</div>
+ 	</div>
+ 		<%= render :partial => "common/home_footer" %>
+ </div>
