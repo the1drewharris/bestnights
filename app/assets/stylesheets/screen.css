@@ -2076,6 +2076,11 @@ footer #footerend {
 .bookingdetail section {
 	width: 714px;
 	margin: 0 28px 0 0;
+	float: left;
+}
+
+#rate{
+	padding-left: 100px;
 }
 
 	.subpage section section,

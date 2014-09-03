@@ -195,6 +195,20 @@ class HomeController < ApplicationController
       @free << {type.id => @rooms.nil? ? 0 : @rooms.number}
     end
     logger.info"************#{@free}*************"
+    @hotel.rooms.each do |room|
+      @rates = RoomRate.where("room_sub_type_id=? AND hotel_id=?", room.room_sub_type_id, @hotel.id)
+      unless @rates.empty?
+        @rates.each do |rate|
+          if !rate.blank?
+            ((session[:checkout].to_date - session[:checkin].to_date).to_i + 1).times do |day| 
+              if (rate.from_date..rate.to_date).cover?(session[:checkin].to_date.advance(days: day))
+                session[:rate] += rate.price
+              end
+            end
+          end
+        end
+      end
+    end
     #TODO where is the room that has been booked?
     rescue ActiveRecord::RecordNotFound
       flash[:success] = "Please check the Hotel ID"

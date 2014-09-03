@@ -22,8 +22,6 @@
 			<% end %>			
 		</div>
 	</section>
-	
-	<a href="#bookingoptions" class="button5" onclick="scrollToAnchor('book');" id="booking_hotel">Book Now</a>
 	<section class="description">
 		<p><%= @hotel.description %></p>
 		<div class="details">
@@ -41,7 +39,6 @@
 			</p>
 			<h6>Description</h6>
 			<p><%= @hotel.description %></p>
-<<<<<<< HEAD
 			<h6>Cancellation Policy:</h6> 
 			<p><%= @hotel.cancellation_policy.blank? ? "" : @hotel.cancellation_policy.titleize %></p>		
 			<h6>Deposit Policy:</h6> 
@@ -56,12 +53,13 @@
 			<p><%= @hotel.parking_policy.blank? ? "" : @hotel.parking_policy.titleize %></p>	
 			<h6>Pets Policy:</h6> 
 			<p><%= @hotel.pets_policy.blank? ? "" : @hotel.pets_policy.titleize %></p>		
-=======
-			<h6>Policy:</h6> 
-			<p><%= @hotel.policy.blank? ? "" : @hotel.policy.titleize %></p>		
->>>>>>> 7c0c43f... Fixed booking details page
 		</div>
 	</section>
+
+	<div style="overflow:hidden;">
+		<a href="#bookingoptions" class="button5" onclick="scrollToAnchor('book');" id="booking_hotel">Book Now</a><br />
+		<span id="rate">$<%= session[:rate] %></span>
+  </div>
 	
 	<div id="searchdates">
 		<h4 class="check_availability" style="cursor: pointer;">Check Availability</h4>
@@ -137,13 +135,13 @@
 								</td>
 								<td></td>
 								<td class="room_available">
-								<% @availables = RoomAvailable.where("room_sub_type_id=? AND hotel_id=?",room.room_sub_type_id, @hotel.id ) %>
+								<% @availables = RoomAvailable.where("room_sub_type_id=? AND hotel_id=?",room.room_sub_type_id, @hotel.id ).order("from_date") %>
 								<div class="room-available max">
 									<table class="data-tbl">
 										<tr>
 										<% @availables.each do |available| %>
 											<% if !available.blank? %>
-													<% (session[:checkout].to_date - session[:checkin].to_date).to_i.times do |day| %>
+													<% ((session[:checkout].to_date - session[:checkin].to_date).to_i + 1).times do |day| %>
 														<% if (available.from_date..available.to_date).cover?(session[:checkin].to_date.advance(days: day)) %>	
 																<td>
 																<span class="data-tbl-date"><%= session[:checkin].to_date.advance(days: day) %></span>
@@ -162,13 +160,12 @@
 								<div class="room-available">
 									<table class="data-tbl">	
 										<tr>
-										<% @rates = RoomRate.where("room_sub_type_id=? AND hotel_id=?", room.room_sub_type_id, @hotel.id) %>
+										<% @rates = RoomRate.where("room_sub_type_id=? AND hotel_id=?", room.room_sub_type_id, @hotel.id).order("from_date") %>
 										<% unless @rates.empty? %>
 											<% @rates.each do |rate| %>
 												<% if !rate.blank? %>											
-													<% (session[:checkout].to_date - session[:checkin].to_date).to_i.times do |day| %>
+													<% ((session[:checkout].to_date - session[:checkin].to_date).to_i + 1).times do |day| %>
 														<% if (rate.from_date..rate.to_date).cover?(session[:checkin].to_date.advance(days: day)) %>
-																<% session[:rate] = rate.price %>
 																<td>	
 																	<span class="data-tbl-date"><%= session[:checkin].to_date.advance(days: day) %></span>
 																	$<%= rate.price %>
@@ -204,7 +201,8 @@
 										<% end %>
 									<% end %>
 									<% if @flag == 1%>
-										<%= link_to "Book Now", checkout_path(:hotel_id => @hotel.id, :room_type_id => room.room_type.id) , class: "link_style", id: "link_style" %>
+										<%= link_to "Book Now", checkout_path(:hotel_id => @hotel.id, :room_type_id => room.room_type.id) , class: "link_style", id: "link_style" %><br />
+										<span>$<%= session[:rate] %></span>
 									<% else %>
 										<p class="red">Sold Out</p>
 									<% end %>
