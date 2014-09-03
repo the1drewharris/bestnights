@@ -265,11 +265,11 @@ class HomeController < ApplicationController
     @rates = RoomRate.where("room_type_id=? AND hotel_id=?", params[:room_type_id], params[:hotel_id])
    numbers = params[:room_number].to_i
    logger.info"****************#{session[:nights]}******************"
-    if !session[:nights].nil?
-      @amount = session[:rate] * session[:nights]
-    else
+    # if !session[:nights].nil?
+    #   @amount = session[:rate]
+    # else
       @amount = session[:rate]
-    end
+    #end
     logger.info"&&&&&&&&&&&&&&&&&#{@amount}&&&&&&&&&&&&&&&&&"
     session[:subtotal] = @amount
     session[:roomtype] = params[:room_type_id].to_i
@@ -348,11 +348,11 @@ class HomeController < ApplicationController
     @rates = RoomRate.where("room_type_id=? AND hotel_id=?", params[:room_type_id], params[:hotel_id])
    numbers = params[:room_number].to_i
    logger.info"****************#{session[:nights]}******************"
-    if !session[:nights].nil?
-      @amount = session[:rate] * session[:nights]
-    else
+    # if !session[:nights].nil?
+    #   @amount = session[:rate] * session[:nights]
+    # else
       @amount = session[:rate]
-    end
+    #end
     
     room_ids.push(room.id)
     @room_amount = room.price.to_f
