@@ -331,9 +331,6 @@ class HomeController < ApplicationController
     logger.info"^^^^^^^^^^#{session[:roomtype]}^^^^^^^^^^^^^^6"
     @find_room_type = RoomType.find_by_id(session[:roomtype])
     @room_type = @find_room_type.room_type
-    # number_nights.times do |t|
-    #   @amount = @amount + (a.to_date.advance(:days => t).strftime("%A").downcase).to_f
-    # end
     @rates = RoomRate.where("room_type_id=? AND hotel_id=?", params[:room_type_id], params[:hotel_id])
    numbers = params[:room_number].to_i
    logger.info"****************#{session[:nights]}******************"
@@ -353,8 +350,6 @@ class HomeController < ApplicationController
     @status_flag = 0
      numbers = session[:roomtype].to_i
         @room1 = Room.find_by_hotel_id_and_room_type_id(session[:hotel_id], session[:room_type_id])
-        #@room_rate = RoomRate.find_by_room_id_and_room_type_id(@room1.id, session[:room_type_id])
-        #@rooms = RoomAvailable.find_by_room_type_id_and_hotel_id(session[:room_type_id],session[:hotel_id])
         @rooms = RoomAvailable.where("room_sub_type_id=? AND hotel_id=?", @room1.room_sub_type_id,session[:hotel_id])
         @rooms.each do |room|
           if (room.from_date..room.to_date).cover?(session[:checkin].to_date) || (room.from_date..room.to_date).cover?(session[:checkout].to_date)
@@ -418,39 +413,22 @@ class HomeController < ApplicationController
     if @available_flag == 0 && @status_flag == 0 && book(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, session[:room_needed], @room_type )
       ## Create booking record and availability record
        @rate = @room1.price.to_f
-        # numbers = session[:roomtype].to_i
-        # numbers.times do |n|
-        #    booking = Booking.new(hotel_id: @room1.hotel.id, room_id: @room1.id, from_date: from_date, to_date: to_date, 
-        #                 adults: numbers, traveler_id: @traveler.id, night_number: number_nights, price: @amount)
-        
-        #   booking.save
-        # end
         @rooms.each do |room|
           unless room.from_date == from_date.to_date && room.to_date == to_date.to_date
             if (room.from_date..room.to_date).include?(from_date.to_date)
-              #if room.from_date < from_date.to_date.advance(days: -1)
               ((to_date.to_date - from_date.to_date).to_i + 1).times do |date|
-                logger.info"&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"
                 create_sell(room.room_sub_type_id,session[:hotel_id],room.room_type_id,from_date.to_date.advance(days: date),from_date.to_date.advance(:days => date),room.number - session[:room_needed])
               end
               logger.info"^^^^#{session[:total_room]}^^^^^^^^^^^^^^^^#{session[:room_needed]}^^^^^^^^^"
-              #create_sell(room.room_sub_type_id,session[:hotel_id],room.room_type_id,from_date.to_date,to_date.to_date,session[:total_room].to_i - session[:room_needed].to_i)
               if (room.from_date..room.to_date).include?(to_date.to_date)
                 create_sell(room.room_sub_type_id,session[:hotel_id],room.room_type_id,to_date.to_date.advance(days: 1),room.to_date,room.number - session[:room_needed])
               end
-              #room.destroy
-            # else
-            #   ((to_date.to_date - from_date.to_date).to_i + 1).times do |date|
-            #     create_sell(room.room_sub_type_id,session[:hotel_id],room.room_type_id,from_date.to_date.advance(days: date),from_date.to_date.advance(:days => date),room.number)
-            #   end
             end
           else
             room.number = room.number - session[:room_needed]
             room.save
           end
         end
-        #@rooms.number = session[:total_room].to_i - session[:room_needed].to_i
-        #@rooms.save
         (from_date..to_date).each do |date|
           if availability = Availability.find_by_room_id_and_this_date(@room1.id, date)
             availability.update_attributes(count: availability.count - numbers)
@@ -463,7 +441,6 @@ class HomeController < ApplicationController
         @numbers = numbers
 
         @latest_booked = Booking.where(traveler_id: @traveler.id, hotel_id: room.hotel.id).order("created_at DESC").limit(1)
-        logger.info"&&&&&#{@amount}&&&&&&&&&&#{@latest_booked.inspect}&&&&&222222&&&&#{@card_number}&&&"
         @price = @amount / session[:nights]
         @fax_email = FaxMailer.hotel_booking_mail(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, numbers, @latest_booked, @room1,@rate,@card_expiry, request.protocol,request.host_with_port, number_nights, @price).deliver
         @fax_email_to_hotel = FaxMailer.email_to_hotel(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, room_ids, @latest_booked, @room1, @card_expiry, request.protocol,request.host_with_port, numbers, number_nights, @price).deliver
