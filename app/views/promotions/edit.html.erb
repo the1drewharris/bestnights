@@ -23,8 +23,9 @@
 					<span>*Must be unique</span>
 				</li>
 				<li>
-					<label for="startdate">Start Date</label>					
-					<input id="startdate" name="startdate" type="date" value="">
+					<label for="startdate">Start Date</label>	
+					<%= f.text_field :start_date, value: @promotion.start_date.strftime("%d-%m-%Y") %>				
+					<!--<input id="startdate" name="startdate" type="date" value="">-->
 					<select name="starthour">
 						<optgroup label="Hour">
 							<% (1..12).each do |v| %>
@@ -32,6 +33,7 @@
 							<% end %>
 						</optgroup>
 					</select>
+					<%#= f.select %>
 					<select name="startminute">
 						<optgroup label="Min">
 							<% (0..59).each do |v| %>
@@ -48,7 +50,8 @@
 				</li>
 				<li>
 					<label for="enddate">End Date</label>
-					<input id="enddate" name="enddate" type="date" value="">
+					<%= f.text_field :expiry_date, value: @promotion.expiry_date.strftime("%d-%m-%Y") %>	
+					<!--<input id="enddate" name="enddate" type="date" value="">-->
 					<select name="endhour">
 						<optgroup label="hour">
 							<% (1..12).each do |v| %>

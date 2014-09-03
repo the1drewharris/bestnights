@@ -32,7 +32,6 @@ class PromotionsController < ApplicationController
       starthour = params[:starthour].to_i + 12
     end
     start_date.change({:hour => starthour, :min => params[:startminute]}) unless start_date.nil?
-    
     end_date = params[:enddate].to_time
     if params[:endampm] == "AM"
       endhour = params[:endhour]

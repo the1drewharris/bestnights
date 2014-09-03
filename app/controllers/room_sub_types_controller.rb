@@ -63,7 +63,7 @@ class RoomSubTypesController < ApplicationController
 
     respond_to do |format|
       if @room_sub_type.update_attributes(params[:room_sub_type])
-        format.html { redirect_to @room_sub_type, success: 'Room sub type was successfully updated.' }
+        format.html { redirect_to room_sub_types_path, success: 'Room sub type was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

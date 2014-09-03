@@ -23,9 +23,9 @@ class HotelsController < ApplicationController
   end
   
   def show
-    @hotel = Hotel.find(params[:id])
-    @hotel_photos = @hotel.hotel_photos
-    @hotel_attributes = @hotel.hotel_attributes
+      @hotel = Hotel.find(params[:id])
+      @hotel_photos = @hotel.hotel_photos
+      @hotel_attributes = @hotel.hotel_attributes
   end
 
   def new
