@@ -36,18 +36,29 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
   
-  def update    
+  def update   
+
     user = User.find(params[:id])
     is_current_user = false
     if current_user == user
       is_current_user = true
     end
     
-    if current_user.admin? and !is_current_user
+    if current_user && current_user.admin?
+      @user = User.find(current_user.id)
+      if params[:user][:password].blank? && params[:user][:password_confirmation].blank? && current_user.encrypted_password
       #TODO Must add better "activation" here as it is failing and giving an error because required fields are not being sent
-      user.update_attributes(params[:user])
+      if @user.update_attributes(params[:user])
+        AdminMailer.user_changed_notify(current_user, user).deliver
+        redirect_to users_path 
+      else
+        render :action => :edit
+      end
+    elsif current_user.encrypted_password
+      @user.update_attributes(params[:user])
       AdminMailer.user_changed_notify(current_user, user).deliver
-      redirect_to users_path 
+      redirect_to users_path
+    end
     elsif current_user.manager?
       if user.valid_password?(params[:old_password])        
         user.update_attributes(params[:user])        

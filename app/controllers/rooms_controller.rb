@@ -10,7 +10,6 @@ class RoomsController < ApplicationController
       @rooms = Room.all
     elsif current_user.manager?
       @rooms = Room.where("hotel_id=?",session[:hotel_id])
-      logger.info"&&&&&#{session[:hotel_id]}&&&&&&&&&&&&#{@rooms.inspect}&&&&&&&&&&&&&&&&&&"
     end    
     
     if current_user.new_signup?

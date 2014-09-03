@@ -3,6 +3,7 @@ class Room < ActiveRecord::Base
   
   validates :hotel_id, :room_type_id, presence: true
   validates :starting_inventory, :bed_numbers, presence: true, inclusion: { in: 0..10000 }
+  validates :additionaladultfee, presence: true
   
   after_initialize :init
   before_save :set_value_before_save
