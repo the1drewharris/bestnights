@@ -184,4 +184,15 @@ class RoomsController < ApplicationController
       end
     end    
   end
+
+  def get_sub_type
+    @sub_types = RoomSubType.where("room_type_id=?", params[:type_id].to_i)
+    if @sub_types.blank?
+      @sub_types = []
+    end
+    respond_to do |format|
+      format.html
+      format.json { render json: @sub_types }
+    end
+  end
 end

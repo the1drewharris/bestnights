@@ -268,7 +268,11 @@ class HomeController < ApplicationController
     # if !session[:nights].nil?
     #   @amount = session[:rate]
     # else
-      @amount = session[:rate]
+    if session[:room_needed]
+      @amount = session[:rate].to_i * session[:room_needed].to_i
+    else
+      @amount = session[:rate].to_i
+    end
     #end
     logger.info"&&&&&&&&&&&&&&&&&#{@amount}&&&&&&&&&&&&&&&&&"
     session[:subtotal] = @amount
@@ -351,7 +355,11 @@ class HomeController < ApplicationController
     # if !session[:nights].nil?
     #   @amount = session[:rate] * session[:nights]
     # else
-      @amount = session[:rate]
+    if session[:room_needed]
+      @amount = session[:rate].to_i * session[:room_needed].to_i
+    else
+      @amount = session[:rate].to_i
+    end
     #end
     
     room_ids.push(room.id)
@@ -456,8 +464,8 @@ class HomeController < ApplicationController
 
         @latest_booked = Booking.where(traveler_id: @traveler.id, hotel_id: room.hotel.id).order("created_at DESC").limit(1)
         @price = @amount / session[:nights]
-        @fax_email = FaxMailer.hotel_booking_mail(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, numbers, @latest_booked, @room1,@rate,@card_expiry, request.protocol,request.host_with_port, number_nights, @price).deliver
-        @fax_email_to_hotel = FaxMailer.email_to_hotel(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, room_ids, @latest_booked, @room1, @card_expiry, request.protocol,request.host_with_port, numbers, number_nights, @price).deliver
+        @fax_email = FaxMailer.hotel_booking_mail(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, session[:room_needed], @latest_booked, @room1,@rate,@card_expiry, request.protocol,request.host_with_port, number_nights, @price).deliver
+        @fax_email_to_hotel = FaxMailer.email_to_hotel(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, room_ids, @latest_booked, @room1, @card_expiry, request.protocol,request.host_with_port, session[:room_needed], number_nights, @price).deliver
     else
       flash[:errors] = ["Your booking failed!"]
       return redirect_to checkout_path
