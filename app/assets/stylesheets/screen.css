@@ -4417,6 +4417,11 @@ a.tableDetails{
 .vertical-m{
 	vertical-align: middle !important;
 }
+.rateUI{
+	font-size: 20px;
+	line-height: 26px;
+	margin-left: -56px;
+}
 
 /* End */
 

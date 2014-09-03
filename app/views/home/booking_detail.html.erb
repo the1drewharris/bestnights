@@ -58,7 +58,7 @@
 
 	<div style="overflow:hidden;">
 		<a href="#bookingoptions" class="button5" onclick="scrollToAnchor('book');" id="booking_hotel">Book Now</a><br />
-		<span id="rate">$<%= session[:rate] %></span>
+		<span id="rate" class="rateUI">Total : <strong>$<%= number_with_precision(session[:rate], :precision => 2, :separator => '.') %></strong></span>  
   </div>
 	
 	<div id="searchdates">
@@ -120,7 +120,7 @@
 					<% @statuses = RoomStatus.where("room_type_id=? AND hotel_id=?",room.room_type.id, @hotel.id) %>
 					<% @statuses.each do |status| %>
 						<% if !status.blank? && ((status.from_date..status.to_date).cover?(Date.today)) %>
-							<tr>								
+							<tr style="background: #eef6e0; color: #628a1e;">								
 								<td><%= room.room_sub_type.name %></td>
 								<td>
 									<div class="room-available type">
@@ -190,7 +190,7 @@
 										<% end %>
 									<% end %>
 								</td>
-								<td>
+								<td align="center">
 									<%  @availables.each do |available| %>
 										<% if !available.blank? %>
 											<% if available.number > 0 %>
