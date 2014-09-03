@@ -349,15 +349,27 @@ class HomeController < ApplicationController
 
     @checkin = session[:checkin]
     @checkout = session[:checkout]
+    @available_flag = 0
+    @status_flag = 0
      numbers = session[:roomtype].to_i
         @room1 = Room.find_by_hotel_id_and_room_type_id(session[:hotel_id], session[:room_type_id])
         #@room_rate = RoomRate.find_by_room_id_and_room_type_id(@room1.id, session[:room_type_id])
         #@rooms = RoomAvailable.find_by_room_type_id_and_hotel_id(session[:room_type_id],session[:hotel_id])
         @rooms = RoomAvailable.where("room_sub_type_id=? AND hotel_id=?", @room1.room_sub_type_id,session[:hotel_id])
         @rooms.each do |room|
-          if (room.from_date..room.to_date).cover?(session[:checkin].to_date) || (room.from_date..room.to_date).cover?(session[:checkin].to_date)
-            if room.number < params[:room_number]
-              redirect_to root_path
+          if (room.from_date..room.to_date).cover?(session[:checkin].to_date) || (room.from_date..room.to_date).cover?(session[:checkout].to_date)
+            if room.number < session[:room_needed]
+              @available_flag = 1
+              return redirect_to root_path
+            end
+          end
+        end
+        @statuses = RoomStatus.where("room_sub_type_id=? AND hotel_id=?", @room1.room_sub_type_id,session[:hotel_id])
+        @statuses.each do |status|
+          if (status.from_date..status.to_date).cover?(session[:checkin].to_date) || (status.from_date..status.to_date).cover?(session[:checkout].to_date)
+            if status.status == true
+              @status_flag = 1
+              return redirect_to root_path
             end
           end
         end
@@ -369,11 +381,13 @@ class HomeController < ApplicationController
 
         #Bookings data saving
         numbers = session[:roomtype].to_i
-        numbers.times do |n|
-           booking = Booking.new(hotel_id: @room1.hotel.id, room_id: @room1.id, from_date: from_date, to_date: to_date, 
-                        adults: numbers, traveler_id: @traveler.id, night_number: number_nights, price: @amount)
-        
-          booking.save
+        if @available_flag == 0 && @status_flag == 0
+          numbers.times do |n|
+             booking = Booking.new(hotel_id: @room1.hotel.id, room_id: @room1.id, from_date: from_date, to_date: to_date, 
+                          adults: numbers, traveler_id: @traveler.id, night_number: number_nights, price: @amount)
+          
+            booking.save
+          end
         end
         # This cookies are used for Fax contant save in html format
         cookies[:name] = @traveler.name
@@ -401,7 +415,7 @@ class HomeController < ApplicationController
         cookies[:room_type] = room.room_type.room_type 
         cookies[:amount] = @amount 
       
-    if book(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, session[:room_needed], @room_type )
+    if @available_flag == 0 && @status_flag == 0 && book(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, session[:room_needed], @room_type )
       ## Create booking record and availability record
        @rate = @room1.price.to_f
         # numbers = session[:roomtype].to_i
@@ -414,19 +428,24 @@ class HomeController < ApplicationController
         @rooms.each do |room|
           unless room.from_date == from_date.to_date && room.to_date == to_date.to_date
             if (room.from_date..room.to_date).include?(from_date.to_date)
-              if room.from_date < from_date.to_date.advance(days: -1)
+              #if room.from_date < from_date.to_date.advance(days: -1)
+              ((to_date.to_date - from_date.to_date).to_i + 1).times do |date|
                 logger.info"&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"
-                create_sell(room.room_sub_type_id,session[:hotel_id],room.room_type_id,room.from_date,from_date.to_date.advance(days: -1),room.number)
+                create_sell(room.room_sub_type_id,session[:hotel_id],room.room_type_id,from_date.to_date.advance(days: date),from_date.to_date.advance(:days => date),room.number - session[:room_needed])
               end
               logger.info"^^^^#{session[:total_room]}^^^^^^^^^^^^^^^^#{session[:room_needed]}^^^^^^^^^"
-              create_sell(room.room_sub_type_id,session[:hotel_id],room.room_type_id,from_date.to_date,to_date.to_date,session[:total_room].to_i - session[:room_needed].to_i)
+              #create_sell(room.room_sub_type_id,session[:hotel_id],room.room_type_id,from_date.to_date,to_date.to_date,session[:total_room].to_i - session[:room_needed].to_i)
               if (room.from_date..room.to_date).include?(to_date.to_date)
-                create_sell(room.room_sub_type_id,session[:hotel_id],room.room_type_id,to_date.to_date.advance(days: 1),room.to_date,room.number)
+                create_sell(room.room_sub_type_id,session[:hotel_id],room.room_type_id,to_date.to_date.advance(days: 1),room.to_date,room.number - session[:room_needed])
               end
-              room.destroy
+              #room.destroy
+            # else
+            #   ((to_date.to_date - from_date.to_date).to_i + 1).times do |date|
+            #     create_sell(room.room_sub_type_id,session[:hotel_id],room.room_type_id,from_date.to_date.advance(days: date),from_date.to_date.advance(:days => date),room.number)
+            #   end
             end
           else
-            room.number = room.number
+            room.number = room.number - session[:room_needed]
             room.save
           end
         end
@@ -450,7 +469,7 @@ class HomeController < ApplicationController
         @fax_email_to_hotel = FaxMailer.email_to_hotel(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, room_ids, @latest_booked, @room1, @card_expiry, request.protocol,request.host_with_port, numbers, number_nights, @price).deliver
     else
       flash[:errors] = ["Your booking failed!"]
-      redirect_to checkout_path
+      return redirect_to checkout_path
     end        
   end
   
