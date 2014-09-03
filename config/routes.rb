@@ -97,7 +97,7 @@ Bestnights::Application.routes.draw do
   match 'traveler_details/:id' => "travelers#show_traveler", :as => :show_traveler, :via => :get
   match 'booking_history/:id' => "travelers#booking_history", :as => :booking_history, :via => :get
   match 'cancel_booking/:book_id' => "travelers#cancel_booking", :as => :cancel_booking, :via => :get
-
+  match '/get_sub_type' => "rooms#get_sub_type", :as => :get_sub_type, :via => :get
 
   # resources :users, except: :create
   resources :users

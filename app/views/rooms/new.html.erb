@@ -71,19 +71,23 @@
 <%= javascript_include_tag :jquery_ujs %>
 
 <script>
-	// $(document).ready(function(){
-	// 	$("#room_room_type_id").change(function(){
-	// 		alert($(this).val())
-	// 		var data = {type_id: $(this).val()}
-	// 		$.ajax({
-	// 			type: "get",
-	//       dataType: "json",
-	//       url: "/get_sub_type",
-	//       data: data,
-	//       success: function(data){
-	      	
-	//       }
-	// 		})
-	// 	})
-	// })
+	$(document).ready(function(){
+		$("#room_room_type_id").change(function(){
+			// alert($(this).val())
+			var data = {type_id: $(this).val()}
+			$.ajax({
+				type: "get",
+	      dataType: "json",
+	      url: "/get_sub_type",
+	      data: data,
+	      success: function(data){
+	      	// console.log(data[0])
+	      	$("#room_room_sub_type_id").html("");
+	      	if(data[0] != "undefind"){
+	      		$("#room_room_sub_type_id").append("<option value="+ data[0]["id"] +">"+ data[0]["name"] +"</option>")
+	      	}
+	      }
+			})
+		})
+	})
 </script>
