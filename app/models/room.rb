@@ -1,6 +1,6 @@
 class Room < ActiveRecord::Base
-  attr_accessible :hotel_id, :room_type_id, :name, :description, :price, :additionaladultfee, :original_price, :starting_inventory, :bed_numbers, :max_people, :max_children, :room_size, :room_unit, :lunch, :dinner, :all_inclusive, :room_sub_type_id
-  
+  attr_accessible :hotel_id, :room_type_id, :name, :description, :price, :additionaladultfee, :original_price, :starting_inventory, :bed_numbers, :max_people, :max_children, :room_size, :room_unit, :lunch, :dinner, :all_inclusive, :room_sub_type_id, :room_sub_type_name
+  attr_accessor :room_sub_type_name
   validates :hotel_id, :room_type_id, presence: true
   validates :starting_inventory, :bed_numbers, presence: true, inclusion: { in: 0..10000 }
   validates :additionaladultfee, presence: true
@@ -61,6 +61,6 @@ class Room < ActiveRecord::Base
   end
   
   def set_value_before_save
-    self.name = self.room_type.room_type if self.name.empty?
+    # self.name = self.room_type.room_type if self.name.empty?
   end
 end

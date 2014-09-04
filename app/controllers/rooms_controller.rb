@@ -41,7 +41,15 @@ class RoomsController < ApplicationController
   
   def create
     @room = Room.where("room_type_id=? AND hotel_id=? AND room_sub_type_id=?", params[:room][:room_type_id], params[:room][:hotel_id],params[:room][:room_sub_type_id])
+    logger.info"^^^^^^^^^^^^^#{params[:room][:room_sub_type_name]}^^^^^^^^^^^^^^#{params}^^^"
     if @room.empty?
+      if params[:room][:room_sub_type_name]
+        @room_sub_type = RoomSubType.new()
+        @room_sub_type.name = params[:room][:room_sub_type_name]
+        @room_sub_type.room_type_id = params[:room][:room_type_id]
+        @room_sub_type.save
+        params[:room][:room_sub_type_id] = @room_sub_type.id
+      end
       @room = Room.new(params[:room])
       if @room.save
         @room_available = RoomAvailable.find_by_room_type_id_and_hotel_id(params[:room][:room_type_id],session[:hotel_id])
