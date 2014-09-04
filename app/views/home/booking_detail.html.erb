@@ -116,10 +116,12 @@
 			</tr>
 						
 			<form action="/checkout" method="post">
-				<% @hotel.rooms.each do |room| %>
+				<% @hotel.rooms.each_with_index do |room, index| %>
+					<% @flag = 0 %>
 					<% @statuses = RoomStatus.where("room_type_id=? AND hotel_id=?",room.room_type.id, @hotel.id) %>
 					<% @statuses.each do |status| %>
-						<% if !status.blank? && ((status.from_date..status.to_date).cover?(Date.today)) %>
+						<% if !status.blank? && @flag == 0 %>
+							<% @flag = 1 %>
 							<tr style="background: #eef6e0; color: #628a1e;">								
 								<td><%= room.room_sub_type.name %></td>
 								<td>
@@ -184,9 +186,9 @@
 
 									<td class="room_number vertical-m"><% @free.each do |fr| %>
 										<% if fr.has_key?(room.room_type.id) %>
-											<% if fr[room.room_type.id] != 0 %>
+											<%# if fr[room.room_type.id] != 0 %>
 												<input type="number" min="0" max=<%= room.available_max(@from_date, @to_date) %> value="" name="number[<%= room.id %>]" id="room_number">
-											<% end %>
+											<%# end %>
 										<% end %>
 									<% end %>
 								</td>
@@ -202,7 +204,7 @@
 									<% end %>
 									<% if @flag == 1%>
 										<%= link_to "Book Now", checkout_path(:hotel_id => @hotel.id, :room_type_id => room.room_type.id) , class: "link_style", id: "link_style" %><br />
-										<span>$<%= session[:rate] %></span>
+										<span>$<%= session[:room_rate][index] %></span>
 									<% else %>
 										<p class="red">Sold Out</p>
 									<% end %>
@@ -231,6 +233,8 @@
  //room_number
  $(".link_style").click(function(e){
  	e.preventDefault();
+ 	$.cookie("rate", parseInt($(this).siblings("span").html().substring(1)))
+
  	var room_needed = $(this).parent().siblings(".room_number").children("#room_number").val();
  	var room_avail = parseInt($(this).parent().siblings(".room_available").children(".room-available").children(".data-tbl").children("tbody").children("tr").children("td").children(".data-tbl-date").siblings("span").html());
  	if (room_needed <= room_avail && room_needed != '') {

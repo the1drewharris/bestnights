@@ -117,16 +117,23 @@ layout "admin_basic"
       else
         if from_date.blank? && to_date.blank?
           days.each do |day|
-            (((Date.today + 1.year) - (Date.today)) + 1).to_i.times do |date|
+            (((Date.today + 1.year) - (Date.today)).to_i + 1).times do |date|
               if Date.today.advance(days: date).strftime("%A").downcase == day[0].to_s
                 if @room_sell.blank?
                   create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: date),Date.today.advance(days: date),rooms_to_sell)
                 else
                   if (@room_sell.from_date..@room_sell.to_date).cover?(Date.today.advance(days: date))
+                    # (((Date.today + 1.year) - (Date.today)).to_i + 1).times do |date|
+                    #   create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: date),Date.today.advance(days: date),@room_sell.number)
+                    # end
+                    logger.info"^^^^^^^^^^^^^^^^^^^^^^^^^^^^6"
                     create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,@room_sell.from_date,Date.today.advance(days: date - 1),@room_sell.number)
                     create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: date),Date.today.advance(days: date),rooms_to_sell)
                   else
-                    create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: date),Date.today.advance(days: date),rooms_to_sell)
+                    #(((Date.today + 1.year) - (Date.today)).to_i + 1).times do |date|
+                    logger.info"&&&&&&&&&&&&&&&&&&&7777777"
+                      create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: date),Date.today.advance(days: date),rooms_to_sell)
+                    #end
                   end
                 end
               end
@@ -134,16 +141,21 @@ layout "admin_basic"
           end
         else
           days.each do |day|
-            ((to_date.to_date - from_date.to_date) + 1).to_i.times do |date|
+            ((to_date.to_date - from_date.to_date).to_i + 1).times do |date|
               if from_date.to_date.advance(days: date).strftime("%A").downcase == day[0].to_s
                 if @room_sell.blank?
                   create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date.advance(days: date),from_date.to_date.advance(days: date),rooms_to_sell)
                 else
                   if (@room_sell.from_date..@room_sell.to_date).cover?(from_date.to_date.advance(days: date))
+                    # ((to_date.to_date - from_date.to_date).to_i + 1).times do |date|
+                    #   create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date.advance(days: date),from_date.to_date.advance(days: date),rooms_to_sell)
+                    # end
                     create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,@room_sell.from_date,from_date.to_date.advance(days: date - 1),@room_sell.number)
                     create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date.advance(days: date),from_date.to_date.advance(days: date),rooms_to_sell)
                   else
-                    create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date.advance(days: date),from_date.to_date.advance(days: date),rooms_to_sell)
+                    #((to_date.to_date - from_date.to_date).to_i + 1).times do |date|
+                      create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date.advance(days: date),from_date.to_date.advance(days: date),rooms_to_sell)
+                    #end
                   end
                 end
               end
@@ -247,7 +259,7 @@ layout "admin_basic"
             end
           end
         else
-          @room_status.status = @room_status.status
+          @room_status.status = status
           @room_status.save
         end
       end

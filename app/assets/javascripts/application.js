@@ -82,6 +82,7 @@ $(document).ready(function() {
 
 	$(".stat").click(function(){
 		var element = $(this);
+		//alert($("td").index($(this)))
 		if($(this).hasClass("status-closed")){
 			var status = "0"
 		}

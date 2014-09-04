@@ -4422,6 +4422,18 @@ a.tableDetails{
 	line-height: 26px;
 	margin-left: -56px;
 }
+.roomRateWidth{
+	display: block!important;
+}
+.roomRateStyle{
+	background-color: #ddd;
+	border: #ccc 1px solid;
+	padding: 10px 10px 0 10px;
+}
+.roomRateStyleInner{
+	padding-top:10px;
+	padding-left:8px;
+}
 
 /* End */
 

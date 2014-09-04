@@ -26,7 +26,11 @@
 		  	</li>
 		  	<li id="subtype">
 		  		<%= f.label "Room Sub Type" %>
-		  		<%= f.select :room_sub_type_id, options_for_select(@room_sub_types.map{|s|[s.name, s.id]}) %>
+		  		<% unless @room_sub_types.blank? %>
+		  			<%= f.select :room_sub_type_id, options_for_select(@room_sub_types.map{|s|[s.name, s.id]}) %>
+		  		<% else %>
+		  			<input id='room_room_sub_type_name' name='room[room_sub_type_name]' size='30' type='text'>
+		  		<% end %>
 		  	</li>
 		  	<li>
 		  		<%= f.label :starting_inventory %>

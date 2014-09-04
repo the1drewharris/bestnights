@@ -57,7 +57,7 @@
 	</tr>
 	<tr>
 		<td><strong>Rooms Booked:</strong></td>
-		<td><%= @latest_booked.size %></td>
+		<td><%= session[:room_needed] %></td>
 		</tr>
 	<% end %>
 	<tr>
@@ -68,7 +68,7 @@
 	<%# @Room = RoomRate.find_by_room_id(@room.id) %>
 	<tr>
 		<td><strong>Room:</strong></td>
-		<td><%= @room.name.capitalize %>, <%= @room.room_type.room_type.capitalize %></td>
+		<td><%= @room.room_sub_type.name.capitalize %>, <%= @room.room_type.room_type.capitalize %></td>
 	</tr>
 	<tr>
 		<td><strong>Room Price:</strong></td>

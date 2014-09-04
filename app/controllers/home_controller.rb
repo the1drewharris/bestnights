@@ -180,6 +180,7 @@ class HomeController < ApplicationController
     @from_date = session[:checkin]
     @to_date = session[:checkout]
     session[:rate] = 0
+    session[:room_rate] = []
     
     gon.group = session[:group] # passing rails variable to js object variable
     
@@ -195,7 +196,7 @@ class HomeController < ApplicationController
       @free << {type.id => @rooms.nil? ? 0 : @rooms.number}
     end
     logger.info"************#{@free}*************"
-    @hotel.rooms.each do |room|
+    @hotel.rooms.each_with_index do |room, index|
       @rates = RoomRate.where("room_sub_type_id=? AND hotel_id=?", room.room_sub_type_id, @hotel.id)
       unless @rates.empty?
         @rates.each do |rate|
@@ -207,6 +208,11 @@ class HomeController < ApplicationController
             end
           end
         end
+      end
+      if index > 0
+        session[:room_rate] << (session[:rate] - session[:room_rate][index - 1])
+      else
+        session[:room_rate] << session[:rate]
       end
     end
     #TODO where is the room that has been booked?
@@ -250,13 +256,44 @@ class HomeController < ApplicationController
   end
   
   def checkout
+    @available_flag = 0
+    @status_flag = 0
     @traveler = Traveler.new
     @hotel = Hotel.find(params[:hotel_id])
     session[:booking_rooms] = params
     gon.group = session[:group] # passing rails variable to js object variable
-     @rooms = RoomAvailable.find_by_room_type_id_and_hotel_id(params[:room_type_id],params[:hotel_id])
+     #@rooms = RoomAvailable.find_by_room_type_id_and_hotel_id(params[:room_type_id],params[:hotel_id])
+     @rooms = RoomAvailable.where("room_sub_type_id=? AND hotel_id=?", params[:room_type_id],session[:hotel_id]) 
       session[:total_room] = params[:total_room].to_i
       session[:room_needed] = params[:room_number].to_i
+
+    @rooms.each do |room|
+      if (room.from_date..room.to_date).cover?(session[:checkin].to_date) || (room.from_date..room.to_date).cover?(session[:checkout].to_date)
+        if room.number < session[:room_needed]
+          @available_flag = 1
+          return redirect_to root_path
+        end
+      end
+    end
+
+    @statuses = RoomStatus.where("room_sub_type_id=? AND hotel_id=?", params[:room_type_id],session[:hotel_id])
+    @statuses.each do |status|
+      @flag = 0
+      logger.info"))))))))))#{@flag})))))))))))))))0"
+      if (status.from_date..status.to_date).cover?(session[:checkin].to_date) || (status.from_date..status.to_date).cover?(session[:checkout].to_date)
+        if status.status == true
+          @status_flag = 1
+          return redirect_to root_path
+        else
+          @flag += 1
+        end
+      end
+    end
+    logger.info"((((((((#{@flag}((((((((((("
+    # if @flag == 0
+    #   return redirect_to root_path
+    # end
+
       
     session[:hotel_id] = params[:hotel_id]
     session[:room_type_id] = params[:room_type_id]
@@ -269,9 +306,9 @@ class HomeController < ApplicationController
     #   @amount = session[:rate]
     # else
     if session[:room_needed]
-      @amount = session[:rate].to_i * session[:room_needed].to_i
+      @amount = cookies[:rate].to_i * session[:room_needed].to_i
     else
-      @amount = session[:rate].to_i
+      @amount = cookies[:rate].to_i
     end
     #end
     logger.info"&&&&&&&&&&&&&&&&&#{@amount}&&&&&&&&&&&&&&&&&"
@@ -356,9 +393,9 @@ class HomeController < ApplicationController
     #   @amount = session[:rate] * session[:nights]
     # else
     if session[:room_needed]
-      @amount = session[:rate].to_i * session[:room_needed].to_i
+      @amount = cookies[:rate].to_i * session[:room_needed].to_i
     else
-      @amount = session[:rate].to_i
+      @amount = cookies[:rate].to_i
     end
     #end
     
@@ -371,7 +408,7 @@ class HomeController < ApplicationController
     @available_flag = 0
     @status_flag = 0
      numbers = session[:roomtype].to_i
-        @room1 = Room.find_by_hotel_id_and_room_type_id(session[:hotel_id], session[:room_type_id])
+        @room1 = Room.find_by_hotel_id_and_room_sub_type_id(session[:hotel_id], session[:room_type_id])
         @rooms = RoomAvailable.where("room_sub_type_id=? AND hotel_id=?", @room1.room_sub_type_id,session[:hotel_id])
         @rooms.each do |room|
           if (room.from_date..room.to_date).cover?(session[:checkin].to_date) || (room.from_date..room.to_date).cover?(session[:checkout].to_date)
@@ -398,6 +435,7 @@ class HomeController < ApplicationController
 
         #Bookings data saving
         numbers = session[:roomtype].to_i
+        logger.info"(((#{@available_flag}((((((((((#{@status_flag}((((((("
         if @available_flag == 0 && @status_flag == 0
           numbers.times do |n|
              booking = Booking.new(hotel_id: @room1.hotel.id, room_id: @room1.id, from_date: from_date, to_date: to_date, 
@@ -459,7 +497,7 @@ class HomeController < ApplicationController
         @numbers = numbers
 
         @latest_booked = Booking.where(traveler_id: @traveler.id, hotel_id: room.hotel.id).order("created_at DESC").limit(1)
-        @price = @amount / session[:nights]
+        @price = session[:room_rate]
         @fax_email = FaxMailer.hotel_booking_mail(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, session[:room_needed], @latest_booked, @room1,@rate,@card_expiry, request.protocol,request.host_with_port, number_nights, @price).deliver
         @fax_email_to_hotel = FaxMailer.email_to_hotel(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, room_ids, @latest_booked, @room1, @card_expiry, request.protocol,request.host_with_port, session[:room_needed], number_nights, @price).deliver
     else

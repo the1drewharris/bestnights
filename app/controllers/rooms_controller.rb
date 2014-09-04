@@ -27,7 +27,10 @@ class RoomsController < ApplicationController
   def new
     @room = Room.new
     @room_types = RoomType.activated
-    @room_sub_types = RoomSubType.where("room_type_id=?", @room_types.first.id)
+    logger.info"&&&&&&&&&&&&&#{@room_types.inspect}&&&&&&&&&&&&"
+    unless @room_types.blank?
+      @room_sub_types = RoomSubType.where("room_type_id=?", @room_types.first.id)
+    end
     if current_user.admin?
       @hotels = Hotel.activated
     elsif current_user.manager?
@@ -53,9 +56,9 @@ class RoomsController < ApplicationController
       @room = Room.new(params[:room])
       if @room.save
         @room_available = RoomAvailable.find_by_room_type_id_and_hotel_id(params[:room][:room_type_id],session[:hotel_id])
-        unless @room_available.blank?
-          @room_available.number += params[:room][:starting_inventory].to_i
-        else
+        # unless @room_available.blank?
+        #   @room_available.number += params[:room][:starting_inventory].to_i
+        # else
           @room_available = RoomAvailable.new
           @room_available.room_type_id = params[:room][:room_type_id]
           @room_available.room_sub_type_id = params[:room][:room_sub_type_id]
@@ -63,8 +66,9 @@ class RoomsController < ApplicationController
           @room_available.hotel_id = session[:hotel_id]
           @room_available.from_date = Date.today
           @room_available.to_date = Date.today + 1.year
-        end
+        # end
         @room_available.save
+        
         flash[:success] = "The room saved successfully!"
         if current_user.new_signup?
           redirect_to rooms_path(:hotel_id => @room.hotel.id)  
