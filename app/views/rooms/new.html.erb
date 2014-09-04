@@ -26,7 +26,7 @@
 		  	</li>
 		  	<li id="subtype">
 		  		<%= f.label "Room Sub Type" %>
-		  		<%= f.select :room_sub_type_id, options_for_select({}) %>
+		  		<%= f.select :room_sub_type_id, options_for_select(@room_sub_types.map{|s|[s.name, s.id]}) %>
 		  	</li>
 		  	<li>
 		  		<%= f.label :starting_inventory %>
@@ -56,8 +56,8 @@
 
 <script>
 	$(document).ready(function(){
+		$("#room_room_sub_type_id").append("<option value='0'>Others</option>")
 		$("#room_room_type_id").change(function(){
-			// alert($(this).val())
 			var data = {type_id: $(this).val()}
 			$.ajax({
 				type: "get",
@@ -65,17 +65,29 @@
 	      url: "/get_sub_type",
 	      data: data,
 	      success: function(data){
-	      	console.log(data)
 	      	$("#room_room_sub_type_id").html("");
 	      	if(data != ""){
-	      		$("#room_room_sub_type_id").append("<option value="+ data[0]["id"] +">"+ data[0]["name"] +"</option>")
+	      		$("input").remove("#room_room_sub_type_name");
+	      		$("li#subtype").html("<label for='room_Room Sub Type'>Room sub type</label><select id='room_room_sub_type_id' name='room[room_sub_type_id]'></select>")
+	      		$.each(data, function(i,v){
+	      			$("#room_room_sub_type_id").append("<option value="+ data[i]["id"] +">"+ data[i]["name"] +"</option>")
+	      		})
+	      		$("#room_room_sub_type_id").append("<option value='0'>Others</option>")
 	      	}
 	      	else{
 	      		$("select").remove("#room_room_sub_type_id");
-	      		$("li#subtype").append("<input id='room_room_sub_type_name' name='room[room_sub_type_name]' size='30' type='text'>")
+	      		$("li#subtype").html("<label for='room_Room Sub Type'>Room sub type</label><input id='room_room_sub_type_name' name='room[room_sub_type_name]' size='30' type='text'>")
 	      	}
 	      }
 			})
+		})
+		$("#room_room_sub_type_id").change(function(){
+			if($(this).val() == 0 && $(this).parent().has("#room_room_sub_type_name").length == 0){
+				$("li#subtype").append("<input id='room_room_sub_type_name' name='room[room_sub_type_name]' size='30' type='text'>")
+			}
+			else if($(this).val() != 0){
+				$("input").remove("#room_room_sub_type_name")
+			}
 		})
 	})
 </script>

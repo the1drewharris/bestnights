@@ -27,7 +27,7 @@ class RoomsController < ApplicationController
   def new
     @room = Room.new
     @room_types = RoomType.activated
-    @room_sub_types = RoomSubType.all
+    @room_sub_types = RoomSubType.where("room_type_id=?", @room_types.first.id)
     if current_user.admin?
       @hotels = Hotel.activated
     elsif current_user.manager?

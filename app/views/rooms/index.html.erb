@@ -36,7 +36,7 @@
 		</tr>
 		<% @rooms.each do |room| %>
 		  <tr>
-		  	<td><%= room.room_sub_type.name %></td>
+		  	<td><%= room.room_sub_type.name unless room.hotel.nil? %></td>
 				<td><%= room.description %></td>
 				<td><%= room.hotel.name unless room.hotel.nil? %></td>
 				<td><%= room.room_type.room_type unless room.room_type.nil? %></td>

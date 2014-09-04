@@ -10,11 +10,7 @@
         <input name="authenticity_token" type="hidden" value="6tqlXrsLLQZxGVd1I6PkAKSSl3nVh/jZueuuSuDEkrI=" />
       </div>
       <fieldset>
-			  <ul>
-			  	<li>
-			  		<%= f.label :name %>
-			  		<%= f.text_field(:name, class: "textfield") %>
-			  	</li>		  	
+			  <ul>	  	
 			  	<li>
 			  		<%= f.label "Addional adult fee" %>
 			  		<%= f.text_field(:additionaladultfee, class: "textfield") %>
@@ -106,6 +102,27 @@
       
 			}		 
 		}
+		$("#room_room_type_id").change(function(){
+			// alert($(this).val())
+			var data = {type_id: $(this).val()}
+			$.ajax({
+				type: "get",
+	      dataType: "json",
+	      url: "/get_sub_type",
+	      data: data,
+	      success: function(data){
+	      	console.log(data)
+	      	$("#room_room_sub_type_id").html("");
+	      	if(data != ""){
+	      		$("#room_room_sub_type_id").append("<option value="+ data[0]["id"] +">"+ data[0]["name"] +"</option>")
+	      	}
+	      	else{
+	      		$("select").remove("#room_room_sub_type_id");
+	      		$("li#subtype").append("<input id='room_room_sub_type_name' name='room[room_sub_type_name]' size='30' type='text'>")
+	      	}
+	      }
+			})
+		})
 	});
 	
 </script>
