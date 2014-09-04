@@ -37,40 +37,31 @@ class UsersController < ApplicationController
   end
   
   def update   
-
-    user = User.find(params[:id])
-    is_current_user = false
-    if current_user == user
-      is_current_user = true
-    end
-    
     if current_user && current_user.admin?
-      @user = User.find(current_user.id)
+      @user = User.find_by_id(params[:id])
       if params[:user][:password].blank? && params[:user][:password_confirmation].blank? && current_user.encrypted_password
       #TODO Must add better "activation" here as it is failing and giving an error because required fields are not being sent
-      if @user.update_attributes(params[:user])
-        AdminMailer.user_changed_notify(current_user, user).deliver
-        redirect_to users_path 
-      else
-        render :action => :edit
+        if @user.update_attributes(params[:user])
+          # AdminMailer.user_changed_notify(current_user, @user).deliver
+          redirect_to users_path 
+        else
+          render :action => :edit
+        end
+      elsif current_user.encrypted_password
+        @user.update_attributes(params[:user])
+        # AdminMailer.user_changed_notify(current_user, @user).deliver
+        redirect_to users_path
       end
-    elsif current_user.encrypted_password
-      @user.update_attributes(params[:user])
-      AdminMailer.user_changed_notify(current_user, user).deliver
-      redirect_to users_path
-    end
     elsif current_user.manager?
       if user.valid_password?(params[:old_password])        
         user.update_attributes(params[:user])        
-        sign_in(user, :bypass => true) if is_current_user
         redirect_to my_hotels_path
       else
         redirect_to request.referer
       end
     else
       if user.valid_password?(params[:old_password])
-        user.update_attributes(params[:user])        
-        sign_in(user, :bypass => true) if is_current_user
+        user.update_attributes(params[:user])       
         redirect_to users_path
       else
         redirect_to request.referer
