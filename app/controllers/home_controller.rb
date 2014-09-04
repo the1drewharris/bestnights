@@ -437,13 +437,9 @@ class HomeController < ApplicationController
        @rate = @room1.price.to_f
         @rooms.each do |room|
           unless room.from_date == from_date.to_date && room.to_date == to_date.to_date
-            if (room.from_date..room.to_date).include?(from_date.to_date)
-              ((to_date.to_date - from_date.to_date).to_i + 1).times do |date|
-                create_sell(room.room_sub_type_id,session[:hotel_id],room.room_type_id,from_date.to_date.advance(days: date),from_date.to_date.advance(:days => date),room.number - session[:room_needed])
-              end
-              logger.info"^^^^#{session[:total_room]}^^^^^^^^^^^^^^^^#{session[:room_needed]}^^^^^^^^^"
-              if (room.from_date..room.to_date).include?(to_date.to_date)
-                create_sell(room.room_sub_type_id,session[:hotel_id],room.room_type_id,to_date.to_date.advance(days: 1),room.to_date,room.number - session[:room_needed])
+            ((to_date.to_date - from_date.to_date).to_i + 1).times do |date|
+              if (room.from_date..room.to_date).include?(from_date.to_date.advance(days: date))              
+                create_sell(room.room_sub_type_id,session[:hotel_id],room.room_type_id,from_date.to_date.advance(days: date),from_date.to_date.advance(:days => date),room.number - session[:room_needed].to_i)
               end
             end
           else
