@@ -4,7 +4,7 @@ class DashboardController < ApplicationController
   layout "admin_basic"
   
   def index
-    if !params[:hotel_id].blank? 
+    if !params[:hotel_id].blank?
       session[:hotel_id] = params[:hotel_id]
     elsif !session[:hotel_id].blank? 
       session[:hotel_id] = session[:hotel_id]
@@ -57,8 +57,10 @@ class DashboardController < ApplicationController
     end
     unless !session[:hotel_id].blank? 
       session[:hotel_id] = params[:hotel_id]
+      logger.info "=======if==========#{params[:hotel_id]}================"
     else
       session[:hotel_id] = session[:hotel_id]
+      logger.info "=====else============#{session[:hotel_id]}================"
     end
     @hotel = Hotel.find(session[:hotel_id])
     session[:hotel_name] = @hotel.name

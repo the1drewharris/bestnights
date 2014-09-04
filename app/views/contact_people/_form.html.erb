@@ -4,11 +4,11 @@
   <div class="formHolder">
   
   <%= form_for @contact do |f| %>
-  	<div class="row">
-    	<label>Name:</label> <input type="text" maxlength="100" size="40" value="" name="name">
-    </div>
     <div class="row">
-    	<label>Title:</label> <input type="text" maxlength="100" size="40" value="" name="title">
+      <label>Title:</label> <input type="text" maxlength="100" size="40" value="" name="title">
+    </div>
+  	<div class="row pRelative">
+    	<label>Name:*</label> <input type="text" maxlength="100" size="40" value="" name="name" class="validate[required]" id="contact_name">
     </div>
     <div class="row">
       <label>Description:</label> <input type="text" maxlength="100" size="40" value="" name="description">
@@ -27,17 +27,17 @@
           </select>
       </div>
     </div>
-    <div class="row">
-      <label>Email:</label>
-      <input type="text" maxlength="100" value="" name="email">
+    <div class="row pRelative">
+      <label>Email:*</label>
+      <input type="text" maxlength="100" value="" name="email"  class="validate[required]">
     </div>
     <div class="row">
-      <label>Phone Number:*</label> 
+      <label>Phone Number:</label> 
       <input type="text" maxlength="10" value="" name="telephone_1">
     </div>
-    <div class="row">
-      <label>Mobile Number:</label> 
-      <input type="text" maxlength="10" value="" name="telephone_2">
+    <div class="row pRelative">
+      <label>Mobile Number:*</label> 
+      <input type="text" maxlength="10" value="" name="telephone_2"  class="validate[required]">
     </div>
     <div class="row">
       <label>Fax Number:</label> 
@@ -46,7 +46,7 @@
 
     <div class="row">
     	<label>Address:</label>
-       <input type="text" maxlength="10" value="" name="address">
+       <input type="text" value="" name="address">
     </div>
     <div class="row">
     	<label>Zip/Postal code:</label> 
@@ -64,7 +64,7 @@
     </div> 
    
   <div class="row bntHolder">
-			<input type="submit" value="Add Contact" name="commit">
+			<input type="submit" value="Add Contact" name="commit" id="add_cntct">
 			<button type="submit" name="cancel">Cancel</button>
 		</div>  
     <% end %>

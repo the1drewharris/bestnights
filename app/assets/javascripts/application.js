@@ -22,6 +22,8 @@
 //= require autocomplete-rails
 //= require autocomplete-rails
 //= require sidebar
+//= require jquery.validationEngine
+//= require jquery.validationEngine-en
 $(document).ready(function() {
 	$(".status-label").tooltip();
 

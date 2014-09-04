@@ -4,7 +4,11 @@ class ContactPeopleController < ApplicationController
 	def new
 		@contacts = ContactPerson.all
 		@contact = ContactPerson.new
-		session[:hotel_id] = params[:hotel_id]
+		if !params[:hotel_id].blank?
+      		session[:hotel_id] = params[:hotel_id]
+    	elsif !session[:hotel_id].blank? 
+      		session[:hotel_id] = session[:hotel_id]
+    	end
 	end
 
 	def create
