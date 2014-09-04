@@ -15,10 +15,6 @@
 		  <td align="center" valign="middle">Max People</td>
 		  <td align="center" valign="middle">Max Children</td>
 		  <td align="center" valign="middle">Room Size</td>
-		  <td align="center" valign="middle">Size Unit</td>
-		  <td align="center" valign="middle">Lunch</td>
-		  <td align="center" valign="middle">Dinner</td>
-		  <td align="center" valign="middle">All-Inclusive</td>
 		</tr>
 	</thead>
 	<tbody>
@@ -47,9 +43,6 @@
 				<% end %>
 			</td>		
 		  <td align="center" valign="middle">
-		  	<%= @room.price %>
-			</td>
-		  <td align="center" valign="middle">
 		  	<% if !@room.max_people.nil?  %>
 					<%= @room.max_people %>
 				<% end %>
@@ -63,34 +56,6 @@
 		  	<% if !@room.room_size.nil?  %>
 					<%= @room.room_size %>
 				<% end %>
-			</td>
-		  <td align="center" valign="middle">
-		  	<% if !@room.room_unit.nil?  %>
-					<%= @room.room_unit %>
-				<% end %>
-			</td>
-			<td align="center" valign="middle">
-		  	<% if !@room.lunch.nil?  %>
-			  	<% if @room.lunch == true %>
-			  		Applicable
-					<% elsif @room.lunch == false  %>
-					 	Not applicable
-					<% end %>
-				<% end %>
-			</td>
-			<td align="center" valign="middle">
-			  	<% if @room.dinner == true %>
-			  		Applicable
-					<% elsif @room.dinner == false  %>
-					 	Not applicable
-					<% end %>
-			</td>
-			<td align="center" valign="middle">
-			  	<% if @room.all_inclusive == true %>
-			  		Applicable
-					<% elsif @room.all_inclusive == false  %>
-					 	Not applicable
-					<% end %>
 			</td>
 		</tr>
 	</tbody>

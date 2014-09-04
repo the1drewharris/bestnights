@@ -4,8 +4,8 @@ class Hotel < ActiveRecord::Base
                   :tax3_label, :tax3, :tax4_label, :tax4, :policy, :phone, :cancellation_policy, :deposit_policy,
                   :children_policy, :groups_policy, :internet_policy, :parking_policy, :pets_policy
   
-  validates_presence_of :name, :description, :address1, :city, :user_id, :country_id, :status,
-                        :tax1_label, :tax2_label, :tax3_label, :tax4_label
+  validates_presence_of :name, :description, :address1, :city, :user_id, :country_id, :status
+                        
   
   validates_uniqueness_of :name
 

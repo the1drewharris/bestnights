@@ -27,18 +27,7 @@
 			  		<%= f.label "Bed Numbers" %>
 			  		<%= f.text_field(:bed_numbers, class: "textfield") %>
 			  	</li>
-			  	<li>
-			  		<%= f.label :lunch %>
-			  		<%= f.check_box(:lunch, class: "check") %>
-			  	</li>
-			  	<li>
-		  		<%= f.label :dinner %>
-		  		<%= f.check_box(:dinner, class: "check") %>
-		  	</li>
-		  	<li>
-		  		<%= f.label :all_inclusive %>
-		  		<%= f.check_box(:all_inclusive, class: "check") %>
-		  	</li><br />
+					<br />
 		  	<% if current_user.new_signup? %>
 		  		<%= f.hidden_field :hotel_id, :value => @hotel.id %>
 		  	<% else %>

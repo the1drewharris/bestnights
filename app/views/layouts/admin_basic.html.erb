@@ -18,9 +18,6 @@
 					<%= render :partial => "common/admin_nav_tab" %>
 			  <% end %>
 			</div>
-			<% if current_user and !current_user.activated? %>
-			  <p>Your account is pending now</p>
-			<% end %>
 
 			<%= render :partial => "common/notifications" %>
 								
