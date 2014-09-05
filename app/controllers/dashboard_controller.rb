@@ -48,6 +48,11 @@ class DashboardController < ApplicationController
       @hotels = Hotel.all
     elsif current_user.manager?
       @hotels = current_user.hotels
+      if !@hotels.blank?
+        if @hotels.count < 2 
+          redirect_to dashboard_path(:hotel_id => current_user.hotels.first.id)
+        end 
+      end
     end
   end
 

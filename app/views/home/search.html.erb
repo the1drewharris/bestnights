@@ -86,14 +86,26 @@
 		<div id="">
 			<% if !@hotels.blank? %>
 				<% @hotels.each do |hotel| %>
-					<p class="mBot0"><%= link_to hotel.name.titleize, booking_detail_path(:hotel_id => hotel.id) %></p>
-					<span class="bt-info"><%= link_to hotel.city.titleize, booking_detail_path(:hotel_id => hotel.id) %>, <%= link_to hotel.zip, booking_detail_path(:hotel_id => hotel.id) %>
-								</span>
-					<span class="starrating mBot10">
-						<% hotel.star.to_i.times do %>
-							&#10029;
-						<% end %>
-					</span>
+					<div class="resultCont">
+						<div class="resultLeft">
+							<p class="mBot0"><%= link_to hotel.name.titleize, booking_detail_path(:hotel_id => hotel.id) %></p>
+							<span class="bt-info"><%= link_to hotel.city.titleize, booking_detail_path(:hotel_id => hotel.id) %>, <%= link_to hotel.zip, booking_detail_path(:hotel_id => hotel.id) %>
+							</span>
+							<span class="starrating mBot10">
+								<% hotel.star.to_i.times do %>
+									&#10029;
+								<% end %>
+							</span>
+						</div>
+						<div class="resultRight">
+							<% unless hotel.hotel_photos.empty? %>
+								<%= link_to booking_detail_path(:hotel_id => hotel.id) do %>								
+								 	<img src=<%= hotel.hotel_photos.first.picture.url %> alt="" style="width:97px;height:74px;" />
+								<% end %>
+							<% end %>
+						</div>
+						<div class="clear"></div>
+					</div>
 				<% end %>
 			<% else %>
 			 <p> No Result Found </p>

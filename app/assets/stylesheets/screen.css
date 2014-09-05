@@ -4420,7 +4420,15 @@ a.tableDetails{
 .rateUI{
 	font-size: 20px;
 	line-height: 26px;
-	margin-left: -56px;
+	/*margin-left: -56px;*/
+	float: right;
+	margin-right: 42px;
+	background: #87bf29;
+	/*padding: 10px;*/
+	color: #fff;
+	width: 196px;
+	text-align: center;
+	padding: 0!important;
 }
 .roomRateWidth{
 	display: block!important;
@@ -4436,6 +4444,22 @@ a.tableDetails{
 }
 .inpuUpdate{
 	margin-top: 10px !important;
+}
+.resultCont{
+	border-top:#ccc 1px solid; 
+	padding: 15px 0;
+}
+
+.resultLeft{
+	float:left; 
+	width:70%;
+	word-wrap: break-word;
+}
+.resultRight{
+	float:right; 
+	width:30%; 
+	text-align:right;
+	word-wrap: break-word;
 }
 
 /* End */
