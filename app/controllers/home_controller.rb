@@ -412,7 +412,7 @@ class HomeController < ApplicationController
     numbers = session[:roomtype].to_i
     logger.info"^^^^^^^^^^#{session[:roomtype]}^^^^^^^^^^^^^^6"
     @find_room_type = RoomType.find_by_id(session[:roomtype])
-    @room_type = @find_room_type.room_type
+    # @room_type = @find_room_type.room_type
     @rates = RoomRate.where("room_type_id=? AND hotel_id=?", params[:room_type_id], params[:hotel_id])
    numbers = params[:room_number].to_i
    logger.info"****************#{session[:nights]}******************"
