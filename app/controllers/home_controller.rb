@@ -258,6 +258,8 @@ class HomeController < ApplicationController
   def checkout
     @available_flag = 0
     @status_flag = 0
+    @checkin_flag = 0
+    @checkout_flag = 0
     @traveler = Traveler.new
     @hotel = Hotel.find(params[:hotel_id])
     session[:booking_rooms] = params
@@ -277,8 +279,11 @@ class HomeController < ApplicationController
     end
 
     @statuses = RoomStatus.where("room_sub_type_id=? AND hotel_id=?", params[:room_type_id],session[:hotel_id])
+    logger.info"^^^^^^^^^^^^#{@statuses.inspect}^^^^^^^^^^^^^^^^^^^^"
+    @end_flag = (session[:checkout].to_date - session[:checkin].to_date).to_i + 1
     @statuses.each do |status|
       @flag = 0
+      
       logger.info"))))))))))#{@flag})))))))))))))))0"
       if (status.from_date..status.to_date).cover?(session[:checkin].to_date) || (status.from_date..status.to_date).cover?(session[:checkout].to_date)
         if status.status == true
@@ -288,11 +293,25 @@ class HomeController < ApplicationController
           @flag += 1
         end
       end
+      if (status.from_date..status.to_date).cover?(session[:checkin].to_date)
+        @checkin_flag = 1
+      end
+      if (status.from_date..status.to_date).cover?(session[:checkout].to_date)
+        @checkout_flag = 1
+      end
+      # if @flag == 0
+      #   @end_flag = @flag
+      # end
+      ((session[:checkout].to_date - session[:checkin].to_date).to_i + 1).times do |day|
+        if (status.from_date..status.to_date).cover?(session[:checkin].to_date.advance(days: day))
+          @end_flag -= 1
+        end
+      end
     end
-    logger.info"((((((((#{@flag}((((((((((("
-    # if @flag == 0
-    #   return redirect_to root_path
-    # end
+    logger.info"((((((((#{@flag}((((((#{@end_flag}((((#{@checkin_flag}((((((((#{@checkout_flag}((((("
+    if @end_flag > 0 || @checkin_flag == 0 || @checkout_flag == 0
+      return redirect_to root_path
+    end
 
       
     session[:hotel_id] = params[:hotel_id]

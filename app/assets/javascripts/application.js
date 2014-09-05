@@ -107,9 +107,14 @@ $(document).ready(function() {
       			$(element).addClass("status-bookable");
       		}
       		else{
-      			$(element).addClass("status-none");
-      			$(element).children("span").html("x");
-      			$(element).children("span").css("padding-left", "0px");
+      			if($(element).attr("nxtcls") == "status-bookable"){
+      				$(element).addClass("status-bookable");	
+      			}
+      			else{
+	      			$(element).addClass("status-none");
+	      			$(element).children("span").html("x");
+	      			$(element).children("span").css("padding-left", "0px");
+      			}
       		}
       		$(element).removeClass("status-closed");
       	}
