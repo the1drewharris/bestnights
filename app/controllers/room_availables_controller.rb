@@ -338,14 +338,14 @@ layout "admin_basic"
             ((Date.today + 1.year) - (Date.today)).to_i.times do |date|
               if Date.today.advance(days: date).strftime("%A").downcase == day[0].to_s
                 if @room_status.blank?
-                  create_status("",session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: date),Date.today.advance(days: date),status)
+                  create_status("",session[:hotel_id],room_id,Date.today.advance(days: date),Date.today.advance(days: date),status)
                 else
                   if (@room_status.from_date..@room_status.to_date).cover?(Date.today.advance(days: date))
-                    create_status("",session[:hotel_id],@sub_type.room_type_id,@room_status.from_date,Date.today.advance(days: date - 1),@room_status.status)
-                    create_status("",session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: date),Date.today.advance(days: date),status)
+                    create_status("",session[:hotel_id],room_id,@room_status.from_date,Date.today.advance(days: date - 1),@room_status.status)
+                    create_status("",session[:hotel_id],room_id,Date.today.advance(days: date),Date.today.advance(days: date),status)
                     @room_status.destroy
                   else
-                    create_status("",session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: date),Date.today.advance(days: date),status)
+                    create_status("",session[:hotel_id],room_id,Date.today.advance(days: date),Date.today.advance(days: date),status)
                   end
                 end
               end
