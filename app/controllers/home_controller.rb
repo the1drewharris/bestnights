@@ -406,7 +406,7 @@ class HomeController < ApplicationController
 
     number_nights = ((a.to_date - b.to_date).to_i) + 1
     room_ids = []
-    room = Room.find_by_hotel_id_and_room_type_id(session[:hotel_id], session[:room_type_id])
+    room = Room.find_by_hotel_id_and_room_sub_type_id(session[:hotel_id], session[:room_type_id])
    
     @Room = RoomRate.find_by_room_type_id(session[:room_type_id])
     numbers = session[:roomtype].to_i
@@ -477,7 +477,7 @@ class HomeController < ApplicationController
           @booking_created_on = booking.created_at.strftime("%d-%m-%Y %H:%M:%S")
         end
       
-    if @available_flag == 0 && @status_flag == 0 && book(@traveler, @amount, @card_number, @ccv, @card_type, @hotel,@booking_number, @booking_created_on, @checkin, @checkout, session[:room_needed], @room_type )
+    if @available_flag == 0 && @status_flag == 0 && book(@traveler, @amount, @card_number, @ccv, @card_type, @hotel,@booking_number, @booking_created_on, @checkin, @checkout, session[:room_needed], session[:room_type_id] )
       ## Create booking record and availability record
        @rate = @room1.price.to_f
         @rooms.each do |room|
