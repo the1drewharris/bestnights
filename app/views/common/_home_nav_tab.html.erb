@@ -3,12 +3,12 @@
 </div>
 <nav id="phone">
 <span class="call">1 800 494 BEST (2378)</span>
-<% if current_user %>
+<% if current_user || traveler_signed_in? %>
 	<%= link_to "Logout" , destroy_user_session_path, :method => :delete %>
 <% else %>
-	<% if controller.controller_name == "home" && controller.action_name == "index" %>
+	<% if controller.controller_name == "home" && controller.action_name == "index" && !traveler_signed_in? %>
 		<%= link_to "Traveler Login",  new_traveler_session_path %>
-	<% else %>
+	<% elsif !controller.controller_name == "home" && !controller.action_name == "index" %>
 		<%= link_to "Login",  new_user_session_path %>
 	<% end %>
 <% end %>

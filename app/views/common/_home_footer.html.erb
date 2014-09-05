@@ -23,10 +23,12 @@
 			<li>No booking fees. Best Nights services are always free, so you save money.</li>
 			<li>Best Price Guarantee. Found your room online at a lower price? We'll match it.</li>
 		</ul>
-		<p><%= link_to "Add Your Property", welcome_path , class: "addProperty" %> 
-	<% if !user_signed_in? || !traveler_signed_in? %>
+		<p>
+	<% if !user_signed_in? && !traveler_signed_in? %>
+			<%= link_to "Add Your Property", welcome_path , class: "addProperty" %> 
 			<%= link_to "Hotelier Login", new_user_session_path,  class: "addHotelier"%>
-	<% else %>
+	<% elsif user_signed_in? %>
+			<%= link_to "Add Your Property", welcome_path , class: "addProperty" %> 
 			<%= link_to "Hotels", hotels_path, class: "addHotelier" %>
 	<% end %>
 		</p>
