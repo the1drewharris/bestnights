@@ -52,6 +52,7 @@
 					<span class="formLabel">Amenities and Facilities</span>
 					<div class="checklist">
 						<ul>
+							
 							<% @room_attributes.each do |attr| %>
 								<li>
 									<input name="client[attributes][<%= attr.id %>]" type="checkbox" class="check" <%= "checked" if attr.rooms.include?(@room) %>>

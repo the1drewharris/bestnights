@@ -27,7 +27,6 @@ class RoomsController < ApplicationController
   def new
     @room = Room.new
     @room_types = RoomType.activated
-    logger.info"&&&&&&&&&&&&&#{@room_types.inspect}&&&&&&&&&&&&"
     unless @room_types.blank?
       @room_sub_types = RoomSubType.where("room_type_id=?", @room_types.first.id)
     end
@@ -87,7 +86,7 @@ class RoomsController < ApplicationController
   
   def edit
     @room = Room.find(params[:id])    
-    @room_attributes = RoomAttribute.all
+    @room_attributes = RoomAttribute.order("attr")
     if current_user.admin?
       @hotels = Hotel.activated
     elsif current_user.manager?

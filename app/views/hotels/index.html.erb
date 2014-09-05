@@ -45,7 +45,7 @@
 					<% if hotel.commission_rate.blank? %>
 						<%= link_to "%", new_commission_rate_path(:hotel_id => hotel.id), class: "fixed" %>
 					<% else %>
-						<%= link_to "#{hotel.commission_rate.amount}", hotel_edit_commission_rate_path(hotel.id), class: "fixed" %>
+						<%= link_to "#{number_with_precision(hotel.commission_rate.amount, precision: 2)}", hotel_edit_commission_rate_path(hotel.id), class: "fixed" %>
 					<% end %>
 				</td>
 				<% if current_user.admin? %>

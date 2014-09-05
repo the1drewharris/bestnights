@@ -170,7 +170,7 @@
 														<% if (rate.from_date..rate.to_date).cover?(session[:checkin].to_date.advance(days: day)) %>
 																<td>	
 																	<span class="data-tbl-date"><%= session[:checkin].to_date.advance(days: day) %></span>
-																	$<%= rate.price %>
+																	$<%= number_with_precision(rate.price, precision: 2) %>
 																</td>
 															<% end %>
 														<% end %>											
@@ -204,7 +204,7 @@
 									<% end %>
 									<% if @flag == 1%>
 										<%= link_to "Book Now", checkout_path(:hotel_id => @hotel.id, :room_type_id => room.room_type.id) , class: "link_style", id: "link_style" %><br />
-										<span>$<%= session[:room_rate][index] %></span>
+										<span>$<%= number_with_precision(session[:room_rate][index], precision: 2) %></span>
 									<% else %>
 										<p class="red">Sold Out</p>
 									<% end %>
