@@ -44,12 +44,15 @@
                       </td>
                       <% @range.times do |day| %>
                         <% @status_hash["#{sub_type.id}"].each do |date| %>
+                          <%#= date[0].to_date%>  <%#= @starting_date.advance(days: day) %>
                           <% if date[0].to_date == @starting_date.advance(days: day) %>
                             <% if date[1] == "none" %>
-                              <td class="status status-clickable status-none stat" date="<%= date[0] %>" subtype="<%= sub_type.id %>" type="<%= sub_type.room_type_id %>" status="bookable" ><span style="padding-left:0px;" class="status-label status-bookable">x</span></td>
+                              <td class="status status-clickable status-none stat" date="<%= date[0] %>" subtype="<%= sub_type.id %>" type="<%= sub_type.room_type_id %>" status="bookable" ><span style="padding-left:0px;" class="status-label status-bookable">x<%#= @status_hash["#{sub_type.id}"]%></span></td>
                             <% else %>
                               <% if @available_hash["#{sub_type.id}"]["#{date[0]}"] > 0 %>
-                                <td class="status status-clickable status-<%= date[1] %> stat" date="<%= date[0] %>" subtype="<%= sub_type.id %>" type="<%= sub_type.room_type_id %>" status="closed" prevclass="status-<%= date[1] %>" nxtcls="status-bookable"><span class="status-label status-bookable"></span></td>
+                                <td class="status status-clickable status-<%= date[1] %> stat" date="<%= date[0] %>" subtype="<%= sub_type.id %>" type="<%= sub_type.room_type_id %>" status="closed" prevclass="status-<%= date[1] %>" nxtcls="status-bookable"><span class="status-label status-bookable"><%#= @starting_date.advance(days: day) %></span></td>
+                              <% elsif @available_hash["#{sub_type.id}"]["#{date[0]}"] == 0 %>
+                                <td class="status status-clickable status-none stat" date="<%= date[0] %>" subtype="<%= sub_type.id %>" type="<%= sub_type.room_type_id %>" status="closed" prevclass="status-none" nxtcls="status-none"><span style="padding-left:0px;" class="status-label status-bookable">x<%#= @starting_date.advance(days: day) %></span></td>
                               <% end %>
                             <% end %>
                           <% end %>
