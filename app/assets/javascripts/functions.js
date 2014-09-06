@@ -263,16 +263,20 @@
 			$("#check-out").on("click",function() { openSlider() })
 				
 			function openSlider() {
+
 				var open_height = $("#searchform").attr("box_h") + "px";
-				$("#searchform").animate({"height": open_height}, {duration: "slow" });
-				$("#searchpaneui a").click(function() { closeSlider() });
-				$('#searchpane .searchpicker').css('visibility','visible');
+				if (Number(($("#searchform").css('height')).split('px')[0]) < Number(open_height.split("px")[0])){
+					$("#searchform").animate({"height": open_height}, {duration: "slow" });
+					$("#searchpaneui a").click(function() { closeSlider() });
+					$('#searchpane .searchpicker').css('visibility','visible');
+				}
 			}
 			
 			function closeSlider() {
 				$("#searchform").animate({"height": sliderHeight}, {duration: "slow" });
 				// $("#searchpaneui a").click(function() { openSlider() });
 				$('#searchpane .searchpicker').css('visibility','hidden');
+				$( '.groupopts' ).hide();
 			}
 		
 			// init date range pickers	
