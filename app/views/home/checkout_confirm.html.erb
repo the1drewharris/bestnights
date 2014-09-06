@@ -65,14 +65,28 @@
 		<td><%= number_with_precision(@amount, :precision => 2, :separator => '.') %></td>
 	</tr>
 	<% @room = Room.find_by_hotel_id_and_room_sub_type_id(session[:hotel_id],session[:room_type_id]) %>
-	<%# @Room = RoomRate.find_by_room_id(@room.id) %>
 	<tr>
 		<td><strong>Room:</strong></td>
 		<td><%= @room.room_sub_type.name.capitalize %>, <%= @room.room_type.room_type.capitalize %></td>
 	</tr>
 	<tr>
 		<td><strong>Room Price:</strong></td>
-		<td><%= number_with_precision(@room.price, :precision => 2, :separator => '.') %></td>  
+		<td>
+			<table>
+				<tr>
+					<% @number_nights.times do |night| %>
+						<td>
+							<%= session[:checkin].to_date.advance(days: night).strftime("%m") %>/<%= session[:checkin].to_date.advance(days: night).strftime("%d") %>
+						</td>
+					<% end %>
+				</tr>
+				<tr>
+					<% @number_nights.times do |night| %>
+						<td><%= number_with_precision(session[:price]["#{session[:roomtype]}"], :precision => 2, :separator => '.') %></td>
+					<% end %>
+				</tr>
+			</table>
+		</td>
 	</tr>
 		<tr>
 		<td><strong>Taxes:</strong></td>
@@ -174,7 +188,7 @@ Your credit card is required to guarantee your booking. Please note that your cr
 		<table>
 			<tr>
 				<td>BestNights.com Rate</td>
-				<td>$<%= @amount %> </td>
+				<td>$<%= number_with_precision(@amount, :precision => 2, :separator => '.') %> </td>
 			</tr>
 			<tr>
 				<td>Tax</td>
@@ -182,7 +196,7 @@ Your credit card is required to guarantee your booking. Please note that your cr
 			</tr>
 			<tr>
 				<td>Total Price</td>
-				<td>$<%= @amount %></td>
+				<td>$<%= number_with_precision(@amount, :precision => 2, :separator => '.') %></td>
 			</tr>
 		</table>
 		

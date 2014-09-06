@@ -372,6 +372,7 @@ class HomeController < ApplicationController
   
   ## POST
   def checkout_confirm
+    logger.info"&&&&&&&&&&&&&&&&&&&&#{session[:roomtype]}&&&&&&&121212121212&&&&&&&&&&&&&&&&&&&"
     @amount = 0
     @hotel = Hotel.find(session[:hotel_id])
     unless current_traveler
@@ -409,7 +410,7 @@ class HomeController < ApplicationController
     a = session[:checkout].nil? ? Time.now()+1 : session[:checkout]
     b = session[:checkin].nil? ? Time.now() : session[:checkin]
 
-    number_nights = ((a.to_date - b.to_date).to_i) + 1
+    @number_nights = ((a.to_date - b.to_date).to_i) + 1
     room_ids = []
     room = Room.find_by_hotel_id_and_room_sub_type_id(session[:hotel_id], session[:room_type_id])
    
@@ -466,7 +467,7 @@ class HomeController < ApplicationController
         if @available_flag == 0 && @status_flag == 0
           numbers.times do |n|
              booking = Booking.new(hotel_id: @room1.hotel.id, room_id: @room1.id, from_date: from_date, to_date: to_date, 
-                          adults: numbers, traveler_id: @traveler.id, night_number: number_nights, price: @amount)
+                          adults: numbers, traveler_id: @traveler.id, night_number: @number_nights, price: @amount)
           
             booking.save
           end
@@ -506,8 +507,8 @@ class HomeController < ApplicationController
         @latest_booked = Booking.where(traveler_id: @traveler.id, hotel_id: room.hotel.id).order("created_at DESC").limit(1)
         logger.info"!!!!!!!!!!!!!!!!!!!#{session[:price]}!!!!!!!!!!!!!!!!!!!!!"
         @price = session[:price]["#{session[:roomtype]}"]
-        @fax_email = FaxMailer.hotel_booking_mail(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, session[:room_needed], @latest_booked, @room1,@rate,@card_expiry, request.protocol,request.host_with_port, number_nights, @price).deliver
-        @fax_email_to_hotel = FaxMailer.email_to_hotel(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, room_ids, @latest_booked, @room1, @card_expiry, request.protocol,request.host_with_port, session[:room_needed], number_nights, @price).deliver
+        @fax_email = FaxMailer.hotel_booking_mail(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, session[:room_needed], @latest_booked, @room1,@rate,@card_expiry, request.protocol,request.host_with_port, @number_nights, @price).deliver
+        @fax_email_to_hotel = FaxMailer.email_to_hotel(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, room_ids, @latest_booked, @room1, @card_expiry, request.protocol,request.host_with_port, session[:room_needed], @number_nights, @price).deliver
     else
       flash[:errors] = ["Your booking failed!"]
       return redirect_to checkout_path
