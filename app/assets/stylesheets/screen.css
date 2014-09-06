@@ -4452,15 +4452,34 @@ a.tableDetails{
 
 .resultLeft{
 	float:left; 
-	width:70%;
+	width:20%;
 	word-wrap: break-word;
+}
+.resultMid{
+	float:left; 
+	width:60%;
+	word-wrap: break-word;
+}
+.resultMid .bt-info a{
+	color: #628a1e;
 }
 .resultRight{
 	float:right; 
-	width:30%; 
-	text-align:right;
+	width:20%;
 	word-wrap: break-word;
+	text-align: right;
 }
-
+.showprice{
+	background: #434343;
+	color: #fff;
+	font-size: 0.81em;
+	padding: 7px 9px;
+	text-transform: uppercase;
+	margin-top: 34px;
+	display: inline-block;
+}
+.showprice:hover{
+	text-decoration: none;
+}
 /* End */
 
