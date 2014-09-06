@@ -121,7 +121,7 @@
             <tr style="color:#4c4c4c; font-size: 12px;">
               <% @booking.each do |book| %>
                 <% @nights.times do |night| %>
-                  <td style="background: #ef807f; height:40px;"><%= number_with_precision(@price[night], :precision => 2, :separator => '.') %> CAD</td>
+                  <td style="background: #ef807f; height:40px;"><%= number_with_precision(@price, :precision => 2, :separator => '.') %> CAD</td>
                 <% end %>
               <% end %>
             </tr>

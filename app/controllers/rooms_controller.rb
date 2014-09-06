@@ -54,19 +54,16 @@ class RoomsController < ApplicationController
       end
       @room = Room.new(params[:room])
       if @room.save
-        @room_available = RoomAvailable.find_by_room_type_id_and_hotel_id(params[:room][:room_type_id],session[:hotel_id])
-        # unless @room_available.blank?
-        #   @room_available.number += params[:room][:starting_inventory].to_i
-        # else
+        (((Date.today + 1.year) - (Date.today)).to_i + 1).times do |date|
           @room_available = RoomAvailable.new
           @room_available.room_type_id = params[:room][:room_type_id]
           @room_available.room_sub_type_id = params[:room][:room_sub_type_id]
           @room_available.number = params[:room][:starting_inventory].to_i
           @room_available.hotel_id = session[:hotel_id]
-          @room_available.from_date = Date.today
-          @room_available.to_date = Date.today + 1.year
-        # end
-        @room_available.save
+          @room_available.from_date = Date.today.advance(days: date)
+          @room_available.to_date = Date.today.advance(days: date)
+          @room_available.save
+        end
         
         flash[:success] = "The room saved successfully!"
         if current_user.new_signup?

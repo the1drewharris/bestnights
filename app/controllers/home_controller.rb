@@ -186,6 +186,7 @@ class HomeController < ApplicationController
     @to_date = session[:checkout]
     session[:rate] = 0
     session[:room_rate] = []
+    session[:price] = {}
     
     gon.group = session[:group] # passing rails variable to js object variable
     
@@ -214,11 +215,10 @@ class HomeController < ApplicationController
           end
         end
       end
-      if index > 0
-        session[:room_rate] << (session[:rate] - session[:room_rate][index - 1])
-      else
-        session[:room_rate] << session[:rate]
-      end
+      session[:room_rate] << session[:rate]
+      session[:price].merge!("#{room.room_sub_type_id}" => session[:rate])
+      logger.info"______________#{session[:price]}_________________"
+      session[:rate] = 0
     end
     #TODO where is the room that has been booked?
     rescue ActiveRecord::RecordNotFound
@@ -459,11 +459,6 @@ class HomeController < ApplicationController
             end
           end
         end
-        number_nights.times do |t|
-           @amount = @amount + @room1.price.to_f
-        end
-
-        @amount = @amount * numbers
 
         #Bookings data saving
         numbers = session[:room_needed].to_i
@@ -509,7 +504,8 @@ class HomeController < ApplicationController
         @numbers = numbers
 
         @latest_booked = Booking.where(traveler_id: @traveler.id, hotel_id: room.hotel.id).order("created_at DESC").limit(1)
-        @price = session[:room_rate]
+        logger.info"!!!!!!!!!!!!!!!!!!!#{session[:price]}!!!!!!!!!!!!!!!!!!!!!"
+        @price = session[:price]["#{session[:roomtype]}"]
         @fax_email = FaxMailer.hotel_booking_mail(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, session[:room_needed], @latest_booked, @room1,@rate,@card_expiry, request.protocol,request.host_with_port, number_nights, @price).deliver
         @fax_email_to_hotel = FaxMailer.email_to_hotel(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, room_ids, @latest_booked, @room1, @card_expiry, request.protocol,request.host_with_port, session[:room_needed], number_nights, @price).deliver
     else
