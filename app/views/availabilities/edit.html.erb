@@ -13,8 +13,9 @@
 		  		<%= f.select :room_id, options_for_select(@rooms.map{|s|[s.name, s.id]}) %>
 		  	</li>
 		  	<li>
-		  		<label for="startdate">This Date</label>					
-					<input id="thisdate" name="availability[this_date]" type="date" value="2014-02-05" />
+		  		<label for="startdate">This Date</label>
+		  		<%=	f.text_field :this_date %>			
+					
 		  	</li>
 		  	<li>
 		  		<%= f.label :count %>

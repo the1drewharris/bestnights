@@ -27,9 +27,12 @@
 	<% if !user_signed_in? && !traveler_signed_in? %>
 			<%= link_to "Add Your Property", welcome_path , class: "addProperty" %> 
 			<%= link_to "Hotelier Login", new_user_session_path,  class: "addHotelier"%>
-	<% elsif user_signed_in? %>
+	<% elsif user_signed_in? && current_user.admin? %>
 			<%= link_to "Add Your Property", welcome_path , class: "addProperty" %> 
 			<%= link_to "Hotels", hotels_path, class: "addHotelier" %>
+	<% elsif user_signed_in? && current_user.manager? %>
+			<%= link_to "Add Your Property", welcome_path , class: "addProperty" %> 
+			<%= link_to "My Hotels", my_hotels_path, class: "addHotelier" %>
 	<% end %>
 		</p>
 	</div>
