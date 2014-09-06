@@ -107,7 +107,7 @@
 							<span><%= hotel.description %></span>
 						</div>
 						<div class="resultRight">
-							<a href="#" class="showprice">Prices</a>
+							<%= link_to "Prices", booking_detail_path(:hotel_id => hotel.id), class: "showprice" %>
 						</div>
 						<div class="clear"></div>
 					</div>

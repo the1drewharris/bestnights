@@ -57,17 +57,13 @@ class TravelersController < ApplicationController
   end
   
   def edit
-    unless current_traveler
-      @traveler = Traveler.find(session[:traveler_id])
-    else
-      @traveler = current_traveler
-    end
-    #@traveler = Traveler.find(current_traveler.id)
+    @traveler = Traveler.find(params[:id])
   end
   
-  def update
-    #traveler = Traveler.find(current_traveler.id)    
-    unless current_traveler
+  def update  
+    if params[:id]
+      traveler = Traveler.find(params[:id])
+    elsif current_traveler
       traveler = Traveler.find(session[:traveler_id])
     else
       traveler = current_traveler

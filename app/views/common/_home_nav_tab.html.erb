@@ -8,7 +8,7 @@
 <% else %>
 	<% if controller.controller_name == "home" && controller.action_name == "index" && !traveler_signed_in? %>
 		<%= link_to "Traveler Login",  new_traveler_session_path %>
-	<% elsif !controller.controller_name == "home" && !controller.action_name == "index" %>
+	<% else %>
 		<%= link_to "Login",  new_user_session_path %>
 	<% end %>
 <% end %>

@@ -53,15 +53,15 @@ class UsersController < ApplicationController
         redirect_to users_path
       end
     elsif current_user.manager?
-      if user.valid_password?(params[:old_password])        
-        user.update_attributes(params[:user])        
+      if current_user.valid_password?(params[:old_password])        
+        current_user.update_attributes(params[:user])        
         redirect_to my_hotels_path
       else
         redirect_to request.referer
       end
     else
-      if user.valid_password?(params[:old_password])
-        user.update_attributes(params[:user])       
+      if @user.valid_password?(params[:old_password])
+        @user.update_attributes(params[:user])       
         redirect_to users_path
       else
         redirect_to request.referer
