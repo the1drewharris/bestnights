@@ -30,7 +30,7 @@
                     <td colspan="1"></td>
                     <% @range.times do |f| %>
                     	<td class="grid-header-weekday">
-                        <% if params[:from_date] %>
+                        <% if !params[:from_date].blank? %>
                           <%= params[:from_date].to_date.advance(days: f).strftime("%d") %>
                         <% else %>
                     		  <%= Date.today.advance(days: f).strftime("%d") %>
