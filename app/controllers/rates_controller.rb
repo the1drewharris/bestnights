@@ -46,14 +46,23 @@ class RatesController < ApplicationController
   # POST /rates
   # POST /rates.json
   def create
+    @flag = 0
     unless (params[:room_sub_type_id].blank? || params[:room_id].blank?) && params[:price].blank?
-      unless params[:room_sub_type_id].blank?
+      if !params[:room_sub_type_id].blank?
         room_sub_type_rate(params[:room_sub_type_id],params[:days],params[:from_date],params[:to_date],params[:price],params[:room_id])
-      else
+        @flag = 1
+      elsif !params[:room_type_id].blank?
         room_type_rate(params[:room_id],params[:days],params[:from_date],params[:to_date],params[:price])
+        @flag = 1
       end
-      flash[:success] = 'Rate Was Successfully Updated For Sell.'
-      redirect_to new_rate_path
+      logger.info"************#{@flag}******************"
+      unless @flag == 0
+        flash[:success] = 'Rate Was Successfully Updated For Sell.'
+        redirect_to new_rate_path
+      else
+        flash[:errors] = "You need to select days, category and rooms."
+        redirect_to new_rate_path
+      end
     else
       flash[:errors] = 'You need to select days, category and rooms '
       redirect_to new_rate_path

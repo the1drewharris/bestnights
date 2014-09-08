@@ -15,14 +15,22 @@ layout "admin_basic"
 	end
 
 	def create
+    @flag = 0
 		unless (params[:room_sub_type_id].blank? || params[:room_id].blank?) && params[:rooms_to_sell].blank?
-      unless params[:room_sub_type_id].blank?
+      if !params[:room_sub_type_id].blank?
         room_sub_type_sell(params[:room_sub_type_id],params[:days],params[:from_date],params[:to_date],params[:rooms_to_sell],params[:room_id])
-      else
+        @flag = 1
+      elsif !params[:room_id].blank?
         room_type_sell(params[:room_id],params[:days],params[:from_date],params[:to_date],params[:rooms_to_sell],params[:room_sub_type_id])
+        @flag = 1
       end
-      flash[:success] = 'Room Was Successfully Updated For Sell.'
-      redirect_to new_room_available_path
+      unless @flag == 0
+        flash[:success] = 'Room Was Successfully Updated For Sell.'
+        redirect_to new_room_available_path
+      else
+        flash[:errors] = 'You need to select days, category and rooms.'
+        redirect_to new_room_available_path
+      end
     else
       flash[:errors] = 'You need to select days, category and rooms '
       redirect_to new_room_available_path
@@ -67,18 +75,26 @@ layout "admin_basic"
 	end
 
 	def update_status
+    @flag = 0
 		unless (params[:room_sub_type_id].blank? || params[:room_id].blank?) && params[:closed].blank?
-      unless params[:room_sub_type_id].blank?
+      if !params[:room_sub_type_id].blank?
+        @flag = 1
         params[:room_sub_type_id].each do |room|
           room_sub_type_status(room[0],params[:days],params[:from_date],params[:to_date],params[:closed],params[:room_id])
         end
-      else
+      elsif !params[:room_id].blank?
+        @flag = 1
         params[:room_id].each do |room|
           room_type_status(room[0].to_s,params[:days],params[:from_date],params[:to_date],params[:closed],params[:room_sub_type_id])
         end
       end
-      flash[:success] = 'Room statuses have been changed.'
-      redirect_to room_availables_status_path
+      unless @flag == 0
+        flash[:success] = 'Room statuses have been changed.'
+        redirect_to room_availables_status_path
+      else
+        flash[:errors] = 'You need to select days, category and rooms.'
+        redirect_to room_availables_status_path
+      end
     else
       flash[:errors] = 'You need to select days, category and rooms '
       redirect_to room_availables_status_path
