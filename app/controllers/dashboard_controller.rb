@@ -62,10 +62,8 @@ class DashboardController < ApplicationController
     end
     unless !session[:hotel_id].blank? 
       session[:hotel_id] = params[:hotel_id]
-      logger.info "=======if==========#{params[:hotel_id]}================"
     else
       session[:hotel_id] = session[:hotel_id]
-      logger.info "=====else============#{session[:hotel_id]}================"
     end
     @hotel = Hotel.find(session[:hotel_id])
     session[:hotel_name] = @hotel.name
@@ -447,6 +445,7 @@ class DashboardController < ApplicationController
   def download_statement_data_month
     @bookings = Booking.where("MONTH(created_at)=? AND hotel_id=?",cookies[:month_reserve].to_i,session[:hotel_id])
     @commission_rate = CommissionRate.first
+    if !@bookings.blank?
     csv_string = CSV.generate do |csv|
        csv << ["Booking_Number", "Booked_By", "Guest_Name","Checkin", "Checkout", "Room_Nights", "Commission", "Result", "Original_Amount", "Final_Amount", "Commission_Amount", "Remarks"]
        @bookings.each do |book|
@@ -457,6 +456,10 @@ class DashboardController < ApplicationController
    send_data csv_string,
    :type => 'text/csv; charset=iso-8859-1; header=present',
    :disposition => "attachment; filename=bookings.csv"
+    else
+      flash[:errors] = "There is no invoices in this month"
+      redirect_to reservation_statements_path
+    end
   end
 
   def finance_info
