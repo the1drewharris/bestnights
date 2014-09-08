@@ -107,7 +107,8 @@
 							<span><%= hotel.description %></span>
 						</div>
 						<div class="resultRight">
-							<%= link_to "Prices", booking_detail_path(:hotel_id => hotel.id), class: "showprice" %>
+							<% @price = get_lowest_price(hotel.id,params[:date][:checkin],params[:date][:checkout]) %>
+							<%= link_to "$ #{@price}", booking_detail_path(:hotel_id => hotel.id), class: "showprice" %>
 						</div>
 						<div class="clear"></div>
 					</div>
