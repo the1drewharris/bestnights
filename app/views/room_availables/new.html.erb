@@ -14,7 +14,7 @@
           <span>From Date: </span><%= text_field_tag 'from_date', "", :name => "from_date", :class => "datepicker1", :readonly => "readonly"  %>
           <span>To Date: </span><%= text_field_tag 'to_date', "", :name => "to_date", :class => "datepicker2", :readonly => "readonly"  %>
           </div>
-          <div class="scroll">
+          <div class="scroll scrollHAuto">
             <table id="which" width="100%" border="0">
       <tbody>
         <tr>
@@ -89,9 +89,8 @@
     </table>
     <div>
       Number of rooms to make available:
-      <input type="number" name="rooms_to_sell" min="1">
+      <input type="number" name="rooms_to_sell" min="1" class="inputLRmargin" ><input type="submit" value="Update" name="submit" class="fRight">
     </div>
-    <p><input type="submit" value="Update" name="submit" ></p>
   </div>
     </div>
   </form>

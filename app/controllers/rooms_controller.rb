@@ -5,7 +5,7 @@ class RoomsController < ApplicationController
   
   def index
     if (current_user.manager? && !params[:search].blank?) || (current_user.admin? && !params[:search].blank?)
-        @rooms = Room.find(:all, :conditions => ['(id LIKE ? or name LIKE ? or description LIKE ?)', "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%"])
+        @rooms = Room.find(:all, :conditions => ['hotel_id =?  and (id LIKE ? or name LIKE ? or description LIKE ?)', "#{session[:hotel_id]}","%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%"])
     elsif current_user.admin?
       @rooms = Room.all
     elsif current_user.manager?

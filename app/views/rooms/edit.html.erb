@@ -39,6 +39,7 @@
 		  	<li>
 		  		<%= f.label "Room Sub Type" %>
 		  		<%= f.select :room_sub_type_id, options_for_select(@room_sub_types.map{|s|[s.name, s.id]}, @room.room_sub_type_id),{:selected => @room.room_sub_type_id} %>
+		  		<%= link_to "Manage Sub Type", room_sub_types_path %>
 		  	</li>
 		  	<li class="flwidth">
 		  		<%= f.label :description %>

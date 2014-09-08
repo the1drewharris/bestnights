@@ -14,7 +14,7 @@
           <span>From Date: </span><%= text_field_tag 'from_date', "", :name => "from_date", :class => "datepicker1", :readonly => "readonly" %>
           <span>To Date: </span><%= text_field_tag 'to_date', "", :name => "to_date", :class => "datepicker1", :readonly => "readonly" %>
           </div>
-          <div class="scroll">
+          <div class="scroll scrollHAuto">
             <table id="which" width="100%" border="0">
       <tbody>
         <tr>
@@ -101,11 +101,11 @@
             <label>
               <input type="radio" value="0" name="closed"> Open
             </label>
+            <input type="submit" value="Change Status" name="submit" class="inputLRmargin" >
           </td>
         </tr>
       </tbody>
     </table>
-    <p><input type="submit" value="Change Status" name="submit" ></p>
   </div>
     </div>
   </form>

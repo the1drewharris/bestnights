@@ -2905,6 +2905,9 @@ ul#dashboard li a:hover {
 	padding-right: 0px;
 	margin: 0 auto;
 }
+.scrollHAuto {
+	height: auto!important;
+}
 .height100 {
 	height: 100px;
 }
@@ -4353,6 +4356,9 @@ span.status-label{
 .fLeft{
 	float: left;
 }
+.fRight{
+	float: right;
+}
 [class^="hotel-"],
 [class*=" hotel-"] {
 	display: inline-block;
@@ -4480,6 +4486,10 @@ a.tableDetails{
 }
 .showprice:hover{
 	text-decoration: none;
+}
+.inputLRmargin{
+	margin-right: 6px!important;
+	margin-left: 6px!important;
 }
 /* End */
 
