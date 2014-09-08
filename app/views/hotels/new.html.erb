@@ -107,7 +107,11 @@
 		</fieldset>
 		<fieldset class="formactions">
 			<%= f.submit %>
-			<%= link_to "Cancel", hotels_path %>
+			<% if current_user.admin? %>
+				<%= link_to "Cancel", hotels_path %>
+			<% else %>
+				<%= link_to "Cancel", my_hotels_path %>
+			<% end %>
 		</fieldset>
 	<% end %>
 </div>

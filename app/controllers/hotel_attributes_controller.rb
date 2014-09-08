@@ -25,9 +25,12 @@ class HotelAttributesController < ApplicationController
     if @hotel_attribute.save
       flash[:success] = "The hotel attribute saved successfully!"
       redirect_to hotel_attributes_path
-    else
+    elsif params[:hotel_attribute][:attr].blank?
       flash[:errors] = "Amenities can't be blank"
-      redirect_to :back  
+      redirect_to :back 
+    else
+      flash[:errors] = "Amenities already exists"
+      redirect_to :back
     end
   end
   
