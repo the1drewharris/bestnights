@@ -58,7 +58,7 @@
 
 	<div style="overflow:hidden;">
 		<a href="#bookingoptions" class="button5" onclick="scrollToAnchor('book');" id="booking_hotel">Book Now</a><br />
-		<span id="rate" class="rateUI">Total : <strong>$<%= number_with_precision(session[:rate], :precision => 2, :separator => '.') %></strong></span>  
+		<span id="rate" class="rateUI">Total : <strong>$<%= number_with_precision(get_lowest_price(@hotel.id,session[:checkin],session[:checkout]), :precision => 2, :separator => '.') %></strong></span>  
   </div>
 	
 	<div id="searchdates">
