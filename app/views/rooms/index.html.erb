@@ -18,9 +18,11 @@
 <div id="container-main">
 	<div class="formactions">
 		<% if current_user.new_signup? %>
-			<%= link_to "Add", new_room_path(:hotel_id => @hotel.id) %>
+			<%= link_to "Add", new_room_path(:hotel_id => @hotel.id) %>&nbsp;
+			<%= link_to "Room Title", room_sub_types_path %>
 		<% else %>
-			<%= link_to "Add", new_room_path %>
+			<%= link_to "Add", new_room_path %>&nbsp;
+			<%= link_to "Room Title", room_sub_types_path %>
 		<% end %>
 		
   </div>

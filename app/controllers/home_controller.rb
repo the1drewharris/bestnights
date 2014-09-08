@@ -346,6 +346,9 @@ class HomeController < ApplicationController
     logger.info"&&&&&&&&&&&&&&&&&#{@amount}&&&&&&&&&&&&&&&&&"
     session[:subtotal] = @amount
     session[:roomtype] = params[:room_type_id].to_i
+    if current_traveler
+      redirect_to book_hotel_path(current_traveler)
+    end
   end
   
   ## POST JSON

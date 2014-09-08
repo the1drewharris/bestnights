@@ -19,41 +19,14 @@
 			 -->
 			
 			<!-- else, prepopulated -->
-			<span class="checkindate" id="check-in"><span>Check in</span><input type="text" value="<%= Date.today.strftime("%A, %-d") %><%= Date.today.strftime("%B %Y") %>" class="intime inputCheck"/></span>
-			<span class="checkoutdate" id="check-out"><span>Check out</span><input type="text" value="<%= Date.today.strftime("%A, %-d") %><%= Date.today.strftime("%B %Y") %>" class="outtime inputCheck"/></span>
+			<span class="checkindate" id="check-in"><span>Check in</span><input type="text" value="<%= Date.today.strftime("%A, %-d") %><%= Date.today.strftime("%B %Y") %>" class="intime inputCheck" readonly /></span>
+			<span class="checkoutdate" id="check-out"><span>Check out</span><input type="text" value="<%= Date.today.strftime("%A, %-d") %><%= Date.today.strftime("%B %Y") %>" class="outtime inputCheck" readonly/></span>
 			
 				
 				
 			<div style="display:inline-block;">
 			<div class="bookingdates">
 				<div class="searchpicker"><input class="datepicker1"></div>
-				<ul id="roomtypes" class="roomtypes">
-					<li value="1" class=""><a><span class="booking-sngl"></span><em>Single Room</em></a></li>
-					<li value="2" class="selected"><a><span class="booking-dble"></span><em>Double Room</em></a></li>
-					<li value="3" class=""><a><span class="booking-grp"></span><em>Groups</em></a></li>
-				</ul>
-				<div class="groupopts">
-					<label for="roomqty">Number of Rooms</label>
-					<!-- <input name="roomqty[0]" class="roomqty" type="number" min="1" value="1"> -->
-					<input name="group[roomqty]" id="roomqty" class="roomqty" type="number" min="1" value="1">
-					<ul>
-						<li>
-							<h5>Room 1</h5>
-							<ul>
-								<li>
-									<label>Adults</label>
-									<!-- <input name="adultqty[1]" type="number" min="0" value="1"> -->
-									<input name="group[beds][1][adultqty]" type="number" min="0" value="1" max="2">
-								</li>
-								<li>
-									<label>Children</label>
-									<!-- <input name="childqty[1]" type="number" min="0" value="0"> -->
-									<input name="group[beds][1][childqty]" type="number" min="0" value="0">
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</div>
 			</div>
 			<div id="searchpaneui" class="calClose">
 				<input type="submit" value="Search" name="submit" class="searchButton">

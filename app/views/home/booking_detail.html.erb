@@ -146,7 +146,7 @@
 													<% ((session[:checkout].to_date - session[:checkin].to_date).to_i + 1).times do |day| %>
 														<% if (available.from_date..available.to_date).cover?(session[:checkin].to_date.advance(days: day)) %>	
 																<td>
-																<span class="data-tbl-date"><%= session[:checkin].to_date.advance(days: day) %></span>
+																<span class="data-tbl-date"><%= session[:checkin].to_date.advance(days: day).strftime('%b %d, %G') %></span>
 																<span><%= available.number %></span>
 																</td>														
 														<% end %>
@@ -169,7 +169,7 @@
 													<% ((session[:checkout].to_date - session[:checkin].to_date).to_i + 1).times do |day| %>
 														<% if (rate.from_date..rate.to_date).cover?(session[:checkin].to_date.advance(days: day)) %>
 																<td>	
-																	<span class="data-tbl-date"><%= session[:checkin].to_date.advance(days: day) %></span>
+																	<span class="data-tbl-date"><%= session[:checkin].to_date.advance(days: day).strftime('%b %d, %G') %></span>
 																	$<%= number_with_precision(rate.price, precision: 2) %>
 																</td>
 															<% end %>
