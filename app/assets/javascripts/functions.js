@@ -138,9 +138,20 @@
 				}
 			});
 			
-			$('.tabs .formactions a').click(function () {
-			   $tabs.tabs('option', 'active', $tabs.tabs( "option", "active" )+1); // switch to tab
-			   return false;
+			$('.tabs .formactions a').click(function (e) {
+				if($(this).hasClass('firstnext')){
+					e.preventDefault();
+					next1ClickValidate();
+				}
+				else if($(this).hasClass('secondnext')){
+					e.preventDefault();
+					next2ClickValidate()
+				}
+				else{
+					$tabs.tabs('option', 'active', $tabs.tabs( "option", "active" )+1); // switch to tab
+			   		return false;	
+				}
+			   
 			});
 
 		}

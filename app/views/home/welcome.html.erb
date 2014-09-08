@@ -1,3 +1,57 @@
+<script type="text/javascript">
+function next1ClickValidate(){
+	if ($("#client_firstname").val() == ""){
+		alert("First Name cannot be blank");
+	}
+	else if($("#client_email").val() == "") {
+		alert("Email cannot be blank");
+	}
+	else if($("#client_password").val() == "") {
+		alert("Password cannot be blank");
+	}
+	else {
+		var $tabs = $(".tabs").tabs({
+				fx : {
+					opacity : 'toggle'
+				}
+			});
+		$tabs.tabs('option', 'active', $tabs.tabs( "option", "active" )+1); // switch to tab
+		return false;
+	}
+}
+
+
+function next2ClickValidate(){
+	if ($("#hotel_name").val() == ""){
+		alert("Hotel Name cannot be blank");
+	}
+	else if($("#client_address1").val() == "") {
+		alert("Address cannot be blank");
+	}
+	else if($("#client_city").val() == "") {
+		alert("City cannot be blank");
+	}
+	else if($("#client_zip").val() == "") {
+		alert("Zip/Postal Code cannot be blank");
+	}
+	else if($("#reservation_email").val() == "") {
+		alert("Reservation Email cannot be blank");
+	}
+	else if($("#client_fax").val() == "") {
+		alert("Fax cannot be blank");
+	}
+	else {
+		var $tabs = $(".tabs").tabs({
+				fx : {
+					opacity : 'toggle'
+				}
+			});
+		$tabs.tabs('option', 'active', $tabs.tabs( "option", "active" )+1); // switch to tab
+		return false;
+	}
+}
+</script>
+
 <div id="wrapper" class="register">
 	<div id="eyebrow">
 		<%= render :partial => "common/home_nav_tab" %>		
@@ -11,29 +65,29 @@
 		<form id="newRecordType" name="newRecordType" method="post" action="/add_property" accept-charset="UTF-8" >
 <div class="tabs">
 	<ul>
-		<li><a href="#tabs-1">Add Basic Info<br>Property Type &amp; Address</a></li>
-		<li><a href="#tabs-2">Add Property Details<br>Activities, Facilities, &amp; Services</a></li>
-		<li><a href="#tabs-3">Add Room Details<br>Set Up Your First Room</a></li>
+		<li><a href="#tabs-1" id="basic">Add Basic Info<br>Property Type &amp; Address</a></li>
+		<li><a href="#tabs-2" id="property">Add Property Details<br>Activities, Facilities, &amp; Services</a></li>
+		<li><a href="#tabs-3" id="details">Add Room Details<br>Set Up Your First Room</a></li>
 	</ul><div id="progressbar"></div>
 	<section id="tabs-1">
 		<h3>Basic Information</h3>
 		<fieldset>
 			<ul>
 				<li><label for="client_firstname">First Name*</label><input id="client_firstname" name="manager[firstname]" size="30" type="text"></li>
-				<li><label for="client_lastname">Last Name*</label><input id="client_lastname" name="manager[lastname]" size="30" type="text"></li>
-				<li><label for="email">Email Address/Username*</label><input id="email" name="manager[email]" size="30" type="email"></li>
-				<li><label for="password">Password*</label><input id="password" name="manager[password]" size="30" type="password" placeholder="Minimum 6 Characters"></li>
+				<li><label for="client_lastname">Last Name</label><input id="client_lastname" name="manager[lastname]" size="30" type="text"></li>
+				<li><label for="email">Email Address/Username*</label><input id="client_email" name="manager[email]" size="30" type="email"></li>
+				<li><label for="password">Password*</label><input id="client_password" name="manager[password]" size="30" type="password" placeholder="Minimum 6 Characters"></li>
 			</ul>
 		</fieldset>
 		<fieldset class="formactions">
-			<a class="button">Next</a>
+			<a class="button firstnext" >Next</a>
 		</fieldset>
 	</section>
 	<section id="tabs-2">
 		<h3>Hotel/Property Information</h3>
 		<fieldset>
 	<ul>
-		<li><label for="client_firstname">Hotel Name*</label><input id="client_firstname" name="hotel[name]" size="30" type="text"></li>
+		<li><label for="client_firstname">Hotel Name*</label><input id="hotel_name" name="hotel[name]" size="30" type="text"></li>
 		<li><label for="client_address1">Address*</label><input id="client_address1" name="hotel[address1]" size="30" type="text"></li>
 		<li><label for="client_city">City*</label><input id="client_city" name="hotel[city]" size="30" type="text"></li>
 		<li class="country">
@@ -55,7 +109,7 @@
 			</select>
 		</li>
 		<li>
-			<label for="client_email">Reservation Email*</label><input id="client_email" name="hotel[email]" size="30" type="text">
+			<label for="client_email">Reservation Email*</label><input id="reservation_email" name="hotel[email]" size="30" type="text">
 		</li>
 		<li>
 			<label for="client_fax">Fax*</label><input id="client_fax" name="hotel[fax]" size="30" type="text">
@@ -93,7 +147,7 @@
 		</ul>
 	</fieldset>
 	<fieldset class="formactions">
-		<a class="button">Next</a>
+		<a class="button secondnext">Next</a>
 	</fieldset>
 	</section>
 	<section id="tabs-3">
