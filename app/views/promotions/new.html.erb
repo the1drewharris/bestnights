@@ -24,22 +24,22 @@
 				</li>
 				<li>
 					<label for="startdate">Start Date</label>					
-					<input id="startdate" name="startdate" type="date" value="">
-					<select name="starthour">
+					<input id="startdate" name="startdate" type="date" value="" style="width:135px;">
+					<select name="starthour" style="width:50px;">
 						<optgroup label="Hour">
 							<% (1..12).each do |v| %>
 								<option value=<%= v.to_s %> ><%= v %></option>
 							<% end %>
 						</optgroup>
 					</select>
-					<select name="startminute">
+					<select name="startminute" style="width:50px;">
 						<optgroup label="Min">
 							<% (0..59).each do |v| %>
 								<option value=<%= v.to_s %> ><%= v %></option>
 							<% end %>
 						</optgroup>
 					</select>
-					<select name="startampm">
+					<select name="startampm" style="width:60px;">
 						<optgroup label="am/pm">
 							<option value="AM">AM</option>
 							<option value="PM">PM</option>
@@ -48,22 +48,22 @@
 				</li>
 				<li>
 					<label for="enddate">End Date</label>
-					<input id="enddate" name="enddate" type="date" value="">
-					<select name="endhour">
+					<input id="enddate" name="enddate" type="date" value="" style="width:135px;">
+					<select name="endhour" style="width:50px;">
 						<optgroup label="hour">
 							<% (1..12).each do |v| %>
 								<option value=<%= v.to_s %> ><%= v %></option>
 							<% end %>
 						</optgroup>
 					</select>
-					<select name="endminute">
+					<select name="endminute" style="width:50px;">
 						<optgroup label="min">
 							<% (0..59).each do |v| %>
 								<option value=<%= v.to_s %> ><%= v %></option>
 							<% end %>
 						</optgroup>
 					</select>
-					<select name="endampm">
+					<select name="endampm" style="width:60px;">
 						<optgroup label="am/pm">
 							<option value="AM">AM</option>
 							<option value="PM">PM</option>
