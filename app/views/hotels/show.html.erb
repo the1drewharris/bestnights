@@ -14,9 +14,13 @@
     </tr>
     <tr><td><strong>Amenities and Facilities</strong></td>
         <td>
-    <% @hotel_attributes.each do |ha| %>
+    <% @hotel_attributes.each_with_index do |ha, index| %>
         <span>
-        <%= ha.attr.titleize %>
+        <% unless index == @hotel_attributes.length - 1 %>
+          <%= ha.attr.titleize %>,
+        <% else %>
+          <%= ha.attr.titleize %>
+        <% end %>
       </span>
     <% end %>
     </td>

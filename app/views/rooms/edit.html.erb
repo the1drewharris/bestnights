@@ -41,6 +41,14 @@
 		  		<%= f.select :room_sub_type_id, options_for_select(@room_sub_types.map{|s|[s.name, s.id]}, @room.room_sub_type_id),{:selected => @room.room_sub_type_id} %>
 		  		<%= link_to "Manage Sub Type", room_sub_types_path %>
 		  	</li>
+		  	<li>
+		  		<%= f.label "Max People" %>
+		  		<%= f.text_field(:max_people, class: "textfield") %>
+		  	</li>
+			  <li>
+		  		<%= f.label "Max Children" %>
+		  		<%= f.text_field(:max_children, class: "textfield") %>
+		  	</li>
 		  	<li class="flwidth">
 		  		<%= f.label :description %>
 		  		<%= f.text_area :description, class: "textarea" %>

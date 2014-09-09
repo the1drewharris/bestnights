@@ -38,8 +38,12 @@
 				<% end %>
 			</td>
 		  <td align="center" valign="middle">
-				<% @room.room_attributes.each do |ra| %>
-				  <%= ra.attr %>
+				<% @room.room_attributes.order("attr").each_with_index do |ra, index| %>
+				  <% unless index == @room.room_attributes.length - 1 %>
+				  	<%= ra.attr.titleize %>,
+				  <% else %>
+				  	<%= ra.attr.titleize %>
+				  <% end %>
 				<% end %>
 			</td>		
 		  <td align="center" valign="middle">
