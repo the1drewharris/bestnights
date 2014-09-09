@@ -29,7 +29,10 @@ $(document).ready(function() {
 
 	$("#from_date").datepicker({
 			dateFormat: "yy-mm-dd",
-			minDate: new Date()
+			minDate: new Date(),
+			onClose: function( selectedDate ) {
+        $( "#to_date" ).datepicker( "option", "minDate", selectedDate );
+      }
 		});
 	$("#to_date").datepicker({
 		dateFormat: "yy-mm-dd",

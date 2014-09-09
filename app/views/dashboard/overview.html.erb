@@ -22,7 +22,12 @@
                 <thead>
                   <tr>
                     <td colspan="1"></td>
-                    <td colspan="<%= @range %>" class="grid-month-cell"> <%= @starting_date.strftime("%B %Y") %> </td>
+                    <% if @starting_date.strftime("%B %Y") == @starting_date.advance(days: @range).strftime("%B %Y") %>
+                      <td colspan="<%= @range %>" class="grid-month-cell"> <%= @starting_date.strftime("%B %Y") %>\\<%= @starting_date.end_of_month.class %> </td>
+                    <% else %>
+                      <td colspan="<%= (@starting_date.end_of_month - @starting_date).to_i + 1 %>" class="grid-month-cell" ><%= @starting_date.strftime("%B %Y") %></td>
+                      <td colspan="<%= @range - ((@starting_date.end_of_month - @starting_date).to_i + 1) %>" class="grid-month-cell" ><%= @starting_date.end_of_month.advance(days: 1).strftime("%B %Y") %></td>
+                    <% end %>  
                   </tr>
                 </thead>
                 <tbody>
