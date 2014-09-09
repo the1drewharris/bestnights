@@ -181,6 +181,12 @@ class HomeController < ApplicationController
     ## all room attributes in the hotel
     @hotel = Hotel.find(params[:hotel_id])
     #logger.info "=============#{params[:hotel_id]}======================="
+    @hotel.rooms.each do |room|
+      logger.info"========#{room.id}========#{room.room_photos.inspect}======================="
+      room.room_photos.each do |photo|
+        logger.info"++++++++++++#{photo.inspect}++++++++++++++++++"
+      end
+    end
     @room_attrs = @hotel.room_attributes
     @from_date = session[:checkin]
     @to_date = session[:checkout]

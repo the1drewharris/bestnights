@@ -93,12 +93,11 @@
 				file.id = response.id
 			},
 			init: function () {
-					var mockFile = {id: "13", name: "bestnights_coming_soon.jpg", size: "1021941", type: "image/jpeg" };
+				<% @photos.each do |photo| %>
+					var mockFile = {id: "<%= photo.id %>", name: "<%= photo.picture_file_name %>", size: "<%= photo.picture_file_size %>", type: "<%= photo.picture_content_type %>" };
 					this.options.addedfile.call(this, mockFile);
-					this.options.thumbnail.call(this, mockFile, "assets/bestnights_coming_soon.jpg");
-					var mockFile = {id: "14", name: "130U3304A5.jpg", size: "61407", type: "image/jpeg" };
-					this.options.addedfile.call(this, mockFile);
-					this.options.thumbnail.call(this, mockFile, "assets/130U3304A5.jpg");
+					this.options.thumbnail.call(this, mockFile, "<%= photo.picture.url %>");
+				<% end %>
       },
       removedfile: function(file) {				
 				$.ajax({
