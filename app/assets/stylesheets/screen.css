@@ -1945,7 +1945,7 @@ footer #footerend {
 }
 
 .tableAdmin th, .tableAdmin td{
-	padding:14px 0!important;
+	padding:14px 6px!important;
 }
 	.checklist ul li {
 		display: inline-block;

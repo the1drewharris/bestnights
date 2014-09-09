@@ -1,11 +1,22 @@
-<% content_for :title, "BestNights.com - Room Type" %>
+ <% content_for :title, "BestNights.com" %>
 
-<header>
-	<h1><%= @room_sub_type.name %></h1>
-</header>
-
-<div id="container-main">
-	<span>
-		<%= @room_sub_type.room_type.room_type %>
-	</span>	
-</div>
+ <div id="wrapper" class="register">
+ 	<div id="container-main">
+ 		<div class="link-sec">
+ 		</div>
+ 		<div class="info blockinfo">
+ 			<ul>
+ 				<li>
+	 				<label>Name:</label>
+	 				<%= @room_sub_type.name.titleize %>
+ 				</li>
+ 				<li>
+	 				<label>Type Name:</label>
+					<%= @room_sub_type.room_type.room_type.titleize %>
+				</li>
+				
+			</ul>
+		</div>
+ 	</div>
+ 		<%= render :partial => "common/home_footer" %>
+ </div>
