@@ -45,21 +45,20 @@
                       </td>
                       <% @range.times do |day| %>
                         <% @status_hash["#{sub_type.id}"].each do |date| %>
-                          <%#= date[0].to_date%>  <%#= @starting_date.advance(days: day) %>
                           <% if date[0].to_date == @starting_date.advance(days: day) %>
                             <% if date[1] == "none" %>
-                              <td class="status status-clickable status-none stat" date="<%= date[0] %>" subtype="<%= sub_type.id %>" type="<%= sub_type.room_type_id %>" status="bookable" ><span style="padding-left:0px;" class="status-label status-bookable">x<%#= @status_hash["#{sub_type.id}"]%></span></td>
+                              <td class="status status-clickable status-none stat" date="<%= date[0] %>" subtype="<%= sub_type.id %>" type="<%= sub_type.room_type_id %>" status="bookable" ><span style="padding-left:0px;" class="status-label status-bookable">x</span></td>
                             <% elsif date[1] == "closed" %>
                               <% if @available_hash["#{sub_type.id}"]["#{date[0]}"] > 0 %>
-                                <td class="status status-clickable status-<%= date[1] %> stat" date="<%= date[0] %>" subtype="<%= sub_type.id %>" type="<%= sub_type.room_type_id %>" status="closed" prevclass="status-<%= date[1] %>" nxtcls="status-bookable"><span class="status-label status-bookable"><%#= @starting_date.advance(days: day) %></span></td>
+                                <td class="status status-clickable status-<%= date[1] %> stat" date="<%= date[0] %>" subtype="<%= sub_type.id %>" type="<%= sub_type.room_type_id %>" status="closed" prevclass="status-<%= date[1] %>" nxtcls="status-bookable"><span class="status-label status-bookable"></span></td>
                               <% elsif @available_hash["#{sub_type.id}"]["#{date[0]}"] == 0 %>
-                                <td class="status status-clickable status-<%= date[1] %> stat" date="<%= date[0] %>" subtype="<%= sub_type.id %>" type="<%= sub_type.room_type_id %>" status="closed" prevclass="status-none" nxtcls="status-none"><span class="status-label status-bookable"><%#= @starting_date.advance(days: day) %></span></td>
+                                <td class="status status-clickable status-<%= date[1] %> stat" date="<%= date[0] %>" subtype="<%= sub_type.id %>" type="<%= sub_type.room_type_id %>" status="closed" prevclass="status-none" nxtcls="status-none"><span class="status-label status-bookable"></span></td>
                               <% end %>
                             <% else %>
                               <% if @available_hash["#{sub_type.id}"]["#{date[0]}"] > 0 %>
-                                <td class="status status-clickable status-<%= date[1] %> stat" date="<%= date[0] %>" subtype="<%= sub_type.id %>" type="<%= sub_type.room_type_id %>" status="closed" prevclass="status-<%= date[1] %>" nxtcls="status-bookable"><span class="status-label status-bookable"><%#= @starting_date.advance(days: day) %></span></td>
+                                <td class="status status-clickable status-<%= date[1] %> stat" date="<%= date[0] %>" subtype="<%= sub_type.id %>" type="<%= sub_type.room_type_id %>" status="closed" prevclass="status-<%= date[1] %>" nxtcls="status-bookable"><span class="status-label status-bookable"></span></td>
                               <% elsif @available_hash["#{sub_type.id}"]["#{date[0]}"] == 0 %>
-                                <td class="status status-clickable status-none stat" date="<%= date[0] %>" subtype="<%= sub_type.id %>" type="<%= sub_type.room_type_id %>" status="closed" prevclass="status-none" nxtcls="status-none"><span style="padding-left:0px;" class="status-label status-bookable">x<%#= @starting_date.advance(days: day) %></span></td>
+                                <td class="status status-clickable status-none stat" date="<%= date[0] %>" subtype="<%= sub_type.id %>" type="<%= sub_type.room_type_id %>" status="closed" prevclass="status-none" nxtcls="status-none"><span style="padding-left:0px;" class="status-label status-bookable">x</span></td>
                               <% end %>
                             <% end %>
                           <% end %>
@@ -77,7 +76,7 @@
                         <td><%= available[1] %></td>
                       <% end %>
                     </tr>
-                    <tr>
+                    <tr id="price">
                       <td class="grid-rate-cell">
                         <a href="#" class="grid-rate-cell"> Standard Rate </a>
                       </td>
@@ -88,11 +87,19 @@
                           <% @rates.each do |rate| %>
                             <% if (rate.from_date..rate.to_date).cover?(@starting_date.advance(days: f)) %>
                               <% @flag = 1 %>
-                              <td class="status status-clickable status-bookable">
-                                <span class="status-label status-bookable" title= "CAD <%= rate.price %>" >
+                              <% unless @status_hash["#{sub_type.id}"]["#{@starting_date.advance(days: f)}"] == "closed" %>
+                                <td class="status status-clickable status-bookable">
+                                  <span class="status-label status-bookable" title= "CAD <%= rate.price %>" >
                                     &nbsp;
-                                </span>
-                              </td>
+                                  </span>
+                                </td>
+                              <% else %>
+                                <td class="status status-clickable status-closed">
+                                  <span class="status-label status-bookable" title= "" >
+                                    &nbsp;
+                                  </span>
+                                </td>
+                              <% end %>
                             <% end %>
                           <% end %>
                           <% if @flag == 0 %>
