@@ -1,6 +1,5 @@
 Bestnights::Application.routes.draw do
   
-  resources :room_sub_types
 
   resources :positions
 
