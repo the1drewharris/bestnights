@@ -18,24 +18,43 @@
         <table id="which" width="100%" border="0">
         <tbody>
           <tr>
-            <td width="33%" align="left" valign="top">
+            <td align="left" valign="top" width="33%">
+            <div class="row mrgntp15">On:</div>
+            <div class="row break">
+            <input id="wd-0" type="checkbox" value="0" name="wd">
+            <label for="wd-0">All Days</label>
+            </div>
             <div class="row mrgntp15">
-              For:
+              or one or more of these days:
             </div>
             <div class="row break">
-            <input id="rc-0" type="checkbox" value="0" name="so">
-            <label for="so-0">All Rate Categories</label>
-            </div>
-           <div class="row mrgntp15">
-            or for one or more of these Rooms:
-            </div>
-            <div id="so-inject" style="margin: 0 0 5px;"></div>
-            <div class="row break">
-            <% RateCategory.all.each do |rate|%>
-              <input type="checkbox" id="" name="rate_cat_id[<%= rate.id %>]" class="rc">
-              <label><%= rate.name %></label><div style="height:12px; clear:both;"></div>
-            <% end %>
-            </div>
+              <input id="wd-1" type="checkbox" value="1" name="days[monday]" class="wd" >
+              <label for="wd-1">Monday</label>
+             </div>
+             <div class="row break">
+              <input id="wd-2" type="checkbox" value="2" name="days[tuesday]" class="wd" >
+              <label for="wd-2">Tuesday</label>
+             </div>
+             <div class="row break">
+              <input id="wd-3" type="checkbox" value="3" name="days[wednesday]" class="wd" >
+              <label for="wd-3">Wedenesday</label>
+             </div>
+             <div class="row break">
+              <input id="wd-4" type="checkbox" value="4" name="days[thursday]" class="wd" >
+              <label for="wd-4">Thursday</label>
+             </div>
+             <div class="row break">
+              <input id="wd-5" type="checkbox" value="5" name="days[friday]" class="wd" >
+              <label for="wd-5">Friday</label>
+              </div>
+              <div class="row break">
+              <input id="wd-6" type="checkbox" value="6" name="days[saturday]" class="wd" >
+              <label for="wd-6">Saturday</label>
+              </div>
+              <div class="row break">
+              <input id="wd-7" type="checkbox" value="7" name="days[sunday]" class="wd" >
+              <label for="wd-7">Sunday</label>
+              </div>
             </td>
             <td align="left" valign="top">
             <div class="row mrgntp15">
@@ -49,14 +68,21 @@
               or for one or more of these Rooms:
             </div>
             <div id="so-inject" style="margin: 0 0 5px;"></div>
-            
             <% RoomType.all.each do |room|%>
-            <div class="row break">
-              <input type="checkbox" id="" name="room_id[<%= room.id %>]" class="so">
-              <label><%= room.room_type %></label><div style="clear:both;"></div>
-            </div>
+              <div class="row break roomRateWidth roomRateStyle">
+                <input type="checkbox" id="rt-<%= room.id %>" name="room_id[<%= room.id %>]" class="parent_room_type so">
+                <label><%= room.room_type %></label><div style="clear:both;"></div>
+                <% @roomsubtypes = RoomSubType.where("room_type_id=?",room.id) %>
+                <div class="roomRateStyleInner">
+                <% @roomsubtypes.each do |room_sub_type| %>
+                  <div class="row break">
+                    <input type="checkbox" id="" name="room_sub_type_id[<%= room_sub_type.id %>]" class="so rt-<%= room.id %>">
+                    <label><%= room_sub_type.name %></label><div style="clear:both;"></div>
+                  </div>
+                <% end %>
+              </div>
+              </div>
             <% end %>
-          
             </td>
           </tr>
         </tbody>
@@ -102,6 +128,7 @@
 <script>
   $(function() {
     $( ".datepicker1" ).datepicker({format: 'yyyy-mm-dd'});
+    $( ".datepicker2" ).datepicker({format: 'yyyy-mm-dd'});
     $("#wd-0").click(function(event){
       if(this.checked){
         $(".wd").each(function(){
@@ -122,6 +149,25 @@
       }
       else{
         $(".so").each(function(){
+          this.checked = false;
+        })    
+      }
+    })
+    $(".parent_room_type").click(function(event){
+      var calss = $(this).attr("id");
+      var checked = this.checked;            
+      $("."+calss).each(function(){
+        this.checked = checked;
+      })
+    })
+    $("#rc-0").click(function(event){
+      if(this.checked){
+        $(".rc").each(function(){
+          this.checked = true;
+        })
+      }
+      else{
+        $(".rc").each(function(){
           this.checked = false;
         })    
       }
