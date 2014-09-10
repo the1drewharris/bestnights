@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable, :timeoutable
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :role, 
@@ -108,7 +108,15 @@ class User < ActiveRecord::Base
       end
     end
     return availabilities
-  end   
+  end
+
+  def timeout_in
+    if self.admin? 
+      1.minute
+    else
+      1.minute
+    end
+  end
   
   def self.search(search)
     if search

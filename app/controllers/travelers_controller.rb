@@ -9,9 +9,12 @@ class TravelersController < ApplicationController
   
   def show
     unless current_traveler
-      @traveler = Traveler.find(session[:traveler_id])
+      @traveler = Traveler.find_by_id(session[:traveler_id])
     else
       @traveler = current_traveler
+    end
+    if @traveler.blank?
+      redirect_to new_traveler_session_path
     end
       #@traveler = Traveler.find(current_traveler)
   end

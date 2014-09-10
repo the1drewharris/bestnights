@@ -1,6 +1,6 @@
 class Traveler < ActiveRecord::Base
   
-  devise :database_authenticatable, :trackable, :registerable,:recoverable
+  devise :database_authenticatable, :trackable, :registerable,:recoverable, :timeoutable
          
   attr_accessible :firstname, :lastname, :address1, :address2, :city, :zip, :email,:role,
                   :phone_number, :state_id, :country_id, :password, :password_confirmation, :credit_card_type,

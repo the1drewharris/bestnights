@@ -9,7 +9,6 @@ class ApplicationController < ActionController::Base
       unless @rooms.empty?
         @flag = 0
         @rooms.each do |room|
-          logger.info"$$$$$$$$$$$$$$$$$$$$$$$#{room.hotel_id == hotel_id.to_s}$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
           if room.room_type_id == room_type_id.to_s && room.room_sub_type_id == room_sub_type_id.to_i && room.hotel_id == hotel_id.to_i
             logger.info"!!!!!!!!!!!!!!!"
             room.number = rooms_to_sell
