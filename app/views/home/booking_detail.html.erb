@@ -143,22 +143,21 @@
 								<td></td>
 								<td class="room_available">
 								<% @availables = RoomAvailable.where("room_sub_type_id=? AND hotel_id=?",room.room_sub_type_id, @hotel.id ).order("from_date") %>
-								<div class="room-available max">
-									<table class="data-tbl">
-										<tr>
+								<div class="room-available">
+									<table class="data-tbl">										
 										<% @availables.each do |available| %>
 											<% if !available.blank? %>
 													<% ((session[:checkout].to_date - session[:checkin].to_date).to_i + 1).times do |day| %>
-														<% if (available.from_date..available.to_date).cover?(session[:checkin].to_date.advance(days: day)) %>	
+														<% if (available.from_date..available.to_date).cover?(session[:checkin].to_date.advance(days: day)) %>
+															<tr>	
 																<td>
-																<span class="data-tbl-date"><%= session[:checkin].to_date.advance(days: day).strftime('%b %d, %G') %></span>
-																<span><%= available.number %></span>
-																</td>														
+																<%= session[:checkin].to_date.advance(days: day).strftime('%b %d, %G') %> : <span><%= available.number %></span>
+																</td>	
+															</tr>													
 														<% end %>
 													<% end %>										
 											<% end %>
-										<% end %>
-										</tr>
+										<% end %>										
 									</table>
 								</div>
 							</td>
@@ -166,23 +165,23 @@
 							<td class="price">
 								<div class="room-available">
 									<table class="data-tbl">	
-										<tr>
+										
 										<% @rates = RoomRate.where("room_sub_type_id=? AND hotel_id=?", room.room_sub_type_id, @hotel.id).order("from_date") %>
 										<% unless @rates.empty? %>
 											<% @rates.each do |rate| %>
 												<% if !rate.blank? %>											
 													<% ((session[:checkout].to_date - session[:checkin].to_date).to_i + 1).times do |day| %>
 														<% if (rate.from_date..rate.to_date).cover?(session[:checkin].to_date.advance(days: day)) %>
+																<tr>
 																<td>	
-																	<span class="data-tbl-date"><%= session[:checkin].to_date.advance(days: day).strftime('%b %d, %G') %></span>
-																	$<%= number_with_precision(rate.price, precision: 2) %>
+																	<%= session[:checkin].to_date.advance(days: day).strftime('%b %d, %G') %> : $<%= number_with_precision(rate.price, precision: 2) %>
 																</td>
+																<tr>
 															<% end %>
 														<% end %>											
 													<% end %>
 												<% end %>
-										<% end %>
-										<tr>
+										<% end %>										
 									</table>
 								</div>
 							</td>
@@ -239,7 +238,7 @@
  	$.cookie("rate", parseInt($(this).siblings("span").html().substring(1)))
 
  	var room_needed = $(this).parent().siblings(".room_number").children("#room_number").val();
- 	var room_avail = parseInt($(this).parent().siblings(".room_available").children(".room-available").children(".data-tbl").children("tbody").children("tr").children("td").children(".data-tbl-date").siblings("span").html());
+ 	var room_avail = parseInt($(this).parent().siblings(".room_available").children(".room-available").children(".data-tbl").children("tbody").children("tr").children("td").children("span").html());
  	if (room_needed <= room_avail && room_needed != '') {
  		//var room_available = parseInt($(this).parent().siblings(".room_available").html()) - room_needed;
  		link = $(this).attr('href');
