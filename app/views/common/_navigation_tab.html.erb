@@ -27,6 +27,7 @@
       <% if !@hotels.blank? %>
       <% if @hotels.count < 2 %>
         <li><%= link_to "Edit Hotel", edit_hotel_path(id: session[:hotel_id]) %></li>
+        <li><%= link_to "Additional Properties", new_hotel_path %></li>
       <% end %>
       <% end %>
     <% end %>

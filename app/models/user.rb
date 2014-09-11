@@ -112,9 +112,9 @@ class User < ActiveRecord::Base
 
   def timeout_in
     if self.admin? 
-      1.minute
+      20.minutes
     else
-      1.minute
+      20.minutes
     end
   end
   

@@ -25,6 +25,14 @@ class Traveler < ActiveRecord::Base
   def name
     "#{firstname} #{lastname}"
   end
+
+  def timeout_in
+    if self.admin? 
+      20.minutes
+    else
+      20.minutes
+    end
+  end
   
   def self.search(search)
     if search
