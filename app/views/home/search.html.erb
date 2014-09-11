@@ -41,7 +41,7 @@
 			</form>
 		</div>
 	</section>
-	<form id="searchfilters" class="sidesticky">
+	<!-- <form id="searchfilters" class="sidesticky">
 		<h3>Filters</h3>
 		
 		<fieldset class="checkboxes">
@@ -69,10 +69,10 @@
 		
 		<fieldset class="features">
 			<legend>Top Features</legend>
-			<% HotelAttributeJoin.topfeatures6.each do |haj| %>
-				<% hotel_attribute = HotelAttribute.find(haj.hotel_attribute_id) %>
-				<input type="checkbox" id=<%= hotel_attribute.id %> name="" ><label for=<%= hotel_attribute.id %> ><%= hotel_attribute.attr %></label>
-			<% end %>	
+			<%# HotelAttributeJoin.topfeatures6.each do |haj| %>
+				<%# hotel_attribute = HotelAttribute.find(haj.hotel_attribute_id) %>
+				<input type="checkbox" id=<%#= hotel_attribute.id %> name="" ><label for=<%#= hotel_attribute.id %> ><%#= hotel_attribute.attr %></label>
+			<%# end %>	
 		</fieldset>
 		
 		<fieldset class="search_by_name">
@@ -80,8 +80,8 @@
 			<input type="text" name="name" placeholder="Search Hotel Name...">
 		</fieldset>
 		
-	</form>
-	<section class="resBlock">
+	</form> -->
+	<section class="resBlock width100">
 		<h5>Top Results</h5>
 		<div id="">
 			<% if !@hotels.blank? %>
@@ -107,7 +107,7 @@
 							<span><%= hotel.description %></span>
 						</div>
 						<div class="resultRight">
-							<% @price = get_lowest_price(hotel.id,params[:date][:checkin],params[:date][:checkout]) %>
+							<% @price = get_lowest_price(hotel.id,params[:date][:checkin].strip,params[:date][:checkout].strip) %>
 							<%= link_to "$ #{@price}", booking_detail_path(:hotel_id => hotel.id), class: "showprice" %>
 						</div>
 						<div class="clear"></div>

@@ -1053,6 +1053,9 @@ footer #footerend {
 	background: #fff;
 	padding: 0 0 500px;
 }
+#wrapper.welcome{
+	padding: 0;
+}
 
 	
 	#wrapper nav {
@@ -1657,6 +1660,11 @@ footer #footerend {
 }
 .height350 {
 	height: 350px;
+	clear: both;
+	overflow: hidden;
+}
+.height370 {
+	height: 370px;
 	clear: both;
 	overflow: hidden;
 }
@@ -4510,6 +4518,9 @@ a.tableDetails{
 }
 .marRight-30{
 	margin-right: -30px;
+}
+.width100{
+	width: 100%!important;
 }
 /* End */
 

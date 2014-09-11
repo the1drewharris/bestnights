@@ -319,9 +319,6 @@ class RatesController < ApplicationController
                 create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date.advance(days: date),from_date.to_date.advance(days: date),price.to_f)
               end
             end
-            if (@room_rate.from_date..@room_rate.to_date).cover?(to_date.to_date)
-              create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,to_date.to_date.advance(:days => 1),@room_rate.to_date,@room_rate.price)
-            end
           else
             ((to_date.to_date - from_date.to_date).to_i + 1).times do |date|
               if modify == "fix-increase"
@@ -348,27 +345,36 @@ class RatesController < ApplicationController
                 unless @room_rate.blank?
                   if (@room_rate.from_date..@room_rate.to_date).cover?(Date.today.advance(days: date))
                     if modify == "fix-increase"
-                      create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,@room_rate.from_date.advance(days: 1.year),Date.today.advance(days: 1.year + (date - 1)),@room_rate.price + price.to_f)
-                      create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: 1.year + date),Date.today.advance(days: 1.year + date),@room_rate.price + price.to_f)
-                      create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: 1.year + (date + 1)),@room_rate.to_date.advance(days: 1.year),@room_rate.price + price.to_f)
+                      create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,@room_rate.from_date.advance(days: 1.year),Date.today.advance(days: 1.year + (date - 1)).to_date,@room_rate.price + price.to_f)
+                      create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: 1.year + date).to_date,Date.today.advance(days: 1.year + date).to_date,@room_rate.price + price.to_f)
                     elsif modify == "fix-decrease"
-                      create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,@room_rate.from_date.advance(days: 1.year),Date.today.advance(days: 1.year + (date - 1)),@room_rate.price -price.to_f)
-                      create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: 1.year + date),Date.today.advance(days: 1.year + date),@room_rate.price - price.to_f)
-                      create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: 1.year + (date + 1)),@room_rate.to_date.advance(days: 1.year),@room_rate.price - price.to_f)
+                      create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,@room_rate.from_date.advance(days: 1.year),Date.today.advance(days: 1.year + (date - 1)).to_date,@room_rate.price - price.to_f)
+                      create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: 1.year + date).to_date,Date.today.advance(days: 1.year + date).to_date,@room_rate.price - price.to_f)
                     elsif modify == "percent-decrease"
                       price = price.to_f - ((@room_rate.price * price.to_f) / 100)
-                      create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,@room_rate.from_date.advance(days: 1.year),Date.today.advance(days: 1.year + (date - 1)),price)
-                      create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: 1.year + date),Date.today.advance(days: 1.year + date),price)
-                      create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: 1.year + (date + 1)),@room_rate.to_date.advance(days: 1.year),price)
+                      create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,@room_rate.from_date.advance(days: 1.year),Date.today.advance(days: 1.year + (date - 1)).to_date,price)
+                      create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: 1.year + date).to_date,Date.today.advance(days: 1.year + date).to_date,price)
                     elsif modify == "percent-increase"
                       price = price.to_f + ((@room_rate.price * price.to_f) / 100)
-                      create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,@room_rate.from_date.advance(days: 1.year),Date.today.advance(days: 1.year + (date - 1)),price)
-                      create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: 1.year + date),Date.today.advance(days: 1.year + date),price)
-                      create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: 1.year + (date + 1)),@room_rate.to_date.advance(days: 1.year),price)
+                      create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,@room_rate.from_date.advance(days: 1.year),Date.today.advance(days: 1.year + (date - 1)).to_date,price)
+                      create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: 1.year + date).to_date,Date.today.advance(days: 1.year + date).to_date,price)
                     else
-                      create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,@room_rate.from_date.advance(days: 1.year),Date.today.advance(days: 1.year + (date - 1)),price.to_f)
-                      create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: 1.year + date),Date.today.advance(days: 1.year + date),price.to_f)
-                      create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: 1.year + (date + 1)),@room_rate.to_date.advance(days: 1.year),price.to_f)
+                      create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,@room_rate.from_date.advance(days: 1.year),Date.today.advance(days: 1.year + (date - 1)).to_date,price.to_f)
+                      create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: 1.year + date).to_date,Date.today.advance(days: 1.year + date).to_date,price.to_f)
+                    end
+                  else
+                    if modify == "fix-increase"
+                      create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: 1.year + date).to_date,Date.today.advance(days: 1.year + date).to_date,@room_rate.price + price.to_f)
+                    elsif modify == "fix-decrease"
+                      create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: 1.year + date).to_date,Date.today.advance(days: 1.year + date).to_date,@room_rate.price - price.to_f)
+                    elsif modify == "percent-decrease"
+                      price = price.to_f - ((@room_rate.price * price.to_f) / 100)
+                      create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: 1.year + date).to_date,Date.today.advance(days: 1.year + date).to_date,price)
+                    elsif modify == "percent-increase"
+                      price = price.to_f + ((@room_rate.price * price.to_f) / 100)
+                      create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: 1.year + date).to_date,Date.today.advance(days: 1.year + date).to_date,price)
+                    else
+                      create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: 1.year + date).to_date,Date.today.advance(days: 1.year + date).to_date,price.to_f)
                     end
                   end
                 end
@@ -386,7 +392,7 @@ class RatesController < ApplicationController
                       create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date.advance(days: 1.year + date),from_date.to_date.advance(days: 1.year + date),@room_rate.price + price.to_f)
                       create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date.advance(days: 1.year + (date + 1)),@room_rate.to_date.advance(days: 1.year),@room_rate.price + price.to_f)
                     elsif modify == "fix-decrease"
-                      create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,@room_rate.from_date.advance(days: 1.year),from_date.to_date.advance(days: 1.year + (date - 1)),@room_rate.price -price.to_f)
+                      create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,@room_rate.from_date.advance(days: 1.year),from_date.to_date.advance(days: 1.year + (date - 1)),@room_rate.price - price.to_f)
                       create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date.advance(days: 1.year + date),from_date.to_date.advance(days: 1.year + date),@room_rate.price - price.to_f)
                       create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date.advance(days: 1.year + (date + 1)),@room_rate.to_date.advance(days: 1.year),@room_rate.price - price.to_f)
                     elsif modify == "percent-decrease"
@@ -441,9 +447,6 @@ class RatesController < ApplicationController
                 create_rate("",session[:hotel_id],@sub_type.room_type_id,from_date.to_date.advance(days: date),from_date.to_date.advance(days: date),price.to_f)
               end
             end
-            if (@room_rate.from_date..@room_rate.to_date).cover?(to_date.to_date)
-              create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,to_date.to_date.advance(:days => 1),@room_rate.to_date,@room_rate.price)
-            end
           else
             ((to_date.to_date - from_date.to_date).to_i + 1).times do |date|
               if modify == "fix-increase"
@@ -474,7 +477,7 @@ class RatesController < ApplicationController
                       create_rate("",session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: 1.year + date),Date.today.advance(days: 1.year + date),@room_rate.price + price.to_f)
                       create_rate("",session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: 1.year + (date + 1)),@room_rate.to_date.advance(days: 1.year),@room_rate.price + price.to_f)
                     elsif modify == "fix-decrease"
-                      create_rate("",session[:hotel_id],@sub_type.room_type_id,@room_rate.from_date.advance(days: 1.year),Date.today.advance(days: 1.year + (date - 1)),@room_rate.price -price.to_f)
+                      create_rate("",session[:hotel_id],@sub_type.room_type_id,@room_rate.from_date.advance(days: 1.year),Date.today.advance(days: 1.year + (date - 1)),@room_rate.price - price.to_f)
                       create_rate("",session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: 1.year + date),Date.today.advance(days: 1.year + date),@room_rate.price - price.to_f)
                       create_rate("",session[:hotel_id],@sub_type.room_type_id,Date.today.advance(days: 1.year + (date + 1)),@room_rate.to_date.advance(days: 1.year),@room_rate.price - price.to_f)
                     elsif modify == "percent-decrease"
@@ -508,7 +511,7 @@ class RatesController < ApplicationController
                       create_rate("",session[:hotel_id],@sub_type.room_type_id,from_date.to_date.advance(days: 1.year + date),from_date.to_date.advance(days: 1.year + date),@room_rate.price + price.to_f)
                       create_rate("",session[:hotel_id],@sub_type.room_type_id,from_date.to_date.advance(days: 1.year + (date + 1)),@room_rate.to_date.advance(days: 1.year),@room_rate.price + price.to_f)
                     elsif modify == "fix-decrease"
-                      create_rate("",session[:hotel_id],@sub_type.room_type_id,@room_rate.from_date.advance(days: 1.year),from_date.to_date.advance(days: 1.year + (date - 1)),@room_rate.price -price.to_f)
+                      create_rate("",session[:hotel_id],@sub_type.room_type_id,@room_rate.from_date.advance(days: 1.year),from_date.to_date.advance(days: 1.year + (date - 1)),@room_rate.price - price.to_f)
                       create_rate("",session[:hotel_id],@sub_type.room_type_id,from_date.to_date.advance(days: 1.year + date),from_date.to_date.advance(days: 1.year + date),@room_rate.price - price.to_f)
                       create_rate("",session[:hotel_id],@sub_type.room_type_id,from_date.to_date.advance(days: 1.year + (date + 1)),@room_rate.to_date.advance(days: 1.year),@room_rate.price - price.to_f)
                     elsif modify == "percent-decrease"

@@ -2,6 +2,15 @@ class HotelsController < ApplicationController
   before_filter :authenticate_user!
   load_and_authorize_resource
   layout "admin_basic", only: [:index, :new, :show, :edit]
+  rescue_from(ActiveRecord::RecordNotFound) {
+    if current_user.admin?
+      flash[:errors] = "Hotel does not exist"
+      redirect_to hotels_path
+    elsif current_user.manager?
+      flash[:errors] = "Hotel does not exist"
+      redirect_to my_hotels_path
+    end
+  }
   
   def index
     if current_user.admin?

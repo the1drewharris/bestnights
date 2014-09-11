@@ -157,9 +157,9 @@ class HomeController < ApplicationController
       
       #HotelSearch doing here(for teh pagination purpose) instead of search in model fo
       if !params[:search].blank?
-        @hotels = Hotel.where("status = ? and (name LIKE ? or city LIKE ?)", "active", params[:search], params[:search]).paginate(:page => params[:page], :per_page => 5) 
+        @hotels = Hotel.where("status = ? and (name LIKE ? or city LIKE ?)", "active", params[:search], params[:search]).paginate(:page => params[:page], :per_page => 5, :order => "name")
       else
-        @hotels = Hotel.paginate(:page => params[:page], :per_page => 5) 
+        @hotels = Hotel.paginate(:page => params[:page], :per_page => 5, :order => "name")
       end
 
       
