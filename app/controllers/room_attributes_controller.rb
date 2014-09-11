@@ -20,9 +20,12 @@ class RoomAttributesController < ApplicationController
     if @room_attribute.save
       flash[:success] = "The Room Attributes saved successfully!"
       redirect_to room_attributes_path
+    elsif params[:room_attribute][:attr].blank?
+      flash[:errors] = "Attributes can't be blank"
+      redirect_to :back 
     else
-      flash[:errors] = @room_attribute.errors.full_messages
-      redirect_to :back  
+      flash[:errors] = "Attributes already exists"
+      redirect_to :back
     end
   end
   
