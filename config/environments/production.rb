@@ -63,7 +63,7 @@ Bestnights::Application.configure do
 
   # config.action_mailer.default_url_options = { :host => 'bestnights.indusnetlabs.com' }  
   
-  # config.action_mailer.perform_deliveries = true
+  config.action_mailer.perform_deliveries = true
   # config.action_mailer.raise_delivery_errors = true
   # config.action_mailer.delivery_method = :smtp
   # config.action_mailer.smtp_settings = {
@@ -81,8 +81,8 @@ Bestnights::Application.configure do
    port: 587,
    authentication: "plain",
    enable_starttls_auto: true,
-   user_name: 'jesmine.chaudhuri@indusnet.co.in',
-   password: 'jesmine!@#$'
+   user_name: 'bestnights.info@gmail.com',
+   password: 'bestnights201415'
    }
   # ActionMailer Config
   config.action_mailer.default_url_options = { :host => 'bestnights.indusnetlabs.com' }

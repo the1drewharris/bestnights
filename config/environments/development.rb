@@ -36,8 +36,7 @@
 
   # config.action_mailer.default_url_options = { :host => 'bestnights.indusnetlabs.com' }  
   
-  # config.action_mailer.perform_deliveries = true
-  # config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.perform_deliveries = true
   # config.action_mailer.delivery_method = :smtp
   # config.action_mailer.smtp_settings = {
   #  address: "mail.web-host.net",
@@ -55,8 +54,8 @@
    domain: "google.com",
    authentication: "plain",
    enable_starttls_auto: true,
-   user_name: 'jesmine.chaudhuri@indusnet.co.in',
-   password: 'jesmine!@#$'
+   user_name: 'bestnights.info@gmail.com',
+   password: 'bestnights201415'
    }
   # ActionMailer Config
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
