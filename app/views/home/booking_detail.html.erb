@@ -208,7 +208,7 @@
 											<% end %>
 										<% end %>
 									<% end %>
-									<% if @flag == 1 && @price_flag != 0 %>
+									<% if @flag == 1 %>
 										<%= link_to "Book Now", checkout_path(:hotel_id => @hotel.id, :room_type_id => room.room_sub_type.id) , class: "link_style", id: "link_style" %><br />
 										<span>$<%= number_with_precision(session[:room_rate][index], precision: 2) %></span>
 									<% else %>
