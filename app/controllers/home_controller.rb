@@ -526,9 +526,7 @@ class HomeController < ApplicationController
 
   def book(traveler, amount, cardnumber,ccv, cardtype, hotel, booking_number, booking_created_on, checkin, checkout, room_ids, room_type)
     logger.info"@@@@@@@@@@#{traveler.inspect}@@@@@@#{amount}@@@@@@@@@@@@#{cardnumber}@@@@@@@@#{cardtype}@@@@@@#{checkin}@@@@@@#{checkout}@"
-    @raw_image =   Base64.encode64("#{Rails.root.to_s}/public/e-mail-logo.jpg")
-    logger.info"&&&&&&&&&&&#{@raw_image}&&&&&&&&&&&&"
-    @image = "<img src='#{request.host}/#{@raw_image}' width='316' height='52' alt=''>"
+    @image = '<img src="http://bestnights.indusnetlabs.com/e-mail-logo.jpg" width="316" height="52" alt=''>'
     #TODO make this work with the fax service
     @disclaimer = CGI::unescape("Disclaimer"+"\n"+"* A confirmation has been sent to the guest with all of the booking details"+"\n"+"* It is your duty , as the booking property, to safeguard this fax and the guests credit card info in a secure way that follows your company's security policies")
     File.open("#{Rails.root.to_s}/public/fax_content.html", 'wb') do|f|
