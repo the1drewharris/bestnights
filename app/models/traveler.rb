@@ -27,7 +27,7 @@ class Traveler < ActiveRecord::Base
   end
 
   def timeout_in
-    if self.admin? 
+    if self.traveler? 
       20.minutes
     else
       20.minutes
