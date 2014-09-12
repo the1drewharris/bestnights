@@ -82,7 +82,7 @@
 				</tr>
 				<tr>
 					<% @number_nights.times do |night| %>
-						<td><%= number_with_precision(session[:price]["#{session[:roomtype]}"], :precision => 2, :separator => '.') %></td>
+						<td><%= number_with_precision(session[:price]["#{session[:roomtype]}"] / @number_nights, :precision => 2, :separator => '.') %></td>
 					<% end %>
 				</tr>
 			</table>

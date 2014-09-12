@@ -113,7 +113,7 @@
 			<tr>
 				<th scope="col">Room Type</th>
 				<th scope="col">Description</th>
-				<th scope="col">Adult</th>
+				<th scope="col">Max People</th>
 				<th scope="col">Room Available</th>
 				<th scope="col">BestNights.com Price</th>
 				<th scope="col">Number of Rooms</th>
@@ -140,7 +140,7 @@
 										</table>
 									</div>
 								</td>
-								<td></td>
+								<td><%= room.max_people %></td>
 								<td class="room_available">
 								<% @availables = RoomAvailable.where("room_sub_type_id=? AND hotel_id=?",room.room_sub_type_id, @hotel.id ).order("from_date") %>
 								<div class="room-available">
@@ -177,10 +177,14 @@
 																	<%= session[:checkin].to_date.advance(days: day).strftime('%b %d, %G') %> : $<%= number_with_precision(rate.price, precision: 2) %>
 																</td>
 																<tr>
-															<% end %>
-														<% end %>											
-													<% end %>
+														<% end %>
+													<% end %>											
+												<% else %>
+													<% @price_flag = 0 %>
 												<% end %>
+											<% end %>
+										<% else %>
+											<% @price_flag = 0 %>
 										<% end %>										
 									</table>
 								</div>
@@ -204,9 +208,9 @@
 											<% end %>
 										<% end %>
 									<% end %>
-									<% if @flag == 1%>
+									<% if @flag == 1 && @price_flag != 0 %>
 										<%= link_to "Book Now", checkout_path(:hotel_id => @hotel.id, :room_type_id => room.room_sub_type.id) , class: "link_style", id: "link_style" %><br />
-										<span>$<%= number_with_precision(session[:room_rate][index], precision: 2) %><%#= session[:room_rate]%></span>
+										<span>$<%= number_with_precision(session[:room_rate][index], precision: 2) %></span>
 									<% else %>
 										<p class="red">Sold Out</p>
 									<% end %>

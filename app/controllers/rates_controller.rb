@@ -48,6 +48,7 @@ class RatesController < ApplicationController
   def create
     @flag = 0
     unless (params[:room_sub_type_id].blank? || params[:room_id].blank?) && params[:price].blank?
+      logger.info"*************#{params[:room_sub_type_id]}*************"
       if !params[:room_sub_type_id].blank?
         room_sub_type_rate(params[:room_sub_type_id],params[:days],params[:from_date],params[:to_date],params[:price],params[:room_id])
         @flag = 1
@@ -127,7 +128,7 @@ class RatesController < ApplicationController
     room_sub_type_id.each do |room|
       @room_rate = RoomRate.find_by_room_sub_type_id_and_hotel_id(room[0].to_s, session[:hotel_id])
       @sub_type = RoomSubType.find_by_id(room[0].to_s)
-      if days.blank?
+      if days.blank? && !from_date.blank? && !to_date.blank?
         if @room_rate.blank?
           create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date,to_date.to_date,price)
         else
@@ -151,7 +152,7 @@ class RatesController < ApplicationController
           end
         end
       else
-        if from_date.blank? && to_date.blank?
+        if from_date.blank? && to_date.blank? && !days.blank?
           days.each do |day|
             ((Date.today + 1.year) - (Date.today)).to_i.times do |date|
               if Date.today.advance(days: date).strftime("%A").downcase == day[0].to_s
@@ -168,7 +169,7 @@ class RatesController < ApplicationController
               end
             end
           end
-        else
+        elsif !days.blank?
           days.each do |day|
             ((to_date.to_date - from_date.to_date) + 1).to_i.times do |date|
               if from_date.to_date.advance(days: date).strftime("%A").downcase == day[0].to_s
@@ -199,7 +200,7 @@ class RatesController < ApplicationController
     @sub_type = RoomSubType.find_by_room_type_id(room[0].to_s)
     if @sub_type.blank? || !room_sub_type_id.include?(room[0].to_s)
       @room_rate = RoomRate.find_by_room_type_id_and_hotel_id(room[0].to_s, session[:hotel_id])
-      if days.blank?
+      if days.blank? && !from_date.blank? && !to_date.blank?
         if @room_rate.blank?
           create_rate("",session[:hotel_id],room[0].to_s,from_date.to_date,to_date.to_date,price)
         else
@@ -220,7 +221,7 @@ class RatesController < ApplicationController
           end
         end
       else
-        if from_date.blank? && to_date.blank?
+        if from_date.blank? && to_date.blank? && !days.blank?
           days.each do |day|
             (((Date.today + 1.year) - (Date.today)) + 1).to_i.times do |date|
               if Date.today.advance(days: date).strftime("%A").downcase == day[0].to_s
@@ -262,19 +263,30 @@ class RatesController < ApplicationController
   end
 
   def create_rate(room_sub_type_id,hotel_id,room_type_id,from_date,to_date,price)
-    unless from_date > to_date
-      @room_rates = RoomRate.where("from_date=? AND to_date=?", from_date, to_date)
-      unless @room_rates.empty?
-        @flag = 0
-        @room_rates.each do |room_rate|
-          logger.info"^^^^^^^^^^^#{room_rate.inspect}^^^^^^^^^^^^^^^^^^^^^^"
-          if room_rate.room_type_id == room_type_id.to_i && room_rate.room_sub_type_id == room_sub_type_id.to_i && room_rate.hotel_id == hotel_id.to_i
-            room_rate.price = price
-            room_rate.save
-            @flag = 1
+    if !from_date.blank? && !to_date.blank?
+      unless from_date > to_date
+        @room_rates = RoomRate.where("from_date=? AND to_date=?", from_date, to_date)
+        unless @room_rates.empty?
+          @flag = 0
+          @room_rates.each do |room_rate|
+            logger.info"^^^^^^^^^^^#{room_rate.inspect}^^^^^^^^^^^^^^^^^^^^^^"
+            if room_rate.room_type_id == room_type_id.to_i && room_rate.room_sub_type_id == room_sub_type_id.to_i && room_rate.hotel_id == hotel_id.to_i
+              room_rate.price = price
+              room_rate.save
+              @flag = 1
+            end
           end
-        end
-        if @flag == 0
+          if @flag == 0
+            @room_rate = RoomRate.new
+            @room_rate.room_sub_type_id = room_sub_type_id
+            @room_rate.hotel_id = hotel_id
+            @room_rate.room_type_id = room_type_id
+            @room_rate.from_date =from_date
+            @room_rate.to_date = to_date
+            @room_rate.price = price
+            @room_rate.save
+          end
+        else
           @room_rate = RoomRate.new
           @room_rate.room_sub_type_id = room_sub_type_id
           @room_rate.hotel_id = hotel_id
@@ -284,15 +296,6 @@ class RatesController < ApplicationController
           @room_rate.price = price
           @room_rate.save
         end
-      else
-        @room_rate = RoomRate.new
-        @room_rate.room_sub_type_id = room_sub_type_id
-        @room_rate.hotel_id = hotel_id
-        @room_rate.room_type_id = room_type_id
-        @room_rate.from_date =from_date
-        @room_rate.to_date = to_date
-        @room_rate.price = price
-        @room_rate.save
       end
     end
   end

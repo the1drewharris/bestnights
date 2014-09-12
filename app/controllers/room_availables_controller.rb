@@ -107,7 +107,7 @@ layout "admin_basic"
     room_sub_type_id.each do |room|
       @room_sell = RoomAvailable.find_by_room_sub_type_id_and_hotel_id(room[0].to_s, session[:hotel_id])
       @sub_type = RoomSubType.find_by_id(room[0].to_s)
-      if days.blank?
+      if days.blank? && !from_date.blank? && !to_date.blank?
         if @room_sell.blank?
           create_sell(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date,to_date.to_date,rooms_to_sell)
         else
@@ -131,7 +131,7 @@ layout "admin_basic"
           end
         end
       else
-        if from_date.blank? && to_date.blank?
+        if from_date.blank? && to_date.blank? && !days.blank?
           days.each do |day|
             (((Date.today + 1.year) - (Date.today)).to_i + 1).times do |date|
               if Date.today.advance(days: date).strftime("%A").downcase == day[0].to_s
@@ -190,7 +190,7 @@ layout "admin_basic"
     	@sub_type = RoomSubType.find_by_room_type_id(room[0].to_s)
       if @sub_type.blank? || !room_sub_type_id.include?(@sub_type.id.to_s)
 	      @room_sell = RoomAvailable.find_by_room_type_id_and_hotel_id(room[0].to_s, session[:hotel_id])
-	      if days.blank?
+	      if days.blank? && !from_date.blank? && !to_date.blank?
 	        if @room_sell.blank?
 	          create_sell("",session[:hotel_id],room[0].to_s,from_date.to_date,to_date.to_date,rooms_to_sell)
 	        else

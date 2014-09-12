@@ -309,7 +309,7 @@
 				$(".outtime").val(days[tomorrow.getDay()]+','+dates[(tomorrow.getDate()) - 1]+","+ months[tomorrow.getMonth()])
 								
 				$('.datepicker1').dateRangePicker({
-						dayGap: 2,
+						dayGap: 1,
 						startDate: today,
 						separator : ' to ',
 						getValue: function(){
