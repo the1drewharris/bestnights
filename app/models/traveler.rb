@@ -25,15 +25,7 @@ class Traveler < ActiveRecord::Base
   def name
     "#{firstname} #{lastname}"
   end
-
-  def timeout_in
-    if self.traveler? 
-      20.minutes
-    else
-      20.minutes
-    end
-  end
-  
+ 
   def self.search(search)
     if search
       find(:all, :conditions => ['firstname LIKE ? Or lastname LIKE ?', "%#{search}%", "%#{search}%"])
