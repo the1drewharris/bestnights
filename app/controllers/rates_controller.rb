@@ -237,7 +237,7 @@ class RatesController < ApplicationController
               end
             end
           end
-        else
+        elsif !days.blank?
           days.each do |day|
             ((to_date.to_date - from_date.to_date) + 1).to_i.times do |date|
               if from_date.to_date.advance(days: date).strftime("%A").downcase == day[0].to_s
@@ -339,7 +339,7 @@ class RatesController < ApplicationController
           end
         end
       else
-        if from_date.blank? && to_date.blank?
+        if from_date.blank? && to_date.blank? && !days.blank?
           days.each do |day|
             ((Date.today + 1.year) - (Date.today)).to_i.times do |date|
               if Date.today.advance(days: date).strftime("%A").downcase == day[0].to_s
@@ -382,7 +382,7 @@ class RatesController < ApplicationController
               end
             end
           end
-        else
+        elsif !days.blank?
           days.each do |day|
             ((to_date.to_date - from_date.to_date) + 1).to_i.times do |date|
               if from_date.to_date.advance(days: date).strftime("%A").downcase == day[0].to_s
