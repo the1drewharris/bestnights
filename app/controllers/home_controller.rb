@@ -200,7 +200,6 @@ class HomeController < ApplicationController
       
       @free << {type.id => @rooms.nil? ? 0 : @rooms.number}
     end
-    logger.info"************#{@free}*************"
     @hotel.rooms.each_with_index do |room, index|
       @rates = RoomRate.where("room_sub_type_id=? AND hotel_id=?", room.room_sub_type_id, @hotel.id)
       unless @rates.empty?
@@ -285,12 +284,10 @@ class HomeController < ApplicationController
     @statuses = RoomStatus.where("room_sub_type_id=? AND hotel_id=?", params[:room_type_id],session[:hotel_id])
     logger.info"^^^^^^^^^^^^#{@statuses.inspect}^^^^^^^^^^^^^^^^^^^^"
     @end_flag = @available_flag = (session[:checkout].to_date - session[:checkin].to_date).to_i + 1
-    logger.info"^^^^^^^12121212^^^^^^^#{@available_flag}^^^^^^^^^^^^^^^^^^^^^^^^^^"
     @statuses.each do |status|
       @flag = 0
       
-      logger.info"))))))))))#{@flag})))))))))))))))0"
-      if (status.from_date..status.to_date).cover?(session[:checkin].to_date) || (status.from_date..status.to_date).cover?(session[:checkout].to_date)
+    if (status.from_date..status.to_date).cover?(session[:checkin].to_date) || (status.from_date..status.to_date).cover?(session[:checkout].to_date)
         if status.status == true
           @status_flag = 1
           return redirect_to root_path
@@ -479,8 +476,11 @@ class HomeController < ApplicationController
           @booking_number = booking.id
           @booking_created_on = booking.created_at.strftime("%d-%m-%Y %H:%M:%S")
         end
+
+        @room_type = RoomSubType.find_by_id(session[:room_type_id].to_i)
+        @get_room_type = @room_type.name
       
-    if @available_flag == 0 && @status_flag == 0 && book(@traveler, @amount, @card_number, @ccv, @card_type, @hotel,@booking_number, @booking_created_on, @checkin, @checkout, session[:room_needed], session[:room_type_id] )
+    if @available_flag == 0 && @status_flag == 0 && book(@traveler, @amount, @card_number, @ccv, @card_type, @hotel,@booking_number, @booking_created_on, @checkin, @checkout, session[:room_needed], @get_room_type )
       ## Create booking record and availability record
        @rate = @room1.price.to_f
         @rooms.each do |room|

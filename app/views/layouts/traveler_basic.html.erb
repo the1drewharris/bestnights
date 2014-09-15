@@ -12,9 +12,7 @@
 <body>	
 		<div id="adminwrapper">
 			<div id="eyebrow">
-					<div id="eyebrow">
 						<span class="logob"><%= link_to image_tag("/assets/logo.png"), root_path %></span>
-					</div>
 					<nav id="phone" class="rt-phn">
 					<% if current_traveler || !@traveler.blank? %>
 						<%= link_to "Logout" , destroy_user_session_path, :method => :delete %>

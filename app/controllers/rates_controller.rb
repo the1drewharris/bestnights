@@ -74,10 +74,8 @@ class RatesController < ApplicationController
   end
 
   def update_room_rates
-    logger.info"**************#{params}*************************"
     unless (params[:room_sub_type_id].blank? || params[:room_id].blank?) && params[:price].blank?
       if !params[:room_sub_type_id].blank?
-        logger.info"&&&&&&&&&&&&&&&"
         room_sub_type_rate_next_year(params[:room_sub_type_id],params[:days],params[:from_date],params[:to_date],params[:price],params[:room_id], params[:modify])
       elsif !params[:room_type_id].blank?
         room_type_rate_next_year(params[:room_id],params[:days],params[:from_date],params[:to_date],params[:price], params[:modify])

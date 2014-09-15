@@ -183,11 +183,10 @@ class RoomsController < ApplicationController
 
     respond_to do |format|
       if @rate_detail.save!
-        format.html { redirect_to rooms_path, notice: 'rate Details successfully created.' }
+        format.html { redirect_to rooms_path, success: 'rate Details successfully created.' }
         format.json { render json: @rate_detail, status: :created, location: @rate_detail }
       else
-        logger.info"&&&&&&&&&&&&&&&&&&&&&&&&&7"
-        format.html { render action: "rate_details", notice: 'Please fill all the information.' }
+        format.html { render action: "rate_details", success: 'Please fill all the information.' }
         format.json { render json: @rate_detail.errors, status: :unprocessable_entity }
       end
     end    
