@@ -171,9 +171,10 @@
 											<% @rates.each do |rate| %>
 												<% if !rate.blank? %>											
 													<% ((session[:checkout].to_date - session[:checkin].to_date).to_i + 1).times do |day| %>
+														<%#= rate.inspect %>
 														<% if (rate.from_date..rate.to_date).cover?(session[:checkin].to_date.advance(days: day)) %>
-																<tr>
-																<td>	
+																<tr>			
+																<td>
 																	<%= session[:checkin].to_date.advance(days: day).strftime('%b %d, %G') %> : $<%= number_with_precision(rate.price, precision: 2) %>
 																</td>
 																<tr>
@@ -183,8 +184,8 @@
 													<%# @price_flag = 0 %>
 												<% end %>
 											<% end %>
-										<% else %>
-											<% @price_flag = 0 %>
+										<%# else %>
+											<%# @price_flag = 0 %>
 										<% end %>										
 									</table>
 								</div>
@@ -208,7 +209,7 @@
 											<% end %>
 										<% end %>
 									<% end %>
-									<% if @flag == 1 %>
+									<% if @flag == 1 && session[:room_rate][index] != 0 %>
 										<%= link_to "Book Now", checkout_path(:hotel_id => @hotel.id, :room_type_id => room.room_sub_type.id) , class: "link_style", id: "link_style" %><br />
 										<span>$<%= number_with_precision(session[:room_rate][index], precision: 2) %></span>
 									<% else %>
