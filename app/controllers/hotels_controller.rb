@@ -77,8 +77,12 @@ class HotelsController < ApplicationController
   
   def edit
     @hotel = Hotel.find(params[:id])
-    @hotel_attributes = HotelAttribute.all
-    @photos = @hotel.hotel_photos
+    if (current_user.manager? && @hotel.user_id.to_i == current_user.id) || current_user.admin?
+      @hotel_attributes = HotelAttribute.all
+      @photos = @hotel.hotel_photos
+    else
+      redirect_to dashboard_path
+    end
   end
   
   def update
