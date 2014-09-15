@@ -43,7 +43,7 @@ Bestnights::Application.configure do
   # config.cache_store = :mem_cache_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  config.action_controller.asset_host = "http://bestnights.indusnetlabs.com"
+  config.action_controller.asset_host = "http://23.253.149.108"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   # config.assets.precompile += %w( search.js )
@@ -93,7 +93,7 @@ Bestnights::Application.configure do
   #  password: 'jesmine!@#$'
   #  }
   # ActionMailer Config
-  config.action_mailer.default_url_options = { :host => 'bestnights.indusnetlabs.com' }
+  config.action_mailer.default_url_options = { :host => 'http://23.253.149.108' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.raise_delivery_errors = true
 
