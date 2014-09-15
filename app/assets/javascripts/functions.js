@@ -321,7 +321,8 @@
 						setValue: function(s,s1,s2){
 							$('.intime').val(s1);
 							$('.outtime').val(s2);
-						}
+						},
+						showShortcuts: false,
 					
 				}).bind('datepicker-change',function(event,obj){
 					var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
