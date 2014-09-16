@@ -13,7 +13,7 @@ class Hotel < ActiveRecord::Base
     if: Proc.new { |a| a.email_or_fax == "email" }
 
   validates :tax1, :tax2, :tax3, :tax4, :fax, :numericality => true
-  validates :zip, :numericality => true
+  validates :zip, presence: true
   
   after_initialize :init
   

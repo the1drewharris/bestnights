@@ -13,7 +13,13 @@
 		<div id="adminwrapper">
 			<div id="eyebrow">
 				<%= render :partial => "common/profile_info_nav" %>
-				<span class="logob"><%= link_to image_tag("/assets/logo.png"), root_path %></span>
+				<span class="logob">
+					<% if current_user.manager? %>
+						<%= link_to image_tag("/assets/logo.png"), "#" %>
+					<% else %>
+						<%= link_to image_tag("/assets/logo.png"), root_path %>
+					<% end %>
+				</span>
 				<% unless current_user.new_signup? %>
 					<%= render :partial => "common/admin_nav_tab" %>
 			  <% end %>
