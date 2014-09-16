@@ -45,13 +45,17 @@ class DashboardController < ApplicationController
 
   def my_hotels
     if current_user.admin?
-      @hotels = Hotel.all
+      @hotels = Hotel.search(params[:search])
     elsif current_user.manager?
-      @hotels = current_user.hotels
-      if !@hotels.blank?
-        if @hotels.count < 2 
-          redirect_to dashboard_path(:hotel_id => current_user.hotels.first.id)
-        end 
+      if params[:search]
+        @hotels = current_user.hotels.search(params[:search])
+      else
+        @hotels = current_user.hotels
+        if !@hotels.blank?
+          if @hotels.count < 2 
+            redirect_to dashboard_path(:hotel_id => current_user.hotels.first.id)
+          end 
+        end
       end
     end
   end
