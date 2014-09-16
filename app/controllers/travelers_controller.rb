@@ -115,12 +115,7 @@ class TravelersController < ApplicationController
   end
 
   def cancel_booking
-    #@booking = Booking.find_by_traveler_id_and_id(current_traveler.id,params[:book_id])
-    #unless current_traveler
-      @booking = Booking.find_by_traveler_id_and_id(params[:id],params[:book_id])
-    #else
-      #@booking = Booking.find_by_traveler_id_and_id(current_traveler.id,params[:book_id])
-    #end
+    @booking = Booking.find_by_traveler_id_and_id(current_traveler.id,params[:book_id])
     if !@booking.nil?
       @hotel = Hotel.find(@booking.hotel_id)
       unless current_traveler

@@ -54,21 +54,25 @@
 			  	</li>
 			  <% end %>
 			  <li class="taxCont flwidth">
-				  <div class="cleardv">			
-						<%= f.label :tax1, class: "labl" %>
-						<%= f.text_field(:tax1, class: "textfield") %>
+				  <div class="width25p">			
+						<%= f.label :tax1, class: "labl lablNew" %>
+						<%= f.text_field(:tax1, class: "textfield textfieldNew") %>
+						<div class="clear"></div>
 					</div>
-					<div class="cleardv">				
-						<%= f.label :tax2, class: "labl" %>
-						<%= f.text_field(:tax2, class: "textfield") %>
+					<div class="width25p">				
+						<%= f.label :tax2, class: "labl lablNew" %>
+						<%= f.text_field(:tax2, class: "textfield textfieldNew") %>
+						<div class="clear"></div>
 					</div>
-					<div class="cleardv">					
-						<%= f.label :tax3, class: "labl" %>
-						<%= f.text_field(:tax3, class: "textfield") %>
+					<div class="width25p">					
+						<%= f.label :tax3, class: "labl lablNew" %>
+						<%= f.text_field(:tax3, class: "textfield textfieldNew") %>
+						<div class="clear"></div>
 					</div>
-					<div class="cleardv">					
-						<%= f.label :tax4, class: "labl" %>
-						<%= f.text_field(:tax4, class: "textfield") %>
+					<div class="width25p">					
+						<%= f.label :tax4, class: "labl lablNew" %>
+						<%= f.text_field(:tax4, class: "textfield textfieldNew") %>
+						<div class="clear"></div>
 					</div>
 				</li>
 				<li class="flwidth">
@@ -106,7 +110,7 @@
 		  </ul>	
 		</fieldset>
 		<fieldset class="formactions">
-			<%= f.submit %>
+			<%= f.submit class: "pinkInput" %>
 			<% if current_user.admin? %>
 				<%= link_to "Cancel", hotels_path %>
 			<% else %>

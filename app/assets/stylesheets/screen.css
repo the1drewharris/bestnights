@@ -4526,5 +4526,25 @@ a.tableDetails{
 	max-width: 512px;
 	overflow: auto;
 }
+.labl.lablNew{
+	width: 20%!important;
+}
+.textfield.textfieldNew{
+	width: 70%!important;
+}
+.width25p{
+	width: 25%;
+	float: left;
+}
+.taxCont{
+	padding: 10px 16px 10px 10px!important;
+	margin: 10px 0!important;
+}
+.pinkInput{
+	padding: 7px 21px!important;
+	background: #f55f5f !important;
+	text-shadow: none!important;
+	border-color: #f55f5f!important;
+}
 /* End */
 

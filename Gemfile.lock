@@ -81,8 +81,6 @@ GEM
     gyoku (1.1.1)
       builder (>= 2.1.2)
     hike (1.2.3)
-    honeybadger (1.16.4)
-      json
     httpclient (2.4.0)
     httpi (2.1.0)
       rack
@@ -224,7 +222,6 @@ DEPENDENCIES
   dynamic_form
   gon
   gyoku (~> 1.0)
-  honeybadger (~> 1.16.4)
   httpi (~> 2.1.0)
   impressionist (~> 1.5.1)
   jbuilder

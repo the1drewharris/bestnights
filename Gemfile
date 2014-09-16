@@ -33,7 +33,6 @@ gem 'impressionist', '~> 1.5.1'
 gem "wicked_pdf"
 gem "wkhtmltopdf-binary"
 gem 'therubyracer', '~> 0.12.1'
-gem 'honeybadger', '~> 1.16.4'
 # gem 'fullcalendar-rails'
 
 # Deploy with Capistrano
