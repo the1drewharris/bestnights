@@ -510,7 +510,7 @@ class HomeController < ApplicationController
         logger.info"!!!!!!!!!!!!!!!!!!!#{session[:price]}!!!!!!!!!!!!!!!!!!!!!"
         @price = session[:price]["#{session[:roomtype]}"]
         @fax_email = FaxMailer.hotel_booking_mail(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, session[:room_needed], @latest_booked, @room1,@rate,@card_expiry, request.protocol,request.host_with_port, @number_nights, @price).deliver
-        if !@hotel.email.nil? 
+        if !@hotel.email.nil? &&  @hotel.email != ""
           @fax_email_to_hotel = FaxMailer.email_to_hotel(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, room_ids, @latest_booked, @room1, @card_expiry, request.protocol,request.host_with_port, session[:room_needed], @number_nights, @price).deliver
         end
     else
