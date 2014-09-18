@@ -20,9 +20,9 @@
 						<%= link_to image_tag("/assets/logo.png"), root_path %>
 					<% end %>
 				</span>
-				<% unless current_user.new_signup? %>
+				<%# unless current_user.new_signup? %>
 					<%= render :partial => "common/admin_nav_tab" %>
-			  <% end %>
+			  <%# end %>
 			</div>
 
 			<%= render :partial => "common/notifications" %>
