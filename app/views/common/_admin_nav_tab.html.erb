@@ -38,9 +38,6 @@
 	<% if can? :index, Card %>	
 		<%= link_to "Cards", cards_path %>
 	<% end %>
-	<% if can? :index, DefaultMessage %>	
-		<%= link_to "Default Messages", default_messages_path %>
-	<% end %>
 	<% if can? :index, User %>	
 		<%= link_to "Users", users_path %>
 	<% end %>	
