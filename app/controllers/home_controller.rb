@@ -159,7 +159,7 @@ class HomeController < ApplicationController
       if !params[:search].blank?
         @hotels = Hotel.where("status = ? and (name LIKE ? or city LIKE ?)", "active", params[:search], params[:search]).paginate(:page => params[:page], :per_page => 5, :order => "name")
       else
-        @hotels = Hotel.paginate(:page => params[:page], :per_page => 5, :order => "name")
+        @hotels = Hotel.where("status = ?", "active").paginate(:page => params[:page], :per_page => 5, :order => "name")
       end
 
       
