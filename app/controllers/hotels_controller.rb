@@ -65,7 +65,7 @@ class HotelsController < ApplicationController
         redirect_to hotels_path
       elsif current_user.manager?
         AdminMailer.new_hotel_request(User.admins, @hotel, current_user).deliver
-        flash[:success] = "The hotel saved successfully!"
+        flash[:success] = "The hotel saved successfully. The hotel will be activated from admin side"
         redirect_to my_hotels_path
       end
       

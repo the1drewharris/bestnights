@@ -17,44 +17,45 @@
 		<%= link_to "Additional Properties", new_hotel_path %>
   </div>
   <% end %>
-	<table class="admintablelist tableAdmin">
-		<tr>
-			<th width="10%">Hotel ID</th>
-			<th width="10%">Name</th>
-			<th width="10%">City</th>
-			<th width="10%">State</th>
-			<th width="25%">Address</th>
-			<th width="10%">Status</th>
-			<% if current_user.admin? %>
-				<th width="15%">User</th>
-			<% end %>
-			<th width="10%">Actions</th>
-		</tr>
-		<% @hotels.sort_by(&:name).each do |hotel| %>
-		  <tr class="show_hotel" hotelid="<%= hotel.id %>"><%#= link_to "#{hotel.id}", dashboard_path(:hotel_id => hotel.id), class: "link_hotel" %>
-		  	<td><%= link_to "#{hotel.id}", dashboard_path(:hotel_id => hotel.id), class: "link_hotel" %></td>
-		  	<% if current_user.manager? and current_user.new_signup? %>
-		  		<td><%= link_to hotel.name, dashboard_path(:hotel_id => hotel.id) %></td>
-		  	<% else %>
-		  		<td><%= link_to hotel.name, dashboard_path(hotel_id: hotel.id), class: "link_hotel" %></td>
-		  	<% end %>		  	
-				<td><%= hotel.city.capitalize %></td>
-				<td><%= hotel.state_id %></td>
-				<td><%= hotel.address1.titleize %></td>
-				<% if hotel.status == "active" %>
-				<td class="active"><%= hotel.status.capitalize %></td>
-				<% else %>
-				<td><%= hotel.status.capitalize %></td>
-				<% end %>
+  <% if !@hotels.blank? %>
+		<table class="admintablelist tableAdmin">
+			<tr>
+				<th width="10%">Hotel ID</th>
+				<th width="10%">Name</th>
+				<th width="10%">City</th>
+				<th width="10%">State</th>
+				<th width="25%">Address</th>
+				<th width="10%">Status</th>
 				<% if current_user.admin? %>
-				  <td><%= hotel.user.email %></td>
+					<th width="15%">User</th>
 				<% end %>
-				<%#if can? :show, hotel %>
-					<!--<td><%#= link_to "Show", hotel_path(hotel.id) %></td>-->
-				<%# end %>
-		  </tr>
-		<% end %>
-	</table>
+				<th width="10%">Actions</th>
+			</tr>
+			<% @hotels.sort_by(&:name).each do |hotel| %>
+			  <tr class="show_hotel" hotelid="<%= hotel.id %>"><%#= link_to "#{hotel.id}", dashboard_path(:hotel_id => hotel.id), class: "link_hotel" %>
+			  	<td><%= link_to "#{hotel.id}", dashboard_path(:hotel_id => hotel.id), class: "link_hotel" %></td>
+			  	<% if current_user.manager? and current_user.new_signup? %>
+			  		<td><%= link_to hotel.name, dashboard_path(:hotel_id => hotel.id) %></td>
+			  	<% else %>
+			  		<td><%= link_to hotel.name, dashboard_path(hotel_id: hotel.id), class: "link_hotel" %></td>
+			  	<% end %>		  	
+					<td><%= hotel.city.capitalize %></td>
+					<td><%= hotel.state_id %></td>
+					<td><%= hotel.address1.titleize %></td>
+					<% if hotel.status == "active" %>
+					<td class="active"><%= hotel.status.capitalize %></td>
+					<% else %>
+					<td><%= hotel.status.capitalize %></td>
+					<% end %>
+					<% if current_user.admin? %>
+					  <td><%= hotel.user.email %></td>
+					<% end %>
+			  </tr>
+			<% end %>
+		</table>
+	<% else %>
+	<h5> No Record Found </h5>
+	<% end %>
 </div>
 
 <%= javascript_include_tag :jquery_ujs %>
