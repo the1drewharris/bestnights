@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
   
   validates :email, :uniqueness => true
-  validates :role, :firstname, :lastname, :address1, :city, :country_id, :status, :zip, presence: true  
+  validates :role, :firstname, :lastname, :address1, :city, :country_id, :status, :zip, presence: true, on: :create 
   validates :password, presence: true, on: :create
   validates :password, confirmation: true, on: :create
   validates :password, length: {minimum: 6}, on: :create

@@ -57,6 +57,8 @@
 							<% else %>
 								<td class="active"><%= hotel.status.capitalize %></td>
 							<% end %>
+						<% elsif current_user.manager? %>
+							<td class="active"><%= hotel.status.capitalize %></td>
 						<% end %>
 						<% if current_user.admin? %>
 						  <td><%= hotel.user.blank? ? "" : hotel.user.email %></td>
