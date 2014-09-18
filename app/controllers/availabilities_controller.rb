@@ -18,7 +18,7 @@ class AvailabilitiesController < ApplicationController
   
   def new
     @availability = Availability.new
-    
+    @count = params[:count]
     if current_user.admin?
       @rooms = Room.all
     elsif current_user.manager?
@@ -39,7 +39,7 @@ class AvailabilitiesController < ApplicationController
       redirect_to availabilities_path
     else
       flash[:errors] = @availability.errors.full_messages
-      redirect_to :back  
+      render :action=>'new' 
     end
 
   end

@@ -5,7 +5,7 @@
 </header>
 
 <div id="container-main">
-	<%= form_for @availability do |f| %>
+	<%= form_for @availability, :url => { :action => :create, :count => @count } do |f| %>
 		<fieldset>
 		  <ul>
 		  	<li>
