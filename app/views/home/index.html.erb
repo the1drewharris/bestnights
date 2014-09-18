@@ -37,24 +37,31 @@
 				<h5>Top Results</h5>
 				<ul>
 					<!-- #TODO We need to make this show dynamic search results via JavaScript --> 
-					<% Hotel.top5.each do |hotel| %>
-						<li>
-							
-							<%= link_to booking_detail_path(:hotel_id => hotel.id) do %>
-							  <% unless hotel.hotel_photos.empty? %>
-							  	<img src=<%= hotel.hotel_photos.first.picture.url %> alt="" style="width:97px;height:74px;" />
-							  <% end %>
-								<!-- <img src=<%= hotel.hotel_photos.first.picture.url unless hotel.hotel_photos.empty? %> size="97x74" alt="" /> -->
-								<b><%= hotel.name %></b><br>
-								<span class="starrating">
-									<% unless hotel.star.blank? %>
-										<% hotel.star.to_i.times do %>
-							  			&#10029;
-							  			<% end %>
-							  		<% end %>
-							  </span><br><%= hotel.city %>, <% unless hotel.state.blank? %><%= hotel.state.state_province %><% end %>
+					<% unless Hotel.top5.blank? %>
+						<% Hotel.top5.each do |hotel| %>
+							<% @availables = RoomAvailable.where("hotel_id = ?", hotel.id) %>
+							<% @rates = RoomRate.where("hotel_id = ?", hotel.id) %>
+							<% @statuses = RoomStatus.where("hotel_id = ?", hotel.id) %>
+							<% if !@availables.blank? && !@rates.blank? && !@statuses.blank? %>
+								<li>
+									
+									<%= link_to booking_detail_path(:hotel_id => hotel.id) do %>
+									  <% unless hotel.hotel_photos.empty? %>
+									  	<img src=<%= hotel.hotel_photos.first.picture.url %> alt="" style="width:97px;height:74px;" />
+									  <% end %>
+										<!-- <img src=<%= hotel.hotel_photos.first.picture.url unless hotel.hotel_photos.empty? %> size="97x74" alt="" /> -->
+										<b><%= hotel.name %></b><br>
+										<span class="starrating">
+											<% unless hotel.star.blank? %>
+												<% hotel.star.to_i.times do %>
+									  			&#10029;
+									  			<% end %>
+									  		<% end %>
+									  </span><br><%= hotel.city %>, <% unless hotel.state.blank? %><%= hotel.state.state_province %><% end %>
+									<% end %>
+								</li>
 							<% end %>
-						</li>
+						<% end %>
 					<% end %>
 				</ul>
 				<p><a class="button4" href="#">See More Results</a></p>
