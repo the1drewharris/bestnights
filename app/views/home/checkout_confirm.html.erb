@@ -164,8 +164,8 @@ Your credit card is required to guarantee your booking. Please note that your cr
 				  	<% end %>
 				  </span><br>
 				  <%= @hotel.city %>, <%= @subregion.name  %>
-				</a>
-				<div class="roomdetail">
+				
+				<div class="roomdetail fLeft chkinout">
 					<b>Room:</b> 
 					<% @hotel.rooms.each do |room| %>
 					  <%= room.name %>,
@@ -178,8 +178,10 @@ Your credit card is required to guarantee your booking. Please note that your cr
 					<div class="clear"></div>
 					<b>Check out:</b>
 					<span style="background:#FACC2E; color: #CC504A; padding: 0 4px;">
-						<%= session[:checkout].to_date.strftime('%A, %B %d, %G') %></div>
+						<%= session[:checkout].to_date.strftime('%A, %B %d, %G') %>
 					</span>
+				</div>
+				</a>
 			</h5>
 			<div>
 				<div><label for="specialrequests">Special Requests</label><textarea></textarea></div>
