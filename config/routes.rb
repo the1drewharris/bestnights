@@ -77,6 +77,7 @@ Bestnights::Application.routes.draw do
   match '/overview' => 'dashboard#overview', :as => 'overview'
   match '/invoice' => 'dashboard#invoice', :as => 'invoice'
   match '/status/:id' => 'dashboard#status', :as => 'status'
+  match '/booking_status/:id' => 'dashboard#booking_status', :as => 'booking_status'
   match '/finance' => "dashboard#finance", :as => 'finance'
   match 'reservation_statements' => "dashboard#reservation_statements", :as => 'reservation_statements'
   match 'my_hotels' => "dashboard#my_hotels", :as => 'my_hotels'

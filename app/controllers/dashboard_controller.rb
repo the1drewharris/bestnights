@@ -360,6 +360,18 @@ class DashboardController < ApplicationController
     end
   end
 
+  def booking_status
+    @booking = Booking.find_by_id(params[:id])
+    @booking.price = (@booking.price.to_i * 12) / 100
+    @room = Room.find_by_id(@booking.room_id)
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render :pdf => "invoice_status"
+      end
+    end
+  end
+
   def reservation_statements
     @hotel = Hotel.find_by_id(session[:hotel_id])
     @reserve_price = []
