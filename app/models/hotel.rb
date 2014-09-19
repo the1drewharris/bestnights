@@ -44,7 +44,7 @@ class Hotel < ActiveRecord::Base
   
   def self.search(search)
     if search
-      find(:all, :conditions => ['status = ? and (name LIKE ? or city LIKE ?)', "active", "%#{search}%", "%#{search}%"])
+      find(:all, :conditions => ['(name LIKE ? or city LIKE ?)', "%#{search}%", "%#{search}%"])
     else
       find(:all)
     end
