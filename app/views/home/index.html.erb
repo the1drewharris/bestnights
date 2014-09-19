@@ -39,10 +39,10 @@
 					<!-- #TODO We need to make this show dynamic search results via JavaScript --> 
 					<% unless Hotel.top5.blank? %>
 						<% Hotel.top5.each do |hotel| %>
-							<% @availables = RoomAvailable.where("hotel_id = ?", hotel.id) %>
-							<% @rates = RoomRate.where("hotel_id = ?", hotel.id) %>
-							<% @statuses = RoomStatus.where("hotel_id = ?", hotel.id) %>
-							<% if !@availables.blank? && !@rates.blank? && !@statuses.blank? %>
+							<%# @availables = RoomAvailable.where("hotel_id = ?", hotel.id) %>
+							<%# @rates = RoomRate.where("hotel_id = ?", hotel.id) %>
+							<%# @statuses = RoomStatus.where("hotel_id = ?", hotel.id) %>
+							<%# if !@availables.blank? && !@rates.blank? && !@statuses.blank? %>
 								<li>
 									
 									<%= link_to booking_detail_path(:hotel_id => hotel.id) do %>
@@ -60,7 +60,7 @@
 									  </span><br><%= hotel.city %>, <% unless hotel.state.blank? %><%= hotel.state.state_province %><% end %>
 									<% end %>
 								</li>
-							<% end %>
+							<%# end %>
 						<% end %>
 					<% end %>
 				</ul>
