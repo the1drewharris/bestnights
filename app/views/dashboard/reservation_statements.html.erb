@@ -47,6 +47,7 @@
           	<table class="bookconf" width="100%" border="0">
 							<thead>
 								<tr>
+									<td align="left" valign="middle">Status</td>
 									<td align="center" valign="middle">Book Number</td>
 									<td align="center" valign="middle">Booked By</td>
 									<td align="center" valign="middle">Guest Name</td>
@@ -66,6 +67,9 @@
 									<% @bookings.each_with_index do |book,index| %>
 									<% @room = Room.find(book.room_id) %>
 										<tr>
+											<td>
+												<%= link_to "Download", reserve_status_path(:id => book.id, :format => "pdf"), class: "links" %>
+											</td>
 											<td align="center" valign="middle"><%= book.id %></td>
 											<td align="center" valign="middle"><%= book.traveler.name.titleize %></td>
 											<td align="center" valign="middle"><%= book.traveler.name.titleize %></td>
