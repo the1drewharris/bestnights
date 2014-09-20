@@ -124,10 +124,6 @@
 		
 		<section id="roomlist">		
 			<h5>
-				<div class="resultoptions">
-					<a href="#" class="button">More Info</a>
-				</div>
-				<a href="#">
 					<% unless @hotel.hotel_photos.empty? %>
 						<img src=<%= @hotel.hotel_photos.first.picture.url %> size="97x97" alt=""  data-jgallery-bg-color="#d1d2c3" data-jgallery-text-color="#272727" style="width:97px;height:97px;"/>
 					<% end %>	
@@ -165,15 +161,8 @@
 							<% end %>
 						</span>
 						</div>
-					<div>
-
-				</a>
-				
+					<div>				
 			</h5>
-			<div>
-				<p><%= @hotel.description %></p>
-				<div><label for="specialrequests">Special Requests</label><textarea class="spl-req"></textarea></div>
-			</div>
 		</section>
 	</section>
 		

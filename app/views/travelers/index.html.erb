@@ -39,7 +39,9 @@
 	</table>
 </div>
 	<div class="formactions">
-		<%= link_to "Add", new_traveler_path %>
+		<% unless current_traveler %>
+				<%= link_to "Add", new_traveler_path %>
+		<% end %>
   </div>
   <div class="row back-link bking"><%= link_to "Back", hotels_path , class: "link" %></div>
 </div>

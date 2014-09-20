@@ -2936,7 +2936,7 @@ ul#dashboard li a:hover {
 	margin-top: 1px;
 }
 .link-files.tpl {
-	margin-bottom:25px; margin-top:15px; text-align:center;
+	margin-bottom:25px; margin-top:15px; text-align:right;
 }
 .blk {
 	float: left;

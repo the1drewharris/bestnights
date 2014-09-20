@@ -154,10 +154,6 @@ Your credit card is required to guarantee your booking. Please note that your cr
 		
 		<section id="roomlist">		
 			<h5>
-				<div class="resultoptions">
-					<a href="#" class="button">More Info</a>
-				</div>
-				<a href="#">
 					<% unless @hotel.hotel_photos.first.nil? %>
 						<img src=<%= @hotel.hotel_photos.first.picture.url %> size="97x97" alt=""  data-jgallery-bg-color="#d1d2c3" data-jgallery-text-color="#272727" style="width:97px;height:97px;"/>
 					<% end %>
@@ -172,7 +168,7 @@ Your credit card is required to guarantee your booking. Please note that your cr
 				<div class="roomdetail fLeft chkinout">
 					<b>Room:</b> 
 					<% @hotel.rooms.each do |room| %>
-					  <%= room.name %>,
+					  <%= room.room_sub_type.name %>,
 					<% end %>
 					<br>
 					<b>Check in:</b> 
@@ -185,11 +181,7 @@ Your credit card is required to guarantee your booking. Please note that your cr
 						<%= session[:checkout].to_date.strftime('%A, %B %d, %G') %>
 					</span>
 				</div>
-				</a>
 			</h5>
-			<div>
-				<div><label for="specialrequests">Special Requests</label><textarea></textarea></div>
-			</div>
 		</section>
 	</section>
 	<div id="bookingtotal" class="sidesticky">

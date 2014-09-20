@@ -8,7 +8,7 @@
       <div class="section">
         <h3 class="title-bcg">Reservation Statements</h3>
         <div class="link-files tpl">
-				<%= link_to "Download as CSV", download_reservation_data_path(format: "csv"),  class: "csv", :hotel_id => session[:hotel_id] %>|<%= link_to "Download as Excel", export_reservation_in_excel_path(format: "xls"),  class: "xls",:hotel_id => session[:hotel_id] %> | <%= link_to "Download Monthly Invoice", download_statement_data_month_path,  class: "csv", :hotel_id => session[:hotel_id] %>
+				<%= link_to "Download as CSV", download_reservation_data_path(format: "csv"),  class: "csv", :hotel_id => session[:hotel_id] %> | <%= link_to "Download Monthly Invoice", download_statement_data_month_path,  class: "csv", :hotel_id => session[:hotel_id] %>
 				</div>
         <div class="titleResrv margnBT15">
 				  <span class="span1 labeltxt">

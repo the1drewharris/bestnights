@@ -504,7 +504,7 @@
 			console.log("checkout");
 			$( "#roomlist" ).accordion({
 				active : false,
-				collapsible : true,
+				// collapsible : true,
 				heightStyle: "content"
 			});
 			
@@ -524,7 +524,7 @@
 			
 			$( "#roomlist" ).accordion({
 				active : false,
-				collapsible : true,
+				// collapsible : true,
 				heightStyle: "content"
 			});
 			
