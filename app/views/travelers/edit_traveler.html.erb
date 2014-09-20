@@ -42,14 +42,15 @@
 		  	</li>	
 		  	<li>
 		  		<%= f.label "Credit Card Type" %>
-		  		<%= f.text_field :credit_card_type %>
+		  		<%= f.select :credit_card_type, options_for_select([['Visa','visa'],['Mastercard','mc'],['Diners Club','diners'],['American Express','amex'],['Discover','discover']]),{},{id: 'cardtype',required: true} %>
+		  		<%#= f.text_field :credit_card_type %>
 		  	</li>
 		  	<li>
 		  		<%= f.label "Credit Card Number" %>
 		  		<%= f.text_field :credit_card_number %>
 		  	</li>	
 		  	<li>
-		  		<%= f.label "CCV" %>
+		  		<%= f.label "CVV" %>
 		  		<%= f.text_field :ccv %>
 		  	</li>	
 		  	<li>
@@ -64,9 +65,37 @@
 		  </ul>	
 		</fieldset>
 		<fieldset class="formactions">
-			<%= f.submit %>
+			<%= f.submit "Update Traveler", :id => "card_valid" %>
 		</fieldset>
 	<% end %>
 	<div class="row back-link bking"><%= link_to "Back", traveler_path(session[:traveler_id]) , class: "link" %></div>
 </div>
 </div>
+
+
+
+<script type="text/javascript">
+$("#card_valid").click(function(){
+   ccnum = $("#traveler_credit_card_number").val();
+   cardtype= $("#traveler_credit_card_type").val();
+   if (ccnum.match("^4[0-9]{12}(?:[0-9]{3})?$") && ccnum.length == 16 && cardtype == "visa") {
+   		//alert("VISA");
+   }
+   else if (ccnum.match("^5[1-5][0-9]{14}$") && ccnum.length == 16 && cardtype == "mc"){
+   	  //alert("MASTERCARD");
+   }
+   else if(ccnum.match("^3[47][0-9]{13}$") && ccnum.length == 15 && cardtype == "amex") {
+   	   //alert("AMERICAN EXPRESS");
+   }
+   else if (ccnum.match("^3(?:0[0-5]|[68][0-9])[0-9]{11}$") && ccnum.length == 14 && cardtype == "diners") {
+   	   //alert("DINERS CLUB");
+   }
+   else if (ccnum.match("^6(?:011|5[0-9]{2})[0-9]{12}$") && ccnum.length == 16 && cardtype == "discover") {
+   		//alert("DISCOVER");
+   }
+   else {
+   	   alert("Please enter a valid card number and card type");
+   	   return false;
+   }
+})
+</script>
