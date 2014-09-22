@@ -93,21 +93,17 @@
 	<header>
 		<h1>Discover<br>the Latest Hotel Deals</h1>
 		<ul id="latestdeals">
-			<% @grouped_hotels.first(4).each do |group_hotel| %>
-			  <% city = group_hotel.first %>
-			  <% hotels = group_hotel.last %>
+			<% @hotels.each do |hotel| %>
 			  <li>
-					<h4><%= city %></h4>
+					<h4><%= hotel.city.titleize %></h4>
 					<!--<p> #TODO Need  #count  Deals are available today</p>-->
 					<ul>
-						<% hotels.each do |hotel| %>
 						  <li>
 						  	<%= link_to hotel.name, booking_detail_path(:hotel_id => hotel.id) %><br>
 						  	<% hotel.star.to_i.times do %>
 						  		&#10029;
 						  	<% end %>							  	
 						  </li>
-						<% end %>
 					</ul>
 				</li>
 			<% end %>

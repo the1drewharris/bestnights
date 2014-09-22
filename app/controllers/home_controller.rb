@@ -91,29 +91,11 @@ class HomeController < ApplicationController
     session[:checkin] = Date.today
     session[:checkout] = Date.today
     session[:search] = ""
-    session[:roomtype] = ""
-
-    latest_rooms = Room.latest_rooms  
-    
-    ## Group rooms by hotel id
-    grouped_rooms = latest_rooms.group_by { |d| d[:hotel_id]} 
-    
-    ## Get hotels of the rooms
-    hotels = []
-    grouped_rooms.each do |room|
-      hotel_id = room.first
-      hotels << Hotel.find(hotel_id)
-    end
-        
-    ## Group the hotels by city
-    #TODO Need a count here too to use in the view
-    @grouped_hotels = hotels.group_by { |d| d[:city].downcase} 
-    
+    session[:roomtype] = ""    
+    @hotels = Hotel.where(status: "active").order("created_at DESC").limit(5)
     ## the latest hotels who just joined
-    @latest_joined_hotels = Hotel.latest_joined_hotels
-    
-    gon.group = session[:group] # passing rails variable to js object variable
-    
+    @latest_joined_hotels = Hotel.latest_joined_hotels    
+    gon.group = session[:group] # passing rails variable to js object variable    
   end
 
   def autocomplete_hotel_name

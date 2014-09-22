@@ -39,7 +39,7 @@ class Hotel < ActiveRecord::Base
   scope :top5, -> { where(status: "active").order("star DESC").limit(5) }
   
   def self.latest_joined_hotels
-    find :all, :order => "created_at DESC"
+    where(status: "active").order("created_at DESC").limit(5)
   end
   
   def self.search(search)
