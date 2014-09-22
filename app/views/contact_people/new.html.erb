@@ -21,7 +21,7 @@ $(document).ready(function(){
 			  			<div class="contact-container">
 			      	<h3><%= ct.name.capitalize %></h3>
 			          <h4><%= ct.designation.blank? ? "" : ct.designation.capitalize %></h4>
-			          <span class="contact-item contact-email"><%= mail_to "#{ct.email}" %></span>
+			          <span class="contact-item contact-email emailContact"><%= mail_to "#{ct.email}"%></span>
 			          <span class="contact-item contact-phone"><%= ct.phone_number %></span>            
 			          <span class="contact-item contact-fax"><%= ct.phone_number %></span>
 			      	</div>

@@ -4546,5 +4546,8 @@ a.tableDetails{
 	text-shadow: none!important;
 	border-color: #f55f5f!important;
 }
+.emailContact a{
+	word-wrap: break-word;
+}
 /* End */
 

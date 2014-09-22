@@ -22,10 +22,6 @@
 	<% if current_user.admin? %>
 		<%= link_to "Rooms", rooms_path %>
 	<% end %>
-
-	<% if can? :index, Availability %>
-		<%= link_to "Availabilities", availabilities_path %>
-	<% end %>
 	<% if current_user.admin? %>	
 		<%= link_to "Room Attributes", room_attributes_path %>
 	<% end %>
