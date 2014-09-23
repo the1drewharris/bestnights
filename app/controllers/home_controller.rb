@@ -461,8 +461,9 @@ class HomeController < ApplicationController
 
         @room_type = RoomSubType.find_by_id(session[:room_type_id].to_i)
         @get_room_type = @room_type.name
-      
-    if @available_flag == 0 && @status_flag == 0 && book(@traveler, @amount, @card_number, @ccv, @card_type, @hotel,@booking_number, @booking_created_on, @checkin, @checkout, session[:room_needed], @get_room_type, @room1 )
+        @last_booked = Booking.where(traveler_id: @traveler.id, hotel_id: @hotel.id).order("created_at DESC").limit(1)
+        @price = session[:price]["#{session[:roomtype]}"]
+    if @available_flag == 0 && @status_flag == 0 && book(@traveler, @amount, @card_number, @ccv, @card_type, @hotel,@booking_number, @booking_created_on, @checkin, @checkout, session[:room_needed], @get_room_type, @room1, @last_booked, @price, @number_nights )
       ## Create booking record and availability record
        @rate = @room1.price.to_f
         @rooms.each do |room|
@@ -490,7 +491,6 @@ class HomeController < ApplicationController
 
         @latest_booked = Booking.where(traveler_id: @traveler.id, hotel_id: room.hotel.id).order("created_at DESC").limit(1)
         logger.info"!!!!!!!!!!!!!!!!!!!#{session[:price]}!!!!!!!!!!!!!!!!!!!!!"
-        @price = session[:price]["#{session[:roomtype]}"]
         @fax_email = FaxMailer.hotel_booking_mail(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, session[:room_needed], @latest_booked, @room1,@rate,@card_expiry, request.protocol,request.host_with_port, @number_nights, @price).deliver
         if !@hotel.email.nil? &&  @hotel.email != ""
           @fax_email_to_hotel = FaxMailer.email_to_hotel(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, room_ids, @latest_booked, @room1, @card_expiry, request.protocol,request.host_with_port, session[:room_needed], @number_nights, @price).deliver
@@ -511,13 +511,26 @@ class HomeController < ApplicationController
   
   private
 
-  def book(traveler, amount, cardnumber,ccv, cardtype, hotel, booking_number, booking_created_on, checkin, checkout, room_ids, room_type, room)
+  def book(traveler, amount, cardnumber,ccv, cardtype, hotel, booking_number, booking_created_on, checkin, checkout, room_ids, room_type, room, booking, price, nights)
     logger.info"@@@@@@@@@@#{traveler.inspect}@@@@@@#{amount}@@@@@@@@@@@@#{cardnumber}@@@@@@@@#{cardtype}@@@@@@#{checkin}@@@@@@#{checkout}@"
     @image = '<img src="http://23.253.149.108/e-mail-logo.jpg" width="316" height="52" alt=''>'
     #TODO make this work with the fax service
     @disclaimer = CGI::unescape("Disclaimer"+"\n"+"* A confirmation has been sent to the guest with all of the booking details"+"\n"+"* It is your duty , as the booking property, to safeguard this fax and the guests credit card info in a secure way that follows your company's security policies")
     @policy = CGI::unescape("Within 48 hours, unless specified by the individual hotel.")
+    @booking_data = ""
+    @night_data = ""
     File.open("#{Rails.root.to_s}/public/fax_content.html", 'wb') do|f|
+      booking.each do |book|
+        nights.times do |night|
+          @booking_data += '<td style="height:40px; color:#000">' + "#{book.from_date.advance(days: night).strftime("%m")}" +'/ '+"#{book.from_date.advance(days: night).strftime("%d")}"+'</td>'
+        end 
+      end 
+
+      booking.each do |book|
+        nights.times do |night|
+          @night_data += '<td style="height:40px; color:#000"> '+"#{(price / nights)}"+' CAD</td>'
+        end
+      end   
      html = '<html>'\
       '<body>'\
         '<div style="margin: 100px">'\
@@ -564,8 +577,8 @@ class HomeController < ApplicationController
             '<div style="clear: both;"></div>'\
           '</div>'\
           '<div style="float: right;width: 60%;">'\
-            '<div style="float: left;width: 30%;font-weight: bold; font-size: 16px;">Number of Rooms:</div>'\
-            '<div style="float: right;width: 70%;font-weight: 400; font-size: 16px;">'+ "#{room_ids}" +'</div>'\
+            '<div style="float: left;width: 20%;font-weight: bold; font-size: 16px;">Number of Rooms:</div>'\
+            '<div style="float: right;width: 80%;font-weight: 400; font-size: 16px;">'+ "#{room_ids}" +'</div>'\
             '<div style="clear: both;"></div>'\
           '</div>'\
          ' <div style="clear: both"></div>'\
@@ -576,6 +589,18 @@ class HomeController < ApplicationController
             + "#{room.description.titleize}" +
          ' </div>'\
         '</div>'\
+        '<div style="margin-top: 50px;">'\
+        '<table cellspacing="0" width="100%" cellpadding="0" align="center" style="text-align: center; font-size:16px;">'\
+            '<tr style="color:#000;">'\
+              '<td>Date</td>'\
+              +"#{@booking_data}"+
+            '</tr>'\
+            '<tr style="color:#000;">'\
+                '<td>Rate</td>'\
+              +"#{@night_data}"+
+            '</tr>'\
+          '</table>'\
+          '</div>'\
         '<div style="margin-top: 50px;">'\
           '<div style="float: left;width: 30%;font-weight: bold; font-size: 16px;">Total Price for this reservation: $'+ "#{amount}" +'</div><br />'\
           '<div style="float: left;width: 40%;">'\

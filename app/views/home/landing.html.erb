@@ -1,10 +1,7 @@
-<link href='http://fonts.googleapis.com/css?family=Raleway:400,900,700,500,800,600,300' rel='stylesheet' type='text/css'>
 <div id="wrapper" class="home">
 	<div id="eyebrow">
 		<%= render :partial => "common/home_nav_tab" %>
-
 	</div>	
-	<!-- Start 22-09-2014 -->
 	<div id="features" class="ready">
 		<img src="/assets/landing-bg.jpg">
 	</div>
@@ -14,33 +11,6 @@
 		<p class="landingText"><%= link_to "Register and enter to win an iPad", new_contact_path, class: "addProperty" %></p>
 		<p class="landingText propertyy">Register your property today! Upon activation with room inventory, You will automatically be entered to win an iPad! The winner will be announced via our website & contacted directly. </p>
 		<p class="landingText"><%= link_to "Add your property today!", welcome_path , class: "addProperty" %></p>
-		<!-- <a href="#">View all new hotels</a> -->
 	</section>
-	<!-- End 22-09-2014 -->
-	
-	<%= render :partial => "common/home_footer" %>
-	
+	<%= render :partial => "common/home_footer" %>	
 </div>
-
-<script>
-	var kept_prv = (new Date("2014-09-22")).getTime(); // kept date
-	var kept_cur = (new Date("2014-09-22")).getTime(); // kept date
-	var kept_roomtype = "";
-	var kept_group = gon.group;	
-	
-	console.log(kept_roomtype);
-	console.log(kept_group);
-</script>
-
-<script>
-	$(document).ready(function(){
-		$("#searchform").find('input').keypress(function(e){
-			if(e.which == 13){
-				return false;
-			}
-		})
-	})
-</script>
-
-
-<div id="window-resizer-tooltip"><a href="http://www.bestnights.com/#" title="Edit settings" style="background-image: url(chrome-extension://kkelicaakdanhinjdeammmilcgefonfh/images/icon_19.png);"></a><span class="tooltipTitle">Window size: </span><span class="tooltipWidth" id="winWidth"></span> x <span class="tooltipHeight" id="winHeight"></span><br><span class="tooltipTitle">Viewport size: </span><span class="tooltipWidth" id="vpWidth"></span> x <span class="tooltipHeight" id="vpHeight"></span></div><div id="shadowMeasureIt"></div><div id="divCoordMeasureIt"></div><div id="divRectangleMeasureIt"><div id="divRectangleBGMeasureIt"></div></div>
