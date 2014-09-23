@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="/assets/jquery.remodal.css">
+<script src="/assets/jquery.remodal.js"></script>
+<div class="remodal-bg">
 <div id="wrapper" class="home">
 	<div id="eyebrow">
 		<%= render :partial => "common/home_nav_tab" %>
@@ -136,6 +139,16 @@
 	<%= render :partial => "common/home_footer" %>
 	
 </div>
+	<div class="remodal" data-remodal-id="modal">
+     <img src="/assets/popup1.jpg" alt="" title="" />
+  </div>
+</div>
+<script>
+$(document).ready(function(){
+	
+	 $('[data-remodal-id=modal]').remodal().open();
+}); 
+</script>
 
 <script>
 	var kept_prv = (new Date("<%= session[:checkin] %>")).getTime(); // kept date
@@ -156,3 +169,4 @@
 		})
 	})
 </script>
+
