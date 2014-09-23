@@ -462,7 +462,7 @@ class HomeController < ApplicationController
         @room_type = RoomSubType.find_by_id(session[:room_type_id].to_i)
         @get_room_type = @room_type.name
       
-    if @available_flag == 0 && @status_flag == 0 && book(@traveler, @amount, @card_number, @ccv, @card_type, @hotel,@booking_number, @booking_created_on, @checkin, @checkout, session[:room_needed], @get_room_type )
+    if @available_flag == 0 && @status_flag == 0 && book(@traveler, @amount, @card_number, @ccv, @card_type, @hotel,@booking_number, @booking_created_on, @checkin, @checkout, session[:room_needed], @get_room_type, @room1 )
       ## Create booking record and availability record
        @rate = @room1.price.to_f
         @rooms.each do |room|
@@ -508,16 +508,124 @@ class HomeController < ApplicationController
   
   private
 
-  def book(traveler, amount, cardnumber,ccv, cardtype, hotel, booking_number, booking_created_on, checkin, checkout, room_ids, room_type)
+  def book(traveler, amount, cardnumber,ccv, cardtype, hotel, booking_number, booking_created_on, checkin, checkout, room_ids, room_type, room)
     logger.info"@@@@@@@@@@#{traveler.inspect}@@@@@@#{amount}@@@@@@@@@@@@#{cardnumber}@@@@@@@@#{cardtype}@@@@@@#{checkin}@@@@@@#{checkout}@"
     @image = '<img src="http://23.253.149.108/e-mail-logo.jpg" width="316" height="52" alt=''>'
     #TODO make this work with the fax service
     @disclaimer = CGI::unescape("Disclaimer"+"\n"+"* A confirmation has been sent to the guest with all of the booking details"+"\n"+"* It is your duty , as the booking property, to safeguard this fax and the guests credit card info in a secure way that follows your company's security policies")
     @policy = CGI::unescape("Within 48 hours, unless specified by the individual hotel.")
-    File.open("#{Rails.root.to_s}/public/fax_content.html", 'wb') do|f|      
-      f.write("<html>"+"<body>"+@image+"<table width='100%''><tr><td width='20%' style='padding-top:8px; padding-bottom:8px;'>"+'Hotel Name'+"</td><td width='80%' style='padding-top:8px; padding-bottom:8px;'><strong>"+hotel.name.titleize+"</strong></td></tr><tr><td width='20%' style='padding-top:8px; padding-bottom:8px;'>"+'Traveler Name'+"</td><td width='80%' style='padding-top:8px; padding-bottom:8px;'><strong>"+traveler.name.titleize+"</strong></td></tr><tr><td width='20%' style='padding-top:8px; padding-bottom:8px;'>"+'Traveler Email'+"</td><td width='80%' style='padding-top:8px; padding-bottom:8px;'><strong>"+traveler.email+"</strong></td></tr><tr><td width='20%' style='padding-top:8px; padding-bottom:8px;'>"+'Booking Number'+"</td><td width='80%' style='padding-top:8px; padding-bottom:8px;'><strong>"+booking_number.to_s+"</strong></td></tr><tr><td width='20%' style='padding-top:8px; padding-bottom:8px;'>"+'Booked On'+"</td><td width='80%' style='padding-top:8px; padding-bottom:8px;'><strong>"+booking_created_on.to_s+"</strong></td></tr>
-      <tr><td width='20%' style='padding-top:8px; padding-bottom:8px;'>"+'Card Number'+"</td><td width='80%' style='padding-top:8px; padding-bottom:8px;'><strong>"+traveler.credit_card_number+"</strong></td></tr><tr><td width='20%' style='padding-top:8px; padding-bottom:8px;'>"+'Card Type'+"</td><td width='80%' style='padding-top:8px; padding-bottom:8px;'><strong>"+traveler.credit_card_type+"</strong></td></tr><tr><td width='20%' style='padding-top:8px; padding-bottom:8px;'>"+'Address'+"</td><td width='80%' style='padding-top:8px; padding-bottom:8px;'><strong>"+traveler.address1.titleize+"</strong></td></tr><tr><td width='20%' style='padding-top:8px; padding-bottom:8px;'>"+'Amount'+"</td><td width='80%' style='padding-top:8px; padding-bottom:8px;'><strong>"+"#{amount}"+"</strong></td></tr><tr><td width='20%' style='padding-top:8px; padding-bottom:8px;'>"+'Checkin Date'+"</td><td width='80%' style='padding-top:8px; padding-bottom:8px;'><strong>"+checkin.to_s+"</strong></td></tr><tr><td width='20%' style='padding-top:8px; padding-bottom:8px;'>"+'Checkout Date'+"</td>
-      <td width='80%' style='padding-top:8px; padding-bottom:8px;'><strong>"+checkout.to_s+"</strong></td></tr><tr><td width='20%' style='padding-top:8px; padding-bottom:8px;'>"+'Room Number'+"</td><td width='80%' style='padding-top:8px; padding-bottom:8px;'><strong>"+"#{room_ids}"+"</strong></td></tr><tr><td width='20%' style='padding-top:8px; padding-bottom:8px;'>"+'Room Type'+"</td><td width='80%' style='padding-top:8px; padding-bottom:8px;'><strong>"+"#{room_type.titleize}"+"</strong></td></tr><tr><td width='20%' style='padding-top:8px; padding-bottom:8px;'>"+'Cancellation'+"</td><td width='80%' style='padding-top:8px; padding-bottom:8px;'><strong>"+@policy+"</strong></td></tr><tr><td colspan='2'>"+@disclaimer+"</td></tr></table>"+"</body>"+"</html>") 
+    File.open("#{Rails.root.to_s}/public/fax_content.html", 'wb') do|f|
+     html = '<html>'\
+      '<body>'\
+        '<div style="margin: 100px">'\
+        '<div style="float: left; width: 40%">'\
+          '<img src="http://23.253.149.108/e-mail-logo.jpg" width="316" height="52" alt=""/>'\
+        '</div>'\
+        '<div style="float: right; width: 60%">'\
+          '<div style="font-size: 30px;font-weight: 500;">Booking confirmation<br/>'+ "#{booking_number.to_s}" +'</div>'\
+        '</div><div style="clear: both"></div>'\
+        '<div style="margin-top: 50px;">'\
+          '<div style="float: left;width: 40%;">'\
+            '<div style="float: left;width: 20%;font-weight: bold; font-size: 16px;">Fax To:</div>'\
+            '<div style="float: right;width: 80%;font-weight: 400; font-size: 16px;">'+ "#{hotel.name.titleize}" +'</div>'\
+            '<div style="clear: both;"></div>'\
+            '<div style="float: left;width: 20%;font-weight: bold; font-size: 16px;">Fax:</div>'\
+            '<div style="float: right;width: 80%;font-weight: 400; font-size: 16px;">'+ "#{hotel.fax}" +'</div>'\
+            '<div style="clear: both;"></div>'\
+          '</div>'\
+          '<div style="float: right;width: 60%;">'\
+            '<div style="float: left;width: 20%;font-weight: bold; font-size: 16px;">Date:</div>'\
+            '<div style="float: right;width: 80%;font-weight: 400; font-size: 16px;">'+ "#{booking_created_on.to_s}" +'</div>'\
+            '<div style="clear: both;"></div>'\
+            '<div style="float: left;width: 20%;font-weight: bold; font-size: 16px;">Concerning:</div>'\
+            '<div style="float: right;width: 80%;font-weight: 400; font-size: 16px;">Booking Confirmationn : '+ "#{booking_number.to_s}" +'</div>'\
+            '<div style="clear: both;"></div>'\
+          '</div>'\
+          '<div style="clear: both"></div>'\
+        '</div>'\
+        '<div style="margin-top: 50px;">'\
+          '<div>Dear '+ "#{hotel.user.name.titleize}" +',</div><br/>'\
+          '<div>We have received the following information for your hotel  and are confirming via fax.</div><br/>'\
+          '<div>'\
+            'If you have any questions regarding this reservation, please feel free to contact us. Telephone English Support 1 800 494 BEST (2378), Email Customer: info@bestnights.com <br/>'\
+          '</div><br/>'\
+          '<div>Yours faithfully, Bestnights.com</div>'\
+        '</div>'\
+        '<div style="margin-top: 50px;">'\
+          '<div style="float: left;width: 40%;">'\
+            '<div style="float: left;width: 20%;font-weight: bold; font-size: 16px;">Arrival:</div>'\
+            '<div style="float: right;width: 80%;font-weight: 400; font-size: 16px;">'+ "#{checkin.to_s}" +'</div>'\
+            '<div style="clear: both;"></div>'\
+            '<div style="float: left;width: 20%;font-weight: bold; font-size: 16px;">Departure:</div>'\
+            '<div style="float: right;width: 80%;font-weight: 400; font-size: 16px;">'+ "#{checkout.to_s}" +'</div>'\
+            '<div style="clear: both;"></div>'\
+          '</div>'\
+          '<div style="float: right;width: 60%;">'\
+            '<div style="float: left;width: 30%;font-weight: bold; font-size: 16px;">Number of Rooms:</div>'\
+            '<div style="float: right;width: 70%;font-weight: 400; font-size: 16px;">'+ "#{room_ids}" +'</div>'\
+            '<div style="clear: both;"></div>'\
+          '</div>'\
+         ' <div style="clear: both"></div>'\
+        '</div>'\
+        '<div style="margin-top: 50px;">'\
+          '<div style="float: left;width: 30%;font-weight: bold; font-size: 16px;">'+ "#{room_type.titleize}" +'</div><br/>'\
+          '<div>'\
+            + "#{room.description.titleize}" +
+         ' </div>'\
+        '</div>'\
+        '<div style="margin-top: 50px;">'\
+          '<div style="float: left;width: 30%;font-weight: bold; font-size: 16px;">Total Price for this reservation: $'+ "#{amount}" +'</div><br />'\
+          '<div style="float: left;width: 40%;">'\
+            '<div style="float: left;width: 20%;font-weight: bold; font-size: 16px;">Credit Card:</div>'\
+            '<div style="float: right;width: 80%;font-weight: 400; font-size: 16px;">'+ "#{traveler.credit_card_type.titleize}" +'</div>'\
+            '<div style="clear: both;"></div>'\
+            '<div style="float: left;width: 20%;font-weight: bold; font-size: 16px;">Card Number:</div>'\
+            '<div style="float: right;width: 80%;font-weight: 400; font-size: 16px;">'+ "#{traveler.credit_card_number}" +'</div>'\
+            '<div style="clear: both;"></div>'\
+          '</div>'\
+          '<div style="float: right;width: 60%;">'\
+            '<div style="float: left;width: 20%;font-weight: bold; font-size: 16px;">Expiry Date:</div>'\
+            '<div style="float: right;width: 80%;font-weight: 400; font-size: 16px;">'+ "#{traveler.credit_card_expiry_date}" +'</div>'\
+            '<div style="clear: both;"></div>'\
+          '</div>'\
+        '</div>'\
+        '<div style="margin-top: 50px;">'\
+          '<div>Its Your Obligation to Safeguard this fax and keep this guests credit card information secure in accordance with your internal security procedures.</div>'\
+        '</div>'\
+        '<div style="margin-top: 20px;">'\
+         ' <div style="float: left;width: 40%;">'\
+            '<div style="float: left;width: 20%;font-weight: bold; font-size: 16px;">Booked By:</div>'\
+            '<div style="float: right;width: 80%;font-weight: 400; font-size: 16px;">'+ "#{traveler.name.titleize}" +'</div>'\
+            '<div style="clear: both;"></div>'\
+            '<div style="float: left;width: 20%;font-weight: bold; font-size: 16px;">Address:</div>'\
+            '<div style="float: right;width: 80%;font-weight: 400; font-size: 16px;">'+ "#{traveler.address1.titleize}" +'</div>'\
+            '<div style="clear: both;"></div>'\
+            '<div style="float: left;width: 20%;font-weight: bold; font-size: 16px;">City:</div>'\
+            '<div style="float: right;width: 80%;font-weight: 400; font-size: 16px;">'+ "#{traveler.city.titleize}" +'</div>'\
+            '<div style="clear: both;"></div>'\
+            '<div style="float: left;width: 20%;font-weight: bold; font-size: 16px;">Telephone:</div>'\
+           ' <div style="float: right;width: 80%;font-weight: 400; font-size: 16px;">'+ "#{traveler.phone_number}" +'</div>'\
+            '<div style="clear: both;"></div>'\
+          '</div>'\
+          '<div style="float: right;width: 60%;">'\
+            '<div style="float: left;width: 20%;font-weight: bold; font-size: 16px;">Zip Code:</div>'\
+            '<div style="float: right;width: 80%;font-weight: 400; font-size: 16px;">'+ "#{traveler.zip.titleize}" +'</div>'\
+            '<div style="clear: both;"></div>'\
+            '<div style="float: left;width: 20%;font-weight: bold; font-size: 16px;">Country:</div>'\
+            '<div style="float: right;width: 80%;font-weight: 400; font-size: 16px;">'+ "#{traveler.country_id}" +'</div>'\
+            '<div style="clear: both;"></div>'\
+          '</div>'\
+        '</div>'\
+        '<div style="clear: both;"></div>'\
+        '<div>'\
+          '<ul>'\
+            '<li>IMPORTANT: '+ "#{@disclaimer}" +'</li>'\
+          '</ul>'\
+        '</div>'\
+      '</div>'\
+      '</body>'\
+      '</html>'
+      f.write(html) 
       end
     results = []
     chars = 0
