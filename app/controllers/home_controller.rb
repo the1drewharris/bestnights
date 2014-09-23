@@ -504,6 +504,9 @@ class HomeController < ApplicationController
   def subregion_options
     render partial: 'test'
   end
+
+  def landing
+  end
   
   
   private

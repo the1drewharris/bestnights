@@ -244,14 +244,14 @@
 
  	var room_needed = $(this).parent().siblings(".room_number").children("#room_number").val();
  	var room_avail = parseInt($(this).parent().siblings(".room_available").children(".room-available").children(".data-tbl").children("tbody").children("tr").children("td").children("span").html());
- 	if (room_needed <= room_avail && room_needed != '') {
+ 	if (room_needed <= room_avail && room_needed != '' && room_needed != "0") {
  		//var room_available = parseInt($(this).parent().siblings(".room_available").html()) - room_needed;
  		link = $(this).attr('href');
  		link = link + '&room_number='+room_needed + '&total_room=' + room_avail;
  		window.location.href = link;
  		return true;
  	}
- 	else if (room_needed > 0) {
+ 	else if (room_needed >= 0) {
  		alert(room_needed + " " + "rooms are not available");
  		return false;
  	}
