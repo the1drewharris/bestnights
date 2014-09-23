@@ -9,12 +9,11 @@
 		<img src="/assets/landing-bg.jpg">
 	</div>
 	<section class="landing">
-		<h2 class="landingHead">We’re new and we’re here <strong>for you!</strong>
-		<span>We make booking easier and save your money!</span></h2>
-		<p class="landingText"><a href="#" class="landingLink">Join bestnights.com</a></p>
-		<p class="landingText">Register your property today! Upon activation with room inventory, You will automatically be entered to win an iPad! The winner will be announced via our website & contacted directly. </p>
-		<p class="landingText">Thank you for joining Bestnights! We look forward to a successful future with you!</p>
-		<p class="landingText"><a class="addProperty" href="#">Add your property today!</a></p>
+		<h2 class="landingHead">We’re new and we’re here for you!
+		<span>We make booking easier and save your money! <br /> <strong>Commissions 12%</></strong></h2>
+		<p class="landingText"><%= link_to "Register and enter to win an iPad", new_contact_path, class: "addProperty" %></p>
+		<p class="landingText propertyy">Register your property today! Upon activation with room inventory, You will automatically be entered to win an iPad! The winner will be announced via our website & contacted directly. </p>
+		<p class="landingText"><%= link_to "Add your property today!", welcome_path , class: "addProperty" %></p>
 		<!-- <a href="#">View all new hotels</a> -->
 	</section>
 	<!-- End 22-09-2014 -->
