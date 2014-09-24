@@ -522,26 +522,26 @@ class HomeController < ApplicationController
     File.open("#{Rails.root.to_s}/public/fax_content.html", 'wb') do|f|
       booking.each do |book|
         nights.times do |night|
-          @booking_data += '<td style="height:40px; color:#000">' + "#{book.from_date.advance(days: night).strftime("%m")}" +'/ '+"#{book.from_date.advance(days: night).strftime("%d")}"+'</td>'
+          @booking_data += '<td style="height:40px; color:#000;border:1px solid #000;">' + "#{book.from_date.advance(days: night).strftime("%m")}" +'/ '+"#{book.from_date.advance(days: night).strftime("%d")}"+'</td>'
         end 
       end 
 
       booking.each do |book|
         nights.times do |night|
-          @night_data += '<td style="height:40px; color:#000"> '+"#{(price / nights)}"+' CAD</td>'
+          @night_data += '<td style="height:40px; color:#000;border:1px solid #000;"> '+"#{(price / nights)}"+' CAD</td>'
         end
       end   
      html = '<html>'\
       '<body>'\
         '<div style="margin: 100px">'\
-        '<div style="float: left; width: 40%">'\
+        '<div style="float: left; width: 70%">'\
           '<img src="http://23.253.149.108/e-mail-logo.jpg" width="316" height="52" alt=""/>'\
         '</div>'\
-        '<div style="float: right; width: 60%">'\
+        '<div style="float: right; width: 30%">'\
           '<div style="font-size: 30px;font-weight: 500;">Booking confirmation<br/>'+ "#{booking_number.to_s}" +'</div>'\
         '</div><div style="clear: both"></div>'\
-        '<div style="margin-top: 50px;">'\
-          '<div style="float: left;width: 40%;">'\
+        '<div style="margin-top: 10px;;">'\
+          '<div style="float: left;width: 70%;">'\
             '<div style="float: left;width: 20%;font-weight: bold; font-size: 16px;">Fax To:</div>'\
             '<div style="float: right;width: 80%;font-weight: 400; font-size: 16px;">'+ "#{hotel.name.titleize}" +'</div>'\
             '<div style="clear: both;"></div>'\
@@ -549,17 +549,17 @@ class HomeController < ApplicationController
             '<div style="float: right;width: 80%;font-weight: 400; font-size: 16px;">'+ "#{hotel.fax}" +'</div>'\
             '<div style="clear: both;"></div>'\
           '</div>'\
-          '<div style="float: right;width: 60%;">'\
+          '<div style="float: right;width: 30%;">'\
             '<div style="float: left;width: 20%;font-weight: bold; font-size: 16px;">Date:</div>'\
             '<div style="float: right;width: 80%;font-weight: 400; font-size: 16px;">'+ "#{booking_created_on.to_s}" +'</div>'\
             '<div style="clear: both;"></div>'\
-            '<div style="float: left;width: 20%;font-weight: bold; font-size: 16px;">Concerning:</div>'\
-            '<div style="float: right;width: 80%;font-weight: 400; font-size: 16px;">Booking Confirmationn : '+ "#{booking_number.to_s}" +'</div>'\
+            '<div style="float: left;width: 30%;font-weight: bold; font-size: 16px;">Concerning:</div>'\
+            '<div style="float: right;width: 70%;font-weight: 400; font-size: 16px;">Booking Confirmationn : '+ "#{booking_number.to_s}" +'</div>'\
             '<div style="clear: both;"></div>'\
           '</div>'\
           '<div style="clear: both"></div>'\
         '</div>'\
-        '<div style="margin-top: 50px;">'\
+        '<div style="margin-top: 10px;;">'\
           '<div>Dear '+ "#{hotel.user.name.titleize}" +',</div><br/>'\
           '<div>We have received the following information for your hotel  and are confirming via fax.</div><br/>'\
           '<div>'\
@@ -567,80 +567,80 @@ class HomeController < ApplicationController
           '</div><br/>'\
           '<div>Yours faithfully, Bestnights.com</div>'\
         '</div>'\
-        '<div style="margin-top: 50px;">'\
-          '<div style="float: left;width: 40%;">'\
-            '<div style="float: left;width: 20%;font-weight: bold; font-size: 16px;">Arrival:</div>'\
-            '<div style="float: right;width: 80%;font-weight: 400; font-size: 16px;">'+ "#{checkin.to_s}" +'</div>'\
+        '<div style="margin-top: 10px;;">'\
+          '<div style="float: left;width: 70%;">'\
+            '<div style="float: left;width: 30%;font-weight: bold; font-size: 16px;">Arrival:</div>'\
+            '<div style="float: right;width: 70%;font-weight: 400; font-size: 16px;">'+ "#{checkin.to_s}" +'</div>'\
             '<div style="clear: both;"></div>'\
-            '<div style="float: left;width: 20%;font-weight: bold; font-size: 16px;">Departure:</div>'\
-            '<div style="float: right;width: 80%;font-weight: 400; font-size: 16px;">'+ "#{checkout.to_s}" +'</div>'\
+            '<div style="float: left;width: 30%;font-weight: bold; font-size: 16px;">Departure:</div>'\
+            '<div style="float: right;width: 70%;font-weight: 400; font-size: 16px;">'+ "#{checkout.to_s}" +'</div>'\
             '<div style="clear: both;"></div>'\
           '</div>'\
-          '<div style="float: right;width: 60%;">'\
+          '<div style="float: right;width: 30%;">'\
             '<div style="float: left;width: 20%;font-weight: bold; font-size: 16px;">Number of Rooms:</div>'\
             '<div style="float: right;width: 80%;font-weight: 400; font-size: 16px;">'+ "#{room_ids}" +'</div>'\
             '<div style="clear: both;"></div>'\
           '</div>'\
          ' <div style="clear: both"></div>'\
         '</div>'\
-        '<div style="margin-top: 50px;">'\
+        '<div style="margin-top: 10px;;">'\
           '<div style="float: left;width: 30%;font-weight: bold; font-size: 16px;">'+ "#{room_type.titleize}" +'</div><br/>'\
           '<div>'\
             + "#{room.description.titleize}" +
          ' </div>'\
         '</div>'\
-        '<div style="margin-top: 50px;">'\
+        '<div style="margin-top: 10px;;">'\
         '<table cellspacing="0" width="100%" cellpadding="0" align="center" style="text-align: center; font-size:16px;">'\
             '<tr style="color:#000;">'\
-              '<td>Date</td>'\
+              '<td style="border:1px solid #000;">Date</td>'\
               +"#{@booking_data}"+
             '</tr>'\
             '<tr style="color:#000;">'\
-                '<td>Rate</td>'\
+                '<td style="border:1px solid #000;">Rate</td>'\
               +"#{@night_data}"+
             '</tr>'\
           '</table>'\
           '</div>'\
-        '<div style="margin-top: 50px;">'\
+        '<div style="margin-top: 10px;;">'\
           '<div style="float: left;width: 30%;font-weight: bold; font-size: 16px;">Total Price for this reservation: $'+ "#{amount}" +'</div><br />'\
-          '<div style="float: left;width: 40%;">'\
-            '<div style="float: left;width: 20%;font-weight: bold; font-size: 16px;">Credit Card:</div>'\
-            '<div style="float: right;width: 80%;font-weight: 400; font-size: 16px;">'+ "#{traveler.credit_card_type.titleize}" +'</div>'\
+          '<div style="float: left;width: 70%;">'\
+            '<div style="float: left;width: 30%;font-weight: bold; font-size: 16px;">Credit Card:</div>'\
+            '<div style="float: right;width: 70%;font-weight: 400; font-size: 16px;">'+ "#{traveler.credit_card_type.titleize}" +'</div>'\
             '<div style="clear: both;"></div>'\
-            '<div style="float: left;width: 20%;font-weight: bold; font-size: 16px;">Card Number:</div>'\
-            '<div style="float: right;width: 80%;font-weight: 400; font-size: 16px;">'+ "#{traveler.credit_card_number}" +'</div>'\
+            '<div style="float: left;width: 30%;font-weight: bold; font-size: 16px;">Card Number:</div>'\
+            '<div style="float: right;width: 70%;font-weight: 400; font-size: 16px;">'+ "#{traveler.credit_card_number}" +'</div>'\
             '<div style="clear: both;"></div>'\
           '</div>'\
-          '<div style="float: right;width: 60%;">'\
-            '<div style="float: left;width: 20%;font-weight: bold; font-size: 16px;">Expiry Date:</div>'\
-            '<div style="float: right;width: 80%;font-weight: 400; font-size: 16px;">'+ "#{traveler.credit_card_expiry_date}" +'</div>'\
+          '<div style="float: right;width: 30%;">'\
+            '<div style="float: left;width: 30%;font-weight: bold; font-size: 16px;">Expiry Date:</div>'\
+            '<div style="float: right;width: 70%;font-weight: 400; font-size: 16px;">'+ "#{traveler.credit_card_expiry_date}" +'</div>'\
             '<div style="clear: both;"></div>'\
           '</div>'\
         '</div>'\
-        '<div style="margin-top: 50px;">'\
+        '<div style="margin-top: 10px;;">'\
           '<div>Its Your Obligation to Safeguard this fax and keep this guests credit card information secure in accordance with your internal security procedures.</div>'\
         '</div>'\
         '<div style="margin-top: 20px;">'\
-         ' <div style="float: left;width: 40%;">'\
-            '<div style="float: left;width: 20%;font-weight: bold; font-size: 16px;">Booked By:</div>'\
-            '<div style="float: right;width: 80%;font-weight: 400; font-size: 16px;">'+ "#{traveler.name.titleize}" +'</div>'\
+         ' <div style="float: left;width: 70%;">'\
+            '<div style="float: left;width: 30%;font-weight: bold; font-size: 16px;">Booked By:</div>'\
+            '<div style="float: right;width: 70%;font-weight: 400; font-size: 16px;">'+ "#{traveler.name.titleize}" +'</div>'\
             '<div style="clear: both;"></div>'\
-            '<div style="float: left;width: 20%;font-weight: bold; font-size: 16px;">Address:</div>'\
-            '<div style="float: right;width: 80%;font-weight: 400; font-size: 16px;">'+ "#{traveler.address1.titleize}" +'</div>'\
+            '<div style="float: left;width: 30%;font-weight: bold; font-size: 16px;">Address:</div>'\
+            '<div style="float: right;width: 70%;font-weight: 400; font-size: 16px;">'+ "#{traveler.address1.titleize}" +'</div>'\
             '<div style="clear: both;"></div>'\
-            '<div style="float: left;width: 20%;font-weight: bold; font-size: 16px;">City:</div>'\
-            '<div style="float: right;width: 80%;font-weight: 400; font-size: 16px;">'+ "#{traveler.city.titleize}" +'</div>'\
+            '<div style="float: left;width: 30%;font-weight: bold; font-size: 16px;">City:</div>'\
+            '<div style="float: right;width: 70%;font-weight: 400; font-size: 16px;">'+ "#{traveler.city.titleize}" +'</div>'\
             '<div style="clear: both;"></div>'\
-            '<div style="float: left;width: 20%;font-weight: bold; font-size: 16px;">Telephone:</div>'\
-           ' <div style="float: right;width: 80%;font-weight: 400; font-size: 16px;">'+ "#{traveler.phone_number}" +'</div>'\
+            '<div style="float: left;width: 30%;font-weight: bold; font-size: 16px;">Telephone:</div>'\
+           ' <div style="float: right;width: 70%;font-weight: 400; font-size: 16px;">'+ "#{traveler.phone_number}" +'</div>'\
             '<div style="clear: both;"></div>'\
           '</div>'\
-          '<div style="float: right;width: 60%;">'\
-            '<div style="float: left;width: 20%;font-weight: bold; font-size: 16px;">Zip Code:</div>'\
-            '<div style="float: right;width: 80%;font-weight: 400; font-size: 16px;">'+ "#{traveler.zip.titleize}" +'</div>'\
+          '<div style="float: right;width: 30%;">'\
+            '<div style="float: left;width: 30%;font-weight: bold; font-size: 16px;">Zip Code:</div>'\
+            '<div style="float: right;width: 70%;font-weight: 400; font-size: 16px;">'+ "#{traveler.zip.titleize}" +'</div>'\
             '<div style="clear: both;"></div>'\
-            '<div style="float: left;width: 20%;font-weight: bold; font-size: 16px;">Country:</div>'\
-            '<div style="float: right;width: 80%;font-weight: 400; font-size: 16px;">'+ "#{traveler.country_id}" +'</div>'\
+            '<div style="float: left;width: 30%;font-weight: bold; font-size: 16px;">Country:</div>'\
+            '<div style="float: right;width: 70%;font-weight: 400; font-size: 16px;">'+ "#{traveler.country_id}" +'</div>'\
             '<div style="clear: both;"></div>'\
           '</div>'\
         '</div>'\

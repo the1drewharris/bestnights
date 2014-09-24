@@ -3,6 +3,8 @@
  ********************************************/
 
 /*@import url(http://fonts.googleapis.com/css?family=Raleway:400,100,300,200,500,600,700,800,900);*/
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700,600);
+
 
 body {
 	background: url(bg_body.jpg);
@@ -4598,6 +4600,60 @@ a.tableDetails{
 }
 #wrapper.landing{
 	padding: 0 0 355px 0;
+}
+.modal-top{
+	width: 636px;
+	height: 288px;
+	background: url('../assets/green-bg.jpg') no-repeat;
+	padding: 28px;
+	text-align: center;
+	color: #272727;
+}
+.modal-top h2.text-top{
+	font-size: 48px;
+	font-weight: 700;
+	font-family: 'Open Sans', sans-serif;
+	text-transform: none;
+	letter-spacing: -1.75px;
+}
+.modal-top h3.text-mid{
+	font-size: 28px;
+	font-weight: 600;
+	font-family: 'Open Sans', sans-serif;
+	text-transform: none;
+	margin-top: 25px;
+	margin-bottom: 15px;
+}
+.modal-top h3.text-mid span{
+	font-size: 32px;
+	font-weight: 700;
+	font-family: 'Open Sans', sans-serif;
+	text-transform: uppercase;
+}
+.modal-top h2.text-bot{
+	font-size: 44px;
+	font-weight: 700;
+	font-family: 'Open Sans', sans-serif;
+	text-transform: uppercase;
+	line-height: 44px;
+	letter-spacing: -1.75px;
+}
+.modal-top h2.text-bot.left{
+	text-align: left;
+	margin-left: 30px;
+}
+.modal-top h2.text-bot.right{
+	text-align: right;
+	margin-right: 31px;
+}
+.modal-bot{
+	background: #272727;
+	padding: 12px 0;
+	text-align: center;
+	color: #fff;
+	text-transform: uppercase;
+	font-size: 18px;
+	font-weight: 600;
 }
 /* End */
 

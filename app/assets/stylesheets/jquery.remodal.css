@@ -90,7 +90,7 @@ body.remodal_active .remodal-bg {
 
 .remodal-overlay {
     opacity: 0;
-    background: rgba(33, 36, 46, 0.95);
+    background: rgba(0, 0, 0, 0.6);
     -webkit-transition: opacity 0.2s linear;
     -moz-transition: opacity 0.2s linear;
     -o-transition: opacity 0.2s linear;
