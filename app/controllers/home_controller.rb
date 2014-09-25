@@ -491,10 +491,10 @@ class HomeController < ApplicationController
 
         @latest_booked = Booking.where(traveler_id: @traveler.id, hotel_id: room.hotel.id).order("created_at DESC").limit(1)
         logger.info"!!!!!!!!!!!!!!!!!!!#{session[:price]}!!!!!!!!!!!!!!!!!!!!!"
-        @fax_email = FaxMailer.hotel_booking_mail(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, session[:room_needed], @latest_booked, @room1,@rate,@card_expiry, request.protocol,request.host_with_port, @number_nights, @price).deliver
-        if !@hotel.email.nil? &&  @hotel.email != ""
-          @fax_email_to_hotel = FaxMailer.email_to_hotel(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, room_ids, @latest_booked, @room1, @card_expiry, request.protocol,request.host_with_port, session[:room_needed], @number_nights, @price).deliver
-        end
+        # @fax_email = FaxMailer.hotel_booking_mail(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, session[:room_needed], @latest_booked, @room1,@rate,@card_expiry, request.protocol,request.host_with_port, @number_nights, @price).deliver
+        # if !@hotel.email.nil? &&  @hotel.email != ""
+        #   @fax_email_to_hotel = FaxMailer.email_to_hotel(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, room_ids, @latest_booked, @room1, @card_expiry, request.protocol,request.host_with_port, session[:room_needed], @number_nights, @price).deliver
+        # end
     else
       flash[:errors] = ["Your booking failed!"]
       return redirect_to checkout_path
@@ -519,18 +519,24 @@ class HomeController < ApplicationController
     @policy = CGI::unescape("Within 48 hours, unless specified by the individual hotel.")
     @booking_data = ""
     @night_data = ""
+    logger.info"**************#{view_context.number_with_precision(price, precision: 2, separator: '.').to_f}***********"
+    #price = view_context.number_with_precision(price, precision: 2, separator: '.')
     File.open("#{Rails.root.to_s}/public/fax_content.html", 'wb') do|f|
       booking.each do |book|
         nights.times do |night|
-          @booking_data += '<td style="height:40px; color:#000;border:1px solid #000;">' + "#{book.from_date.advance(days: night).strftime("%m")}" +'/ '+"#{book.from_date.advance(days: night).strftime("%d")}"+'</td>'
+          @booking_data += '<td style="height:40px; color:#000;border:1px solid #000; word-break: break-word;" width="100px">' + "#{book.from_date.advance(days: night).strftime("%m")}" +'/ '+"#{book.from_date.advance(days: night).strftime("%d")}"+'</td>'
         end 
       end 
 
       booking.each do |book|
         nights.times do |night|
-          @night_data += '<td style="height:40px; color:#000;border:1px solid #000;"> '+"#{(price / nights)}"+' CAD</td>'
+          @night_data += '<td style="height:40px; color:#000;border:1px solid #000; word-break: break-word;" width="100">'+"#{view_context.number_with_precision((price / nights), precision: 2, separator: '.')}"+' CAD</td>'
         end
-      end   
+      end
+
+      @country = Carmen::Country.coded(@traveler.country_id )
+      @subregion = @country.subregions.coded(@traveler.state_id)
+
      html = '<html>'\
       '<body>'\
         '<div style="margin: 60px">'\
@@ -577,11 +583,16 @@ class HomeController < ApplicationController
             '<div style="clear: both;"></div>'\
           '</div>'\
           '<div style="float: right;width: 30%;">'\
-            '<div style="float: left;width: 95%;font-weight: bold; font-size: 14px;">Number of Rooms:</div>'\
-            '<div style="float: right;width: 5%;font-weight: 400; font-size: 14px;">'+ "#{room_ids}" +'</div>'\
+            '<div style="float: left;width: 80%;font-weight: bold; font-size: 14px;">Number of Rooms:</div>'\
+            '<div style="float: right;width: 20%;font-weight: 400; font-size: 14px;">'+ "#{room_ids}" +'</div>'\
             '<div style="clear: both;"></div>'\
           '</div>'\
          ' <div style="clear: both"></div>'\
+         '<div style="float: right;width: 30%;">'\
+            '<div style="float: left;width: 80%;font-weight: bold; font-size: 14px;">Number of Persons:</div>'\
+            '<div style="float: right;width: 20%;font-weight: 400; font-size: 14px;">'+ "#{room.max_people}" +'</div>'\
+            '<div style="clear: both;"></div>'\
+         '</div>'\
         '</div>'\
         '<div style="margin-top: 10px;;">'\
           '<div style="float: left;width: 30%;font-weight: bold; font-size: 14px;">'+ "#{room_type.titleize}" +'</div><br/>'\
@@ -590,16 +601,16 @@ class HomeController < ApplicationController
          ' </div>'\
         '</div>'\
         '<div style="margin-top: 10px;;">'\
-        '<table cellspacing="0" width="100%" cellpadding="0" align="center" style="text-align: center; font-size:12px;">'\
-            '<tr style="color:#000;">'\
-              '<td style="border:1px solid #000;">Date</td>'\
-              +"#{@booking_data}"+
-            '</tr>'\
-            '<tr style="color:#000;">'\
-                '<td style="border:1px solid #000;">Rate</td>'\
-              +"#{@night_data}"+
-            '</tr>'\
-          '</table>'\
+        '<table cellspacing="0" cellpadding="0" style="text-align: center; font-size:12px;">'\
+          '<tr style="color:#000;">'\
+            '<td style="border:1px solid #000; word-break: break-word;" width="100">Date</td>'\
+            + "#{@booking_data}" +
+          '</tr>'\
+          '<tr style="color:#000;">'\
+            '<td style="border:1px solid #000; word-break: break-word;" width="100">Rate</td>'\
+            + "#{@night_data}" +
+          '</tr>'\
+        '</table>'\
           '</div>'\
         '<div style="margin-top: 10px;;">'\
           '<div style="float: left;font-weight: bold; font-size: 14px;">Total Price for this reservation: $'+ "#{amount}" +'</div><br />'\
@@ -622,28 +633,34 @@ class HomeController < ApplicationController
           '<div>Its Your Obligation to Safeguard this fax and keep this guests credit card information secure in accordance with your internal security procedures.</div>'\
         '</div>'\
         '<div style="margin-top: 10px;">'\
-         ' <div style="float: left;width: 80%;">'\
-            '<div style="float: left;width: 30%;font-weight: bold; font-size: 14px;">Booked By:</div>'\
-            '<div style="float: right;width: 70%;font-weight: 400; font-size: 14px;">'+ "#{traveler.name.titleize}" +'</div>'\
-            '<div style="clear: both;"></div>'\
-            '<div style="float: left;width: 30%;font-weight: bold; font-size: 14px;">Address:</div>'\
-            '<div style="float: right;width: 70%;font-weight: 400; font-size: 14px;">'+ "#{traveler.address1.titleize}" +'</div>'\
-            '<div style="clear: both;"></div>'\
-            '<div style="float: left;width: 30%;font-weight: bold; font-size: 14px;">City:</div>'\
-            '<div style="float: right;width: 70%;font-weight: 400; font-size: 14px;">'+ "#{traveler.city.titleize}" +'</div>'\
-            '<div style="clear: both;"></div>'\
-            '<div style="float: left;width: 30%;font-weight: bold; font-size: 14px;">Telephone:</div>'\
-           ' <div style="float: right;width: 70%;font-weight: 400; font-size: 14px;">'+ "#{traveler.phone_number}" +'</div>'\
-            '<div style="clear: both;"></div>'\
-          '</div>'\
-          '<div style="float: right;width: 20%;">'\
-            '<div style="float: left;width: 90%;font-weight: bold; font-size: 14px;">Zip Code:</div>'\
-            '<div style="float: right;width: 10%;font-weight: 400; font-size: 14px;">'+ "#{traveler.zip.titleize}" +'</div>'\
-            '<div style="clear: both;"></div>'\
-            '<div style="float: left;width: 90%;font-weight: bold; font-size: 14px;">Country:</div>'\
-            '<div style="float: right;width: 10%;font-weight: 400; font-size: 14px;">'+ "#{traveler.country_id}" +'</div>'\
-            '<div style="clear: both;"></div>'\
-          '</div>'\
+          '<table cellspacing="0" width="100%" cellpadding="0" align="center" style="text-align: left; font-size:14px;">'\
+            '<tbody>'\
+              '<tr>'\
+                '<td style="font-weight: bold;">Booked By:</td>'\
+                '<td>' + "#{traveler.name.titleize}" + '</td>'\
+                '<td style="font-weight: bold;">Zip Code:</td>'\
+                '<td>' + "#{traveler.zip.titleize}" + '</td>'\
+              '</tr>'\
+              '<tr>'\
+                '<td style="font-weight: bold;">Address:</td>'\
+                '<td>' + "#{traveler.address1.titleize}" + '</td>'\
+                '<td style="font-weight: bold;">State:</td>'\
+                '<td>' + "#{@subregion.name}" + '</td>'\
+              '</tr>'\
+              '<tr>'\
+                '<td style="font-weight: bold;">City:</td>'\
+                '<td>' + "#{traveler.city.titleize}" + '</td>'\
+                '<td style="font-weight: bold;">Country:</td>'\
+                '<td>' + "#{@country.name}" + '</td>'\
+              '</tr>'\
+              '<tr>'\
+                '<td style="font-weight: bold;">Telephone:</td>'\
+                '<td>' + "#{traveler.phone_number}" + '</td>'\
+                '<td></td>'\
+                '<td></td>'\
+              '</tr>'\
+            '</tbody>'\
+          '</table>'\
         '</div>'\
         '<div style="clear: both;"></div>'\
         '<div>'\
@@ -665,14 +682,14 @@ class HomeController < ApplicationController
       data += line
     end
   
-   @fax_result = SOAP::WSDLDriverFactory.new("https://ws-sl.fax.tc/Outbound.asmx?WSDL").create_rpc_driver.SendCharFax("Username" => "bestnights","Password" => "2014bestnights","FileType" => "HTML","FaxNumber"=> "18444942378","Data" => data)
-    logger.info"@@@@@@@@@@@@@@@@@@@@@@@#{@fax_result.inspect}@@@@@@@@@@@@@@@@@@@@@@@@"
-   # File.delete("#{Rails.root.to_s}/public/"+traveler.id.to_s+".txt")
-   unless @fax_result["SendCharFaxResult"].include? "-"
-    TravelerPayment.create(amount: amount, traveler_id: traveler.id)
-   else
-    flash[:notice] = "Hotel not booked due wrong params"
-    redirect_to root_path
-   end
+   # @fax_result = SOAP::WSDLDriverFactory.new("https://ws-sl.fax.tc/Outbound.asmx?WSDL").create_rpc_driver.SendCharFax("Username" => "bestnights","Password" => "2014bestnights","FileType" => "HTML","FaxNumber"=> "18444942378","Data" => data)
+   #  logger.info"@@@@@@@@@@@@@@@@@@@@@@@#{@fax_result.inspect}@@@@@@@@@@@@@@@@@@@@@@@@"
+   # # File.delete("#{Rails.root.to_s}/public/"+traveler.id.to_s+".txt")
+   # unless @fax_result["SendCharFaxResult"].include? "-"
+   #  TravelerPayment.create(amount: amount, traveler_id: traveler.id)
+   # else
+   #  flash[:notice] = "Hotel not booked due wrong params"
+   #  redirect_to root_path
+   # end
   end
 end
