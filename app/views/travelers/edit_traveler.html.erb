@@ -77,7 +77,8 @@
 <script type="text/javascript">
 $("#card_valid").click(function(){
    ccnum = $("#traveler_credit_card_number").val();
-   cardtype= $("#traveler_credit_card_type").val();
+   cardtype= $("#cardtype").val();
+   console.log(cardtype == "visa")
    if (ccnum.match("^4[0-9]{12}(?:[0-9]{3})?$") && ccnum.length == 16 && cardtype == "visa") {
    		//alert("VISA");
    }
