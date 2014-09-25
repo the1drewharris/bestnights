@@ -3,7 +3,6 @@
  ********************************************/
 
 /*@import url(http://fonts.googleapis.com/css?family=Raleway:400,100,300,200,500,600,700,800,900);*/
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700,600);
 
 
 body {
@@ -4654,6 +4653,19 @@ a.tableDetails{
 	text-transform: uppercase;
 	font-size: 18px;
 	font-weight: 600;
+}
+#searchpane.calbg{
+	height: 108px;
+	position: relative;
+}
+.banner-img{
+	position: absolute;
+	height: 108px;
+	top: 0;
+	right: 0;
+}
+#searchform{
+	margin-top: 8px;
 }
 /* End */
 
