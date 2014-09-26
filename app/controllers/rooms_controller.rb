@@ -1,6 +1,6 @@
 class RoomsController < ApplicationController
-  before_filter :authenticate_user!
-  load_and_authorize_resource
+  before_filter :authenticate_user!, except: [:get_room_info]
+  load_and_authorize_resource except: [:get_room_info]
   layout "admin_basic"
   
   def index
@@ -200,6 +200,18 @@ class RoomsController < ApplicationController
     respond_to do |format|
       format.html
       format.json { render json: @sub_types }
+    end
+  end
+
+  def get_room_info
+    logger.info"%%%%%%%%%%%%%%%%%%%%%%#{params}%%%%%%%%%%%%"
+    @room_photos = RoomPhoto.where("room_sub_type_id=?", params[:room_sub_type_id].to_i)
+    @room = Room.find_by_room_sub_type_id_and_hotel_id(params[:room_sub_type_id].to_i, params[:hotel_id].to_i)
+    logger.info"****************#{@room_photos.inspect}********#{@room.description}*******88"
+    @data = {photo: @room_photos, desc: @room.description }
+    respond_to do |format|
+      format.html
+      format.json { render json: @data}
     end
   end
 end

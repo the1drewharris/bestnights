@@ -4753,5 +4753,47 @@ input[type="text"].input-text {
 #wrapper.landing{
 	padding: 0 0 355px 0;
 }
+.remodal-outer{
+	padding: 15px;
+}
+.remodal-slider, .remodal-desc{
+	float: left;
+	width: 300px;
+}
+.remodal-slider{
+	margin-right: 10px;
+	width: 360px;
+}
+.remodal-heading{
+	text-transform: none;
+	color: #313131;
+	font-size: 20px;
+	margin-bottom: 5px;
+}
+.remodal-desc{
+	text-align: left;
+	font-family: 'Raleway', sans-serif;
+	
+}
+.remodal-desc p{
+	color: #5e5e5e;	
+	font-size: 13px;
+}
+.slider-outer{
+	padding: 5px;
+	box-shadow: 0 0 5px #ccc;
+	position: relative;
+}
+.slidesjs-navigation{
+	position: absolute;
+	bottom: 8px;
+	z-index: 999;
+}
+.slidesjs-next{
+	right: 12px;
+}
+.slidesjs-previous{
+	left: 12px;
+}
 /* End */
 

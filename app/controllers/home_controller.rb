@@ -518,11 +518,11 @@ class HomeController < ApplicationController
       if @contact.save
         ContactMailer.contact_email(@contact.email).deliver
         flash[:success] = "Thanks to register with us"
-        format.html { redirect_to register_path}
+        format.html { redirect_to registerhotel_path}
         format.json { render json: @contact, status: :created, location: @contact }
       else
         flash[:errors] = "Please enter with correct data"
-        format.html { redirect_to register_path }
+        format.html { redirect_to registerhotel_path }
         format.json { render json: @contact.errors, status: :unprocessable_entity }
       end
     end

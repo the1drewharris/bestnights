@@ -24,6 +24,9 @@
 //= require sidebar
 //= require jquery.validationEngine
 //= require jquery.validationEngine-en
+//= require jquery.bxslider.min
+//= require jquery.remodal
+//= require jquery.slides.min
 
 $(document).ready(function() {
 	$(".status-label").tooltip();
@@ -134,6 +137,19 @@ $(document).ready(function() {
       		$(element).removeClass("status-bookable");
       		$(element).addClass("status-closed");	
       	}
+      }
+    })
+	})
+
+	$(".roomphotos").click(function(){
+		var data = {"room_sub_type_id": $(this).attr("room-sub-type"), "hotel_id": $(this).attr("hotel")}
+		$.ajax({
+      type: "get",
+      dataType: "json",
+      url: "/get_room_info",
+      data: data,
+      success: function(data){
+      	console.log(data)
       }
     })
 	})

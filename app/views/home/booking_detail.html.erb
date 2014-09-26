@@ -128,7 +128,7 @@
 						<% if !status.blank? && @flag == 0 %>
 							<% @flag = 1 %>
 							<tr style="background: #eef6e0; color: #628a1e;">								
-								<td><%= room.room_sub_type.name %></td>
+								<td class="roomphotos" room-sub-type="<%= room.room_sub_type_id %>" hotel="<%= params[:hotel_id]%>"><%= room.room_sub_type.name %></td>
 								<td>
 									<div class="room-available type">
 										<table class="data-tbl">
@@ -224,7 +224,31 @@
 		</table>
 	<!-- </form> -->
 	</div>
-	
+	<div class="remodal" data-remodal-id="modal">
+       <div class="remodal-outer">
+	       <div class="remodal-slider">
+	       		<div class="slider-outer">
+	       			<div id="slides">
+				      <img src="images/slide-img1.jpg" alt="" title="">
+				      <img src="images/slide-img1.jpg" alt="" title="">
+				      <img src="images/slide-img1.jpg" alt="" title="">
+				      <a href="#" class="slidesjs-previous slidesjs-navigation"><img src="images/prev.png" /> </a>
+				      <a href="#" class="slidesjs-next slidesjs-navigation"><img src="images/next.png" /></a>
+				    </div>
+	       		</div>
+	       		
+	       </div>
+       		<div class="remodal-desc">
+       			<h3 class="remodal-heading">Description</h3>
+       			<p>
+       				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+       				<br><br>
+       				Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+       			</p>
+       		</div>
+       		<div class="clear"></div>
+       </div>
+    </div>
 	<%= render :partial => "common/home_footer" %>
 	
 </div>
@@ -260,4 +284,14 @@
  	}
 
  })
+
+ $('.roomphotos').click(function(){
+ 	$('[data-remodal-id=modal]').remodal().open();
+ 	$('#slides').slidesjs({
+    width: 360,
+    height: 280,
+    pagination: false,
+    navigation: false
+  });
+ });
 </script>
