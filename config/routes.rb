@@ -99,8 +99,8 @@ Bestnights::Application.routes.draw do
   match 'cancel_booking/:book_id' => "travelers#cancel_booking", :as => :cancel_booking, :via => :get
   match '/get_sub_type' => "rooms#get_sub_type", :as => :get_sub_type, :via => :get
   match '/reserve_status/:id' => 'dashboard#reserve_status', :as => 'reserve_status'
-  match '/register' => 'home#landing', :as => 'register'
-
+  match '/register' => 'home#landing', :as => 'register'  
+  match 'create_contact' => "home#create_contact", :as => :create_contact, :via => :post
   # resources :users, except: :create
   resources :users
   resources :hotels do

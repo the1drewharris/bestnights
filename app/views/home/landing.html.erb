@@ -3,14 +3,57 @@
 		<%= render :partial => "common/home_nav_tab" %>
 	</div>	
 	<div id="features" class="ready">
-		<img src="/assets/landing-bg.jpg">
+		<div class="landing-img">
+			<img src="/assets/landing-bg.jpg">
+		</div>
+		<div class="landing-form">
+			<h2 class="form-header">
+				Register your property and
+				<br>
+				enter to win an iPad
+			</h2>
+			<form  method="post" action="/create_contact" accept-charset="UTF-8" >	
+			  <div class="form-group">
+			  	<% if @contact.errors.any? %>
+	        <div id="error_explanation" class="error">
+	          <h2><%= pluralize(@contact.errors.count, "error") %> prohibited this contact us form from being saved:</h2>
+
+	          <ul>
+	          <% @contact.errors.full_messages.each do |msg| %>
+	            <li><%= msg %></li>
+	          <% end %>
+	          </ul>
+	        </div>
+	      	<% end %>
+			    <label for="">Name</label>
+			    <input autofocus="autofocus" id="name" name="contact[name]" type="text" class="input-text">
+			  </div>
+			  <div class="form-group">
+			    <label for="">Tel No.</label>
+			    <input autofocus="autofocus" id="phone_number" name="contact[phone_number]" type="text" class="input-text">
+			  </div>
+			  <div class="form-group">
+			    <label for="">Email address</label>
+			    <input autofocus="autofocus" id="email" name="contact[email]" type="text" class="input-text">
+			  </div>
+			  
+			  <button type="submit" class="landing-form-submit">Submit Now</button>
+			</form>
+		</div>
+		<div class="clear"></div>
 	</div>
 	<section class="landing">
 		<h2 class="landingHead">We’re new and we’re here for you!
-		<span>We make booking easier and save your money! <br /></h2>
-		<p class="landingText"><%= link_to "Register and enter to win an iPad", new_contact_path, class: "addProperty" %></p>
-		<p class="landingText propertyy">Register your property today! Upon activation with room inventory, You will automatically be entered to win an iPad! The winner will be announced via our website & contacted directly. </p>
-		<p class="landingText"><%= link_to "Add your property today!", welcome_path , class: "addProperty" %></p>
+		<span>We make booking easier and save your money! 
+		</h2>
+		<p class="landingText">
+			Register your property today! Upon activation with room inventory, You will automatically
+			<br />
+			be entered to win an iPad! The winner will be announced via our website & contacted directly. 
+		</p>
+		<p class="landingText terms">
+			*Bestnights Inc is not affiliated with Apple Inc. iPad and all other Apple product names are trademarks or registered trademarks of Apple Inc   
+		</p>
 	</section>
 	<%= render :partial => "common/home_footer" %>	
 </div>

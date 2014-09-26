@@ -506,8 +506,27 @@ class HomeController < ApplicationController
   end
 
   def landing
+    @contact = Contact.new
   end
   
+  def create_contact
+    @contact = Contact.new
+    @contact.name = params[:contact][:name]
+    @contact.phone_number = params[:contact][:phone_number]
+    @contact.email = params[:contact][:email]
+    respond_to do |format|
+      if @contact.save
+        ContactMailer.contact_email(@contact.email).deliver
+        flash[:success] = "Thanks to register with us"
+        format.html { redirect_to register_path}
+        format.json { render json: @contact, status: :created, location: @contact }
+      else
+        flash[:errors] = "Please enter with correct data"
+        format.html { redirect_to register_path }
+        format.json { render json: @contact.errors, status: :unprocessable_entity }
+      end
+    end
+  end
   
   private
 

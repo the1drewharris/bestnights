@@ -1,5 +1,5 @@
 class RoomPhoto < ActiveRecord::Base
-  attr_accessible :picture, :room_id, :hotel_id
+  attr_accessible :picture, :room_id, :hotel_id, :room_sub_type_id
   
   validates :picture_file_name, :picture, :room_id, :hotel_id, presence: true
   

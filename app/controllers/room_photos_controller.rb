@@ -5,7 +5,7 @@ class RoomPhotosController < ApplicationController
   def create
     room = Room.find(params[:room_id])
     hotel = room.hotel
-    @room_photo = RoomPhoto.new(picture: params[:picture], room_id: room.id, hotel_id: hotel.id)
+    @room_photo = RoomPhoto.new(picture: params[:picture], room_id: room.id, hotel_id: hotel.id, room_sub_type_id: room.room_sub_type_id)
     
     respond_to do |format|
       if @room_photo.save
