@@ -491,10 +491,10 @@ class HomeController < ApplicationController
 
         @latest_booked = Booking.where(traveler_id: @traveler.id, hotel_id: room.hotel.id).order("created_at DESC").limit(1)
         logger.info"!!!!!!!!!!!!!!!!!!!#{session[:price]}!!!!!!!!!!!!!!!!!!!!!"
-        @fax_email = FaxMailer.hotel_booking_mail(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, session[:room_needed], @latest_booked, @room1,@rate,@card_expiry, request.protocol,request.host_with_port, @number_nights, @price).deliver
-        if !@hotel.email.nil? &&  @hotel.email != ""
-          @fax_email_to_hotel = FaxMailer.email_to_hotel(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, room_ids, @latest_booked, @room1, @card_expiry, request.protocol,request.host_with_port, session[:room_needed], @number_nights, @price).deliver
-        end
+        # @fax_email = FaxMailer.hotel_booking_mail(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, session[:room_needed], @latest_booked, @room1,@rate,@card_expiry, request.protocol,request.host_with_port, @number_nights, @price).deliver
+        # if !@hotel.email.nil? &&  @hotel.email != ""
+        #   @fax_email_to_hotel = FaxMailer.email_to_hotel(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, room_ids, @latest_booked, @room1, @card_expiry, request.protocol,request.host_with_port, session[:room_needed], @number_nights, @price).deliver
+        # end
     else
       flash[:errors] = ["Your booking failed!"]
       return redirect_to checkout_path
@@ -539,11 +539,11 @@ class HomeController < ApplicationController
      html = '<html>'\
       '<body>'\
         '<div style="margin: 60px">'\
-        '<div style="float: left; width: 90%">'\
+        '<div style="float: left; width: 66%">'\
           '<img src="http://23.253.149.108/e-mail-logo.jpg" width="316" height="52" alt=""/>'\
         '</div>'\
-        '<div style="float: right; width: 10%">'\
-          '<div style="font-size: 20px;font-weight: 500;">Booking confirmation<br/>'+ "#{booking_number.to_s}" +'</div>'\
+        '<div style="float: right; width: 34%">'\
+          '<div style="font-size: 20px;font-weight: 500;"><span>Booking confirmation</span><br/>'+ "#{booking_number.to_s}" +'</div>'\
         '</div><div style="clear: both"></div>'\
         '<div style="margin-top: 10px;;">'\
           '<div style="float: left;width: 65%;">'\
@@ -565,7 +565,7 @@ class HomeController < ApplicationController
           '<div style="clear: both"></div>'\
         '</div>'\
         '<div style="margin-top: 5px;;">'\
-          '<div>Dear '+ "#{hotel.user.name.titleize}" +',</div><br/>'\
+          '<div>Dear '+ "#{hotel.name.titleize}" +',</div><br/>'\
           '<div>We have received the following information for your hotel  and are confirming via fax.</div><br/>'\
           '<div>'\
             'If you have any questions regarding this reservation, please feel free to contact us. Telephone English Support 1 800 494 BEST (2378), Email Customer: info@bestnights.com <br/>'\
@@ -574,11 +574,11 @@ class HomeController < ApplicationController
         '</div>'\
         '<div style="margin-top: 5px;;">'\
           '<div style="float: left;width: 70%;">'\
-            '<div style="float: left;width: 30%;font-weight: bold; font-size: 14px;">Arrival:</div>'\
-            '<div style="float: right;width: 70%;font-weight: 400; font-size: 14px;">'+ "#{checkin.to_s}" +'</div>'\
+            '<div style="float: left;width: 20%;font-weight: bold; font-size: 14px;">Arrival:</div>'\
+            '<div style="float: right;width: 80%;font-weight: 400; font-size: 14px;">'+ "#{checkin.to_s}" +'</div>'\
             '<div style="clear: both;"></div>'\
-            '<div style="float: left;width: 30%;font-weight: bold; font-size: 14px;">Departure:</div>'\
-            '<div style="float: right;width: 70%;font-weight: 400; font-size: 14px;">'+ "#{checkout.to_s}" +'</div>'\
+            '<div style="float: left;width: 20%;font-weight: bold; font-size: 14px;">Departure:</div>'\
+            '<div style="float: right;width: 80%;font-weight: 400; font-size: 14px;">'+ "#{checkout.to_s}" +'</div>'\
             '<div style="clear: both;"></div>'\
           '</div>'\
           '<div style="float: right;width: 30%;">'\
@@ -629,7 +629,7 @@ class HomeController < ApplicationController
         '</div>'\
         '<div style="clear: both;"></div>'\
         '<div style="margin-top: 10px;;">'\
-          '<div>Its Your Obligation to Safeguard this fax and keep this guests credit card information secure in accordance with your internal security procedures.</div>'\
+          '<div>It&#039;s Your Obligation to Safeguard this fax and keep this guests credit card information secure in accordance with your internal security procedures.</div>'\
         '</div>'\
         '<div style="margin-top: 10px;">'\
           '<table cellspacing="0" width="100%" cellpadding="0" align="center" style="text-align: left; font-size:14px;">'\
@@ -681,14 +681,14 @@ class HomeController < ApplicationController
       data += line
     end
   
-   @fax_result = SOAP::WSDLDriverFactory.new("https://ws-sl.fax.tc/Outbound.asmx?WSDL").create_rpc_driver.SendCharFax("Username" => "bestnights","Password" => "2014bestnights","FileType" => "HTML","FaxNumber"=> "18444942378","Data" => data)
-    logger.info"@@@@@@@@@@@@@@@@@@@@@@@#{@fax_result.inspect}@@@@@@@@@@@@@@@@@@@@@@@@"
-   # File.delete("#{Rails.root.to_s}/public/"+traveler.id.to_s+".txt")
-   unless @fax_result["SendCharFaxResult"].include? "-"
-    TravelerPayment.create(amount: amount, traveler_id: traveler.id)
-   else
-    flash[:notice] = "Hotel not booked due wrong params"
-    redirect_to root_path
-   end
+   # @fax_result = SOAP::WSDLDriverFactory.new("https://ws-sl.fax.tc/Outbound.asmx?WSDL").create_rpc_driver.SendCharFax("Username" => "bestnights","Password" => "2014bestnights","FileType" => "HTML","FaxNumber"=> "18444942378","Data" => data)
+   #  logger.info"@@@@@@@@@@@@@@@@@@@@@@@#{@fax_result.inspect}@@@@@@@@@@@@@@@@@@@@@@@@"
+   # # File.delete("#{Rails.root.to_s}/public/"+traveler.id.to_s+".txt")
+   # unless @fax_result["SendCharFaxResult"].include? "-"
+   #  TravelerPayment.create(amount: amount, traveler_id: traveler.id)
+   # else
+   #  flash[:notice] = "Hotel not booked due wrong params"
+   #  redirect_to root_path
+   # end
   end
 end
