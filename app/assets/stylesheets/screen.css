@@ -4795,5 +4795,22 @@ input[type="text"].input-text {
 .slidesjs-previous{
 	left: 12px;
 }
+.slidesjs-slide{
+	list-style: none;
+}
+h4.image-title{
+	position: absolute;
+	bottom: 15px;
+	text-transform: none;
+	font-size: 18px;
+	color: #000;
+	width: 100%;
+	font-weight: normal;
+	text-align: center;
+}
+.slider-inner{
+	position: relative;
+	height: 300px;
+}
 /* End */
 

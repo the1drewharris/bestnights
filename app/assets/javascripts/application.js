@@ -29,6 +29,8 @@
 //= require jquery.slides.min
 
 $(document).ready(function() {
+
+
 	$(".status-label").tooltip();
 
 	$("#from_date").datepicker({
@@ -141,8 +143,9 @@ $(document).ready(function() {
     })
 	})
 
-	$(".roomphotos").click(function(){
-		var data = {"room_sub_type_id": $(this).attr("room-sub-type"), "hotel_id": $(this).attr("hotel")}
+	$(".roomphotos").click(function(e){
+		e.preventDefault();
+		var data = {"room_sub_type_id": $(this).attr("room-sub-type"), "hotel_id": $(this).attr("hotel")};
 		$.ajax({
       type: "get",
       dataType: "json",
@@ -150,6 +153,30 @@ $(document).ready(function() {
       data: data,
       success: function(data){
       	console.log(data)
+      	$(".remodal-desc").children("p").html(data["desc"]);
+      	$("#slides").remove();
+      	$(".slider-outer").append("<div id='slides'></div>")
+      	$.each(data["photo"], function(key,value){
+      		var file_name = value["picture_file_name"].substring(0,value["picture_file_name"].indexOf("."));
+      		file_name = file_name.replace("_"," ");
+      		$("#slides").append("<li><div class='slider-inner'><img src=/system/room_photos/pictures/000/000/0"+value["id"]+"/original/"+value["picture_file_name"]+" alt='' title=''><h4 class='image-title'>" + file_name + "</h4></div></li>")
+      	})
+      	if($("#slides").children("li").length > 1){
+      		$("#slides").append("<a href='#' class='slidesjs-previous slidesjs-navigation'><img src='/assets/prev.png' /></a><a href='#' class='slidesjs-next slidesjs-navigation'><img src='/assets/next.png' /></a>")
+      	}
+      	var inst = $.remodal.lookup[$('[data-remodal-id=modal]').data('remodal')];
+			 	if(!inst){
+			 		$('[data-remodal-id=modal]').remodal().open();
+			 	}
+			 	else{
+			 		inst.open();
+			 	}
+			 	$('#slides').slidesjs({
+			    width: 360,
+			    height: 300,
+			    pagination: false,
+			    navigation: false
+			  });
       }
     })
 	})
