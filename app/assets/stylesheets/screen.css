@@ -775,8 +775,12 @@ ul li {
 	font-size: 12px;
 	text-transform: none;
 }
-.con-section label input#contact_email {
-	width: 95%;
+.con-section label input#contact_email, #contact_name, #contact_phone_number {
+	width: 110%;
+}
+#contact_message {
+	min-width: 200px!important;
+	/*min-height: 10px!important;*/
 }
 .con-section .error h2 {
 	font-size: 12px;
@@ -4811,6 +4815,25 @@ h4.image-title{
 .slider-inner{
 	position: relative;
 	height: 300px;
+}
+.landingList li{
+	list-style: circle;
+	list-style-position: inside;
+	margin-bottom: 3px;
+	font-size: 15px;
+	line-height: 22px;
+	color: #5e5e5e;
+}
+h3.faq-header{
+	text-transform: none;
+	margin-bottom: 15px;
+	font-size: 20px;
+}
+.faq-section{
+	margin-bottom: 20px;
+}
+.contForm{
+	padding-bottom: 537px!important;
 }
 /* End */
 
