@@ -204,10 +204,16 @@ function next2ClickValidate(){
 	An easy to use interface, an efficient and organized booking service, and increased exposure for marketing. Our goal is to make online hotel booking as easy and convenient for both hotel guests and hoteliers alike.</p>
 </section>
 </div>
-<footer>
-<div id="footerend">
-<p id="copyright"><small>&copy; Copyright BestNights.com 2014. All Rights Reserved.</small></p>
-<nav></nav>
+<%= render :partial => "common/home_footer" %>
 </div>
-</footer>
-</div>
+
+<script>
+	$(document).ready(function(){
+		if(window.location.pathname == "/addproperty"){
+			$("footer").css("position", "relative");
+		}
+		else{
+			$("footer").css("position", "absolute");	
+		}
+	})
+</script>
