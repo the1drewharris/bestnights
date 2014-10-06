@@ -76,7 +76,7 @@ class HomeController < ApplicationController
       
       sign_in(:user, user)
       
-      flash[:success] = "Thank you for adding your property. Your account is now pending. You will be notified by email when your property is active."
+      flash[:success] = "Kindest Regards for adding your property. Your account is now pending. You will be notified by email when your property is active."
       redirect_to edit_room_url(room.id)
     rescue ActiveRecord::RecordNotUnique => e
       flash[:errors] = "Please submit all the values in the respective sections"

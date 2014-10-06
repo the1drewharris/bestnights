@@ -12,7 +12,7 @@
 			<ul>
 				<li>Bestnights.com</li>
 				<li><a href="/about">About Us</a></li>
-				<li><%= link_to "Add Your Property", welcome_path %></li>
+				<li><%= link_to "Add Your Property", addproperty_path %></li>
 				<li><%= link_to "Feedback", new_contact_path %></li>				
 			</ul>
 		</nav>
@@ -25,13 +25,13 @@
 		</ul>
 		<p>
 	<% if !user_signed_in? && !traveler_signed_in? %>
-			<%= link_to "Add Your Property", welcome_path , class: "addProperty" %> 
+			<%= link_to "Add Your Property", addproperty_path , class: "addProperty" %> 
 			<%= link_to "Hotelier Login", new_user_session_path,  class: "addHotelier"%>
 	<% elsif user_signed_in? && current_user.admin? %>
-			<%= link_to "Add Your Property", welcome_path , class: "addProperty" %> 
+			<%= link_to "Add Your Property", addproperty_path , class: "addProperty" %> 
 			<%= link_to "Hotels", hotels_path, class: "addHotelier" %>
 	<% elsif user_signed_in? && current_user.manager? %>
-			<%= link_to "Add Your Property", welcome_path , class: "addProperty" %> 
+			<%= link_to "Add Your Property", addproperty_path , class: "addProperty" %> 
 			<%= link_to "My Hotels", my_hotels_path, class: "addHotelier" %>
 	<% end %>
 		</p>
@@ -43,7 +43,6 @@
 			<%= link_to "terms of service", terms_of_service_path %><span> &bull; </span> 
 			<%= link_to "Privacy Policy", privacy_path %><span> &bull; </span>
 			<%= link_to "contact us", new_contact_path %><span> &bull; </span>
-			<%= link_to "Help", new_contact_path %>
 		</nav>
 	</div>
 </footer>

@@ -70,7 +70,7 @@ class AdminMailer < ActionMailer::Base
   end
   
   def added_hotel_request(user)
-    subject = "Thank you for signing up for Best Nights!"
+    subject = "Kindest Regards for signing up for Best Nights!"
     mail(:subject => subject, :to => user.email)
   end
 end

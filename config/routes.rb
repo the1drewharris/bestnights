@@ -51,7 +51,7 @@ Bestnights::Application.routes.draw do
   match 'traveler_signin_book' => "home#traveler_signin_book", :via => :post
   match 'check_availability' => "home#check_availability", :via => :post
   match 'fetch_states' => "countries#fetch_states", :via => :post
-  match 'welcome' => "home#welcome", :via => :get
+  match 'addproperty' => "home#welcome", :as => :addproperty, :via => :get
   match 'add_property' => "home#add_property", :via => :post
   match 'terms_of_service' => 'home#terms_of_service', :as => :terms_of_service
   match 'privacy' => 'home#privacy', :as => :privacy
