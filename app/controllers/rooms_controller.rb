@@ -204,10 +204,8 @@ class RoomsController < ApplicationController
   end
 
   def get_room_info
-    logger.info"%%%%%%%%%%%%%%%%%%%%%%#{params}%%%%%%%%%%%%"
     @room_photos = RoomPhoto.where("room_sub_type_id=?", params[:room_sub_type_id].to_i)
     @room = Room.find_by_room_sub_type_id_and_hotel_id(params[:room_sub_type_id].to_i, params[:hotel_id].to_i)
-    logger.info"****************#{@room_photos.inspect}********#{@room.description}*******88"
     @data = {photo: @room_photos, desc: @room.description }
     respond_to do |format|
       format.html

@@ -144,7 +144,6 @@ $(document).ready(function() {
 	})
 
 	$(".roomphotos").click(function(e){
-		e.preventDefault();
 		var data = {"room_sub_type_id": $(this).attr("room-sub-type"), "hotel_id": $(this).attr("hotel")};
 		$.ajax({
       type: "get",
@@ -152,7 +151,6 @@ $(document).ready(function() {
       url: "/get_room_info",
       data: data,
       success: function(data){
-      	console.log(data)
       	$(".remodal-desc").children("p").html(data["desc"]);
       	$("#slides").remove();
       	$(".slider-outer").append("<div id='slides'></div>")
