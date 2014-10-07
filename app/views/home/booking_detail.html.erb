@@ -128,7 +128,7 @@
 						<% if !status.blank? && @flag == 0 %>
 							<% @flag = 1 %>
 							<tr style="background: #eef6e0; color: #628a1e;">								
-								<td class="roomphotos" room-sub-type="<%= room.room_sub_type_id %>" hotel="<%= params[:hotel_id]%>"><%= link_to room.room_sub_type.name, "#", title: "Click Here" %></td>
+								<td class="roomphotos" room-sub-type="<%= room.room_sub_type_id %>" hotel="<%= params[:hotel_id]%>"><%= link_to room.room_sub_type.name, "#", title: "Click to See Room Pictures" %></td>
 								<td>
 									<div class="room-available type">
 										<table class="data-tbl">
