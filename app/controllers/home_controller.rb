@@ -491,10 +491,10 @@ class HomeController < ApplicationController
 
         @latest_booked = Booking.where(traveler_id: @traveler.id, hotel_id: room.hotel.id).order("created_at DESC").limit(1)
         logger.info"!!!!!!!!!!!!!!!!!!!#{session[:price]}!!!!!!!!!!!!!!!!!!!!!"
-        @fax_email = FaxMailer.hotel_booking_mail(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, session[:room_needed], @latest_booked, @room1,@rate,@card_expiry, request.protocol,request.host_with_port, @number_nights, @price).deliver
-        if !@hotel.email.nil? &&  @hotel.email != ""
-          @fax_email_to_hotel = FaxMailer.email_to_hotel(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, room_ids, @latest_booked, @room1, @card_expiry, request.protocol,request.host_with_port, session[:room_needed], @number_nights, @price).deliver
-        end
+        # @fax_email = FaxMailer.hotel_booking_mail(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, session[:room_needed], @latest_booked, @room1,@rate,@card_expiry, request.protocol,request.host_with_port, @number_nights, @price).deliver
+        # if !@hotel.email.nil? &&  @hotel.email != ""
+        #   @fax_email_to_hotel = FaxMailer.email_to_hotel(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, room_ids, @latest_booked, @room1, @card_expiry, request.protocol,request.host_with_port, session[:room_needed], @number_nights, @price).deliver
+        # end
     else
       flash[:errors] = ["Your booking failed!"]
       return redirect_to checkout_path
@@ -548,7 +548,7 @@ class HomeController < ApplicationController
 
       booking.each do |book|
         nights.times do |night|
-          @night_data += '<td style="height:40px; color:#000;border:1px solid #000; word-break: break-word;" width="100">'+"#{view_context.number_with_precision((price / nights), precision: 2, separator: '.')}"+' CAD</td>'
+          @night_data += '<td style="height:40px; color:#000;border:1px solid #000; word-break: break-word;">'+"#{view_context.number_with_precision((price / nights), precision: 2, separator: '.')}"+'</td>'
         end
       end
 
@@ -558,9 +558,7 @@ class HomeController < ApplicationController
      html = '<html>'\
       '<body>'\
         '<div style="margin: 60px">'\
-        '<div style="float: left; width: 66%">'\
-          '<img src="http://23.253.149.108/e-mail-logo.jpg" width="316" height="52" alt=""/>'\
-        '</div>'\
+        '<div style="float: left; width: 40%; font-weight: bold; border: 2px solid #000; font-size: larger; text-align: center; padding: 16px;">BESTNIGHTS.COM</div>'\
         '<div style="float: right; width: 34%">'\
           '<div style="font-size: 20px;font-weight: 500;"><span>Booking confirmation</span><br/>'+ "#{booking_number.to_s}" +'</div>'\
         '</div><div style="clear: both"></div>'\
@@ -568,16 +566,16 @@ class HomeController < ApplicationController
           '<table cellspacing="0" width="100%" cellpadding="0" align="center" style="text-align: left; font-size:14px;">'\
             '<tbody>'\
               '<tr>'\
-                '<td style="font-weight: bold;">Fax To:</td>'\
-                '<td>' + "#{hotel.name.titleize}" + '</td>'\
-                '<td style="font-weight: bold;">Date:</td>'\
-                '<td>' + "#{booking_created_on.to_s}" + '</td>'\
+                '<td>Fax To:</td>'\
+                '<td style="font-weight: bold;">' + "#{hotel.name.titleize}" + '</td>'\
+                '<td>Date:</td>'\
+                '<td style="font-weight: bold;">' + "#{booking_created_on.to_s}" + '</td>'\
               '</tr>'\
               '<tr>'\
-                '<td style="font-weight: bold;">Fax:</td>'\
-                '<td>' + "#{hotel.fax}" + '</td>'\
-                '<td style="font-weight: bold;">Concerning:</td>'\
-                '<td>Booking:' + "#{booking_number.to_s}" + '</td>'\
+                '<td>Fax:</td>'\
+                '<td style="font-weight: bold;">' + "#{hotel.fax}" + '</td>'\
+                '<td>Concerning:</td>'\
+                '<td style="font-weight: bold;">Booking:' + "#{booking_number.to_s}" + '</td>'\
               '</tr>'\
             '</tbody>'\
           '</table>'\
@@ -594,21 +592,21 @@ class HomeController < ApplicationController
         '<table cellspacing="0" width="100%" cellpadding="0" align="center" style="text-align: left; font-size:14px;">'\
           '<tbody>'\
             '<tr>'\
-              '<td style="font-weight: bold;">Arrival:</td>'\
-              '<td>' + "#{checkin.to_s}" + '</td>'\
-              '<td style="font-weight: bold; width:140px;">Number of Rooms:</td>'\
-              '<td>' + "#{room_ids}" + '</td>'\
+              '<td style="width: 15%;">Arrival:</td>'\
+              '<td style="font-weight: bold; width: 30%;">' + "#{checkin.to_date.strftime("%A,%d %B %Y")}" +'</td>'\
+              '<td style="width:20%;">Number of Rooms:</td>'\
+              '<td style="font-weight: bold; width: 30%;">' + "#{room_ids}" + '</td>'\
             '</tr>'\
             '<tr>'\
-              '<td style="font-weight: bold;">Departure:</td>'\
-              '<td>' + "#{checkout.to_s}" + '</td>'\
-              '<td style="font-weight: bold; width:140px;">Number of Persons:</td>'\
-              '<td>' + "#{room.max_people}" + '</td>'\
+              '<td style="width: 15%;">Departure:</td>'\
+              '<td style="font-weight: bold; width: 30%;">' + "#{checkout.to_date.strftime("%A,%d %B %Y")}" + '</td>'\
+              '<td style="width:20%;">Number of Persons:</td>'\
+              '<td style="font-weight: bold; width: 30%;">' + "#{room.max_people}" + '</td>'\
             '</tr>'\
           '</tbody>'\
         '</table>'\
         '<div style="margin-top: 10px;;">'\
-          '<div style="float: left;width: 30%;font-weight: bold; font-size: 14px;">'+ "#{room_type.titleize}" +'</div><br/>'\
+          '<div style="float: left;width: 30%;font-weight: bold; font-size: 14px;">'+ "#{room_type.titleize}" +' for guest ' + "#{traveler.name.titleize}" + ' (' + "#{room.max_people}" + ' Persons)</div><br/>'\
           '<div>'\
             + "#{room.description.titleize}" +
          ' </div>'\
@@ -616,11 +614,11 @@ class HomeController < ApplicationController
         '<div style="margin-top: 10px;;">'\
         '<table cellspacing="0" cellpadding="0" style="text-align: center; font-size:12px;">'\
           '<tr style="color:#000;">'\
-            '<td style="border:1px solid #000; word-break: break-word;" width="100">Date</td>'\
+            '<td style="border:1px solid #000; word-break: break-word;">Date</td>'\
             + "#{@booking_data}" +
           '</tr>'\
           '<tr style="color:#000;">'\
-            '<td style="border:1px solid #000; word-break: break-word;" width="100">Rate</td>'\
+            '<td style="border:1px solid #000; word-break: break-word;">Rate (CAD)</td>'\
             + "#{@night_data}" +
           '</tr>'\
         '</table>'\
@@ -631,15 +629,16 @@ class HomeController < ApplicationController
             '<tr>'\
               '<td style="font-weight: bold;" colspan="4">Total Price for this reservation: $' + "#{amount}" + '</td>'\
             '</tr>'\
+            '<tr style="height:20px;"></tr>'\
             '<tr>'\
-              '<td style="font-weight: bold; width:20%;">Credit Card:</td>'\
-              '<td style="width:20%">' + "#{traveler.credit_card_type.titleize}" + '</td>'\
-              '<td style="font-weight: bold; width:20%;">Expiry Date:</td>'\
-              '<td style="width:20%;">' + "#{traveler.credit_card_expiry_date}" + '</td>'\
+              '<td style="width:20%;">Credit Card:</td>'\
+              '<td style="font-weight: bold; width:20%">' + "#{traveler.credit_card_type.titleize}" + '</td>'\
+              '<td style="width:20%;">Expiry Date:</td>'\
+              '<td style="font-weight: bold; width:20%;">' + "#{traveler.credit_card_expiry_date}" + '</td>'\
             '</tr>'\
             '<tr>'\
-              '<td style="font-weight: bold; width:20%;">Card Number:</td>'\
-              '<td style="width:20%;">' + "#{traveler.credit_card_number}" + '</td>'\
+              '<td style="width:20%;">Card Number:</td>'\
+              '<td style="font-weight: bold; width:20%;">' + "#{traveler.credit_card_number}" + '</td>'\
               '<td></td>'\
               '<td></td>'\
             '</tr>'\
@@ -653,26 +652,26 @@ class HomeController < ApplicationController
           '<table cellspacing="0" width="100%" cellpadding="0" align="center" style="text-align: left; font-size:14px;">'\
             '<tbody>'\
               '<tr>'\
-                '<td style="font-weight: bold;">Booked By:</td>'\
-                '<td>' + "#{traveler.name.titleize}" + '</td>'\
-                '<td style="font-weight: bold;">Zip Code:</td>'\
-                '<td>' + "#{traveler.zip.titleize}" + '</td>'\
+                '<td>Booked By:</td>'\
+                '<td style="font-weight: bold;">' + "#{traveler.name.titleize}" + '</td>'\
+                '<td>Zip Code:</td>'\
+                '<td style="font-weight: bold;">' + "#{traveler.zip.titleize}" + '</td>'\
               '</tr>'\
               '<tr>'\
-                '<td style="font-weight: bold;">Address:</td>'\
-                '<td>' + "#{traveler.address1.titleize}" + '</td>'\
-                '<td style="font-weight: bold;">State:</td>'\
-                '<td>' + "#{@subregion.name}" + '</td>'\
+                '<td>Address:</td>'\
+                '<td style="font-weight: bold;">' + "#{traveler.address1.titleize}" + '</td>'\
+                '<td>State:</td>'\
+                '<td style="font-weight: bold;">' + "#{@subregion.name}" + '</td>'\
               '</tr>'\
               '<tr>'\
-                '<td style="font-weight: bold;">City:</td>'\
-                '<td>' + "#{traveler.city.titleize}" + '</td>'\
-                '<td style="font-weight: bold;">Country:</td>'\
-                '<td>' + "#{@country.name}" + '</td>'\
+                '<td>City:</td>'\
+                '<td style="font-weight: bold;">' + "#{traveler.city.titleize}" + '</td>'\
+                '<td>Country:</td>'\
+                '<td style="font-weight: bold;">' + "#{@country.name}" + '</td>'\
               '</tr>'\
               '<tr>'\
-                '<td style="font-weight: bold;">Telephone:</td>'\
-                '<td>' + "#{traveler.phone_number}" + '</td>'\
+                '<td>Telephone:</td>'\
+                '<td style="font-weight: bold;">' + "#{traveler.phone_number}" + '</td>'\
                 '<td></td>'\
                 '<td></td>'\
               '</tr>'\
@@ -683,6 +682,7 @@ class HomeController < ApplicationController
         '<div>'\
           '<ul>'\
             '<li>IMPORTANT: '+ "#{@disclaimer}" +'</li>'\
+            '<li>Please keep your availability current on www.bestnights.com</li>'
           '</ul>'\
         '</div>'\
       '</div>'\
@@ -699,14 +699,14 @@ class HomeController < ApplicationController
       data += line
     end
   
-   @fax_result = SOAP::WSDLDriverFactory.new("https://ws-sl.fax.tc/Outbound.asmx?WSDL").create_rpc_driver.SendCharFax("Username" => "bestnights","Password" => "2014bestnights","FileType" => "HTML","FaxNumber"=> "18444942378","Data" => data)
-    logger.info"@@@@@@@@@@@@@@@@@@@@@@@#{@fax_result.inspect}@@@@@@@@@@@@@@@@@@@@@@@@"
-   # File.delete("#{Rails.root.to_s}/public/"+traveler.id.to_s+".txt")
-   unless @fax_result["SendCharFaxResult"].include? "-"
-    TravelerPayment.create(amount: amount, traveler_id: traveler.id)
-   else
-    flash[:notice] = "Hotel not booked due wrong params"
-    redirect_to root_path
-   end
+   # @fax_result = SOAP::WSDLDriverFactory.new("https://ws-sl.fax.tc/Outbound.asmx?WSDL").create_rpc_driver.SendCharFax("Username" => "bestnights","Password" => "2014bestnights","FileType" => "HTML","FaxNumber"=> "18444942378","Data" => data)
+   #  logger.info"@@@@@@@@@@@@@@@@@@@@@@@#{@fax_result.inspect}@@@@@@@@@@@@@@@@@@@@@@@@"
+   # # File.delete("#{Rails.root.to_s}/public/"+traveler.id.to_s+".txt")
+   # unless @fax_result["SendCharFaxResult"].include? "-"
+   #  TravelerPayment.create(amount: amount, traveler_id: traveler.id)
+   # else
+   #  flash[:notice] = "Hotel not booked due wrong params"
+   #  redirect_to root_path
+   # end
   end
 end
