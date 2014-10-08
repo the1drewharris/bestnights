@@ -53,11 +53,11 @@
 	<% @latest_booked.each do |book| %>	
 	<tr>		
 		<td><strong>Arrival:</strong></td>
-		<td><%= book.from_date %></td>
+		<td><%= book.from_date.strftime("%A,%d %B %Y") %></td>
 	</tr>
 	<tr>
 		<td><strong>Departure:</strong></td>
-		<td><%= book.to_date %></td>
+		<td><%= book.to_date.strftime("%A,%d %B %Y") %></td>
 	</tr>
 	<tr>
 		<td><strong>Rooms Booked:</strong></td>

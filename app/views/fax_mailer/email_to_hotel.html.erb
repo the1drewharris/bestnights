@@ -80,11 +80,11 @@
     </tr>
     <tr style="line-height: 22px;">
       <td style="width: 176px;">Arrival Date:</td>
-      <td><%= b.from_date %></td>
+      <td><%= b.from_date.strftime("%A,%d %B %Y") %></td>
     </tr>
     <tr style="line-height: 22px;">
       <td style="width: 176px;">Departure Date</td>
-      <td><%= b.to_date %></td>
+      <td><%= b.to_date.strftime("%A,%d %B %Y") %></td>
     </tr>
     <tr style="line-height: 22px;">
       <td style="width: 176px;">Number of Nights</td>

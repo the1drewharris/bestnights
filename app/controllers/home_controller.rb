@@ -560,7 +560,7 @@ class HomeController < ApplicationController
         '<div style="margin: 60px">'\
         '<div style="float: left; width: 40%; font-weight: bold; border: 2px solid #000; font-size: larger; text-align: center; padding: 16px;">BESTNIGHTS.COM</div>'\
         '<div style="float: right; width: 34%">'\
-          '<div style="font-size: 20px;font-weight: 500;"><span>Booking confirmation</span><br/>'+ "#{booking_number.to_s}" +'</div>'\
+          '<div style="font-size: 20px;font-weight: 500;"><span>Booking confirmation</span><br/><span style="font-weight: bold;">'+ "#{booking_number.to_s}" +'</span></div>'\
         '</div><div style="clear: both"></div>'\
         '<div style="margin-top: 10px;;">'\
           '<table cellspacing="0" width="100%" cellpadding="0" align="center" style="text-align: left; font-size:14px;">'\
@@ -580,7 +580,7 @@ class HomeController < ApplicationController
             '</tbody>'\
           '</table>'\
         '</div>'\
-        '<div style="margin-top: 5px;;">'\
+        '<div style="margin-top: 15px;;">'\
           '<div>Dear '+ "#{hotel.name.titleize}" +',</div><br/>'\
           '<div>We have received the following information for your hotel  and are confirming via fax.</div><br/>'\
           '<div>'\
@@ -606,7 +606,7 @@ class HomeController < ApplicationController
           '</tbody>'\
         '</table>'\
         '<div style="margin-top: 10px;;">'\
-          '<div style="float: left;width: 30%;font-weight: bold; font-size: 14px;">'+ "#{room_type.titleize}" +' for guest ' + "#{traveler.name.titleize}" + ' (' + "#{room.max_people}" + ' Persons)</div><br/>'\
+          '<div style="float: left;width: 45%;font-weight: bold; font-size: 14px;">'+ "#{room_type.titleize}" +' for guest ' + "#{traveler.name.titleize}" + ' (' + "#{room.max_people}" + ' Persons)</div><br/>'\
           '<div>'\
             + "#{room.description.titleize}" +
          ' </div>'\
@@ -629,7 +629,7 @@ class HomeController < ApplicationController
             '<tr>'\
               '<td style="font-weight: bold;" colspan="4">Total Price for this reservation: $' + "#{amount}" + '</td>'\
             '</tr>'\
-            '<tr style="height:20px;"></tr>'\
+            '<tr style="height:40px;"></tr>'\
             '<tr>'\
               '<td style="width:20%;">Credit Card:</td>'\
               '<td style="font-weight: bold; width:20%">' + "#{traveler.credit_card_type.titleize}" + '</td>'\
@@ -679,7 +679,7 @@ class HomeController < ApplicationController
           '</table>'\
         '</div>'\
         '<div style="clear: both;"></div>'\
-        '<div>'\
+        '<div style="margin-top: 47px;">'\
           '<ul>'\
             '<li>IMPORTANT: '+ "#{@disclaimer}" +'</li>'\
             '<li>Please keep your availability current on www.bestnights.com</li>'
