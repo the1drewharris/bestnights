@@ -4874,5 +4874,9 @@ a.landing-form-submit:hover{
 .promotion-box .grntitle{color:#87bf29; font-size:22px; line-height:25px; margin:0 0 17px;}
 .promotion-box .btn{height:35px; background:url(../assets/grnbtn.gif) 0 0 repeat-x; color:#000; font-size:18px; line-height:35px; text-align:center; font-weight:700; text-decoration:none; display:inline-block; border-bottom:#8ebc41 1px solid; padding:0 22px; text-transform:uppercase;}
 .promotion-box .btn:hover{background-position:0 -35px; color:#000; text-decoration:none;}
+#phoneNumber{
+	font-weight: bold;
+	color: #5F5FD4;
+}
 /* End */
 
