@@ -117,6 +117,7 @@
 				<th scope="col">Room Available</th>
 				<th scope="col">BestNights.com Price</th>
 				<th scope="col">Number of Rooms</th>
+				<th scope="col">Number of Guests</th>
 				<th scope="col">Reservation</th>
 			</tr>
 						
@@ -196,6 +197,13 @@
 											<%# if fr[room.room_type.id] != 0 %>
 												<input type="number" min="0" max=<%= room.available_max(@from_date, @to_date) %> value="" name="number[<%= room.id %>]" id="room_number">
 											<%# end %>
+										<% end %>
+									<% end %>
+								</td>
+								<td>
+									<% @free.each do |fr| %>
+										<% if fr.has_key?(room.room_type.id) %>
+											<input type="number" min="0" max=<%= room.max_people_allowed %> value="" name="number[<%= room.id %>]" id="max_people">
 										<% end %>
 									<% end %>
 								</td>

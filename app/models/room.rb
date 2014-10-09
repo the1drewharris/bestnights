@@ -1,5 +1,5 @@
 class Room < ActiveRecord::Base
-  attr_accessible :hotel_id, :room_type_id, :name, :description, :price, :additionaladultfee, :original_price, :starting_inventory, :bed_numbers, :max_people, :max_children, :room_size, :room_unit, :lunch, :dinner, :all_inclusive, :room_sub_type_id, :room_sub_type_name
+  attr_accessible :hotel_id, :room_type_id, :name, :description, :price, :additionaladultfee, :original_price, :starting_inventory, :bed_numbers, :max_people, :max_children, :room_size, :room_unit, :lunch, :dinner, :all_inclusive, :room_sub_type_id, :room_sub_type_name, :aditionaladults
   attr_accessor :room_sub_type_name
   validates :hotel_id, :room_type_id, presence: true
   validates :starting_inventory, :bed_numbers, presence: true, inclusion: { in: 0..10000 }
@@ -47,6 +47,14 @@ class Room < ActiveRecord::Base
       find(:all, :conditions => ['name LIKE ?', "%#{search}%"])
     else
       find(:all)
+    end
+  end
+
+  def max_people_allowed
+    unless self.aditionaladults.blank?
+      return self.max_people + self.aditionaladults
+    else
+      return self.max_people
     end
   end
   
