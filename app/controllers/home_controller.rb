@@ -542,6 +542,7 @@ class HomeController < ApplicationController
     @policy = CGI::unescape("Within 48 hours, unless specified by the individual hotel.")
     @booking_data = ""
     @night_data = ""
+    @guest_data = ""
     #price = view_context.number_with_precision(price, precision: 2, separator: '.')
     File.open("#{Rails.root.to_s}/public/fax_content.html", 'wb') do|f|
       booking.each do |book|
@@ -552,8 +553,12 @@ class HomeController < ApplicationController
 
       booking.each do |book|
         nights.times do |night|
-          @night_data += '<td style="height:40px; color:#000;border:1px solid #000; word-break: break-word;">'+"#{view_context.number_with_precision((price / nights), precision: 2, separator: '.')}"+'</td>'
+          @night_data += '<td style="height:40px; color:#000;border:1px solid #000; word-break: break-word;">'+"#{view_context.number_with_precision((amount / nights), precision: 2, separator: '.')}"+'</td>'
         end
+      end
+
+      booking.each do |book|
+        @guest_data += '<td style="font-weight: bold; width: 30%;">' + "#{book.guests}" + '</td>'
       end
 
       @country = Carmen::Country.coded(@traveler.country_id )
@@ -604,8 +609,8 @@ class HomeController < ApplicationController
             '<tr>'\
               '<td style="width: 15%;">Departure:</td>'\
               '<td style="font-weight: bold; width: 30%;">' + "#{checkout.to_date.strftime("%A,%d %B %Y")}" + '</td>'\
-              '<td style="width:20%;">Number of Persons:</td>'\
-              '<td style="font-weight: bold; width: 30%;">' + "#{room.max_people}" + '</td>'\
+              '<td style="width:20%;">Number of Guests:</td>'\
+              + "#{@guest_data}" +
             '</tr>'\
           '</tbody>'\
         '</table>'\
@@ -703,14 +708,14 @@ class HomeController < ApplicationController
       data += line
     end
   
-   # @fax_result = SOAP::WSDLDriverFactory.new("https://ws-sl.fax.tc/Outbound.asmx?WSDL").create_rpc_driver.SendCharFax("Username" => "bestnights","Password" => "2014bestnights","FileType" => "HTML","FaxNumber"=> "18444942378","Data" => data)
-   #  logger.info"@@@@@@@@@@@@@@@@@@@@@@@#{@fax_result.inspect}@@@@@@@@@@@@@@@@@@@@@@@@"
-   # # File.delete("#{Rails.root.to_s}/public/"+traveler.id.to_s+".txt")
-   # unless @fax_result["SendCharFaxResult"].include? "-"
-   #  TravelerPayment.create(amount: amount, traveler_id: traveler.id)
-   # else
-   #  flash[:notice] = "Hotel not booked due wrong params"
-   #  redirect_to root_path
-   # end
+   @fax_result = SOAP::WSDLDriverFactory.new("https://ws-sl.fax.tc/Outbound.asmx?WSDL").create_rpc_driver.SendCharFax("Username" => "bestnights","Password" => "2014bestnights","FileType" => "HTML","FaxNumber"=> "18444942378","Data" => data)
+    logger.info"@@@@@@@@@@@@@@@@@@@@@@@#{@fax_result.inspect}@@@@@@@@@@@@@@@@@@@@@@@@"
+   # File.delete("#{Rails.root.to_s}/public/"+traveler.id.to_s+".txt")
+   unless @fax_result["SendCharFaxResult"].include? "-"
+    TravelerPayment.create(amount: amount, traveler_id: traveler.id)
+   else
+    flash[:notice] = "Hotel not booked due wrong params"
+    redirect_to root_path
+   end
   end
 end

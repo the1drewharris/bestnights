@@ -20,7 +20,7 @@ class FaxMailer < ActionMailer::Base
     @host = host
     @expiry_date = credit_card_expiry_date
     @nights = number_nights
-    @price = price
+    @price = @amount
   	subject = "Bestnights Booking Confirmation"
     mail(:subject => subject, :to => @traveler.email)
   end
