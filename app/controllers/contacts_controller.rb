@@ -15,8 +15,8 @@ class ContactsController < ApplicationController
 
     respond_to do |format|
       if @contact.save
-      	ContactMailer.contact_email(@contact.email).deliver
-        format.html { redirect_to new_contact_path, notice: t("form.thankyou_contact") }
+      	ContactMailer.contact_email(@contact.email,params[:contact][:phone_number],params[:contact][:name]).deliver
+        format.html { redirect_to new_contact_path, success: "Your Entry Has Been Submitted. Please Register Your Property!" }
         format.json { render json: @contact, status: :created, location: @contact }
       else
         format.html { render action: "new" }

@@ -516,8 +516,8 @@ class HomeController < ApplicationController
     @contact.email = params[:contact][:email]
     respond_to do |format|
       if @contact.save
-        ContactMailer.contact_email(@contact.email).deliver
-        flash[:success] = "Thanks to register with us"
+        ContactMailer.contact_email(@contact.email,@contact.phone_number,@contact.name).deliver
+        flash[:success] = "Your Entry Has Been Submitted. Please Register Your Property!"
         format.html { redirect_to registerhotel_path}
         format.json { render json: @contact, status: :created, location: @contact }
       else
@@ -558,7 +558,7 @@ class HomeController < ApplicationController
      html = '<html>'\
       '<body>'\
         '<div style="margin: 60px">'\
-        '<div style="float: left; width: 40%; font-weight: bold; font-size: 25px; text-align: center;">BESTNIGHTS.COM</div>'\
+        '<div style="float: left; width: 40%; font-weight: bold; font-size: 35px; text-align: center;">BESTNIGHTS.COM</div>'\
         '<div style="float: right; width: 34%">'\
           '<div style="font-size: 20px;font-weight: 500;"><span>Booking confirmation</span><br/><span style="font-weight: bold;">'+ "#{booking_number.to_s}" +'</span></div>'\
         '</div><div style="clear: both"></div>'\
@@ -629,7 +629,7 @@ class HomeController < ApplicationController
             '<tr>'\
               '<td style="font-weight: bold;" colspan="4">Total Price for this reservation: $' + "#{amount}" + '</td>'\
             '</tr>'\
-            '<tr style="height:40px;"></tr>'\
+            '<tr style="height:80px;"></tr>'\
             '<tr>'\
               '<td style="width:20%;">Credit Card:</td>'\
               '<td style="font-weight: bold; width:20%">' + "#{traveler.credit_card_type.titleize}" + '</td>'\
