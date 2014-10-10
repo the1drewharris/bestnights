@@ -88,8 +88,15 @@
 					<% end %>
 				</tr>
 				<tr>
+					<% @traveler_country = Carmen::Country.coded(@traveler.country_id ) %>
 					<% @number_nights.times do |night| %>
-						<td><%= number_with_precision(session[:price]["#{session[:roomtype]}"] / @number_nights, :precision => 2, :separator => '.') %></td>
+						<td><%= number_with_precision(session[:price]["#{session[:roomtype]}"] / @number_nights, :precision => 2, :separator => '.') %>
+							<% if @traveler_country.name == "Canada" %>
+								CAD
+							<% else %>
+							  USD
+							<% end %>
+						</td>
 					<% end %>
 				</tr>
 			</table>
