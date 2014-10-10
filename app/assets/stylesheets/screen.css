@@ -4878,5 +4878,9 @@ a.landing-form-submit:hover{
 	font-weight: bold;
 	color: #5F5FD4;
 }
+
+.booking-detail-outer .room-available{
+	width: 156px;
+}
 /* End */
 

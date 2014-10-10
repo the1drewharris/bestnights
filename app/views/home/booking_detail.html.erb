@@ -109,7 +109,8 @@
 	
 	<h5 id="available_notification"></h5>	
 	<div id="bookingoptions">
-		<table>
+
+		<table class="booking-detail-outer">
 			<tr>
 				<th scope="col">Room Type</th>
 				<th scope="col">Description</th>
@@ -141,7 +142,7 @@
 										</table>
 									</div>
 								</td>
-								<td><%= room.max_people %></td>
+								<td id="max_people"><%= room.max_people %></td>
 								<td class="room_available">
 								<% @availables = RoomAvailable.where("room_sub_type_id=? AND hotel_id=?",room.room_sub_type_id, @hotel.id ).order("from_date") %>
 								<div class="room-available">
@@ -200,10 +201,10 @@
 										<% end %>
 									<% end %>
 								</td>
-								<td>
+								<td class="guest">
 									<% @free.each do |fr| %>
 										<% if fr.has_key?(room.room_type.id) %>
-											<input type="number" min="0" max=<%= room.max_people_allowed %> value="" name="number[<%= room.id %>]" id="max_people">
+											<input type="number" min="0" max=<%#= room.max_people_allowed %> value="" name="number[<%= room.id %>]" id="max_people">
 										<% end %>
 									<% end %>
 								</td>
@@ -218,7 +219,7 @@
 										<% end %>
 									<% end %>
 									<% if @flag == 1 && session[:room_rate][index] != 0 %>
-										<%= link_to "Book Now", checkout_path(:hotel_id => @hotel.id, :room_type_id => room.room_sub_type.id) , class: "link_style", id: "link_style" %><br />
+										<%= link_to "Book Now", checkout_path(:hotel_id => @hotel.id, :room_type_id => room.room_sub_type.id) , class: "link_style", id: "link_style", additionaladult: room.aditionaladults %><br />
 										<span>$<%= number_with_precision(session[:room_rate][index], precision: 2) %></span>
 									<% else %>
 										<p class="red">Sold Out</p>
@@ -269,15 +270,28 @@
  $(".link_style").click(function(e){
  	e.preventDefault();
  	$.cookie("rate", parseInt($(this).siblings("span").html().substring(1)))
-
+ 	var guests = parseInt($(this).parent().siblings(".guest").children("#max_people").val());
  	var room_needed = $(this).parent().siblings(".room_number").children("#room_number").val();
  	var room_avail = parseInt($(this).parent().siblings(".room_available").children(".room-available").children(".data-tbl").children("tbody").children("tr").children("td").children("span").html());
+ 	var max_people = parseInt($(this).parent().siblings("#max_people").html());
+ 	var max_allowed = parseInt($(this).attr("additionaladult"));
  	if (room_needed <= room_avail && room_needed != '' && room_needed != "0") {
  		//var room_available = parseInt($(this).parent().siblings(".room_available").html()) - room_needed;
- 		link = $(this).attr('href');
- 		link = link + '&room_number='+room_needed + '&total_room=' + room_avail;
- 		window.location.href = link;
- 		return true;
+ 		console.log((max_people + max_allowed) <= (guests / room_needed) )
+ 		if((guests / room_needed) <= (max_people + max_allowed)){
+ 			$.cookie("guests", guests);
+ 			if(guests > (max_people * room_needed)){
+ 				$.cookie("additionaladult", (guests - (max_people * room_needed)));
+ 			}
+ 			
+ 			link = $(this).attr('href');
+	 		link = link + '&room_number='+room_needed + '&total_room=' + room_avail;
+	 		window.location.href = link;
+	 		return true;
+ 		}
+ 		else{
+ 			alert("Please select more rooms")
+ 		}
  	}
  	else if (room_needed >= 0) {
  		alert(room_needed + " " + "rooms are not available");
