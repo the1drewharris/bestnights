@@ -82,6 +82,7 @@ class DashboardController < ApplicationController
   end
 
   def bookings
+    @hotel = Hotel.find_by_id(session[:hotel_id])
   	@bookings = Booking.where(:hotel_id => session[:hotel_id]).paginate(:page => params[:page], :per_page => 20).order('id DESC')
   end
 
