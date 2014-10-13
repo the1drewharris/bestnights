@@ -28,9 +28,9 @@ class RoomsController < ApplicationController
     @room = Room.new
     @room_types = RoomType.activated
     if current_user.admin?
-      @hotels = Hotel.activated
+      @hotels = Hotel.all
     elsif current_user.manager?
-      @hotels = current_user.activated_hotels
+      @hotels = Hotel.where(user_id: current_user.id)
     end
 
     unless @room_types.blank?
@@ -86,9 +86,9 @@ class RoomsController < ApplicationController
     @room = Room.find(params[:id])    
     @room_attributes = RoomAttribute.order("attr")
     if current_user.admin?
-      @hotels = Hotel.activated
+      @hotels = Hotel.all
     elsif current_user.manager?
-      @hotels = current_user.activated_hotels
+      @hotels = Hotel.where(user_id: current_user.id)
     end
     
     if current_user.new_signup?

@@ -122,11 +122,11 @@
           <% end %>    
         </tr>
         <tr style="color:#4c4c4c; font-size: 12px;">
-          <% @traveler_country = Carmen::Country.coded(@traveler.country_id ) %>
+          <% @country = Carmen::Country.coded(@hotel.country_id ) %>
           <% @booking.each do |book| %>
             <% @nights.times do |night| %>
               <td style="background: #ef807f; height:40px;"><%= number_with_precision(@price / @nights, :precision => 2, :separator => '.') %> 
-                <% if @traveler_country.name == "Canada" %>
+                <% if @country.name == "Canada" %>
                   CAD
                 <% else %>
                   USD
