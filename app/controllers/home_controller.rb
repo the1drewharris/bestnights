@@ -567,7 +567,7 @@ class HomeController < ApplicationController
      html = '<html>'\
       '<body>'\
         '<div style="margin: 60px">'\
-        '<div style="float: left; width: 40%; font-weight: bold; font-size: 35px; text-align: center;">BESTNIGHTS.COM</div>'\
+        '<div style="float: left; width: 40%; font-weight: bold; font-size: 35px; text-align: center;">BestNights.com</div>'\
         '<div style="float: right; width: 34%">'\
           '<div style="font-size: 20px;font-weight: 500;"><span>Booking confirmation</span><br/><span style="font-weight: bold;">'+ "#{booking_number.to_s}" +'</span></div>'\
         '</div><div style="clear: both"></div>'\
@@ -578,7 +578,7 @@ class HomeController < ApplicationController
                 '<td>Fax To:</td>'\
                 '<td style="font-weight: bold;">' + "#{hotel.name.titleize}" + '</td>'\
                 '<td>Date:</td>'\
-                '<td style="font-weight: bold;">' + "#{booking_created_on.to_s}" + '</td>'\
+                '<td style="font-weight: bold;">' + "#{booking_created_on.to_date.strftime("%A,%d %B %Y")}" + '</td>'\
               '</tr>'\
               '<tr>'\
                 '<td>Fax:</td>'\
@@ -638,12 +638,12 @@ class HomeController < ApplicationController
             '<tr>'\
               '<td style="font-weight: bold;" colspan="4">Total Price for this reservation: $' + "#{amount}" + '</td>'\
             '</tr>'\
-            '<tr style="height:80px;"></tr>'\
+            '<tr style="height:70px;"></tr>'\
             '<tr>'\
               '<td style="width:20%;">Credit Card:</td>'\
               '<td style="font-weight: bold; width:20%">' + "#{traveler.credit_card_type.titleize}" + '</td>'\
               '<td style="width:20%;">Expiry Date:</td>'\
-              '<td style="font-weight: bold; width:20%;">' + "#{traveler.credit_card_expiry_date}" + '</td>'\
+              '<td style="font-weight: bold; width:20%;">' + "#{traveler.credit_card_expiry_date.strftime("%A,%d %B %Y")}" + '</td>'\
             '</tr>'\
             '<tr>'\
               '<td style="width:20%;">Card Number:</td>'\
@@ -688,9 +688,10 @@ class HomeController < ApplicationController
           '</table>'\
         '</div>'\
         '<div style="clear: both;"></div>'\
-        '<div style="margin-top: 47px;">'\
+        '<div style="margin-top: 25px;">'\
           '<ul>'\
             '<li>IMPORTANT: '+ "#{@disclaimer}" +'</li>'\
+            '<li>We have sent a confirmation to the guest with the booking details, hotel address with contact details, cancellation and checkin/checkout times.</li>'\
             '<li>Please keep your availability current on www.bestnights.com</li>'
           '</ul>'\
         '</div>'\

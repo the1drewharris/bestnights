@@ -34,6 +34,7 @@ class Hotel < ActiveRecord::Base
   has_many :contact_persons, dependent: :destroy
   has_one  :commission_rate
   has_many :room_statuses
+  has_many :room_sub_type
   
   scope :activated, -> { where(status: "active") }
   scope :top5, -> { where(status: "active").order("star DESC").limit(5) }

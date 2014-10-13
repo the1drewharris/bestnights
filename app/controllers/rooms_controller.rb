@@ -27,15 +27,16 @@ class RoomsController < ApplicationController
   def new
     @room = Room.new
     @room_types = RoomType.activated
-    unless @room_types.blank?
-      @room_sub_types = RoomSubType.where("room_type_id=?", @room_types.first.id)
-    end
     if current_user.admin?
       @hotels = Hotel.activated
     elsif current_user.manager?
       @hotels = current_user.activated_hotels
     end
-    
+
+    unless @room_types.blank?
+      @room_sub_types = RoomSubType.where("room_type_id=? AND hotel_id=?", @room_types.first.id, @hotels.first.id)
+    end
+
     if current_user.new_signup?
       @hotel = Hotel.find(params[:hotel_id])
     end
@@ -193,7 +194,7 @@ class RoomsController < ApplicationController
   end
 
   def get_sub_type
-    @sub_types = RoomSubType.where("room_type_id=?", params[:type_id].to_i)
+    @sub_types = RoomSubType.where("room_type_id=? AND hotel_id=?", params[:type_id].to_i, params[:hotel_id].to_i)
     if @sub_types.blank?
       @sub_types = []
     end
