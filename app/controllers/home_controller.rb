@@ -495,10 +495,10 @@ class HomeController < ApplicationController
 
         @latest_booked = Booking.where(traveler_id: @traveler.id, hotel_id: room.hotel.id).order("created_at DESC").limit(1)
         logger.info"!!!!!!!!!!!!!!!!!!!#{session[:price]}!!!!!!!!!!!!!!!!!!!!!"
-        # @fax_email = FaxMailer.hotel_booking_mail(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, session[:room_needed], @latest_booked, @room1,@rate,@card_expiry, request.protocol,request.host_with_port, @number_nights, @price).deliver
-        # if !@hotel.email.nil? &&  @hotel.email != ""
-        #   @fax_email_to_hotel = FaxMailer.email_to_hotel(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, room_ids, @latest_booked, @room1, @card_expiry, request.protocol,request.host_with_port, session[:room_needed], @number_nights, @price).deliver
-        # end
+        @fax_email = FaxMailer.hotel_booking_mail(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, session[:room_needed], @latest_booked, @room1,@rate,@card_expiry, request.protocol,request.host_with_port, @number_nights, @price).deliver
+        if !@hotel.email.nil? &&  @hotel.email != ""
+          @fax_email_to_hotel = FaxMailer.email_to_hotel(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, room_ids, @latest_booked, @room1, @card_expiry, request.protocol,request.host_with_port, session[:room_needed], @number_nights, @price).deliver
+        end
     else
       flash[:errors] = ["Your booking failed!"]
       return redirect_to checkout_path
@@ -563,6 +563,11 @@ class HomeController < ApplicationController
 
       @country = Carmen::Country.coded(@traveler.country_id )
       @subregion = @country.subregions.coded(@traveler.state_id)
+      if @country.name == "Canada"
+        @currency = "CAD"
+      else
+        @currency = "USD"
+      end
 
      html = '<html>'\
       '<body>'\
@@ -627,7 +632,7 @@ class HomeController < ApplicationController
             + "#{@booking_data}" +
           '</tr>'\
           '<tr style="color:#000;">'\
-            '<td style="border:1px solid #000; word-break: break-word;">Rate (CAD)</td>'\
+            '<td style="border:1px solid #000; word-break: break-word;">Rate (' + "#{@currency}" + ')</td>'\
             + "#{@night_data}" +
           '</tr>'\
         '</table>'\
@@ -642,7 +647,7 @@ class HomeController < ApplicationController
             '<tr>'\
               '<td style="width:20%;">Credit Card:</td>'\
               '<td style="font-weight: bold; width:20%">' + "#{traveler.credit_card_type.titleize}" + '</td>'\
-              '<td style="width:20%;">Expiry Date:</td>'\
+              '<td style="width:15%;">Expiry Date:</td>'\
               '<td style="font-weight: bold; width:20%;">' + "#{traveler.credit_card_expiry_date.strftime("%A,%d %B %Y")}" + '</td>'\
             '</tr>'\
             '<tr>'\
@@ -709,14 +714,14 @@ class HomeController < ApplicationController
       data += line
     end
   
-   # @fax_result = SOAP::WSDLDriverFactory.new("https://ws-sl.fax.tc/Outbound.asmx?WSDL").create_rpc_driver.SendCharFax("Username" => "bestnights","Password" => "2014bestnights","FileType" => "HTML","FaxNumber"=> "18444942378","Data" => data)
-   #  logger.info"@@@@@@@@@@@@@@@@@@@@@@@#{@fax_result.inspect}@@@@@@@@@@@@@@@@@@@@@@@@"
-   # # File.delete("#{Rails.root.to_s}/public/"+traveler.id.to_s+".txt")
-   # unless @fax_result["SendCharFaxResult"].include? "-"
-   #  TravelerPayment.create(amount: amount, traveler_id: traveler.id)
-   # else
-   #  flash[:notice] = "Hotel not booked due wrong params"
-   #  redirect_to root_path
-   # end
+   @fax_result = SOAP::WSDLDriverFactory.new("https://ws-sl.fax.tc/Outbound.asmx?WSDL").create_rpc_driver.SendCharFax("Username" => "bestnights","Password" => "2014bestnights","FileType" => "HTML","FaxNumber"=> "18444942378","Data" => data)
+    logger.info"@@@@@@@@@@@@@@@@@@@@@@@#{@fax_result.inspect}@@@@@@@@@@@@@@@@@@@@@@@@"
+   # File.delete("#{Rails.root.to_s}/public/"+traveler.id.to_s+".txt")
+   unless @fax_result["SendCharFaxResult"].include? "-"
+    TravelerPayment.create(amount: amount, traveler_id: traveler.id)
+   else
+    flash[:notice] = "Hotel not booked due wrong params"
+    redirect_to root_path
+   end
   end
 end
