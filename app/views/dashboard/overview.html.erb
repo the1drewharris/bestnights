@@ -49,6 +49,7 @@
                         <%= sub_type.name %>
                       </td>
                       <% @range.times do |day| %>
+                        <% unless @status_hash["#{sub_type.id}"].blank? %>
                         <% @status_hash["#{sub_type.id}"].each do |date| %>
                           <% if date[0].to_date == @starting_date.advance(days: day) %>
                             <% if date[1] == "none" %>
@@ -67,6 +68,7 @@
                               <% end %>
                             <% end %>
                           <% end %>
+                        <% end %>
                         <% end %>
                       <% end %>
                       <% if @range > @status_hash["#{sub_type.id}"].length %>

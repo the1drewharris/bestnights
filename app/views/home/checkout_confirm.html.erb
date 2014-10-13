@@ -34,8 +34,12 @@
 	<tr>
 		<td><strong>Address:</strong></td>
 		<% @country = Carmen::Country.coded(@hotel.country_id ) %>
-		<% @subregion = @country.subregions.coded(@hotel.state_id) %>
-		<td><%= @hotel.city.titleize %>, <%= @subregion.name %>, <%= @country.name %></td>
+		<% unless @country.blank? %>
+			<% @subregion = @country.subregions.coded(@hotel.state_id) %>
+			<td><%= @hotel.city.titleize %>, <%= @subregion.name %>, <%= @country.name %></td>
+		<% else %>
+			<td><%= @hotel.city.titleize %></td>
+		<% end %>
 	</tr>
 	<tr>
 		<td><strong>Email:</strong></td>
