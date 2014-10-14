@@ -112,7 +112,7 @@ class DashboardController < ApplicationController
       csv_string = CSV.generate do |csv|
          csv << ["Booking_Number", "Total", "Arrival","Departure", "Booker_Name", "Night_Number", "Booking_Date"]
          @bookings.each do |book|
-           csv << [book.id, book.price, book.from_date, book.to_date, book.traveler.name, book.night_number, book.created_at]
+           csv << [book.id, book.price, book.from_date, book.to_date, book.traveler.balnk? ? "" : book.traveler.firstname.titleize book.traveler.lastname.titleize, book.night_number, book.created_at]
          end
       end   
      send_data csv_string,
@@ -130,7 +130,7 @@ class DashboardController < ApplicationController
       csv_string = CSV.generate do |csv|
          csv << ["Booking_Number", "Total", "Arrival","Departure", "Booker_Name", "Night_Number", "Booking_Date"]
          @bookings.each do |book|
-           csv << [book.id, book.price, book.from_date, book.to_date, book.traveler.name, book.night_number, book.created_at]
+           csv << [book.id, book.price, book.from_date, book.to_date, book.traveler.balnk? ? "" : book.traveler.firstname.titleize book.traveler.lastname.titleize, book.night_number, book.created_at]
          end
       end   
      send_data csv_string,

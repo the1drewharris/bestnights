@@ -70,8 +70,8 @@
 												<%= link_to "Download", reserve_status_path(:id => book.id, :format => "pdf"), class: "links" %>
 											</td>
 											<td align="center" valign="middle"><%= book.id %></td>
-											<td align="center" valign="middle"><%= book.traveler.name.titleize %></td>
-											<td align="center" valign="middle"><%= book.traveler.name.titleize %></td>
+											<td align="center" valign="middle"><%= book.traveler.blank? ? "" : book.traveler.name.titleize %></td>
+											<td align="center" valign="middle"><%= book.traveler.blank? ? "" : book.traveler.name.titleize %></td>
 											<td align="center" valign="middle"><%= book.from_date  %></td>
 											<td align="center" valign="middle"><%= book.to_date %></td>
 											<td align="center" valign="middle"><%= book.night_number %></td>
