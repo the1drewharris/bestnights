@@ -36,27 +36,37 @@
 
   # config.action_mailer.default_url_options = { :host => 'bestnights.indusnetlabs.com' }  
   
-  config.action_mailer.perform_deliveries = true
+   config.action_mailer.perform_deliveries = true
   # config.action_mailer.delivery_method = :smtp
   # config.action_mailer.smtp_settings = {
-  #  address: "mail.web-host.net",
+  #  address: "smtpout.secureserver.net",
   #  port: 2525,
   #  authentication: "login",
   #  enable_starttls_auto: false,
-  #  user_name: "customerservice@bestnights.com",
-  #  password: "Jamesbrown01"
+  #  user_name: "info@bestnights.com",
+  #  password: "pono01"
 
   #   }
 
+  config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-   address: "smtp.gmail.com",
-   port: 587,
-   domain: "google.com",
-   authentication: "plain",
-   enable_starttls_auto: true,
-   user_name: 'bestnights.info@gmail.com',
-   password: 'bestnights201415'
-   }
+  :address => 'smtpout.secureserver.net',
+  :domain  => 'www.bestnights.com',
+  :port      => 80,
+  :user_name => 'info@bestnights.com',
+  :password => 'pono01',
+  :authentication => :plain
+}
+
+  # config.action_mailer.smtp_settings = {
+  #  address: "smtp.gmail.com",
+  #  port: 587,
+  #  domain: "google.com",
+  #  authentication: "plain",
+  #  enable_starttls_auto: true,
+  #  user_name: 'bestnights.info@gmail.com',
+  #  password: 'bestnights201415'
+  #  }
   # ActionMailer Config
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
   config.action_mailer.delivery_method = :smtp

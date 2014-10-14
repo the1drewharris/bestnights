@@ -75,14 +75,15 @@ Bestnights::Application.configure do
   #  password: "Jamesbrown01"
 
   #   }
-  config.action_mailer.smtp_settings = {
-   address: "smtp.gmail.com",
-   port: 587,
-   authentication: "plain",
-   enable_starttls_auto: true,
-   user_name: 'bestnights.info@gmail.com',
-   password: 'bestnights201415'
-   }
+  config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = {
+    :address => 'smtpout.secureserver.net',
+    :domain  => 'www.bestnights.com',
+    :port      => 80,
+    :user_name => 'info@bestnights.com',
+    :password => 'pono01',
+    :authentication => :plain
+  }
 
   # config.action_mailer.smtp_settings = {
   #  address: "smtp.gmail.com",

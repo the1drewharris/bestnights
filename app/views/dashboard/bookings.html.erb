@@ -21,8 +21,9 @@
                   <td align="center" valign="middle">Arrival</td>
                   <td align="center" valign="middle">Departure</td>
                   <td align="center" valign="middle">Status</td>
-                  <td align="center" valign="middle">Total</td>
+                  <td align="center" valign="middle">Total Stay</td>
                   <td align="left" valign="middle">Booker Name</td>
+                  <td align="left" valign="middle">Contact Info</td>
                 </tr>
               </thead>
               <tbody>
@@ -52,7 +53,7 @@
                         <% end %>
                         <%= book.price %></td>
 											<td align="left" valign="middle"><%= book.traveler.blank? ? "" : book.traveler.firstname.capitalize %>&nbsp;<%= book.traveler.blank? ? "" : book.traveler.lastname.capitalize %></td>
-											<!-- <td><%#= @site_visitors.first["c"] %></td> -->
+											<td align="center" valign="middle"><%= book.traveler.blank? ? "" : book.traveler.phone_number %></td>
 										</tr>
 									<% end %>
 								<% end %>

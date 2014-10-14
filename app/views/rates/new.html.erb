@@ -57,18 +57,20 @@
             </div>
           </td>
           <td align="left" valign="top">
-          <div class="row mrgntp15">
-            For:
-          </div>
-          <div class="row break">
-            <input id="so-0" type="checkbox" value="0" name="so">
-            <label for="so-0">All Rooms</label>
-          </div>
-          <div class="row mrgntp15">
-            or for one or more of these Rooms:
-          </div>
-          <div id="so-inject" style="margin: 0 0 5px;"></div>
-          <%= render partial: "common/room_types" %>
+            <div class="rate-change-right-col">
+              <div class="row mrgntp15">
+                For:
+              </div>
+              <div class="row break">
+                <input id="so-0" type="checkbox" value="0" name="so">
+                <label for="so-0">All Rooms</label>
+              </div>
+              <div class="row mrgntp15">
+                or for one or more of these Rooms:
+              </div>
+              <div id="so-inject" style="margin: 0 0 5px;"></div>
+              <%= render partial: "common/room_types" %>
+           </div>
           </td>
         </tr>
       </tbody>

@@ -35,9 +35,10 @@
 									<td align="center" valign="middle">Due Date</td>
 									<td align="center" valign="middle">Period</td>
 									<td align="center" valign="middle">Invoice Amount</td>
-									<td align="center" valign="middle">Amount Paid</td>
+									<td align="center" valign="middle">Commission Paid</td>
 							</thead>
 							<tbody>
+
 								<% @bookings.each do |booking| %>
 									<tr>
 										<td>
@@ -56,17 +57,40 @@
 											<%= booking.from_date %> To <%= booking.from_date.advance(:months => 1) %>
 										</td>
 										<td>
+											<% @country = Carmen::Country.coded(@hotel.country_id ) %>
+                      <% if @country.name == "Canada" %>
+                        CAD
+                      <% else %>
+                        USD 
+                      <% end %>
 											<%= booking.price %>
 										</td>
 										<td>
-											<%= booking.price %>
+											<% @country = Carmen::Country.coded(@hotel.country_id ) %>
+                      <% if @country.name == "Canada" %>
+                        CAD
+                      <% else %>
+                        USD 
+                      <% end %>
+											<%= number_with_precision(@commission, :precision => 2, :separator => '.') %>
 										</td>
 									</tr>
 								<% end %>
 							</tbody>
 						</table>
           </div>
-          <%= will_paginate @bookings %>
+          <div class="table-total"><strong>Total Invoice Amount: </strong> 
+          	<% @country = Carmen::Country.coded(@hotel.country_id ) %>
+          	<% if @country.name == "Canada" %>
+          		CAD
+          	<% else %>
+          		USD 
+          	<% end %>
+          	<%= number_with_precision(@total_price, :precision => 2, :separator => '.') %>
+          </div>
+          <div class="pag-outer">
+          	<%= will_paginate @bookings %>
+        	</div>
         </div>
       </div>
     </div>
