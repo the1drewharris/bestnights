@@ -58,7 +58,7 @@
 										</td>
 										<td>
 											<% @country = Carmen::Country.coded(@hotel.country_id ) %>
-                      <% if @country.name == "Canada" %>
+                      <% if !@country.blank? && @country.name == "Canada" %>
                         CAD
                       <% else %>
                         USD 
@@ -67,7 +67,7 @@
 										</td>
 										<td>
 											<% @country = Carmen::Country.coded(@hotel.country_id ) %>
-                      <% if @country.name == "Canada" %>
+                      <% if !@country.blank? && @country.name == "Canada" %>
                         CAD
                       <% else %>
                         USD 
@@ -81,7 +81,7 @@
           </div>
           <div class="table-total" style="margin-bottom: 19px;"><strong>Total Invoice Amount: </strong> 
           	<% @country = Carmen::Country.coded(@hotel.country_id ) %>
-          	<% if @country.name == "Canada" %>
+          	<% if !@country.blank? && @country.name == "Canada" %>
           		CAD
           	<% else %>
           		USD 

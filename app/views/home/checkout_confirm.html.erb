@@ -94,7 +94,7 @@
 				<tr>
 					<% @number_nights.times do |night| %>
 						<td><%= number_with_precision(session[:price]["#{session[:roomtype]}"] / @number_nights, :precision => 2, :separator => '.') %>
-							<% if @country.name == "Canada" %>
+							<% if !@country.blank? && @country.name == "Canada" %>
 								CAD
 							<% else %>
 							  USD

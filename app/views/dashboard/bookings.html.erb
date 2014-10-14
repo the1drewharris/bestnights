@@ -46,7 +46,7 @@
                       </td>
 											<td align="center" valign="middle">
                         <% @country = Carmen::Country.coded(@hotel.country_id ) %>
-                        <% if @country.name == "Canada" %>
+                        <% if !@country.blank? && @country.name == "Canada" %>
                           CAD
                         <% else %>
                           USD 
