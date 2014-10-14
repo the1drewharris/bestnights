@@ -31,6 +31,7 @@ class RatesController < ApplicationController
       redirect_to new_room_path
     else
       @rate = Rate.new
+      get_room_types
       respond_to do |format|
         format.html # new.html.erb
         format.json { render json: @rate }

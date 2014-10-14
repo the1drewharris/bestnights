@@ -7,6 +7,7 @@ layout "admin_basic"
 			redirect_to new_room_path
 		else
 			@room = RoomAvailable.new
+      get_room_types
 			respond_to do |format|
 	      format.html
 	      format.json
@@ -67,6 +68,7 @@ layout "admin_basic"
 			redirect_to new_room_path
 		else
 			@room = RoomStatus.new
+      get_room_types
 			respond_to do |format|
 	      format.html
 	      format.json{ render :json => @room }

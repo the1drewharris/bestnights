@@ -1,0 +1,16 @@
+<% @roomtypes.each do |room|%>
+  <div class="row break roomRateWidth roomRateStyle">
+    <input type="checkbox" id="rt-<%= room %>" name="room_id[<%= room %>]" class="parent_room_type so">
+    <% room_type = RoomType.find_by_id(room)%>
+    <label><%= room_type.room_type %></label><div style="clear:both;"></div>
+    <% @roomsubtypes = RoomSubType.where("room_type_id=? AND hotel_id=?",room,session[:hotel_id]) %>
+    <div class="roomRateStyleInner">
+    <% @roomsubtypes.each do |room_sub_type| %>
+      <div class="row break">
+        <input type="checkbox" id="" name="room_sub_type_id[<%= room_sub_type.id %>]" class="so rt-<%= room %>">
+        <label><%= room_sub_type.name %></label><div style="clear:both;"></div>
+      </div>
+    <% end %>
+  </div>
+  </div>
+<% end %>

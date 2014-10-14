@@ -39,6 +39,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def get_room_types
+    @roomtypes = []
+    @subtypes = RoomSubType.where("hotel_id=?", session[:hotel_id])
+    @subtypes.each do |sub_type|
+      @roomtypes << sub_type.room_type_id
+    end
+  end
+
   protected 
   
   def after_sign_in_path_for(resource)
