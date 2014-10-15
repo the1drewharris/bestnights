@@ -9,6 +9,11 @@
     </tr>
     <tr>
       <% @country = Carmen::Country.coded(@booking.hotel.country_id ) %>
+      <% if !@country.blank? &&  @country.name == "Canada" %>
+        <% @currency = "CAD" %> 
+      <% else %>
+        <%  @currency = "USD" %>
+      <% end %>
       <% unless @country.blank? %>
         <% @subregion = @country.subregions.coded(@booking.hotel.state_id) %>
         <td align="left" valign="top" style="padding-left:50px; padding-top:42px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;"><%= @booking.hotel.name %><br /><%=  @booking.hotel.city.titleize %>, <%= @subregion.name.titleize %>, <%= @country.name.titleize %></td>
@@ -96,7 +101,7 @@
     </tr>
     <tr>
       <td align="left" valign="middle" style="padding-bottom:10px; padding-top:10px; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:17px; color:#000000; text-transform:none; font-weight:bold; font-style:normal; border:none; border-bottom:3px solid #000000; border-top:3px solid #000000;">Total amount due</td>
-      <td align="right" valign="middle" style="padding-bottom:10px; padding-top:10px; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:17px; color:#000000; text-transform:none; font-weight:bold; font-style:normal; border:none; border-bottom:3px solid #000000; border-top:3px solid #000000;"><%= @booking.price %> CAD </td>
+      <td align="right" valign="middle" style="padding-bottom:10px; padding-top:10px; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:17px; color:#000000; text-transform:none; font-weight:bold; font-style:normal; border:none; border-bottom:3px solid #000000; border-top:3px solid #000000;"><%= @booking.price %><%= @currency %></td>
     </tr>
     <tr>
       <td align="left" valign="top">&nbsp;</td>

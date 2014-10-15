@@ -339,7 +339,6 @@ class DashboardController < ApplicationController
 
   def status
     @booking = Booking.find_by_id(params[:id])
-    @booking.price = (@booking.price.to_i * 12) / 100
     @room = Room.find_by_id(@booking.room_id)
     respond_to do |format|
       format.html
@@ -365,7 +364,6 @@ class DashboardController < ApplicationController
   def booking_status
     @hotel = Hotel.find_by_id(session[:hotel_id])
     @booking = Booking.find_by_id(params[:id])
-    @booking.price = (@booking.price.to_i * 12) / 100
     @room = Room.find_by_id(@booking.room_id)
     respond_to do |format|
       format.html
