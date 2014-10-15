@@ -137,15 +137,7 @@ function next2ClickValidate(){
 		</li>
 	</ul>
 </fieldset>
-<fieldset>
-	<legend>Amenities and Facilities</legend>
-		<ul class="col2">
-			<% HotelAttribute.all.each do |ha| %>
-				<li class="checkboxes"><label style="float:left"><%= ha.attr %></label><input type="checkbox" id="" name="hotel_attributes[<%= ha.id %>]" style="float:left; margin-top:4px;" ></li>
-				<div style="clear:both;"></div>
-			<% end %>
-		</ul>
-	</fieldset>
+
 	<fieldset class="formactions">
 		<a class="button secondnext">Next</a>
 	</fieldset>

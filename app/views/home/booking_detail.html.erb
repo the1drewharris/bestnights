@@ -72,7 +72,13 @@
 
 	<div style="overflow:hidden;">
 		<a href="#bookingoptions" class="button5" onclick="scrollToAnchor('book');" id="booking_hotel">Book Now</a><br />
-		<span id="rate" class="rateUI">Total : <strong>$<%= number_with_precision(get_lowest_price(@hotel.id,session[:checkin],session[:checkout]), :precision => 2, :separator => '.') %></strong></span>  
+		<span id="rate" class="rateUI">Total : <strong>
+			<% if @country.name == "Canada" %>
+			 	CAD
+		 	<% else %>
+		 		USD
+			<% end %>
+			<%= number_with_precision(get_lowest_price(@hotel.id,session[:checkin],session[:checkout]), :precision => 2, :separator => '.') %></strong></span>  
   </div>
 	
 	<div id="searchdates">
@@ -186,7 +192,13 @@
 														<% if (rate.from_date..rate.to_date).cover?(session[:checkin].to_date.advance(days: day)) %>
 																<tr>			
 																<td>
-																	<%= session[:checkin].to_date.advance(days: day).strftime('%b %d, %G') %> : $<%= number_with_precision(rate.price, precision: 2) %>
+																	<%= session[:checkin].to_date.advance(days: day).strftime('%b %d, %G') %> :
+																	<% if @country.name == "Canada" %>
+																	 	CAD
+																	 <% else %>
+																	 	USD
+																	 <% end %>
+																	 <%= number_with_precision(rate.price, precision: 2) %>
 																</td>
 																<tr>
 														<% end %>
@@ -233,7 +245,13 @@
 										<% else %>
 											<%= link_to "Book Now", checkout_path(:hotel_id => @hotel.id, :room_type_id => room.room_sub_type.id) , class: "link_style", id: "link_style", additionaladult: "0" %><br />
 										<% end %>
-										<span>$<%= number_with_precision(session[:room_rate][index], precision: 2) %></span>
+										<span>
+											<% if @country.name == "Canada" %>
+											 	CAD
+											<% else %>
+											 	USD
+											<% end %>
+											<%= number_with_precision(session[:room_rate][index], precision: 2) %></span>
 									<% else %>
 										<p class="red">Sold Out</p>
 									<% end %>
