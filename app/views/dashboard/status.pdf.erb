@@ -11,8 +11,10 @@
       <% @country = Carmen::Country.coded(@booking.hotel.country_id ) %>
       <% unless @country.blank? %>
         <% @subregion = @country.subregions.coded(@booking.hotel.state_id) %>
+        <td align="left" valign="top" style="padding-left:50px; padding-top:42px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;"><%= @booking.hotel.name %><br /><%=  @booking.hotel.city.titleize %>, <%= @subregion.name.titleize %>, <%= @country.name.titleize %></td>
+      <% else %>
+        <td align="left" valign="top" style="padding-left:50px; padding-top:42px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;"><%= @booking.hotel.name %><br /><%=  @booking.hotel.city.titleize %></td>
       <% end %>
-      <td align="left" valign="top" style="padding-left:50px; padding-top:42px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;"><%= @booking.hotel.name %><br /><%=  @booking.hotel.city.titleize %>, <%= @subregion.name.titleize %>, <%= @country.name.titleize %></td>      
     </tr>
   </table></td>
   <td width="30%" align="left" valign="top" style="padding-right:20px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal; text-align:right;"><strong>Bestnights.com</strong><br />Fax: 1 800 494 BEST (2378)<br />Phone: 1 800 494 BEST (2378)<br />E-mail: info@bestnights.com</td>
@@ -87,6 +89,10 @@
     <tr>
       <td height="30" align="left" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;"><%= @room.name %> , <%= @room.room_type.room_type %></td>
       <td align="right" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;"><%= @booking.price %> CAD </td>
+    </tr>
+    <tr>
+      <td height="30" align="left" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;">Number of Guests</td>
+      <td align="right" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;"><%= @booking.guests %> </td>
     </tr>
     <tr>
       <td align="left" valign="middle" style="padding-bottom:10px; padding-top:10px; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:17px; color:#000000; text-transform:none; font-weight:bold; font-style:normal; border:none; border-bottom:3px solid #000000; border-top:3px solid #000000;">Total amount due</td>
