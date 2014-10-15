@@ -316,6 +316,8 @@
  			}
  			
  			link = $(this).attr('href');
+ 			$.cookie("room_needed", room_needed);
+ 			$.cookie("total_room", room_avail);
 	 		link = link + '&room_number='+room_needed + '&total_room=' + room_avail;
 	 		window.location.href = link;
 	 		return true;

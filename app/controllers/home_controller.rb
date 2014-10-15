@@ -251,8 +251,8 @@ class HomeController < ApplicationController
     gon.group = session[:group] # passing rails variable to js object variable
      #@rooms = RoomAvailable.find_by_room_type_id_and_hotel_id(params[:room_type_id],params[:hotel_id])
      @rooms = RoomAvailable.where("room_sub_type_id=? AND hotel_id=?", params[:room_type_id],session[:hotel_id]) 
-      session[:total_room] = params[:total_room].to_i
-      session[:room_needed] = params[:room_number].to_i
+      session[:total_room] = cookies[:total_room].to_i
+      session[:room_needed] = cookies[:room_needed].to_i
 
     @rooms.each do |room|
       if (room.from_date..room.to_date).cover?(session[:checkin].to_date) || (room.from_date..room.to_date).cover?(session[:checkout].to_date)
@@ -323,7 +323,6 @@ class HomeController < ApplicationController
       @amount = cookies[:rate].to_i + @additional_adult_fee
     end
     #end
-    logger.info"&&&#{@additional_adult_fee}&&&&&&#{cookies[:rate]}&&&&&&&&#{@amount}&&&&&&&&&&&&&&&&&"
     session[:subtotal] = @amount
     session[:roomtype] = params[:room_type_id].to_i
     if current_traveler
@@ -370,7 +369,7 @@ class HomeController < ApplicationController
           sign_in @traveler
         else     
           flash[:errors] = @traveler.errors.full_messages
-          redirect_to checkout_path(:hotel_id => @hotel.id, :room_type_id => session[:room_type_id])
+          return redirect_to checkout_path(:hotel_id => @hotel.id, :room_type_id => session[:room_type_id])
         end
       end
       @card_number = @traveler.credit_card_number
@@ -455,8 +454,6 @@ class HomeController < ApplicationController
                           adults: numbers, traveler_id: @traveler.id, night_number: @number_nights, price: @amount, guests: cookies[:guests])
           
             booking.save
-            cookies.delete :guests
-            cookies.delete :additionaladult
           end
         end
         @get_bookings = Booking.where(traveler_id: @traveler.id, hotel_id: room.hotel.id).order("created_at DESC").limit(1)
@@ -501,6 +498,8 @@ class HomeController < ApplicationController
         if !@hotel.email.nil? &&  @hotel.email != ""
           @fax_email_to_hotel = FaxMailer.email_to_hotel(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, room_ids, @latest_booked, @room1, @card_expiry, request.protocol,request.host_with_port, session[:room_needed], @number_nights, @price).deliver
         end
+        cookies.delete :guests
+        cookies.delete :additionaladult
     else
       flash[:errors] = ["Your booking failed!"]
       return redirect_to checkout_path
