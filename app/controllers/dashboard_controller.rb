@@ -470,7 +470,7 @@ class DashboardController < ApplicationController
       end
     else
       flash[:errors] = "There is no invoices in this month"
-      redirect_to reservation_statements_path
+      redirect_to invoice_path
     end
   end
 

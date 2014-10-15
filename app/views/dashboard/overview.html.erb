@@ -44,7 +44,7 @@
                     <% end %>
                   </tr>
                   <% @room_sub_types.each_with_index do |sub_type, index| %>
-                    <% unless @status_hash["#{sub_type.id}"].blank? %>
+                    <% if !@status_hash["#{sub_type.id}"].blank? && !@available_hash["#{sub_type.id}"]["#{date[0]}"].blank? %>
                       <tr>
                         <td class="grid-room-cell">
                           <%= sub_type.name %>
