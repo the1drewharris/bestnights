@@ -50,6 +50,7 @@ class RoomsController < ApplicationController
         @room_sub_type = RoomSubType.new()
         @room_sub_type.name = params[:room][:room_sub_type_name]
         @room_sub_type.room_type_id = params[:room][:room_type_id]
+        @room_sub_type.hotel_id = params[:room][:hotel_id]
         @room_sub_type.save
         params[:room][:room_sub_type_id] = @room_sub_type.id
       end
@@ -125,6 +126,12 @@ class RoomsController < ApplicationController
         @room_rate.hotel_id = room.hotel_id
       end
       @room_rate.save
+      @room_sub_type = RoomSubType.find_by_id(room.room_sub_type_id)
+      unless @room_sub_type.blank?
+        @room_sub_type.hotel_id = params[:room][:hotel_id]
+        @room_sub_type.room_type_id = params[:room][:room_type_id]
+        @room_sub_type.save
+      end
       flash[:success] = "The room type saved successfully!"
       
       if current_user.new_signup?

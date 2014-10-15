@@ -621,9 +621,6 @@ class HomeController < ApplicationController
         '</table>'\
         '<div style="margin-top: 10px;;">'\
           '<div style="float: left;width: 45%;font-weight: bold; font-size: 14px;">'+ "#{room_type.titleize}" +' for guest ' + "#{traveler.name.titleize}" + ' (' + "#{room.max_people}" + ' Persons)</div><br/>'\
-          '<div>'\
-            + "#{room.description.titleize}" +
-         ' </div>'\
         '</div>'\
         '<div style="margin-top: 10px;;">'\
         '<table cellspacing="0" cellpadding="0" style="text-align: center; font-size:12px;">'\
@@ -648,7 +645,7 @@ class HomeController < ApplicationController
               '<td style="width:20%;">Credit Card:</td>'\
               '<td style="font-weight: bold; width:20%">' + "#{traveler.credit_card_type.titleize}" + '</td>'\
               '<td style="width:15%;">Expiry Date:</td>'\
-              '<td style="font-weight: bold; width:20%;">' + "#{traveler.credit_card_expiry_date.strftime("%A,%d %B %Y")}" + '</td>'\
+              '<td style="font-weight: bold; width:20%;">' + "#{traveler.credit_card_expiry_date.strftime("%B %Y")}" + '</td>'\
             '</tr>'\
             '<tr>'\
               '<td style="width:20%;">Card Number:</td>'\
