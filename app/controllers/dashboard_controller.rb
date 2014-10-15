@@ -459,8 +459,10 @@ class DashboardController < ApplicationController
     if !@bookings.blank? 
       @bookings.each do |booking|
         @room = Room.find_by_id(booking.room_id)
-        booking.room_type = @room.room_type
-        booking.save
+        unless @room.blank? 
+          booking.room_type = @room.room_type
+          booking.save
+        end 
       end
       respond_to do |format|
         format.html
