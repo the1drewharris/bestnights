@@ -7,8 +7,12 @@
     <tr>
       <td align="left" valign="top"><%= wicked_pdf_image_tag 'pdf-logo.jpg' %></td>
     </tr>
+     <% @country = Carmen::Country.coded(@hotel.country_id ) %>
+      <% unless @country.blank? %>
+        <% @subregion = @country.subregions.coded(@hotel.state_id) %>
+      <% end %>
     <tr>
-      <td align="left" valign="top" style="padding-left:50px; padding-top:42px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;"><%= @booking.hotel.name %><br /><%= @booking.hotel.address1 %></td>
+      <td align="left" valign="top" style="padding-left:50px; padding-top:42px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;"><%= @booking.hotel.name %><br /><%= @hotel.city.titleize %>, <%= @subregion.name.titleize %>, <%= @country.name.titleize %></td>
     </tr>
   </table></td>
   <td width="20%" align="left" valign="top" style="padding-right:20px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;"><strong>Bestnights.com</strong><br />Fax: 1 800 494 BEST (2378)<br />Phone: 1 800 494 BEST (2378)<br />E-mail: info@bestnights.com</td>
@@ -48,12 +52,43 @@
   <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr>
       <td align="left" valign="top" style="padding-bottom:5px; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:4px solid #000000;">Booker Name</td>
-      <td align="right" valign="top" style="padding-bottom:5px; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:4px solid #000000;"><%= @booking.traveler.name %></td>
+      <td align="right" valign="top" style="padding-bottom:5px; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:4px solid #000000;"><%= @booking.traveler.blank? ? "" : @booking.traveler.name %></td>
+    </tr>
+    <tr>
+      <td height="30" align="left" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;">Arrival</td>
+      <td align="right" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;"><%= @booking.from_date.strftime('%A, %B %d, %G') %></td>
+    </tr>
+    <tr>
+      <td height="30" align="left" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;">Departure</td>
+      <td align="right" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;"><%= @booking.to_date.strftime('%A, %B %d, %G') %></td>
     </tr>
     <tr>
       <td height="30" align="left" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;">Total amount</td>
       <td align="right" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;"><%= @booking.price %> CAD </td>
     </tr>
+    <tr>
+      <td height="30" align="left" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;">Traveler Credit Card</td>
+      <td align="right" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;"><%= @booking.traveler.blank? ? "" : @booking.traveler.credit_card_number %> </td>
+    </tr>
+    <tr>
+      <td height="30" align="left" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;">Traveler Contact Info</td>
+      <td align="right" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;"><%= @booking.traveler.blank? ? "" : @booking.traveler.phone_number %> </td>
+    </tr>
+    <% if !@booking.traveler.blank? %>
+      <% @traveler_country = Carmen::Country.coded(@booking.traveler.country_id ) %>
+      <% unless @traveler_country.blank? %>
+        <% @traveler_subregion = @traveler_country.subregions.coded(@booking.traveler.state_id) %>
+      <% end %>
+    <% end %>
+    <tr>
+      <td height="30" align="left" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;">Traveler Country</td>
+      <td align="right" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;"><%= @booking.traveler.blank? ? "" : @traveler_country.name.titleize %> </td>
+    </tr>
+    <tr>
+      <td height="30" align="left" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;">Traveler State</td>
+      <td align="right" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;"><%= @booking.traveler.blank? ? "" : @traveler_subregion.name.titleize %> </td>
+    </tr>
+
   </table></td>
   </tr>
 </table></td>
