@@ -22,7 +22,7 @@
 						<option value="11">November<option>
 						<option value="12">December<option>
 					</select>
-					<%= link_to "Download Monthly Invoice", download_reservation_data_month_path(format: "pdf"),  class: "csv" %>
+					<%= link_to "Print Monthly Invoice", "#", class: "csv" %>
 				</div>
         <div class="bookings blocks">
           <div class="scroll">
@@ -97,3 +97,20 @@
     <div class="height350 overflow">&nbsp;</div>
   </div>
 </div>
+<div id="printing_div" style="display:none">
+  <%= render "dashboard/print" %>
+</div>
+
+<script>
+	$(document).ready(function(){
+		$(".csv").click(function(e){
+			var divContents = $("#printing_div").html();
+	   	var printWindow = window.open();
+	   	printWindow.document.write("<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'><html xmlns='http://www.w3.org/1999/xhtml'><head><meta http-equiv='Content-Type' content='text/html; charset=utf-8' /><title>Monthly Invoice</title></head><body>");
+	   	printWindow.document.write(divContents);
+	   	printWindow.document.write("</body></html>");
+	   	printWindow.document.close();
+	   	printWindow.print();
+		})
+	})
+</script>

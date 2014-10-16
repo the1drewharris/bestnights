@@ -564,7 +564,7 @@ class HomeController < ApplicationController
 
       @country = Carmen::Country.coded(@traveler.country_id )
       @subregion = @country.subregions.coded(@traveler.state_id)
-      if @country.name == "Canada"
+      if !@country.blank? && @country.name == "Canada"
         @currency = "CAD"
       else
         @currency = "USD"

@@ -325,7 +325,13 @@ class DashboardController < ApplicationController
   end
 
   def invoice
-    @hotel = Hotel.find_by_id(session[:hotel_id])    
+    @hotel = Hotel.find_by_id(session[:hotel_id])
+    @country = Carmen::Country.coded(@hotel.country_id)
+    if !@country.blank? && @country.name == "Canada"
+      @currency = "CAD"
+    else
+      @currency = "USD"
+    end
     @total_price = Booking.where(:hotel_id => session[:hotel_id]).sum("price")
     @bookings = Booking.where(:hotel_id => session[:hotel_id]).paginate(:page => params[:page], :per_page => 20).order('id DESC')
     @bookings.each do |booking|
@@ -333,6 +339,16 @@ class DashboardController < ApplicationController
         @commission = (booking.price.to_i * (@hotel.commission_rate.amount).to_f) / 100
       else
         booking.price = booking.price.to_i
+      end
+    end
+    @print_bookings = Booking.where("hotel_id=? AND MONTH(created_at)=?", session[:hotel_id], cookies[:month].to_i)
+    unless @print_bookings.blank?
+      @print_bookings.each do |booking|
+        @room = Room.find_by_id(booking.room_id)
+        unless @room.blank? 
+          booking.room_type = @room.room_type
+          booking.save
+        end 
       end
     end
   end
@@ -453,6 +469,7 @@ class DashboardController < ApplicationController
   end
 
   def download_reservation_data_month
+    logger.info"&&&&&&&&&&&&#{cookies[:month]}&&&&&&&&&&&&&&&&&&&"
     @bookings = Booking.where("MONTH(created_at)=?",cookies[:month].to_i)
     if !@bookings.blank? 
       @bookings.each do |booking|
@@ -464,6 +481,7 @@ class DashboardController < ApplicationController
       end
       respond_to do |format|
         format.html
+        format.json { render json: @bookings }
         format.pdf do
           render :pdf => "monthly_invoice_status"
         end
