@@ -1,3 +1,4 @@
+<% unless @print_bookings.blank? %>
 <div style="padding:10px; margin:0 auto; clear:both; overflow:hidden; border:none; border-bottom:3px solid #000000; outline:none;">
   <%#= @print_bookings.inspect %>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -7,7 +8,7 @@
   <td align="left" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr>
       <td align="left" valign="top">
-        <img src="http://localhost:3000/assets/e-mail-logo.jpg" alt="" title="" style="border: 0;">
+        <img src="http://23.253.149.108/e-mail-logo.jpg" alt="" title="" style="border: 0;">
       </td>
     </tr>
     <tr>
@@ -103,3 +104,4 @@
 </tr>
 </table>
 </div>
+<% end %>

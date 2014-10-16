@@ -326,6 +326,9 @@ class DashboardController < ApplicationController
 
   def invoice
     @hotel = Hotel.find_by_id(session[:hotel_id])
+    unless cookies[:month]
+      cookies[:month] = 1
+    end
     @country = Carmen::Country.coded(@hotel.country_id)
     if !@country.blank? && @country.name == "Canada"
       @currency = "CAD"
@@ -341,7 +344,7 @@ class DashboardController < ApplicationController
         booking.price = booking.price.to_i
       end
     end
-    @print_bookings = Booking.where("hotel_id=? AND MONTH(created_at)=?", session[:hotel_id], cookies[:month].to_i)
+    @print_bookings = Booking.where("hotel_id=?", session[:hotel_id])
     unless @print_bookings.blank?
       @print_bookings.each do |booking|
         @room = Room.find_by_id(booking.room_id)
