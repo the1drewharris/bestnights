@@ -38,7 +38,7 @@
 	</section>
 	<section class="description">
 		<p><%= @hotel.description %></p>
-		<div class="details">
+		<div class="details compact-view">
 			<h6>Room Features</h6>
 			<p>
 				<% @room_attrs.each do |room_attr| %>
@@ -71,7 +71,7 @@
 	</section>
 
 	<div style="overflow:hidden;">
-		<a href="#bookingoptions" class="button5" onclick="scrollToAnchor('book');" id="booking_hotel">Book Now</a><br />
+		<a href="#bookingoptions" class="button5" id="booking_hotel">Book Now</a><br />
 		<span id="rate" class="rateUI">Total : <strong>
 			<% if !@country.blank? && @country.name == "Canada" %>
 			 	CAD
@@ -264,7 +264,7 @@
 		</table>
 	<!-- </form> -->
 	</div>
-	<div data-remodal-id="modal">
+	<div data-remodal-id="modal" id="top">
     <div class="remodal-outer">
       <div class="remodal-slider">
      		<div class="slider-outer">
@@ -340,10 +340,11 @@
 	$("#booking_hotel").on('click',function (e) {
 	    e.preventDefault();
 	    var target = $(this.hash);
-      target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+      var bottom = $(window).height() - target.height();
+      bottom = target.offset().top - bottom;
       if (target.length) {
         $('html,body').animate({
-          scrollTop: target.offset().top
+          scrollTop: bottom
         }, 500);
         return false;
       }

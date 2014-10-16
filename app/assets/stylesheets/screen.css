@@ -4895,5 +4895,8 @@ a.landing-form-submit:hover{
 .pag-outer{
 	margin-top: -15px;
 }
+.details.compact-view h6, .details.compact-view p{
+	margin-bottom: 10px;
+}
 /* End */
 

@@ -639,9 +639,9 @@ class HomeController < ApplicationController
         '<table cellspacing="0" width="100%" cellpadding="0" align="center" style="text-align: left; font-size:14px;">'\
           '<tbody>'\
             '<tr>'\
-              '<td style="font-weight: bold;" colspan="4">Total Price for this reservation: $' + "#{amount}" + '</td>'\
+              '<td style="font-weight: bold; font-size: large;" colspan="4">Total Price for this reservation: $' + "#{amount}" + '</td>'\
             '</tr>'\
-            '<tr style="height:70px;"></tr>'\
+            '<tr style="height:95px;"><td></td></tr>'\
             '<tr>'\
               '<td style="width:20%;">Credit Card:</td>'\
               '<td style="font-weight: bold; width:20%">' + "#{traveler.credit_card_type.titleize}" + '</td>'\

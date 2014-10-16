@@ -18,11 +18,12 @@
         <% @subregion = @country.subregions.coded(@booking.hotel.state_id) %>
         <td align="left" valign="top" style="padding-left:50px; padding-top:42px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;"><%= @booking.hotel.name %><br /><%=  @booking.hotel.city.titleize %>, <%= @subregion.name.titleize %>, <%= @country.name.titleize %></td>
       <% else %>
-        <td align="left" valign="top" style="padding-left:50px; padding-top:42px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;"><%= @booking.hotel.name %><br /><%=  @booking.hotel.city.titleize %></td>
+        <td align="left" valign="top" style="padding-top:42px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;"><%= @booking.hotel.name %><br /><%=  @booking.hotel.city.titleize %></td>
       <% end %>
     </tr>
   </table></td>
-  <td width="30%" align="left" valign="top" style="padding-right:20px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal; text-align:right;"><strong>Bestnights.com</strong><br />Fax: 1 800 494 BEST (2378)<br />Phone: 1 800 494 BEST (2378)<br />E-mail: info@bestnights.com</td>
+  <td width="30%" align="left" valign="top" style="padding-right:20px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal; text-align:right;"><strong>Bestnights.com</strong><br />Fax: 1 800 494 BEST (2378)<br />Phone: 1 800 494 BEST (2378)<br />E-mail: info@bestnights.com
+  </td>
 </tr>
 <tr>
   <td align="left" valign="top">&nbsp;</td>
@@ -43,7 +44,24 @@
       <td align="right" valign="middle" style="padding-left:10px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;"><%= @booking.from_date %> - <%= @booking.from_date.advance(:months => 1) %></td>
     </tr>
   </table></td>
-  <td align="left" valign="top">&nbsp;</td>
+  <td align="left" valign="top">
+    <table border="0" cellspacing="0">
+    <tr>
+      <td align="right" valign="middle" style="padding-left:10px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:16px; color:#000000; font-weight:bold; font-style:normal;">Ujjwal Biswas</td>
+    </tr>
+    <tr>
+      <td align="right" valign="middle" style="padding-left:10px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;">Kolkata, West Bengal, India.</td>
+    </tr>
+    <tr>
+      <td align="right" valign="middle" style="padding-left:10px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;">info@gmail.com</td>
+    </tr>
+     <tr>
+      <td align="right" valign="middle" style="padding-left:10px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;">Another Line</td>
+    </tr>
+    
+  </table>
+    
+  </td>
 </tr>
 </table></td>
 </tr>
@@ -57,10 +75,6 @@
 <td align="left" valign="top"><table width="100%" border="0" cellpadding="0" cellspacing="0">
 <tr>
   <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
-    <tr>
-      <td align="left" valign="top" style="padding-bottom:5px; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:4px solid #000000;">Booker Name</td>
-      <td align="right" valign="top" style="padding-bottom:5px; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:4px solid #000000;"><%= @booking.traveler.blank? ? "" : @booking.traveler.name %></td>
-    </tr>
     <tr>
       <td height="30" align="left" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;">Arrival</td>
       <td align="right" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;"><%= @booking.from_date.strftime('%A, %B %d, %G') %></td>
@@ -110,7 +124,7 @@
   </table></td>
   </tr>
 <tr>
-  <td align="left" valign="middle" style="padding:10px; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:17px; color:#000000; text-transform:none; font-weight:bold; font-style:normal; text-align:left; border:4px solid #000000;">The Total Amount Due will be automatically debited from your account XXX8506 within 14 days.</td>
+  <td align="left" valign="middle" style="padding:10px; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:17px; color:#000000; text-transform:none; font-weight:bold; font-style:normal; text-align:left; border:4px solid #000000;">The total amount due can be paid by Cheque, Paypal, or direct debit and for a detailed list of bookings, go to your finance section located in the dashboard and click reservation statements.</td>
   </tr>
 </table></td>
 </tr>
