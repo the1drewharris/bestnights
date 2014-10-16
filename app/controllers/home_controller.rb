@@ -3,7 +3,7 @@ class HomeController < ApplicationController
   require 'interfax/base'
   require 'interfax/fax_item'
   require 'interfax/incoming'
-  layout "traveler_basic", only: [:book_hotel, :checkout_confirm]
+  layout "traveler_basic", only: [:book_hotel, :checkout_confirm, :checkout]
 
   autocomplete :hotel, :name
   
@@ -354,8 +354,14 @@ class HomeController < ApplicationController
   
   ## POST
   def checkout_confirm
-    logger.info"&&&&&&&&&&&&&&&&&&&&#{session[:roomtype]}&&&&&&&121212121212&&&&&&&&&&&&&&&&&&&"
     @amount = 0
+    room = Room.find_by_hotel_id_and_room_sub_type_id(session[:hotel_id], session[:room_type_id])
+    @additional_adult_fee = cookies[:additionaladult].to_i * room.additionaladultfee.to_i
+    if session[:room_needed]
+      @amount = (cookies[:rate].to_i * session[:room_needed].to_i) + @additional_adult_fee
+    else
+      @amount = cookies[:rate].to_i + @additional_adult_fee
+    end
     @hotel = Hotel.find(session[:hotel_id])
     unless current_traveler
       @traveler = Traveler.find_by_email(params[:email])  
@@ -369,7 +375,7 @@ class HomeController < ApplicationController
           sign_in @traveler
         else     
           flash[:errors] = @traveler.errors.full_messages
-          return redirect_to checkout_path(:hotel_id => @hotel.id, :room_type_id => session[:room_type_id])
+          render :action => "checkout" and return
         end
       end
       @card_number = @traveler.credit_card_number
@@ -385,7 +391,6 @@ class HomeController < ApplicationController
     end
     @country = Carmen::Country.coded(@traveler.country_id )
     @subregion = @country.subregions.coded(@traveler.state_id)
-
     logger.info"**********************#{session[:checkin]}**************#{session[:checkout]}***********"
     from_date = session[:checkin]
     to_date = session[:checkout]
@@ -394,7 +399,7 @@ class HomeController < ApplicationController
 
     @number_nights = ((a.to_date - b.to_date).to_i) + 1
     room_ids = []
-    room = Room.find_by_hotel_id_and_room_sub_type_id(session[:hotel_id], session[:room_type_id])
+    
    
     @Room = RoomRate.find_by_room_type_id(session[:room_type_id])
     numbers = session[:roomtype].to_i
@@ -407,12 +412,6 @@ class HomeController < ApplicationController
     # if !session[:nights].nil?
     #   @amount = session[:rate] * session[:nights]
     # else
-    @additional_adult_fee = cookies[:additionaladult].to_i * room.additionaladultfee.to_i
-    if session[:room_needed]
-      @amount = (cookies[:rate].to_i * session[:room_needed].to_i) + @additional_adult_fee
-    else
-      @amount = cookies[:rate].to_i + @additional_adult_fee
-    end
 
     #end
     
@@ -493,7 +492,6 @@ class HomeController < ApplicationController
         @numbers = numbers
 
         @latest_booked = Booking.where(traveler_id: @traveler.id, hotel_id: room.hotel.id).order("created_at DESC").limit(1)
-        logger.info"!!!!!!!!!!!!!!!!!!!#{session[:price]}!!!!!!!!!!!!!!!!!!!!!"
         @fax_email = FaxMailer.hotel_booking_mail(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, session[:room_needed], @latest_booked, @room1,@rate,@card_expiry, request.protocol,request.host_with_port, @number_nights, @price).deliver
         if !@hotel.email.nil? &&  @hotel.email != ""
           @fax_email_to_hotel = FaxMailer.email_to_hotel(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, room_ids, @latest_booked, @room1, @card_expiry, request.protocol,request.host_with_port, session[:room_needed], @number_nights, @price).deliver
