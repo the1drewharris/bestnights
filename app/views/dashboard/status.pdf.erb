@@ -14,6 +14,12 @@
       <% else %>
         <%  @currency = "USD" %>
       <% end %>
+      <% if !@booking.traveler.blank? %>
+        <% @traveler_country = Carmen::Country.coded(@booking.traveler.country_id ) %>
+        <% unless @traveler_country.blank? %>
+          <% @traveler_subregion = @traveler_country.subregions.coded(@booking.traveler.state_id) %>
+        <% end %>
+      <% end %>
       <% unless @country.blank? %>
         <% @subregion = @country.subregions.coded(@booking.hotel.state_id) %>
         <td align="left" valign="top" style="padding-left:50px; padding-top:42px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;"><%= @booking.hotel.name %><br /><%=  @booking.hotel.city.titleize %>, <%= @subregion.name.titleize %>, <%= @country.name.titleize %></td>
@@ -47,16 +53,13 @@
   <td align="left" valign="top">
     <table border="0" cellspacing="0">
     <tr>
-      <td align="right" valign="middle" style="padding-left:10px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:16px; color:#000000; font-weight:bold; font-style:normal;">Ujjwal Biswas</td>
+      <td align="right" valign="middle" style="padding-left:10px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:16px; color:#000000; font-weight:bold; font-style:normal;"><%= @booking.traveler.blank? ? "" : @booking.traveler.name %></td>
     </tr>
     <tr>
-      <td align="right" valign="middle" style="padding-left:10px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;">Kolkata, West Bengal, India.</td>
+      <td align="right" valign="middle" style="padding-left:10px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;"><%= @booking.traveler.blank? ? "" : @traveler_subregion.name.titleize %>, <%= @booking.traveler.blank? ? "" : @traveler_country.name.titleize %>.</td>
     </tr>
     <tr>
-      <td align="right" valign="middle" style="padding-left:10px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;">info@gmail.com</td>
-    </tr>
-     <tr>
-      <td align="right" valign="middle" style="padding-left:10px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;">Another Line</td>
+      <td align="right" valign="middle" style="padding-left:10px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;"><%= @booking.traveler.email %></td>
     </tr>
     
   </table>
@@ -91,22 +94,8 @@
       <td height="30" align="left" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;">Traveler Contact Info</td>
       <td align="right" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;"><%= @booking.traveler.blank? ? "" : @booking.traveler.phone_number %> </td>
     </tr>
-    <% if !@booking.traveler.blank? %>
-      <% @traveler_country = Carmen::Country.coded(@booking.traveler.country_id ) %>
-      <% unless @traveler_country.blank? %>
-        <% @traveler_subregion = @traveler_country.subregions.coded(@booking.traveler.state_id) %>
-      <% end %>
-    <% end %>
     <tr>
-      <td height="30" align="left" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;">Traveler Country</td>
-      <td align="right" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;"><%= @booking.traveler.blank? ? "" : @traveler_country.name.titleize %> </td>
-    </tr>
-    <tr>
-      <td height="30" align="left" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;">Traveler State</td>
-      <td align="right" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;"><%= @booking.traveler.blank? ? "" : @traveler_subregion.name.titleize %> </td>
-    </tr>
-    <tr>
-      <td height="30" align="left" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;"><%= @room.name %> , <%= @room.room_type.room_type %></td>
+      <td height="30" align="left" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;"><%= @room.room_type.room_type %></td>
       <td align="right" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;"><%= @booking.price %> CAD </td>
     </tr>
     <tr>

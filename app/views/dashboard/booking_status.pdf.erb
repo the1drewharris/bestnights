@@ -8,6 +8,12 @@
       <td align="left" valign="top"><%= wicked_pdf_image_tag 'pdf-logo.jpg' %></td>
     </tr>
      <% @country = Carmen::Country.coded(@hotel.country_id ) %>
+      <% if !@booking.traveler.blank? %>
+        <% @traveler_country = Carmen::Country.coded(@booking.traveler.country_id ) %>
+        <% unless @traveler_country.blank? %>
+          <% @traveler_subregion = @traveler_country.subregions.coded(@booking.traveler.state_id) %>
+        <% end %>
+      <% end %>
       <% if !@country.blank? &&  @country.name == "Canada" %>
         <% @currency = "CAD" %> 
       <% else %>
@@ -42,10 +48,24 @@
     </tr>
     <tr>
       <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;">Period:</td>
-      <td align="right" valign="middle" style="padding-left:10px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;"><%= @booking.from_date %> - <%= @booking.to_date %></td>
+      <td align="right" valign="middle" style="padding-left:10px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;"><%= @booking.from_date %> - <%= @booking.from_date.advance(:months => 1) %></td>
     </tr>
   </table></td>
-  <td align="left" valign="top">&nbsp;</td>
+  <td align="left" valign="top">
+    <table border="0" cellspacing="0">
+    <tr>
+      <td align="right" valign="middle" style="padding-left:10px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:16px; color:#000000; font-weight:bold; font-style:normal;"><%= @booking.traveler.blank? ? "" : @booking.traveler.name %></td>
+    </tr>
+    <tr>
+      <td align="right" valign="middle" style="padding-left:10px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;"><%= @booking.traveler.blank? ? "" : @traveler_subregion.name.titleize %>, <%= @booking.traveler.blank? ? "" : @traveler_country.name.titleize %>.</td>
+    </tr>
+    <tr>
+      <td align="right" valign="middle" style="padding-left:10px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;"><%= @booking.traveler.email %></td>
+    </tr>
+    
+  </table>
+    
+  </td>
 </tr>
 </table></td>
 </tr>
@@ -59,10 +79,6 @@
 <td align="left" valign="top"><table width="100%" border="0" cellpadding="0" cellspacing="0">
 <tr>
   <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
-    <tr>
-      <td align="left" valign="top" style="padding-bottom:5px; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:4px solid #000000;">Booker Name</td>
-      <td align="right" valign="top" style="padding-bottom:5px; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:4px solid #000000;"><%= @booking.traveler.blank? ? "" : @booking.traveler.name %></td>
-    </tr>
     <tr>
       <td height="30" align="left" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;">Arrival</td>
       <td align="right" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;"><%= @booking.from_date.strftime('%A, %B %d, %G') %></td>
@@ -82,20 +98,6 @@
     <tr>
       <td height="30" align="left" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;">Traveler Contact Info</td>
       <td align="right" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;"><%= @booking.traveler.blank? ? "" : @booking.traveler.phone_number %> </td>
-    </tr>
-    <% if !@booking.traveler.blank? %>
-      <% @traveler_country = Carmen::Country.coded(@booking.traveler.country_id ) %>
-      <% unless @traveler_country.blank? %>
-        <% @traveler_subregion = @traveler_country.subregions.coded(@booking.traveler.state_id) %>
-      <% end %>
-    <% end %>
-    <tr>
-      <td height="30" align="left" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;">Traveler Country</td>
-      <td align="right" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;"><%= @booking.traveler.blank? ? "" : @traveler_country.name.titleize %> </td>
-    </tr>
-    <tr>
-      <td height="30" align="left" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;">Traveler State</td>
-      <td align="right" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;"><%= @booking.traveler.blank? ? "" : @traveler_subregion.name.titleize %> </td>
     </tr>
     <tr>
       <td height="30" align="left" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;">Number of Guests</td>
