@@ -198,10 +198,16 @@ Your credit card is required to guarantee your booking. Please note that your cr
 	</section>
 	<div id="bookingtotal" class="sidesticky">
 		<h3>Reservation Total</h3>
+		<% @country = Carmen::Country.coded(@hotel.country_id ) %>
+				<% if !@country.blank? &&  @country.name == "Canada" %>
+        	<% @currency = "CAD" %> 
+     	 	<% else %>
+        	<%  @currency = "USD" %>
+      	<% end %>
 		<table>
 			<tr>
 				<td>BestNights.com Rate</td>
-				<td>$<%= number_with_precision(@amount, :precision => 2, :separator => '.') %> </td>
+				<td><%= @currency %><%= number_with_precision(@amount, :precision => 2, :separator => '.') %> </td>
 			</tr>
 			<tr>
 				<td>Tax</td>
@@ -209,7 +215,7 @@ Your credit card is required to guarantee your booking. Please note that your cr
 			</tr>
 			<tr>
 				<td>Total Price</td>
-				<td>$<%= number_with_precision(@amount, :precision => 2, :separator => '.') %></td>
+				<td><%= @currency %><%= number_with_precision(@amount, :precision => 2, :separator => '.') %></td>
 			</tr>
 		</table>
 		

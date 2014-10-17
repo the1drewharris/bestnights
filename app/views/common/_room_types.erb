@@ -1,5 +1,6 @@
+<div class="row break roomRateWidth roomRateStyle">
 <% @roomtypes.each do |room|%>
-  <div class="row break roomRateWidth roomRateStyle">
+  <div class="single-room-type">
     <input type="checkbox" id="rt-<%= room %>" name="room_id[<%= room %>]" class="parent_room_type so">
     <% room_type = RoomType.find_by_id(room)%>
     <label><%= room_type.room_type %></label><div style="clear:both;"></div>
@@ -11,6 +12,7 @@
         <label><%= room_sub_type.name %></label><div style="clear:both;"></div>
       </div>
     <% end %>
-  </div>
-  </div>
+   </div>
+</div>
 <% end %>
+</div>

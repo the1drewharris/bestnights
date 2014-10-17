@@ -35,6 +35,7 @@
 			<th>Action</th>
 			<th></th>
 			<th></th>
+			<th></th>
 		</tr>
 		<% @rooms.each do |room| %>
 		  <tr>
@@ -51,6 +52,9 @@
 				<% if can? :delete, room %>
 					<td><%= link_to "Delete", room_path(room), :method => :delete %></td>
 				<% end %>	
+				<% if can? :delete, room %>
+					<td><%= link_to "Add Pictures", edit_room_path(room) %></td>
+				<% end %>
 		  </tr>
 		<% end %>
 	</table>

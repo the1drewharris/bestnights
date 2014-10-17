@@ -167,7 +167,13 @@
 		<table>
 			<tr>
 				<td>BestNights.com Rate</td>
-				<td>USD <%= number_with_precision(@amount, :precision => 2, :separator => '.') %> </td>				
+				<% @country = Carmen::Country.coded(@hotel.country_id ) %>
+				<% if !@country.blank? &&  @country.name == "Canada" %>
+        	<% @currency = "CAD" %> 
+     	 	<% else %>
+        	<%  @currency = "USD" %>
+      	<% end %>
+				<td><%= @currency %> <%= number_with_precision(@amount, :precision => 2, :separator => '.') %> </td>				
 			</tr>
 			<tr>
 				<td>Tax (NOT included)</td>
@@ -175,7 +181,7 @@
 			</tr>
 			<tr>
 				<td>Total Price</td>
-				<td>USD <%= number_with_precision(@amount, :precision => 2, :separator => '.') %> </td>
+				<td><%= @currency %> <%= number_with_precision(@amount, :precision => 2, :separator => '.') %> </td>
 
 			</tr>
 		</table>

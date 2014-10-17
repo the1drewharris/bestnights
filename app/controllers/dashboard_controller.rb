@@ -11,16 +11,23 @@ class DashboardController < ApplicationController
     end
     @hotel = Hotel.find(session[:hotel_id])
     session[:hotel_name] = @hotel.name
-
+    @hotel_view = HotelView.new
+    @hotel_view.hotel_id = @hotel.id
+    @hotel_view.save
+    # Hotel View
+    @hotel_day_wise = HotelView.where("created_at >= ? AND hotel_id=?", Date.today, session[:hotel_id])
+    @hotel_week_wise = HotelView.where("created_at > DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND hotel_id=?",session[:hotel_id])
+    @hotel_month_wise = HotelView.where("created_at > DATE_SUB(CURDATE(), INTERVAL 1 MONTH) AND hotel_id=?", session[:hotel_id])
+    @hotel_year_wise = HotelView.where("created_at > DATE_SUB(CURDATE(), INTERVAL 1 YEAR) AND hotel_id=?", session[:hotel_id])
     #Statistics
     @site_visitors_today = ActiveRecord::Base.connection.exec_query("SELECT COUNT(*) as c from impressions WHERE created_at=CURDATE()")
     @site_visitors_this_week = ActiveRecord::Base.connection.exec_query("SELECT * FROM impressions  WHERE created_at > DATE_SUB(CURDATE(), INTERVAL 7 DAY)")
     @site_visitors_this_month = ActiveRecord::Base.connection.exec_query("SELECT COUNT(*) as c from impressions WHERE MONTH(created_at) = MONTH(CURDATE()) AND YEAR(created_at) = YEAR(CURDATE())")
     @site_visitors_this_year = ActiveRecord::Base.connection.exec_query("SELECT COUNT(*) as c from impressions WHERE YEAR(created_at) = YEAR(CURDATE())")
-    @bookings_day_wise = Booking.where("created_at >= ?", Date.today)
-    @bookings_week_wise = Booking.where("created_at > DATE_SUB(CURDATE(), INTERVAL 7 DAY)")
-    @bookings_month_wise = Booking.where("created_at > DATE_SUB(CURDATE(), INTERVAL 1 MONTH)")
-    @bookings_year_wise = Booking.where("created_at > DATE_SUB(CURDATE(), INTERVAL 1 YEAR)")
+    @bookings_day_wise = Booking.where("created_at >= ? AND hotel_id=?", Date.today, session[:hotel_id])
+    @bookings_week_wise = Booking.where("created_at > DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND hotel_id=?",session[:hotel_id])
+    @bookings_month_wise = Booking.where("created_at > DATE_SUB(CURDATE(), INTERVAL 1 MONTH) AND hotel_id=?", session[:hotel_id])
+    @bookings_year_wise = Booking.where("created_at > DATE_SUB(CURDATE(), INTERVAL 1 YEAR) AND hotel_id=?", session[:hotel_id])
     @total_nights_today = find_nights_today
     @total_nights_this_week = find_nights_this_week
     @total_nights_this_month = find_nights_this_month
@@ -87,14 +94,19 @@ class DashboardController < ApplicationController
   end
 
   def statistics
+    # Hotel View
+    @hotel_day_wise = HotelView.where("created_at >= ? AND hotel_id=?", Date.today, session[:hotel_id])
+    @hotel_week_wise = HotelView.where("created_at > DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND hotel_id=?",session[:hotel_id])
+    @hotel_month_wise = HotelView.where("created_at > DATE_SUB(CURDATE(), INTERVAL 1 MONTH) AND hotel_id=?", session[:hotel_id])
+    @hotel_year_wise = HotelView.where("created_at > DATE_SUB(CURDATE(), INTERVAL 1 YEAR) AND hotel_id=?", session[:hotel_id])
     @site_visitors_today = ActiveRecord::Base.connection.exec_query("SELECT COUNT(*) as c from impressions WHERE created_at=CURDATE()")
     @site_visitors_this_week = ActiveRecord::Base.connection.exec_query("SELECT * FROM impressions  WHERE created_at > DATE_SUB(CURDATE(), INTERVAL 7 DAY)")
     @site_visitors_this_month = ActiveRecord::Base.connection.exec_query("SELECT COUNT(*) as c from impressions WHERE MONTH(created_at) = MONTH(CURDATE()) AND YEAR(created_at) = YEAR(CURDATE())")
     @site_visitors_this_year = ActiveRecord::Base.connection.exec_query("SELECT COUNT(*) as c from impressions WHERE YEAR(created_at) = YEAR(CURDATE())")
-    @bookings_day_wise = Booking.where("created_at >= ?", Date.today)
-    @bookings_week_wise = Booking.where("created_at > DATE_SUB(CURDATE(), INTERVAL 7 DAY)")
-    @bookings_month_wise = Booking.where("created_at > DATE_SUB(CURDATE(), INTERVAL 1 MONTH)")
-    @bookings_year_wise = Booking.where("created_at > DATE_SUB(CURDATE(), INTERVAL 1 YEAR)")
+    @bookings_day_wise = Booking.where("created_at >= ? AND hotel_id=?", Date.today, session[:hotel_id])
+    @bookings_week_wise = Booking.where("created_at > DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND hotel_id=?",session[:hotel_id])
+    @bookings_month_wise = Booking.where("created_at > DATE_SUB(CURDATE(), INTERVAL 1 MONTH) AND hotel_id=?", session[:hotel_id])
+    @bookings_year_wise = Booking.where("created_at > DATE_SUB(CURDATE(), INTERVAL 1 YEAR) AND hotel_id=?", session[:hotel_id])
     @total_nights_today = find_nights_today
     @total_nights_this_week = find_nights_this_week
     @total_nights_this_month = find_nights_this_month
@@ -566,7 +578,7 @@ class DashboardController < ApplicationController
   private
 
   def find_nights_today
-    @bookings_today = Booking.all(:conditions => ["created_at >= ?", Date.today])
+    @bookings_today = Booking.where("created_at >= ? AND hotel_id=?", Date.today, session[:hotel_id])
     @night = 0
     if !@bookings_today.nil?
       @bookings_today.each do |today|
@@ -577,7 +589,7 @@ class DashboardController < ApplicationController
   end
 
   def find_nights_this_week
-    @bookings_today =  Booking.where("created_at > DATE_SUB(CURDATE(), INTERVAL 7 DAY)")
+    @bookings_today =  Booking.where("created_at > DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND hotel_id=?",session[:hotel_id])
     @night = 0
     if !@bookings_today.nil?
       @bookings_today.each do |today|
@@ -588,7 +600,7 @@ class DashboardController < ApplicationController
   end
 
   def find_nights_this_month
-    @bookings_today =  Booking.where("created_at > DATE_SUB(CURDATE(), INTERVAL 1 MONTH)")
+    @bookings_today =  Booking.where("created_at > DATE_SUB(CURDATE(), INTERVAL 1 MONTH) AND hotel_id=?", session[:hotel_id])
     @night = 0
     if !@bookings_today.nil?
       @bookings_today.each do |today|
@@ -599,7 +611,7 @@ class DashboardController < ApplicationController
   end
 
   def find_nights_this_year
-    @bookings_today =  Booking.where("created_at > DATE_SUB(CURDATE(), INTERVAL 1 YEAR)")
+    @bookings_today =  Booking.where("created_at > DATE_SUB(CURDATE(), INTERVAL 1 YEAR) AND hotel_id=?", session[:hotel_id])
     @night = 0
     if !@bookings_today.nil?
       @bookings_today.each do |today|

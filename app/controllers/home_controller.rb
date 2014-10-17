@@ -162,6 +162,9 @@ class HomeController < ApplicationController
     begin
     ## all room attributes in the hotel
     @hotel = Hotel.find(params[:hotel_id])
+    @hotel_view = HotelView.new
+    @hotel_view.hotel_id = @hotel.id
+    @hotel_view.save
     @room_attrs = @hotel.room_attributes
     @from_date = session[:checkin]
     @to_date = session[:checkout]
@@ -562,7 +565,8 @@ class HomeController < ApplicationController
 
       @country = Carmen::Country.coded(@traveler.country_id )
       @subregion = @country.subregions.coded(@traveler.state_id)
-      if !@country.blank? && @country.name == "Canada"
+      @hotel_country = Carmen::Country.coded(@hotel.country_id )
+      if !@hotel_country.blank? && @hotel_country.name == "Canada"
         @currency = "CAD"
       else
         @currency = "USD"
@@ -619,7 +623,7 @@ class HomeController < ApplicationController
           '</tbody>'\
         '</table>'\
         '<div style="margin-top: 10px;;">'\
-          '<div style="float: left;width: 45%;font-weight: bold; font-size: 14px;">'+ "#{room_type.titleize}" +' for guest ' + "#{traveler.name.titleize}" + ' (' + "#{room.max_people}" + ' Persons)</div><br/>'\
+          '<div style="float: left;width: 45%;font-weight: bold; font-size: 14px;">'+ "#{room_type.titleize}" +' for guest ' + "#{traveler.name.titleize}" + '</div><br/>'\
         '</div>'\
         '<div style="margin-top: 10px;;">'\
         '<table cellspacing="0" cellpadding="0" style="text-align: center; font-size:12px;">'\
@@ -637,7 +641,7 @@ class HomeController < ApplicationController
         '<table cellspacing="0" width="100%" cellpadding="0" align="center" style="text-align: left; font-size:14px;">'\
           '<tbody>'\
             '<tr>'\
-              '<td style="font-weight: bold; font-size: large;" colspan="4">Total Price for this reservation: $' + "#{amount}" + '</td>'\
+              '<td style="font-weight: bold; font-size: large;" colspan="4">Total Price for this reservation: '"#{@currency}" + "#{amount}" + ' (taxes not include) </td>'\
             '</tr>'\
             '<tr style="height:95px;"><td></td></tr>'\
             '<tr>'\

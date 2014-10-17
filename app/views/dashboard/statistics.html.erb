@@ -23,23 +23,23 @@
 								<tr>
 								  <td align="left" valign="middle">Property Views</td>
 								  <td align="center" valign="middle">
-										<% if !@site_visitors_today.blank?  %>
-											<%= @site_visitors_today.first["c"] %>
+										<% if !@hotel_day_wise.blank?  %>
+											<%= @hotel_day_wise.first["c"] %>
 										<% end %>
 								  </td>
 								  <td align="center" valign="middle">
-										<% if !@site_visitors_today.blank?  %>
-											<%= @site_visitors_this_week.count %>
+										<% if !@hotel_week_wise.blank?  %>
+											<%= @hotel_week_wise.count %>
 										<% end %>
 								  </td>		
 								  <td align="center" valign="middle">
-										<% if !@site_visitors_this_month.blank? %>
-											<%= @site_visitors_this_month.first["c"] %>
+										<% if !@hotel_month_wise.blank? %>
+											<%= @hotel_month_wise.first["c"] %>
 										<% end %>
 									</td>
 								  <td align="center" valign="middle">
-								  	<% if !@site_visitors_this_year.blank?  %>
-											<%= @site_visitors_this_year.first["c"] %>
+								  	<% if !@hotel_year_wise.blank?  %>
+											<%= @hotel_year_wise.first["c"] %>
 										<% end %>
 									</td>
 								</tr>

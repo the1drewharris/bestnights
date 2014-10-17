@@ -33,6 +33,9 @@ class HotelsController < ApplicationController
   
   def show
       @hotel = Hotel.find(params[:id])
+      @hotel_view = HotelView.new
+      @hotel_view.hotel_id = @hotel.id
+      @hotel_view.save
       @hotel_photos = @hotel.hotel_photos
       @hotel_attributes = @hotel.hotel_attributes.order('attr')
   end

@@ -4898,5 +4898,19 @@ a.landing-form-submit:hover{
 .details.compact-view h6, .details.compact-view p{
 	margin-bottom: 10px;
 }
+.drag-message{
+	color: #D35452;
+	font-weight: bold;
+	font-size: 14px;
+}
+.editrooms fieldset ul li .dropzone.drag-drop-div{
+	margin-top: 10px;
+	border-style: dashed;
+	background: #FAFAFA;
+}
+.single-room-type{
+	margin-bottom: 10px;
+	border-bottom: 1px solid #ccc;
+}
 /* End */
 
