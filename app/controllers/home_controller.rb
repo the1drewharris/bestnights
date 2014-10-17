@@ -321,9 +321,9 @@ class HomeController < ApplicationController
    room = Room.find_by_hotel_id_and_room_sub_type_id(params[:hotel_id], params[:room_type_id])
    @additional_adult_fee = cookies[:additionaladult].to_i * room.additionaladultfee.to_i
     if session[:room_needed]
-      @amount = (cookies[:rate].to_i * session[:room_needed].to_i) + @additional_adult_fee
+      @amount = (cookies[:rate].to_f * session[:room_needed].to_f) + @additional_adult_fee
     else
-      @amount = cookies[:rate].to_i + @additional_adult_fee
+      @amount = cookies[:rate].to_f + @additional_adult_fee
     end
     #end
     session[:subtotal] = @amount
@@ -361,9 +361,9 @@ class HomeController < ApplicationController
     room = Room.find_by_hotel_id_and_room_sub_type_id(session[:hotel_id], session[:room_type_id])
     @additional_adult_fee = cookies[:additionaladult].to_i * room.additionaladultfee.to_i
     if session[:room_needed]
-      @amount = (cookies[:rate].to_i * session[:room_needed].to_i) + @additional_adult_fee
+      @amount = (cookies[:rate].to_f * session[:room_needed].to_f) + @additional_adult_fee
     else
-      @amount = cookies[:rate].to_i + @additional_adult_fee
+      @amount = cookies[:rate].to_f + @additional_adult_fee
     end
     @hotel = Hotel.find(session[:hotel_id])
     unless current_traveler

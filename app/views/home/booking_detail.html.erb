@@ -198,7 +198,7 @@
 																	 <% else %>
 																	 	USD
 																	 <% end %>
-																	 <%= number_with_precision(rate.price, precision: 2) %>
+																	 <%= number_with_precision(rate.price.to_f, precision: 2) %>
 																</td>
 																<tr>
 														<% end %>
@@ -300,7 +300,7 @@
  //room_number
  $(".link_style").click(function(e){
  	e.preventDefault();
- 	$.cookie("rate", parseInt($(this).siblings("span").children("span").html()))
+ 	$.cookie("rate", parseFloat($(this).siblings("span").children("span").html()))
  	var guests = parseInt($(this).parent().siblings(".guest").children("#max_people").val());
  	var room_needed = $(this).parent().siblings(".room_number").children("#room_number").val();
  	var room_avail = parseInt($(this).parent().siblings(".room_available").children(".room-available").children(".data-tbl").children("tbody").children("tr").children("td").children("span").html());

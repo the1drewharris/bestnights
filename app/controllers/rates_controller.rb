@@ -49,9 +49,8 @@ class RatesController < ApplicationController
   def create
     @flag = 0
     unless (params[:room_sub_type_id].blank? || params[:room_id].blank?) && params[:price].blank?
-      logger.info"*************#{params[:room_sub_type_id]}*************"
       if !params[:room_sub_type_id].blank?
-        room_sub_type_rate(params[:room_sub_type_id],params[:days],params[:from_date],params[:to_date],params[:price],params[:room_id])
+        room_sub_type_rate(params[:room_sub_type_id],params[:days],params[:from_date],params[:to_date],params[:price].to_f,params[:room_id])
         @flag = 1
       elsif !params[:room_type_id].blank?
         room_type_rate(params[:room_id],params[:days],params[:from_date],params[:to_date],params[:price])
@@ -142,7 +141,7 @@ class RatesController < ApplicationController
               @room_rate.destroy
             else
               ((to_date.to_date - from_date.to_date).to_i + 1).times do |date|
-                create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date.advance(days: date),from_date.to_date.advance(days: date),params[:price].to_i)
+                create_rate(room[0].to_s,session[:hotel_id],@sub_type.room_type_id,from_date.to_date.advance(days: date),from_date.to_date.advance(days: date),params[:price].to_f)
               end
             end
           else
