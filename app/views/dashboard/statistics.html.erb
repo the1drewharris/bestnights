@@ -24,7 +24,7 @@
 								  <td align="left" valign="middle">Property Views</td>
 								  <td align="center" valign="middle">
 										<% if !@hotel_day_wise.blank?  %>
-											<%= @hotel_day_wise.first["c"] %>
+											<%= @hotel_day_wise.count %>
 										<% end %>
 								  </td>
 								  <td align="center" valign="middle">
@@ -34,12 +34,12 @@
 								  </td>		
 								  <td align="center" valign="middle">
 										<% if !@hotel_month_wise.blank? %>
-											<%= @hotel_month_wise.first["c"] %>
+											<%= @hotel_month_wise.count %>
 										<% end %>
 									</td>
 								  <td align="center" valign="middle">
 								  	<% if !@hotel_year_wise.blank?  %>
-											<%= @hotel_year_wise.first["c"] %>
+											<%= @hotel_year_wise.count %>
 										<% end %>
 									</td>
 								</tr>
