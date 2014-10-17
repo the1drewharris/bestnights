@@ -338,9 +338,6 @@ class DashboardController < ApplicationController
 
   def invoice
     @hotel = Hotel.find_by_id(session[:hotel_id])
-    unless cookies[:month]
-      cookies[:month] = 1
-    end
     @country = Carmen::Country.coded(@hotel.country_id)
     if !@country.blank? && @country.name == "Canada"
       @currency = "CAD"
@@ -354,16 +351,6 @@ class DashboardController < ApplicationController
         @commission = (booking.price.to_i * (@hotel.commission_rate.amount).to_f) / 100
       else
         booking.price = booking.price.to_i
-      end
-    end
-    @print_bookings = Booking.where("hotel_id=?", session[:hotel_id])
-    unless @print_bookings.blank?
-      @print_bookings.each do |booking|
-        @room = Room.find_by_id(booking.room_id)
-        unless @room.blank? 
-          booking.room_type = @room.room_type
-          booking.save
-        end 
       end
     end
   end
@@ -496,7 +483,6 @@ class DashboardController < ApplicationController
       end
       respond_to do |format|
         format.html
-        format.json { render json: @bookings }
         format.pdf do
           render :pdf => "monthly_invoice_status"
         end
@@ -504,6 +490,50 @@ class DashboardController < ApplicationController
     else
       flash[:errors] = "There is no invoices in this month"
       redirect_to invoice_path
+    end
+  end
+
+  def print_reservation_data_month
+    @print_bookings = Booking.where("hotel_id=? AND MONTH(created_at)=?", session[:hotel_id], cookies[:month].to_i)
+    @room_type = []
+    @commissions = []
+    @currency = @tot_comm = @tot_amount = 0
+    @hotel = Hotel.find_by_id(@print_bookings.first.hotel_id)
+    @country = Carmen::Country.coded(@hotel.country_id)
+    if !@country.blank? && @country.name == "Canada"
+      @currency = "CAD"
+    else
+      @currency = "USD"
+    end
+    unless @print_bookings.blank?
+      @print_bookings.each do |booking|
+        @room = Room.find_by_id(booking.room_id)
+        unless @room.blank? 
+          booking.room_type = @room.room_type
+          booking.save
+        end
+        unless booking.room_type.blank?
+          @room_type << booking.room_type.room_type
+        else
+          @room_type << ""
+        end
+        unless @hotel.commission_rate.blank?
+          @commissions << (booking.price.to_f * (@hotel.commission_rate.amount.to_f).to_f) / 100
+          @tot_comm += (booking.price.to_f * (@hotel.commission_rate.amount.to_f).to_f) / 100
+        else
+          @commissions << (booking.price.to_f * 12) / 100
+          @tot_comm += (booking.price.to_f * 12) / 100
+        end
+        @tot_amount += booking.price.to_f
+      end
+    end
+    @hotel_name = @print_bookings.first.hotel.name
+    @hotel_addr = @print_bookings.first.hotel.address1
+    @tot_comm = view_context.number_with_precision(@tot_comm, precision: 2, separator: '.')
+    @tot_amount = view_context.number_with_precision(@tot_amount, precision: 2, separator: '.')
+    @data = {"booking" => @print_bookings, "hotel_name" => @hotel_name, "hotel_address" => @hotel_addr, "room_type" => @room_type, "currency" => @currency, "commission" => @commissions, "tot_amount" => @tot_amount, "tot_comm" => @tot_comm}
+    respond_to do |format|
+      format.json { render json: @data }
     end
   end
 

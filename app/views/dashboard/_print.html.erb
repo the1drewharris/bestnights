@@ -1,6 +1,4 @@
-<% unless @print_bookings.blank? %>
 <div style="padding:10px; margin:0 auto; clear:both; overflow:hidden; border:none; border-bottom:3px solid #000000; outline:none;">
-  <%#= @print_bookings.inspect %>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td align="left" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -12,7 +10,7 @@
       </td>
     </tr>
     <tr>
-      <td align="left" valign="top" style="padding-top:42px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;" id="hotel"><%= @print_bookings.first.hotel.name %><br /><%= @print_bookings.first.hotel.address1 %></td>
+      <td align="left" valign="top" style="padding-top:42px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;" id="hotel"></td>
     </tr>
   </table></td>
   <td width="20%" align="left" valign="top" style="padding-right:20px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;"><strong>Bestnights.com</strong><br />Fax: 1 800 494 BEST (2378)<br />Phone: 1 800 494 BEST (2378)<br />E-mail: info@bestnights.com</td>
@@ -29,7 +27,7 @@
     </tr>
     <tr>
       <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;">Period:</td>
-      <td align="right" valign="middle" style="padding-left:10px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;"><%= @print_bookings.first.from_date.strftime("%B, %Y") %></td>
+      <td align="right" valign="middle" style="padding-left:10px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;" id="period"></td>
     </tr>
   </table></td>
   <td align="left" valign="top">&nbsp;</td>
@@ -45,8 +43,8 @@
 <tr>
 <td align="left" valign="top"><table width="100%" border="0" cellpadding="0" cellspacing="0">
 <tr>
-  <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
-    <tr>
+  <td><table width="100%" border="0" cellspacing="0" cellpadding="0" id="booking">
+    <tr id="head">
       <td align="left" valign="top" style="padding-bottom:5px; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:4px solid #000000;">Invoice Number</td>
       <td align="center" valign="top" style="padding-bottom:5px; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:4px solid #000000;">Invoice Date</td>
       <td align="center" valign="top" style="padding-bottom:5px; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:4px solid #000000;">Due Date</td>
@@ -55,38 +53,13 @@
       <td align="center" valign="top" style="padding-bottom:5px; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:4px solid #000000;">Amount</td>
       <td align="center" valign="top" style="padding-bottom:5px; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:4px solid #000000;">Commission Paid</td>
     </tr>
-    <% @total = @commission = 0 %>
-    <% @print_bookings.each do |booking| %>
-      <% @room = Room.find_by_id(booking.room_id) %>
-      <tr>
-        <td align="left" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;"><%= booking.id %></td>
-        <td align="center" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;"><%= booking.from_date %></td>
-        <td align="center" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;"><%= booking.from_date.advance(months: 1) %></td>
-        <td align="center" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;"><%= booking.from_date %> To <%= booking.from_date.advance(months: 1) %></td>
-        <td height="30" align="center" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;"><%= booking.room_type.blank? ? "" : booking.room_type.room_type %></td>
-        <td align="center" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;"><%= booking.price %> <%= @currency %> </td>
-        <td align="center" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;">
-          <% unless @hotel.commission_rate.blank?  %>
-            <%= (booking.price.to_f * (@hotel.commission_rate.amount.to_f).to_f) / 100 %>
-          <% else %>
-            <%= (booking.price.to_f * 12) / 100 %>
-          <% end %>
-        </td>
-      </tr>
-      <% @total += booking.price.to_f %>
-      <% unless @hotel.commission_rate.blank? %>
-        <% @commission += (booking.price.to_f * (@hotel.commission_rate.amount.to_f).to_f) / 100 %>
-      <% else %>
-        <% @commission += (booking.price.to_f * 12) / 100 %>
-      <% end %>
-    <% end %>
     <tr>
-      <td align="left" colspan="6" valign="middle" style="padding-bottom:10px; padding-top:10px; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:17px; color:#000000; text-transform:none; font-weight:bold; font-style:normal; border:none; border-bottom:3px solid #000000; border-top:3px solid #000000;">Total amount due</td>
-      <td align="right" valign="middle" style="padding-bottom:10px; padding-top:10px; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:17px; color:#000000; text-transform:none; font-weight:bold; font-style:normal; border:none; border-bottom:3px solid #000000; border-top:3px solid #000000;"><%= number_with_precision(@total, precision: 2, separator: '.') %> <%= @currency %> </td>
+      <td align="left" colspan="6" valign="middle" style="padding-bottom:10px; padding-top:10px; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:17px; color:#000000; text-transform:none; font-weight:bold; font-style:normal; border:none; border-bottom:3px solid #000000; border-top:3px solid #000000;">Total amount</td>
+      <td align="right" valign="middle" style="padding-bottom:10px; padding-top:10px; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:17px; color:#000000; text-transform:none; font-weight:bold; font-style:normal; border:none; border-bottom:3px solid #000000; border-top:3px solid #000000;" id="tot_amount"></td>
     </tr>
     <tr>
       <td align="left" colspan="6" valign="middle" style="padding-bottom:10px; padding-top:10px; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:17px; color:#000000; text-transform:none; font-weight:bold; font-style:normal; border:none; border-bottom:3px solid #000000;">Total commission due</td>
-      <td align="right" valign="middle" style="padding-bottom:10px; padding-top:10px; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:17px; color:#000000; text-transform:none; font-weight:bold; font-style:normal; border:none; border-bottom:3px solid #000000;"><%= number_with_precision(@commission, precision: 2, separator: '.') %> <%= @currency %> </td>
+      <td align="right" valign="middle" style="padding-bottom:10px; padding-top:10px; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:17px; color:#000000; text-transform:none; font-weight:bold; font-style:normal; border:none; border-bottom:3px solid #000000;" id="tot_commission"></td>
     </tr>
     <tr>
       <td align="left" valign="top">&nbsp;</td>
@@ -104,4 +77,3 @@
 </tr>
 </table>
 </div>
-<% end %>
