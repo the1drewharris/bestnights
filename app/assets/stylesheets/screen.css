@@ -4912,5 +4912,12 @@ a.landing-form-submit:hover{
 	margin-bottom: 10px;
 	border-bottom: 1px solid #ccc;
 }
+.pic-view-message{
+	color: #333;
+	font-weight: bold;
+	font-size: 14px;
+	margin: 0 0 0 20px;
+	text-transform: none;
+}
 /* End */
 
