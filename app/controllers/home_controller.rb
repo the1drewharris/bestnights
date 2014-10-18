@@ -641,14 +641,14 @@ class HomeController < ApplicationController
         '<table cellspacing="0" width="100%" cellpadding="0" align="center" style="text-align: left; font-size:14px;">'\
           '<tbody>'\
             '<tr>'\
-              '<td style="font-weight: bold; font-size: large;" colspan="4">Total Price for this reservation: '"#{@currency}" + "#{amount}" + ' (taxes not include) </td>'\
+              '<td style="font-weight: bold; font-size: 17px;" colspan="4">Total Price for this reservation: '"#{@currency}" + "#{amount}" + ' (taxes not included) </td>'\
             '</tr>'\
             '<tr style="height:95px;"><td></td></tr>'\
             '<tr>'\
               '<td style="width:20%;">Credit Card:</td>'\
               '<td style="font-weight: bold; width:20%">' + "#{traveler.credit_card_type.titleize}" + '</td>'\
               '<td style="width:15%;">Expiry Date:</td>'\
-              '<td style="font-weight: bold; width:20%;">' + "#{traveler.credit_card_expiry_date.strftime("%B %Y")}" + '</td>'\
+              '<td style="font-weight: bold; width:20%;">' + "#{traveler.credit_card_expiry_date.strftime("%m/%y")}" + '</td>'\
             '</tr>'\
             '<tr>'\
               '<td style="width:20%;">Card Number:</td>'\

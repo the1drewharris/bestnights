@@ -7,7 +7,7 @@ class Hotel < ActiveRecord::Base
   validates_presence_of :name, :description, :address1, :city, :user_id, :country_id, :status
                         
   
-  validates_uniqueness_of :name
+  validates_uniqueness_of :name, on: :create
 
   validates :email, presence: true,
     if: Proc.new { |a| a.email_or_fax == "email" }
