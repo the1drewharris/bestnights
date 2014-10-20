@@ -50,19 +50,19 @@
 		<% if PrivacyPolicy.first.blank? %>	
 			<%= link_to "Manage Privacy Policy", new_privacy_policy_path %>
 		<% else %>
-			<%= link_to "Manage Privacy Policy", edit_privacy_policy_path %>
+			<%= link_to "Manage Privacy Policy", edit_privacy_policy_path(PrivacyPolicy.first.id) %>
 		<% end %>
 	<% end %>
 	<% if current_user.admin?  %>
 		<% if Term.first.blank? %>
 			<%= link_to "Manage Terms and Conditions", new_term_path %>
 		<% else %>
-			<%= link_to "Manage Terms and Conditions", edit_term_path %>
+			<%= link_to "Manage Terms and Conditions", edit_term_path(Term.first.id) %>
 		<% end %>
 		<% if AboutU.first.blank? %>
 			<%= link_to "Manage About Us", new_about_u_path %>
 		<% else %>
-			<%= link_to "Manage About Us", edit_about_u_path %>
+			<%= link_to "Manage About Us", edit_about_u_path(AboutU.first.id) %>
 		<% end %>
 	<% end %>	
 </nav>
