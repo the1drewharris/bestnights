@@ -6,7 +6,7 @@
 		<h1 class="prop-title">BestNights.com Terms and Conditions ("Agreement")</h1>
 	</header>
 	<div id="container-main">
-		<% if !@term.content.blank?  %>
+		<% if !@term.blank?  %>
 			<%= @term.content.html_safe%>
 		<% end %>
 	</div>
