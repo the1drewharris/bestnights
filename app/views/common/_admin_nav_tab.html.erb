@@ -48,5 +48,8 @@
 	<% end %>
 	<% if current_user.admin?  %>	
 		<%= link_to "Manage Privacy Policy", new_privacy_policy_path %>
+	<% end %>
+	<% if current_user.admin?  %>	
+		<%= link_to "Manage Terms and Conditions", new_term_path %>
 	<% end %>	
 </nav>
