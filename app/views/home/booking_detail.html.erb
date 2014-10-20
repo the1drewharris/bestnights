@@ -165,7 +165,7 @@
 									<table class="data-tbl">										
 										<% @availables.each do |available| %>
 											<% if !available.blank? %>
-													<% ((session[:checkout].to_date - session[:checkin].to_date).to_i + 1).times do |day| %>
+													<% ((session[:checkout].to_date - session[:checkin].to_date).to_i).times do |day| %>
 														<% if (available.from_date..available.to_date).cover?(session[:checkin].to_date.advance(days: day)) %>
 															<tr>	
 																<td>
@@ -188,7 +188,7 @@
 										<% unless @rates.empty? %>
 											<% @rates.each do |rate| %>
 												<% if !rate.blank? %>											
-													<% ((session[:checkout].to_date - session[:checkin].to_date).to_i + 1).times do |day| %>
+													<% ((session[:checkout].to_date - session[:checkin].to_date).to_i).times do |day| %>
 														<%#= rate.inspect %>
 														<% if (rate.from_date..rate.to_date).cover?(session[:checkin].to_date.advance(days: day)) %>
 																<tr>			

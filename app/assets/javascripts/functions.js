@@ -219,7 +219,7 @@
 				$(".outtime").val(days[tomorrow.getDay()]+','+dates[(tomorrow.getDate()) - 1]+","+ months[tomorrow.getMonth()])
 								
 				$('.datepicker1').dateRangePicker({
-						dayGap: 1,
+						dayGap: 2,
 						startDate: today,
 						separator : ' to ',
 						getValue: function(){
@@ -236,7 +236,7 @@
 					
 				}).bind('datepicker-change',function(event,obj){
 					var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
-					var diffDays = Math.round(Math.abs((obj.date2.getTime() - obj.date1.getTime())/(oneDay)))+1;
+					var diffDays = Math.round(Math.abs((obj.date2.getTime() - obj.date1.getTime())/(oneDay)));
 					$(this).parent().parent().prevAll('.checkindate').html('<span>Check in</span><span>' + days[obj.date1.getDay()] + ', </span><span>' + dates[(obj.date1.getDate()-1)] + '</span><br><span>' + months[obj.date1.getMonth()] + ' ' + obj.date1.getFullYear() + '</span>');
 					$(this).parent().parent().prevAll('.checkoutdate').html('<span>Check out</span><span>' + days[obj.date2.getDay()] + ', </span><span>' + dates[(obj.date2.getDate()-1)] + '</span><br><span>' + months[obj.date2.getMonth()] + ' ' + obj.date2.getFullYear() + '</span>');
 					$("#checkindate").val(obj.value.substr(0,obj.value.indexOf("to")));

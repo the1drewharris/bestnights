@@ -190,7 +190,7 @@ class HomeController < ApplicationController
       unless @rates.empty?
         @rates.each do |rate|
           if !rate.blank?
-            ((session[:checkout].to_date - session[:checkin].to_date).to_i + 1).times do |day| 
+            ((session[:checkout].to_date - session[:checkin].to_date).to_i).times do |day| 
               if (rate.from_date..rate.to_date).cover?(session[:checkin].to_date.advance(days: day))
                 session[:rate] += rate.price
               end
@@ -400,7 +400,7 @@ class HomeController < ApplicationController
     a = session[:checkout].nil? ? Time.now()+1 : session[:checkout]
     b = session[:checkin].nil? ? Time.now() : session[:checkin]
 
-    @number_nights = ((a.to_date - b.to_date).to_i) + 1
+    @number_nights = ((a.to_date - b.to_date).to_i)
     room_ids = []
     
    
