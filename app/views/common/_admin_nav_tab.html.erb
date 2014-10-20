@@ -54,7 +54,11 @@
 		<% end %>
 	<% end %>
 	<% if current_user.admin?  %>
-		<%= link_to "Manage Terms and Conditions", new_term_path %>
+		<% if Term.first.blank? %>
+			<%= link_to "Manage Terms and Conditions", new_term_path %>
+		<% else %>
+			<%= link_to "Manage Terms and Conditions", edit_term_path %>
+		<% end %>
 		<% if AboutU.first.blank? %>
 			<%= link_to "Manage About Us", new_about_u_path %>
 		<% else %>
