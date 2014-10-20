@@ -1,0 +1,11 @@
+<%= simple_form_for(@about_u) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+  	<%= f.text_area :content, class: 'ckeditor' %>
+  </div>
+<br />
+  <div class="form-actions">
+    <%= f.submit "Save About Us" %>
+  </div>
+<% end %>

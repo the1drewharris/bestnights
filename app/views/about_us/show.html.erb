@@ -1,0 +1,10 @@
+<div id="container-main">
+	<h1 class="prop-title">Show</h1> 
+	<div class="conwrap">
+		<div class="bookings blocks">
+			<%= @about_u.content.html_safe %>
+			<%= link_to 'Edit', edit_about_u_path(@about_u) %> |
+			<%= link_to 'Back', about_us_path %>
+		</div>
+	</div>
+</div>

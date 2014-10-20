@@ -2,6 +2,7 @@ Bestnights::Application.routes.draw do
   
 
   resources :terms
+  resources :about_us
 
   resources :privacy_policies
 

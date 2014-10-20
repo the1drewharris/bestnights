@@ -30,7 +30,7 @@ class HomeController < ApplicationController
   end
 
   def about_us
-
+    @about_us = AboutU.first
   end
   
   def add_property

@@ -46,10 +46,19 @@
 	<% if current_user.admin?  %>	
 		<%= link_to "Contacts Designation", positions_path %>
 	<% end %>
-	<% if current_user.admin?  %>	
-		<%= link_to "Manage Privacy Policy", new_privacy_policy_path %>
+	<% if current_user.admin?  %>
+		<% if PrivacyPolicy.first.blank? %>	
+			<%= link_to "Manage Privacy Policy", new_privacy_policy_path %>
+		<% else %>
+			<%= link_to "Manage Privacy Policy", edit_privacy_policy_path %>
+		<% end %>
 	<% end %>
-	<% if current_user.admin?  %>	
+	<% if current_user.admin?  %>
 		<%= link_to "Manage Terms and Conditions", new_term_path %>
+		<% if AboutU.first.blank? %>
+			<%= link_to "Manage About Us", new_about_u_path %>
+		<% else %>
+			<%= link_to "Manage About Us", edit_about_u_path %>
+		<% end %>
 	<% end %>	
 </nav>

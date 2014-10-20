@@ -6,7 +6,9 @@
 		<h1 class="prop-title">Privacy Policy</h1>
 	</header>
 	<div id="container-main">
-		<%= @privacy.content.html_safe%>
+		<% unless @privacy.content.blank? %>
+			<%= @privacy.content.html_safe%>
+		<% end %>
 	</div>
 	<%= render :partial => "common/home_footer" %>
 </div>

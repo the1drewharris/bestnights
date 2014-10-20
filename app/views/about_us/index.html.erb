@@ -1,0 +1,23 @@
+<h1>Listing about_us</h1>
+
+<table>
+  <tr>
+    <th>Content</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @about_us.each do |about_u| %>
+  <tr>
+    <td><%= about_u.content %></td>
+    <td><%= link_to 'Show', about_u %></td>
+    <td><%= link_to 'Edit', edit_about_u_path(about_u) %></td>
+    <td><%= link_to 'Destroy', about_u, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New About u', new_about_u_path %>
