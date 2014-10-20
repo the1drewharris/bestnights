@@ -14,7 +14,7 @@ class HomeController < ApplicationController
   end
 
   def terms_of_service
-    
+    @term = Term.first
   end
 
   def privacy
