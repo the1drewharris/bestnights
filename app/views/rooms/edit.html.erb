@@ -34,7 +34,11 @@
 		  	<% end %>
 		  	<li>
 		  		<%= f.label "Room Type" %>
-		  		<%= f.select :room_type_id, options_for_select(RoomType.all.map{|s|[s.room_type, s.id]}, @room.room_type.id), {:selected => @room.room_type_id}, {class: "selectbox"} %>
+		  		<% unless @room.room_type.blank? %>
+		  			<%= f.select :room_type_id, options_for_select(RoomType.all.map{|s|[s.room_type, s.id]}, @room.room_type.id), {:selected => @room.room_type_id}, {class: "selectbox"} %>
+		  		<% else %>
+		  			<%= f.select :room_type_id, options_for_select(RoomType.all.map{|s|[s.room_type, s.id]}, RoomType.first.id), {}, {class: "selectbox"} %>
+		  		<% end %>
 		  	</li>
 		  	<li>
 		  		<%= f.label "Room Sub Type" %>

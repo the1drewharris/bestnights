@@ -7,9 +7,10 @@ class RoomType < ActiveRecord::Base
   
   has_many :bookings
   has_many :rooms
-  has_many :room_sub_types
-  has_many :room_availables
-  has_many :room_statuses
+  has_many :room_sub_types, dependent: :destroy
+  has_many :room_availables, dependent: :destroy
+  has_many :room_statuses, dependent: :destroy
+  has_many :room_rates, dependent: :destroy
   
   scope :activated, -> { where(status: "active") }
   

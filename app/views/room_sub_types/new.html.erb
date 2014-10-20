@@ -19,9 +19,9 @@
 				<li>
 					<%= f.label 'Hotel*' %>
 					<% unless current_user.admin? %>
-						<%= f.collection_select :hotel_id, Hotel.where("status = ?", "active"), :id, :name, prompt: true %>
-					<% else %>
 						<%= f.collection_select :hotel_id, Hotel.where("status=? AND user_id=?", "active", current_user.id), :id, :name, prompt:true %>
+					<% else %>
+						<%= f.collection_select :hotel_id, Hotel.where("status = ?", "active"), :id, :name, prompt: true %>
 					<% end %>
 				</li>
 		  </ul>	

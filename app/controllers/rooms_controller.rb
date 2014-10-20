@@ -148,6 +148,11 @@ class RoomsController < ApplicationController
   def destroy
     room = Room.find(params[:id])
     hotel = room.hotel
+    @room_sub_types = RoomSubType.where("id=? AND hotel_id=?", room.room_sub_type_id, room.hotel.id)
+    @room_sub_types.each do |room_sub_type|
+      room_sub_type.is_active = false
+      room_sub_type.save
+    end
     room.destroy
     
     if current_user.new_signup?

@@ -163,7 +163,7 @@ class DashboardController < ApplicationController
     @flag = 0
     @data = []
     @room_types = RoomType.all
-    @room_sub_types = RoomSubType.where("hotel_id=?", session[:hotel_id])
+    @room_sub_types = RoomSubType.where("hotel_id=? AND is_active = true", session[:hotel_id])
     if !params[:from_date].blank?
       @starting_date = params[:from_date].to_date
     else

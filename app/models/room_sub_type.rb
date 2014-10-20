@@ -1,5 +1,5 @@
 class RoomSubType < ActiveRecord::Base
-  attr_accessible :name, :room_type_id, :hotel_id
+  attr_accessible :name, :room_type_id, :hotel_id, :is_active
   belongs_to :room_type
   belongs_to :hotel
   has_many :rooms
