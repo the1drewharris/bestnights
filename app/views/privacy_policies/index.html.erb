@@ -1,0 +1,25 @@
+<div id="container-main">
+<h1 class="prop-title">Privacy Policies</h1> 
+<table class="admintablelist">
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @privacy_policies.each do |privacy_policy| %>
+  <tr>
+    <td><%= privacy_policy.content.html_safe unless privacy_policy.content.nil? %></td>
+    <td><%= link_to 'Show', privacy_policy %></td>
+    <td><%= link_to 'Edit', edit_privacy_policy_path(privacy_policy) %></td>
+    <td><%= link_to 'Destroy', privacy_policy, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+<% if @privacy_policies.blank? %>
+  <%= link_to 'New Privacy policy', new_privacy_policy_path %>
+<% end %>
+</div>

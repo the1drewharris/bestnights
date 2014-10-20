@@ -45,5 +45,8 @@
 	<% end %>
 	<% if current_user.admin?  %>	
 		<%= link_to "Contacts Designation", positions_path %>
+	<% end %>
+	<% if current_user.admin?  %>	
+		<%= link_to "Manage Privacy Policy", new_privacy_policy_path %>
 	<% end %>	
 </nav>

@@ -18,7 +18,7 @@ class HomeController < ApplicationController
   end
 
   def privacy
-    
+    @privacy = PrivacyPolicy.first
   end
 
   def faq

@@ -51,6 +51,8 @@ GEM
     carmen-rails (1.0.1)
       carmen (~> 1.0.0)
       rails
+    ckeditor_rails (4.4.3)
+      railties (>= 3.0)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.4)
@@ -216,6 +218,7 @@ DEPENDENCIES
   capistrano-bundler (~> 1.0.0)
   capistrano-rails (~> 1.0.0)
   carmen-rails (~> 1.0.1)
+  ckeditor_rails (~> 4.4.3)
   coffee-rails (~> 3.2.1)
   devise
   dropzonejs-rails

@@ -1,6 +1,8 @@
 Bestnights::Application.routes.draw do
   
 
+  resources :privacy_policies
+
   resources :positions
 
   resources :commission_rates

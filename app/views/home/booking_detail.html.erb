@@ -71,14 +71,7 @@
 	</section>
 
 	<div style="overflow:hidden;">
-		<a href="#bookingoptions" class="button5" id="booking_hotel">Book Now</a><br />
-		<span id="rate" class="rateUI">Total : <strong>
-			<% if !@country.blank? && @country.name == "Canada" %>
-			 	CAD
-		 	<% else %>
-		 		USD
-			<% end %>
-			<%= number_with_precision(get_lowest_price(@hotel.id,session[:checkin],session[:checkout]), :precision => 2, :separator => '.') %></strong></span>  
+		<a href="#bookingoptions" class="button5" id="booking_hotel">Book Now</a><br /> 
   </div>
 	
 	<div id="searchdates">

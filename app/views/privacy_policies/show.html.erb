@@ -1,0 +1,10 @@
+<div id="container-main">
+<h1 class="prop-title">Show</h1> 
+<div class="conwrap">
+<div class="bookings blocks">
+<%= @privacy_policy.content.html_safe %>
+<%= link_to 'Edit', edit_privacy_policy_path(@privacy_policy) %> |
+<%= link_to 'Back', privacy_policies_path %>
+</div>
+</div>
+</div>

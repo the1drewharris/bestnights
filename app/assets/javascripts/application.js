@@ -24,6 +24,7 @@
 //= require sidebar
 //= require jquery.validationEngine
 //= require jquery.validationEngine-en
+//= require ckeditor-jquery
 //= require jquery.bxslider.min
 //= require jquery.remodal
 //= require jquery.slides.min
