@@ -27,7 +27,7 @@
 //= require jquery.bxslider.min
 //= require jquery.remodal
 //= require jquery.slides.min
-
+//= require ckeditor-jquery
 
 $(document).ready(function() {
 
