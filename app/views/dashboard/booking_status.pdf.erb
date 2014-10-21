@@ -80,7 +80,7 @@
 <tr>
 <td align="left" valign="top"><table width="100%" border="0" cellpadding="0" cellspacing="0">
 <tr>
-  <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <td colspan="2"><table width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr>
       <td height="30" align="left" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;">Arrival</td>
       <td align="right" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;"><%= @booking.from_date.strftime('%A, %B %d, %G') %></td>
@@ -88,10 +88,6 @@
     <tr>
       <td height="30" align="left" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;">Departure</td>
       <td align="right" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;"><%= @booking.to_date.strftime('%A, %B %d, %G') %></td>
-    </tr>
-    <tr>
-      <td height="30" align="left" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;">Total amount</td>
-      <td align="right" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;"><%= @booking.price %> <%= @currency %> </td>
     </tr>
     <tr>
       <td height="30" align="left" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;">Traveler Credit Card</td>
@@ -109,7 +105,7 @@
     <table cellpadding="0" cellspacing="0">
       <tr>
         <td style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; border-left:#eee 1px solid; border-bottom:#eee 1px solid;">Date</td>
-        <% ((@booking.to_date - @booking.from_date).to_i + 1).times do |day| %>
+        <% ((@booking.to_date - @booking.from_date).to_i).times do |day| %>
           <td style="text-align: right; padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; border-left:#eee 1px solid; border-bottom:#eee 1px solid; border-right:#eee 1px solid;">
             <span><%= @booking.from_date.advance(days: day).strftime("%m/ %d") %></span>
           </td>
@@ -118,17 +114,29 @@
       <tr>
         <td style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; border-left:#eee 1px solid; border-bottom:#eee 1px solid;">Rate(<%= @currency %>)</td>
 
-        <% ((@booking.to_date - @booking.from_date).to_i + 1).times do |day| %>
+        <% ((@booking.to_date - @booking.from_date).to_i).times do |day| %>
           <td style="text-align: right; padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; border-left:#eee 1px solid; border-bottom:#eee 1px solid; border-right:#eee 1px solid;">
-            <span><%= (@booking.price.to_f / ((@booking.to_date - @booking.from_date).to_i + 1)).to_f %></span>
+            <span><%= number_with_precision((@booking.price.to_f / ((@booking.to_date - @booking.from_date).to_i)).to_f, :precision => 2, :separator => '.') %></span>
           </td>
         <% end %>
       </tr>
   </table>
+  <tr>
+    <td align="left" valign="middle" style="padding-bottom:10px; padding-top:10px; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:17px; color:#000000; text-transform:none; font-weight:bold; font-style:normal; border:none; border-bottom:3px solid #000000; border-top:3px solid #000000;">Total Amount (Taxes not included)</td>
+    <td align="right" valign="middle" style="padding-bottom:10px; padding-top:10px; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:17px; color:#000000; text-transform:none; font-weight:bold; font-style:normal; border:none; border-bottom:3px solid #000000; border-top:3px solid #000000;"><%= number_with_precision(@booking.price, :precision => 2, :separator => '.') %> <%= @currency %></td>
+  </tr>
+  <tr>
+    <td align="left" valign="top">&nbsp;</td>
+    <td align="left" valign="top">&nbsp;</td>
+  </tr>
   </td>
   </tr>
 </table>
 </td>
+</tr>
+
+<tr>
+  <td align="left" valign="middle" style="padding:10px; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:17px; color:#000000; text-transform:none; font-weight:bold; font-style:normal; text-align:left; border:4px solid #000000;">The total amount due can be paid by Cheque, Paypal, or direct debit and for a detailed list of bookings, go to your finance section located in the dashboard and click reservation statements.</td>
 </tr>
 <tr>
 <td height="50" align="left" valign="top">&nbsp;</td>

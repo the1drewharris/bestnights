@@ -12,7 +12,7 @@ module HomeHelper
 						unless @rates.blank?
 							@price = 0
 							@rates.each do |rate|
-								((end_date.to_date - start_date.to_date).to_i + 1).times do |day|
+								((end_date.to_date - start_date.to_date).to_i).times do |day|
 									if(rate.from_date..rate.to_date).cover?(start_date.to_date.advance(days: day))
 										@price += rate.price
 										@flag += 1
