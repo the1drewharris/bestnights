@@ -1,0 +1,15 @@
+<div id="container-main">
+<h1 class="prop-title">Show</h1> 
+<div class="conwrap">
+<div class="bookings blocks">
+	<ul>
+		<li><%= @site_contact.phone_number %></li>
+		<li><%= @site_contact.email %></li>
+		<li><%= @site_contact.fax %></li>
+		<li><%= @site_contact.address %></li>
+	</ul>
+<%= link_to 'Edit', edit_site_contact_path(@site_contact) %> |
+<%= link_to 'Back', site_contacts_path %>
+</div>
+</div>
+</div>

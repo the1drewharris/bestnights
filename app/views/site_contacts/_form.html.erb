@@ -1,0 +1,28 @@
+<%= simple_form_for(@site_contact) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+  	<ul>
+  		<li>
+		  		<%= f.label :phone_number %>
+		  		<%= f.text_field :phone_number %>
+		  		  		<li>
+		  		<%= f.label :email %>
+		  		<%= f.text_field :email %>
+		  	</li>
+		  	  		<li>
+		  		<%= f.label :fax %>
+		  		<%= f.text_field :fax %>
+		  	</li>
+		  	  		<li>
+		  		<%= f.label :address %>
+		  		<%= f.text_area :address %>
+		  	</li>
+		  	</li>
+  	</ul>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

@@ -26,7 +26,7 @@ class HomeController < ApplicationController
   end
 
   def contact_us
-    
+   @contact = SiteContact.first 
   end
 
   def about_us

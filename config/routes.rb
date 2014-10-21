@@ -1,6 +1,8 @@
 Bestnights::Application.routes.draw do
   
 
+  resources :site_contacts
+
   resources :terms
   resources :about_us
 

@@ -1,7 +1,7 @@
 class ContactsController < ApplicationController
 	def new
     @contact = Contact.new
-
+    @site_contact = SiteContact.first 
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @contact }

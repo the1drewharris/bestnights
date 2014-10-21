@@ -64,5 +64,10 @@
 		<% else %>
 			<%= link_to "Manage About Us", edit_about_u_path(AboutU.first.id) %>
 		<% end %>
+		<% if SiteContact.first.blank? %>
+			<%= link_to "Manage Contact", new_site_contact_path %>
+		<% else %>
+			<%= link_to "Manage Contact", edit_site_contact_path(SiteContact.first) %>
+		<% end %>
 	<% end %>	
 </nav>

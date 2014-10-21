@@ -1,0 +1,25 @@
+<div id="container-main">
+<h1 class="prop-title">Contact</h1> 
+<table class="admintablelist">
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @site_contacts.each do |site_contact| %>
+  <tr>
+    <td><%= term.content.html_safe unless term.content.nil? %></td>
+    <td><%= link_to 'Show', site_contact %></td>
+    <td><%= link_to 'Edit', edit_site_contact_path(site_contact) %></td>
+    <td><%= link_to 'Destroy', site_contact, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+<% if @terms.blank? %>
+  <%= link_to 'Add Contact', new_site_contact_path %>
+<% end %>
+</div>

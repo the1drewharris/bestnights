@@ -7,10 +7,10 @@
   </header>
   <div id="container-main" class="contForm">
     <div class="con-section">
-      <p><strong>Address:</strong>  715 Evans Ct, Unit #4, Kelowna, BC V1X 6G4</p>
-      <p><strong>Toll Free:</strong> 1 800 494 BEST (2378)</p>
-      <p><strong>Fax:</strong> 1 844 494 BEST (2378)</p>
-      <p><strong>Email:</strong> <%= mail_to "info@bestnights.com" %> </p>
+    <p><strong>Address:</strong><%= @site_contact.blank? ? "" : @site_contact.address %></p>
+    <p><strong>Toll Free:</strong><%= @site_contact.blank? ? "" : @site_contact.phone_number %></p>
+    <p><strong>Fax:</strong> <%= @site_contact.blank? ? "" : @site_contact.fax %></p>
+    <p><strong>Email:</strong> <%= mail_to(@site_contact.blank? ? "" : @site_contact.email) %> </p>
     </div>
     <div class="con-section">
       <%= form_for(@contact, :html => { :class => 'form-horizontal new_contact', :autocomplete => :off }) do |f| %>
