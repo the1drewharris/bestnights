@@ -54,7 +54,7 @@
   <td align="left" valign="top">
     <table border="0" cellspacing="0" width="100%;">
     <tr>
-      <td align="right" valign="middle" style="padding-left:10px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:16px; color:#000000; font-weight:bold; font-style:normal;"><%= @booking.traveler.blank? ? "" : @booking.traveler.name %>&nbsp;&nbsp; <span style="font-weight:normal;"><%= @booking.traveler.blank? ? "" : @booking.traveler.phone_number %></span></td>
+      <td align="right" valign="middle" style="padding-left:10px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:16px; color:#000000; font-weight:bold; font-style:normal;"><%= @booking.traveler.blank? ? "" : @booking.traveler.name.titleize %>&nbsp;&nbsp; <span style="font-weight:normal;"><%= @booking.traveler.blank? ? "" : @booking.traveler.phone_number %></span></td>
     </tr>
     <tr>
       <td align="right" valign="middle" style="padding-left:10px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;">

@@ -22,7 +22,7 @@
       <% end %>
       <% unless @country.blank? %>
         <% @subregion = @country.subregions.coded(@booking.hotel.state_id) %>
-        <td align="left" valign="top" style="padding-left:50px; padding-top:42px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;"><%= @booking.hotel.name %><br /><%=  @booking.hotel.city.titleize %>, <%= @subregion.name.titleize %>, <%= @country.name.titleize %></td>
+        <td align="left" valign="top" style="padding-left:50px; padding-top:42px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;"><%= @booking.hotel.name.titleize %><br /><%=  @booking.hotel.city.titleize %>, <%= @subregion.name.titleize %>, <%= @country.name.titleize %></td>
       <% else %>
         <td align="left" valign="top" style="padding-top:42px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;"><%= @booking.hotel.name %><br /><%=  @booking.hotel.city.titleize %></td>
       <% end %>
@@ -53,7 +53,7 @@
   <td align="left" valign="top">
     <table border="0" cellspacing="0">
     <tr>
-      <td align="right" valign="middle" style="padding-left:10px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:16px; color:#000000; font-weight:bold; font-style:normal;"><%= @booking.traveler.blank? ? "" : @booking.traveler.name %></td>
+      <td align="right" valign="middle" style="padding-left:10px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:16px; color:#000000; font-weight:bold; font-style:normal;"><%= @booking.traveler.blank? ? "" : @booking.traveler.name.titleize %></td>
     </tr>
     <tr>
       <td align="right" valign="middle" style="padding-left:10px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;"><%= @booking.traveler.blank? ? "" : @traveler_subregion.name.titleize %>, <%= @booking.traveler.blank? ? "" : @traveler_country.name.titleize %>.</td>
