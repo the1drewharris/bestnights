@@ -123,7 +123,7 @@
               <% @booking.each do |book| %>
                 <% @nights.times do |night| %>
                   <td style="background: #ef807f; height:40px;"><%= number_with_precision(@price / @nights, :precision => 2, :separator => '.') %>
-                    <% if @country.name == "Canada" %>
+                    <% if !@country.blank? && @country.name == "Canada" %>
                       CAD
                     <% else %>
                       USD

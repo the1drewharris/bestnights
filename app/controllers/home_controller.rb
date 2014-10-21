@@ -166,6 +166,12 @@ class HomeController < ApplicationController
     @hotel_view.hotel_id = @hotel.id
     @hotel_view.save
     @room_attrs = @hotel.room_attributes
+    if cookies[:intime]
+      session[:checkin] = cookies[:intime]
+    end
+    if cookies[:outtime]
+      session[:checkout] = cookies[:outtime]
+    end
     @from_date = session[:checkin]
     @to_date = session[:checkout]
     session[:rate] = 0
@@ -186,6 +192,8 @@ class HomeController < ApplicationController
       @free << {type.id => @rooms.nil? ? 0 : @rooms.number}
     end
     @hotel.rooms.each_with_index do |room, index|
+      # @availables = RoomAvailable.where("room_sub_type_id=? AND hotel_id=?",room.room_sub_type_id, @hotel.id ).order("from_date")
+      # logger.info"************#{@availables.inspect}******************"
       @rates = RoomRate.where("room_sub_type_id=? AND hotel_id=?", room.room_sub_type_id, @hotel.id)
       unless @rates.empty?
         @rates.each do |rate|
