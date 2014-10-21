@@ -36,10 +36,16 @@
 		<% @country = Carmen::Country.coded(@hotel.country_id ) %>
 		<% unless @country.blank? %>
 			<% @subregion = @country.subregions.coded(@hotel.state_id) %>
+			<% if !@country.blank? &&  @country.name == "Canada" %>
+      	<% @currency = "CAD" %> 
+   	 	<% else %>
+      	<%  @currency = "USD" %>
+    	<% end %>
 			<td><%= @hotel.city.titleize %>, <%= @subregion.name %>, <%= @country.name %></td>
 		<% else %>
 			<td><%= @hotel.city.titleize %></td>
 		<% end %>
+			
 	</tr>
 	<tr>
 		<td><strong>Email:</strong></td>
@@ -72,7 +78,7 @@
 	<% end %>
 	<tr>
 		<td><strong>Total:</strong></td>
-		<td><%= number_with_precision(@amount, :precision => 2, :separator => '.') %></td>
+		<td><%= number_with_precision(@amount, :precision => 2, :separator => '.') %>&nbsp;<%= @currency %></td>
 	</tr>
 	<% @room = Room.find_by_hotel_id_and_room_sub_type_id(session[:hotel_id],session[:room_type_id]) %>
 	<tr>
@@ -171,7 +177,7 @@ Your credit card is required to guarantee your booking. Please note that your cr
 				  		&#10029;
 				  	<% end %>
 				  </span><br>
-				  <%= @hotel.city %>, <%= @subregion.name  %>
+				  <%= @hotel.city.titleize %>, <%= @subregion.name %>, <%= @country.name %>
 				
 				<div class="roomdetail fLeft chkinout">
 					<b>Room:</b> 
@@ -194,12 +200,6 @@ Your credit card is required to guarantee your booking. Please note that your cr
 	</section>
 	<div id="bookingtotal" class="sidesticky">
 		<h3>Reservation Total</h3>
-		<% @country = Carmen::Country.coded(@hotel.country_id ) %>
-				<% if !@country.blank? &&  @country.name == "Canada" %>
-        	<% @currency = "CAD" %> 
-     	 	<% else %>
-        	<%  @currency = "USD" %>
-      	<% end %>
 		<table>
 			<tr>
 				<td>BestNights.com Rate</td>

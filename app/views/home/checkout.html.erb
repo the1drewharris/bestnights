@@ -131,12 +131,18 @@
 					  		&#10029;
 					  	<% end %>
 					  </span><br>
-					  <%= @hotel.city %>, <%= @hotel.state.state_province if @hotel && @hotel.state%>
+					  <% @country = Carmen::Country.coded(@hotel.country_id ) %>
+						<% unless @country.blank? %>
+							<% @subregion = @country.subregions.coded(@hotel.state_id) %>
+							<%= @hotel.city.titleize %>, <%= @subregion.name %>, <%= @country.name %>
+						<% else %>
+							<%= @hotel.city.titleize %>
+						<% end %>
 
 					  <div class="roomdetail chkinout">
 						<b>Room:</b> 
 						<% @hotel.rooms.each do |room| %>
-						  <%= room.name %>,
+						  <%= room.room_sub_type.name %>,
 						<% end %>
 						<br>
 						<b>Check in:</b> 
