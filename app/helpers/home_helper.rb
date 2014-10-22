@@ -15,15 +15,9 @@ module HomeHelper
 								((end_date.to_date - start_date.to_date).to_i).times do |day|
 									if(rate.from_date..rate.to_date).cover?(start_date.to_date.advance(days: day))
 										@price += rate.price
+										@prices << rate.price
 										@flag += 1
 									end
-								end
-								if @flag == (end_date.to_date - start_date.to_date).to_i + 1
-									if @price > 0
-										@prices << @price
-									end
-									@price = 0
-									@flag = 0
 								end
 							end
 						end
