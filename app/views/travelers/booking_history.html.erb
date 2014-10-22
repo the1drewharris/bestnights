@@ -18,12 +18,13 @@
     <tbody>
       <% @hotel = Hotel.find_by_id(book.hotel_id) %>
       <% @country = Carmen::Country.coded(@hotel.country_id ) %>
-    <% unless @country.blank? %>
-      <% @subregion = @country.subregions.coded(@hotel.state_id) %>
-      <% if !@country.blank? &&  @country.name == "Canada" %>
-        <% @currency = "CAD" %> 
-      <% else %>
-        <%  @currency = "USD" %>
+      <% unless @country.blank? %>
+        <% @subregion = @country.subregions.coded(@hotel.state_id) %>
+        <% if !@country.blank? &&  @country.name == "Canada" %>
+          <% @currency = "CAD" %> 
+        <% else %>
+          <%  @currency = "USD" %>
+        <% end %>
       <% end %>
 
       <% if !@booking_histories.blank? %>
