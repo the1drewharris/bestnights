@@ -50,8 +50,8 @@
                           CAD
                         <% else %>
                           USD 
-                        <% end %>
-                        <%= book.price %></td>
+                        <% end %>   
+                        <%= number_with_precision(book.price, precision: 2) %></td>
 											<td align="left" valign="middle"><%= book.traveler.blank? ? "" : book.traveler.firstname.capitalize %>&nbsp;<%= book.traveler.blank? ? "" : book.traveler.lastname.capitalize %></td>
 											<td align="center" valign="middle"><%= book.traveler.blank? ? "" : book.traveler.phone_number %></td>
 										</tr>
