@@ -162,7 +162,14 @@
 														<% if (available.from_date..available.to_date).cover?(session[:checkin].to_date.advance(days: day)) %>
 															<tr>	
 																<td>
-																<%= session[:checkin].to_date.advance(days: day).strftime('%b %d, %G') %> : <span><%= available.number %></span>
+																<%= session[:checkin].to_date.advance(days: day).strftime('%b %d, %G') %> :
+																<span>
+																<% if available.number >= 0 %>
+																	<%= available.number %>
+																<% else %>
+																	0
+																<% end %>
+																</span>
 																</td>	
 															</tr>													
 														<% end %>
