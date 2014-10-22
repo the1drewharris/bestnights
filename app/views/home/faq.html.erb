@@ -6,90 +6,9 @@
 		<h1 class="prop-title">FAQ</h1>
 	</header>
 	<div id="container-main">
-	  <div class="faq-section">
-	  	<h3 class="faq-header">RESERVATION REQUIREMENTS/QUESTIONS</h3>
-		<p><strong class="quer">Do I need a credit card to make a hotel room reservation?</strong>
-		 Yes, a credit card is needed to reserve the room.
-		</p>
-		<p><strong class="quer">What is <%= link_to "WWW.BESTNIGHTS.COM", root_path %>'s online cancellation policy?</strong>
-		 Cancellation policies are hotel specific. Please check the hotel information page.
-		</p>
-		<p><strong class="quer">Will my credit card be charged if I forget to cancel my hotel room reservation?</strong>
-		 Yes, this is a standard practice by most hotels. Please check your hotel’s individual policies to be sure.
-		</p>
-		<p><strong class="quer">Can I return to the website and request a written confirmation for my reservation?</strong>
-		 You may log in to your account and see your booking history and print as needed.
-		</p>
-		<p><strong class="quer">I found a lower rate for a hotel on another website, what do I do? </strong>
-		 Contact <%= link_to "WWW.BESTNIGHTS.COM", root_path %> or your booking hotel. We will be more than happy to assist.
-		</p>
-		<p><strong class="quer">How do I make reservations for a large group (family reunion, club, etc.)?</strong>
-		 Hotels generally have their own procedures for group bookings. We suggest contacting the hotel before completing a booking.
-		</p>
-	  </div>
-	  <div class="faq-section">
-	  	<h3 class="faq-header">RESERVATIONS - CHANGING/CANCELLING</h3>
-		<p><strong class="quer">How do I view my hotel reservations online?</strong>
-		 You will receive a confirmation email, as well as a printable confirmation upon booking. Also, you may log into your account on <%= link_to "WWW.BESTNIGHTS.COM", root_path %> and access all of your bookings.
-		</p>
-		<p><strong class="quer">How do I modify or cancel my reservation?</strong>
-		 Log in to your account or contact the booked hotel to cancel.
-		</p>
-		<p><strong class="quer">I forgot/lost my confirmation number. How do I find it?</strong>
-		 Check your email for a confirmation or log into your <%= link_to "WWW.BESTNIGHTS.COM", root_path %> account to view your booking history.
-		</p>
-		<p><strong class="quer">Can I modify or cancel a reservation that has been booked directly with the hotel?</strong>
-		 Only if the booking was completed through <%= link_to "WWW.BESTNIGHTS.COM", root_path %>.
-		</p>
-	  </div>
-	  <div class="faq-section">
-	  	<h3 class="faq-header">HOTEL INFORMATION</h3>
-		<p><strong class="quer">Where can I find contact information for a specific hotel?</strong>
-		 From the main search, type the name of the hotel, and enter the hotel information page.
-		</p>
-		<p><strong class="quer">How can I make a special request regarding my stay?</strong>
-		 We recommend calling the hotel to confirm your request has been handled properly. You can also send <%= link_to "WWW.BESTNIGHTS.COM", root_path %> an email at <%= mail_to "info@bestnights.com" %> and we will contact the hotel for you.
-		</p>
-		<p><strong class="quer">What amenities do your hotels have?</strong>
-		 Hotel amenities are listed on the corresponding hotel information page.
-		</p>
-		<p><strong class="quer">Does the hotel accept pets?</strong>
-		 Please check the hotels policies on the hotel information page.
-		</p>
-		<p><strong class="quer">How do I find hotel accommodations for the physically challenged at a specific hotel?</strong>
-		 Most hotels will be able to accommodate disabilities and physically challenged individuals. Please call the hotel to verify and inform the staff of any special requirements.
-		</p>
-		<p><strong class="quer">Do children stay free?</strong>
-		 Please check the individual hotel policies.
-		</p>
-		<p><strong class="quer">What if I left an item at a hotel?</strong>
-		 Please call the hotel as soon as possible to inform the staff of your lost item. Most hotels will help make arrangements to return the item.
-		</p>
-		<p><strong class="quer">How do I compliment a hotel?</strong>
-		 Many hotels will have a compliment card available upon checkout. Also check the hotel’s website for a feedback form. Lastly, there are many review websites to leave a great review.
-		</p>
-	  </div>
-	  <div class="faq-section">
-	  	<h3 class="faq-header"><%= link_to "WWW.BESTNIGHTS.COM", root_path %> SECURITY</h3>
-		<p><strong class="quer">Is your online reservation process secure to protect my personal and credit card information?</strong>
-		 <%= link_to "WWW.BESTNIGHTS.COM", root_path %> is PCI Compliant as well as SSL Certified. Your information is safe with us!
-		</p>
-		<p><strong class="quer">Is my personal information safe and secure on your website?</strong>
-		 Again, we follow the strict compliance rules of PCI Compliance as well as being SSL Certified.
-		</p>
-		<p><strong class="quer">While checking availability and making an online reservation, I receive a message stating my "session expired." Why is this happening, how can this be fixed?</strong>
-		 This is a safety feature to ensure your private information does not get into the hands of other individuals if you leave your booking open for too long. Rest assured, your private information is safe with <%= link_to "WWW.BESTNIGHTS.COM", root_path %>.
-		</p>
-	  </div>
-	  <div class="faq-section">
-	  	<h3 class="faq-header">GENERAL INFORMATION REQUESTS</h3>
-		<p><strong class="quer">I have a marketing opportunity I'd like to present to <%= link_to "WWW.BESTNIGHTS.COM", root_path %>, who should I contact?</strong>  
-		 Please send an email to <%= mail_to "info@bestnights.com" %>
-		</p>
-		<p><strong class="quer">I'm experiencing technical problems with <%= link_to "WWW.BESTNIGHTS.COM", root_path %>, who should I contact?</strong>
-		 Contact us by email or by phone: <%= mail_to "info@bestnights.com" %> or <span id="phoneNumber">1-800-494-BEST (2378)</span>
-		</p>
-	  </div>
+	  <% unless @faq.blank? %>
+			<%= @faq.inspect %>
+		<% end %>
 	</div>
 	<%= render :partial => "common/home_footer" %>
 </div>

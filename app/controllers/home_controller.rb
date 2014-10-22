@@ -22,7 +22,7 @@ class HomeController < ApplicationController
   end
 
   def faq
-    
+    @faq = Faq.first
   end
 
   def contact_us
