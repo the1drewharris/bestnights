@@ -74,7 +74,7 @@ class HotelsController < ApplicationController
       
     else
       flash[:errors] = @hotel.errors.full_messages
-      redirect_to :back
+      render template: "hotels/new"
     end
   end
   

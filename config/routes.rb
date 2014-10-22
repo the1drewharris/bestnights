@@ -128,6 +128,7 @@ Bestnights::Application.routes.draw do
     get 'edit_traveler', on: :member
     get 'cancel_booking'
     get 'change_password', on: :member
+    get 'booking_status'
   end
   resources :promotions
   resources :rooms

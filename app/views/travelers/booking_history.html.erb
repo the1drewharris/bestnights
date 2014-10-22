@@ -6,6 +6,7 @@
   <table class="bookconf" width="100%" border="0">
     <thead>
       <tr>
+        <td align="center" valign="middle">Status</td>
         <td align="center" valign="middle">Reservation No</td>
         <td align="center" valign="middle">Book Date</td>
         <td align="center" valign="middle">Arrival</td>
@@ -18,6 +19,9 @@
       <% if !@booking_histories.blank? %>
 				<% @booking_histories.each do |book| %>
 					<tr>
+            <td>
+              <%= link_to "Download", traveler_booking_status_path(:id => book.id, :traveler_id => book.traveler_id, :format => "pdf"), class: "links" %>
+            </td>
 						<td align="center" valign="middle"><%= book.id %></td>
 						<td align="center" valign="middle"><%= book.created_at.strftime("%Y-%m-%d") %></td>
 						<td align="center" valign="middle"><%= book.from_date  %></td>

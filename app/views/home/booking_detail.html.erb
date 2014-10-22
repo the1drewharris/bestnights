@@ -235,8 +235,10 @@
 									<% end %>
 									<% if @flag == 1 && session[:room_rate][index] != 0 %>
 										<% unless room.aditionaladults.blank? %>
+										<span style="color:#000;">Nights: <strong><%= ((session[:checkout].to_date - session[:checkin].to_date).to_i).to_i %></strong> </span>	
 											<%= link_to "Book Now", checkout_path(:hotel_id => @hotel.id, :room_type_id => room.room_sub_type.id) , class: "link_style", id: "link_style", additionaladult: room.aditionaladults %><br />
 										<% else %>
+										<span style="color:#000;">Nights: <strong><%= ((session[:checkout].to_date - session[:checkin].to_date).to_i).to_i %></strong> </span>										
 											<%= link_to "Book Now", checkout_path(:hotel_id => @hotel.id, :room_type_id => room.room_sub_type.id) , class: "link_style", id: "link_style", additionaladult: "0" %><br />
 										<% end %>
 										<span>

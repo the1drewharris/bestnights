@@ -1,0 +1,143 @@
+<div style="padding:10px; margin:0 auto; clear:both; overflow:hidden; border:none; border-bottom:3px solid #000000; outline:none;">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td align="left" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr>
+  <td align="left" valign="top" width="50%"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td align="left" valign="top"><%= wicked_pdf_image_tag 'pdf-logo.jpg' %></td>
+    </tr>
+     <% @country = Carmen::Country.coded(@hotel.country_id ) %>
+      <% if !@booking.traveler.blank? %>
+        <% @traveler_country = Carmen::Country.coded(@booking.traveler.country_id ) %>
+        <% unless @traveler_country.blank? %>
+          <% @traveler_subregion = @traveler_country.subregions.coded(@booking.traveler.state_id) %>
+        <% end %>
+      <% end %>
+      <% if !@country.blank? &&  @country.name == "Canada" %>
+        <% @currency = "CAD" %> 
+      <% else %>
+        <%  @currency = "USD" %>
+      <% end %>
+      <% unless @country.blank? %>
+        <% @subregion = @country.subregions.coded(@hotel.state_id) %>
+        <tr>
+          <td align="left" valign="top" style="padding-top:42px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;"><%= @booking.hotel.name %><br /><%= @hotel.address1 %>, <%= @hotel.city.titleize %>, <%= @subregion.name.titleize %>, <%= @country.name.titleize %></td>
+        </tr>
+      <% else %>
+        <tr>
+          <td align="left" valign="top" style="padding-left:50px; padding-top:42px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;"><%= @booking.hotel.name %><br /><%= @hotel.city.titleize %></td>
+        </tr>
+      <% end %>
+  </table></td>
+  <td width="50%" align="right" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal; text-align:right;"><strong>Bestnights.com</strong><br />Fax: 1 800 494 BEST (2378)<br />Phone: 1 800 494 BEST (2378)<br />E-mail: info@bestnights.com</td>
+</tr>
+<tr>
+  <td align="left" valign="top">&nbsp;</td>
+  <td align="left" valign="top">&nbsp;</td>
+</tr>
+<tr>
+  <td align="left" valign="top"><table border="0" cellspacing="0" cellpadding="3">
+    <tr>
+      <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;">Invoice number:</td>
+      <td align="right" valign="middle" style="padding-left:10px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;"><%= @booking.id %></td>
+    </tr>
+    <tr>
+      <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;">Date:</td>
+      <td align="right" valign="middle" style="padding-left:10px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;"><%= @booking.created_at %></td>
+    </tr>
+    <tr>
+      <td align="left" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;">Period:</td>
+      <td align="right" valign="middle" style="padding-left:10px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;"><%= @booking.from_date %> - <%= @booking.from_date.advance(:months => 1) %></td>
+    </tr>
+  </table></td>
+  <td align="left" valign="top">
+    <table border="0" cellspacing="0" width="100%;">
+    <tr>
+      <td align="right" valign="middle" style="padding-left:10px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:16px; color:#000000; font-weight:bold; font-style:normal;"><%= @booking.traveler.blank? ? "" : @booking.traveler.name.titleize %>&nbsp;&nbsp; <span style="font-weight:normal;"><%= @booking.traveler.blank? ? "" : @booking.traveler.phone_number %></span></td>
+    </tr>
+    <tr>
+      <td align="right" valign="middle" style="padding-left:10px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;">
+        <%= @booking.traveler.blank? ? "" : @booking.traveler.address1.titleize %>, <%= @booking.traveler.blank? ? "" : @traveler_subregion.name.titleize %>, <%= @booking.traveler.blank? ? "" : @traveler_country.name.titleize %>
+      </td>
+    </tr>
+    <tr>
+      <td align="right" valign="middle" style="padding-left:10px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:16px; color:#000000; font-weight:normal; font-style:normal;"><%= @booking.traveler.email %></td>
+    </tr>
+    
+  </table>
+    
+  </td>
+</tr>
+</table></td>
+</tr>
+<tr>
+<td align="left" valign="top">&nbsp;</td>
+</tr>
+<tr>
+<td height="30" align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:20px; line-height:25px; color:#000000; text-transform:uppercase; font-weight:bold; font-style:normal;">Booking</td>
+</tr>
+<tr>
+<td align="left" valign="top"><table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+  <td colspan="2"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td height="30" align="left" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;">Arrival</td>
+      <td align="right" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;"><%= @booking.from_date.strftime('%A, %B %d, %G') %></td>
+    </tr>
+    <tr>
+      <td height="30" align="left" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;">Departure</td>
+      <td align="right" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;"><%= @booking.to_date.strftime('%A, %B %d, %G') %></td>
+    </tr>
+    <tr>
+      <td height="30" align="left" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;">Traveler Credit Card</td>
+      <td align="right" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;"><%= @booking.traveler.blank? ? "" : @booking.traveler.credit_card_number %> </td>
+    </tr>
+    <tr>
+      <td height="30" align="left" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;">Traveler Credit Card Expiry Date</td>
+      <td align="right" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;"><%= @booking.traveler.blank? ? "" : @booking.traveler.credit_card_expiry_date.strftime("%m/ %d") %> </td>
+    </tr>
+    <tr>
+      <td height="30" align="left" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;">Number of Guests</td>
+      <td align="right" valign="middle" bgcolor="#f7f7f7" style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; text-transform:none; font-weight:normal; font-style:normal; border:none; border-bottom:1px solid #FFFFFF;"><%= @booking.guests %> </td>
+    </tr>
+
+    <table cellpadding="0" cellspacing="0">
+      <tr>
+        <td style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; border-left:#eee 1px solid; border-bottom:#eee 1px solid;">Date</td>
+        <% ((@booking.to_date - @booking.from_date).to_i).times do |day| %>
+          <td style="text-align: right; padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; border-left:#eee 1px solid; border-bottom:#eee 1px solid; border-right:#eee 1px solid;">
+            <span><%= @booking.from_date.advance(days: day).strftime("%m/ %d") %></span>
+          </td>
+        <% end %>
+      </tr>
+      <tr>
+        <td style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; border-left:#eee 1px solid; border-bottom:#eee 1px solid;">Rate(<%= @currency %>)</td>
+
+        <% ((@booking.to_date - @booking.from_date).to_i).times do |day| %>
+          <td style="text-align: right; padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; border-left:#eee 1px solid; border-bottom:#eee 1px solid; border-right:#eee 1px solid;">
+            <span><%= number_with_precision((@booking.price.to_f / ((@booking.to_date - @booking.from_date).to_i)).to_f, :precision => 2, :separator => '.') %></span>
+          </td>
+        <% end %>
+      </tr>
+  </table>
+  <tr>
+    <td align="left" valign="middle" style="padding-bottom:10px; padding-top:10px; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:17px; color:#000000; text-transform:none; font-weight:bold; font-style:normal; border:none; border-bottom:3px solid #000000; border-top:3px solid #000000;">Total Amount (Taxes not included)</td>
+    <td align="right" valign="middle" style="padding-bottom:10px; padding-top:10px; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:17px; color:#000000; text-transform:none; font-weight:bold; font-style:normal; border:none; border-bottom:3px solid #000000; border-top:3px solid #000000;"><%= number_with_precision(@booking.price, :precision => 2, :separator => '.') %> <%= @currency %></td>
+  </tr>
+  <tr>
+    <td align="left" valign="top">&nbsp;</td>
+    <td align="left" valign="top">&nbsp;</td>
+  </tr>
+  </td>
+  </tr>
+</table>
+</td>
+</tr>
+
+
+<tr>
+<td height="50" align="left" valign="top">&nbsp;</td>
+</tr>
+</table>
+</div>

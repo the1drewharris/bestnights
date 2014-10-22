@@ -100,6 +100,18 @@ class TravelersController < ApplicationController
     @traveler = Traveler.find_by_id(params[:id])
   end
 
+  def booking_status
+    @booking = Booking.find_by_id(params[:id])
+    @hotel = @booking.hotel
+    @room = Room.find_by_id(@booking.room_id)
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render :pdf => "invoice_status"
+      end
+    end
+  end
+
   def edit_traveler
     unless current_traveler
       @traveler = Traveler.find(session[:traveler_id])
