@@ -501,9 +501,9 @@ class HomeController < ApplicationController
         @numbers = numbers
 
         @latest_booked = Booking.where(traveler_id: @traveler.id, hotel_id: room.hotel.id).order("created_at DESC").limit(1)
-        @fax_email = FaxMailer.hotel_booking_mail(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, session[:room_needed], @latest_booked, @room1,@rate,@card_expiry, request.protocol,request.host_with_port, @number_nights, @price).deliver
+        @fax_email = FaxMailer.hotel_booking_mail(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, session[:room_needed], @latest_booked, @room1,@rate,@card_expiry, request.protocol,request.host_with_port, @number_nights, @price, session[:room_type_id]).deliver
         if !@hotel.email.nil? &&  @hotel.email != ""
-          @fax_email_to_hotel = FaxMailer.email_to_hotel(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, room_ids, @latest_booked, @room1, @card_expiry, request.protocol,request.host_with_port, session[:room_needed], @number_nights, @price).deliver
+          @fax_email_to_hotel = FaxMailer.email_to_hotel(@traveler, @amount, @card_number, @ccv, @card_type, @hotel, @checkin, @checkout, room_ids, @latest_booked, @room1, @card_expiry, request.protocol,request.host_with_port, session[:room_needed], @number_nights, @price, session[:room_type_id]).deliver
         end
         cookies.delete :guests
         cookies.delete :additionaladult
@@ -544,6 +544,7 @@ class HomeController < ApplicationController
 
   def book(traveler, amount, cardnumber,ccv, cardtype, hotel, booking_number, booking_created_on, checkin, checkout, room_ids, room_type, room, booking, price, nights)
     logger.info"@@@@@@@@@@#{traveler.inspect}@@@@@@#{amount}@@@@@@@@@@@@#{cardnumber}@@@@@@@@#{cardtype}@@@@@@#{checkin}@@@@@@#{checkout}@"
+    logger.info"%%%%%%%%%%%%%%%%%%%#{booking.inspect}%%%%%%%%%%%%%%%%%"
     @image = '<img src="http://23.253.149.108/e-mail-logo.jpg" width="316" height="52" alt=''>'
     #TODO make this work with the fax service
     @disclaimer = CGI::unescape("Disclaimer"+"\n"+"* A confirmation has been sent to the guest with all of the booking details"+"\n"+"* It is your duty , as the booking property, to safeguard this fax and the guests credit card info in a secure way that follows your company's security policies")
@@ -559,11 +560,23 @@ class HomeController < ApplicationController
         end 
       end 
 
-      booking.each do |book|
-        nights.times do |night|
-          @night_data += '<td style="height:40px; color:#000;border:1px solid #000; word-break: break-word;">'+"#{view_context.number_with_precision((amount / nights), precision: 2, separator: '.')}"+'</td>'
-        end
-      end
+       @rates = RoomRate.where("room_sub_type_id=? AND hotel_id=?", session[:room_type_id], session[:hotel_id])
+       unless @rates.empty?
+         @rates.each do |rate| 
+           unless rate.blank? 
+             ((session[:checkout].to_date - session[:checkin].to_date).to_i).times do |day| 
+               if (rate.from_date..rate.to_date).cover?(session[:checkin].to_date.advance(days: day)) 
+                @night_data += '<td style="height:40px; color:#000;border:1px solid #000; word-break: break-word;">'+"#{view_context.number_with_precision(rate.price, :precision => 2, :separator => '.')}"+'</td>'
+               end 
+             end 
+           end 
+         end 
+       end 
+      # booking.each do |book|
+      #   nights.times do |night|
+      #     @night_data += '<td style="height:40px; color:#000;border:1px solid #000; word-break: break-word;">'+"#{view_context.number_with_precision((amount / nights), precision: 2, separator: '.')}"+'</td>'
+      #   end
+      # end
 
       booking.each do |book|
         @guest_data += '<td style="font-weight: bold; width: 30%;">' + "#{book.guests}" + '</td>'

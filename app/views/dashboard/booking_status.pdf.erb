@@ -114,10 +114,19 @@
       <tr>
         <td style="padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; border-left:#eee 1px solid; border-bottom:#eee 1px solid;">Rate(<%= @currency %>)</td>
 
-        <% ((@booking.to_date - @booking.from_date).to_i).times do |day| %>
-          <td style="text-align: right; padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; border-left:#eee 1px solid; border-bottom:#eee 1px solid; border-right:#eee 1px solid;">
-            <span><%= number_with_precision((@booking.price.to_f / ((@booking.to_date - @booking.from_date).to_i)).to_f, :precision => 2, :separator => '.') %></span>
-          </td>
+        <% @rates = RoomRate.where("room_sub_type_id=? AND hotel_id=?", @booking.room.room_sub_type_id, session[:hotel_id]) %>
+        <% unless @rates.empty?%>
+          <% @rates.each do |rate| %>
+            <% unless rate.blank? %>
+              <% ((@booking.to_date - @booking.from_date).to_i).times do |day| %>
+                <% if (rate.from_date..rate.to_date).cover?(@booking.from_date.advance(days: day)) %>
+                  <td style="text-align: right; padding:5px; font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:17px; color:#000000; border-left:#eee 1px solid; border-bottom:#eee 1px solid; border-right:#eee 1px solid;">
+                    <%= number_with_precision(rate.price, :precision => 2, :separator => '.') %>
+                  </td>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
         <% end %>
       </tr>
   </table>

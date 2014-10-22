@@ -1,7 +1,7 @@
 class FaxMailer < ActionMailer::Base
   default from: "info@bestnights.com"
 
-  def hotel_booking_mail(traveler, amount, cardnumber, ccv, cardtype, hotel, checkin, checkout, numbers, latest_booked, room, rate, credit_card_expiry_date, protocol,host, number_nights, price)
+  def hotel_booking_mail(traveler, amount, cardnumber, ccv, cardtype, hotel, checkin, checkout, numbers, latest_booked, room, rate, credit_card_expiry_date, protocol,host, number_nights, price, room_sub_type)
   	@traveler = traveler
     @country = Carmen::Country.coded(@traveler.country_id )
     @subregion = @country.subregions.coded(@traveler.state_id)
@@ -21,11 +21,12 @@ class FaxMailer < ActionMailer::Base
     @expiry_date = credit_card_expiry_date
     @nights = number_nights
     @price = @amount
+    @room_sub_type = room_sub_type
   	subject = "Bestnights Booking Confirmation"
     mail(:subject => subject, :to => @traveler.email)
   end
   
-  def email_to_hotel(traveler, amount, cardnumber, ccv, cardtype, hotel, checkin, checkout, room_ids, latest_booked, room, credit_card_expiry_date, protocol,host, numbers, number_nights, price)
+  def email_to_hotel(traveler, amount, cardnumber, ccv, cardtype, hotel, checkin, checkout, room_ids, latest_booked, room, credit_card_expiry_date, protocol,host, numbers, number_nights, price, room_sub_type)
     @traveler = traveler
     @country = Carmen::Country.coded(@traveler.country_id )
     @subregion = @country.subregions.coded(@traveler.state_id)
@@ -44,6 +45,7 @@ class FaxMailer < ActionMailer::Base
     @expiry_date = credit_card_expiry_date
     @nights = number_nights
     @price = price
+    @room_sub_type = room_sub_type
     subject = "Booking Hotel"
     mail(:subject => subject, :to => @hotel.email)
   end

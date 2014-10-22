@@ -122,19 +122,27 @@
           <% end %>    
         </tr>
         <tr style="color:#4c4c4c; font-size: 12px;">
-          <% @country = Carmen::Country.coded(@hotel.country_id ) %>
-          <% @booking.each do |book| %>
-            <% @nights.times do |night| %>
-              <td style="background: #ef807f; height:40px;"><%= number_with_precision(@price / @nights, :precision => 2, :separator => '.') %> 
-                <% if !@country.blank? && @country.name == "Canada" %>
-                  CAD
-                <% else %>
-                  USD
+              <% @country = Carmen::Country.coded(@hotel.country_id ) %>
+              <% @rates = RoomRate.where("room_sub_type_id=? AND hotel_id=?", @room_sub_type, @hotel.id) %>
+              <% unless @rates.empty?%>
+                <% @rates.each do |rate| %>
+                  <% unless rate.blank? %>
+                    <% ((@checkout.to_date - @checkin.to_date).to_i).times do |day| %>
+                      <% if (rate.from_date..rate.to_date).cover?(@checkin.to_date.advance(days: day)) %>
+                        <td style="background: #ef807f; height:40px;">
+                          <%= number_with_precision(rate.price, :precision => 2, :separator => '.') %>
+                          <% if !@country.blank? && @country.name == "Canada" %>
+                            CAD
+                          <% else %>
+                            USD
+                          <% end %>
+                        </td>
+                      <% end %>
+                    <% end %>
+                  <% end %>
                 <% end %>
-              </td>   
-            <% end %>
-          <% end %>
-        </tr>
+              <% end %>
+            </tr>
       </table>
     </td>
   </tr>

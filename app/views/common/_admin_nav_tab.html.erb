@@ -69,10 +69,10 @@
 		<% else %>
 			<%= link_to "Manage Contact", edit_site_contact_path(SiteContact.first) %>
 		<% end %>
-		<% if Faq.first.blank? %>
-			<%= link_to "Manage FAQ", new_faq_path %>
-		<% else %>
-			<%= link_to "Manage FAQ", edit_faq_path(Faq.first) %>
-		<% end %>
+		<%# if Faq.first.blank? %>
+			<%#= link_to "Manage FAQ", new_faq_path %>
+		<%# else %>
+			<%#= link_to "Manage FAQ", edit_faq_path(Faq.first) %>
+		<%# end %>
 	<% end %>	
 </nav>

@@ -98,15 +98,26 @@
 					<% end %>
 				</tr>
 				<tr>
-					<% @number_nights.times do |night| %>
-						<td><%= number_with_precision(session[:price]["#{session[:roomtype]}"] / @number_nights, :precision => 2, :separator => '.') %>
-							<% if !@country.blank? && @country.name == "Canada" %>
-								CAD
-							<% else %>
-							  USD
+					<% @rates = RoomRate.where("room_sub_type_id=? AND hotel_id=?", session[:room_type_id], session[:hotel_id]) %>
+					<% unless @rates.empty?%>
+						<% @rates.each do |rate| %>
+							<% unless rate.blank? %>
+								<% ((session[:checkout].to_date - session[:checkin].to_date).to_i).times do |day| %>
+									<% if (rate.from_date..rate.to_date).cover?(session[:checkin].to_date.advance(days: day)) %>
+										<td>
+											<%= number_with_precision(rate.price, :precision => 2, :separator => '.') %>
+											<% if !@country.blank? && @country.name == "Canada" %>
+												CAD
+											<% else %>
+											  USD
+											<% end %>
+										</td>
+									<% end %>
+								<% end %>
 							<% end %>
-						</td>
+						<% end %>
 					<% end %>
+					
 				</tr>
 			</table>
 			</div>
