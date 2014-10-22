@@ -16,19 +16,19 @@
       </tr>
     </thead>
     <tbody>
-      <% @hotel = Hotel.find_by_id(book.hotel_id) %>
-      <% @country = Carmen::Country.coded(@hotel.country_id ) %>
-      <% unless @country.blank? %>
-        <% @subregion = @country.subregions.coded(@hotel.state_id) %>
-        <% if !@country.blank? &&  @country.name == "Canada" %>
-          <% @currency = "CAD" %> 
-        <% else %>
-          <%  @currency = "USD" %>
-        <% end %>
-      <% end %>
 
       <% if !@booking_histories.blank? %>
 				<% @booking_histories.each do |book| %>
+          <% @hotel = Hotel.find_by_id(book.hotel_id) %>
+          <% @country = Carmen::Country.coded(@hotel.country_id ) %>
+          <% unless @country.blank? %>
+            <% @subregion = @country.subregions.coded(@hotel.state_id) %>
+            <% if !@country.blank? &&  @country.name == "Canada" %>
+              <% @currency = "CAD" %> 
+            <% else %>
+              <%  @currency = "USD" %>
+            <% end %>
+          <% end %>
 					<tr>
             <td>
               <%= link_to "Download", traveler_booking_status_path(:id => book.id, :traveler_id => book.traveler_id, :format => "pdf"), class: "links" %>
