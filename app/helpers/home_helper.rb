@@ -26,7 +26,7 @@ module HomeHelper
 			end
 		end
 		unless @prices.blank?
-			return number_with_precision(@prices.min, :precision => 2, :separator => '.')
+			return number_with_precision((@prices.min * (end_date.to_date - start_date.to_date).to_i), :precision => 2, :separator => '.')
 		else
 			return 0.00
 		end
