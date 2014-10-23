@@ -545,7 +545,6 @@ class HomeController < ApplicationController
   def book(traveler, amount, cardnumber,ccv, cardtype, hotel, booking_number, booking_created_on, checkin, checkout, room_ids, room_type, room, booking, price, nights)
     logger.info"@@@@@@@@@@#{traveler.inspect}@@@@@@#{amount}@@@@@@@@@@@@#{cardnumber}@@@@@@@@#{cardtype}@@@@@@#{checkin}@@@@@@#{checkout}@"
     logger.info"%%%%%%%%%%%%%%%%%%%#{booking.inspect}%%%%%%%%%%%%%%%%%"
-    @image = '<img src="http://23.253.149.108/e-mail-logo.jpg" width="316" height="52" alt=''>'
     #TODO make this work with the fax service
     @disclaimer = CGI::unescape("Disclaimer"+"\n"+"* A confirmation has been sent to the guest with all of the booking details"+"\n"+"* It is your duty , as the booking property, to safeguard this fax and the guests credit card info in a secure way that follows your company's security policies")
     @policy = CGI::unescape("Within 48 hours, unless specified by the individual hotel.")
