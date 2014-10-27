@@ -3,8 +3,9 @@
 
 	<div class="form-inputs">
 		<%= f.label :category %>
-		<%= f.select :category_id, options_for_select(@faq_categories.map{|s|[s.name, s.id]}) %>
-		<%= f.input :question %>
+		<%= f.select :category_id, options_for_select(@faq_categories.map{|s|[s.name, s.id]}) %><br />
+		<%= f.label :question %>
+		<%= f.text_area :question, class: 'ckeditor' %>
 		<%= f.label :answer %>
 		<%= f.text_area :answer, class: 'ckeditor' %>
 	</div>
