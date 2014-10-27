@@ -1,0 +1,25 @@
+<div id="container-main">
+<h1 class="prop-title">FAQ Categories</h1> 
+<table class="admintablelist">
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @faq_categories.each do |faq_category| %>
+  <tr>
+    <td><%= faq_category.name %></td>
+    <td><%= link_to 'Show', faq_category %></td>
+    <td><%= link_to 'Edit', edit_faq_category_path(faq_category) %></td>
+    <td><%= link_to 'Destroy', faq_category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+<% if @about_us.blank? %>
+  <%= link_to 'New Faq category', new_faq_category_path %>
+<% end %>
+</div>

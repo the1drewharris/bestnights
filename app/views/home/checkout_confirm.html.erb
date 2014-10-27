@@ -188,7 +188,9 @@ Your credit card is required to guarantee your booking. Please note that your cr
 				  		&#10029;
 				  	<% end %>
 				  </span><br>
-				  <%= @hotel.city.titleize %>, <%= @subregion.name %>, <%= @country.name %>
+				  <% unless @country.blank? %>
+				  	<%= @hotel.city.titleize %>, <%= @subregion.name %>, <%= @country.name %>
+				  <% end %>
 				
 				<div class="roomdetail fLeft chkinout">
 					<b>Room:</b> 

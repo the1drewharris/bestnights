@@ -22,7 +22,8 @@ class HomeController < ApplicationController
   end
 
   def faq
-    @faq = Faq.first
+    @faq_categories = FaqCategory.all
+    @faqs = Faq.all
   end
 
   def contact_us
@@ -79,7 +80,7 @@ class HomeController < ApplicationController
       flash[:success] = "Kindest Regards for adding your property. Your account is now pending. You will be notified by email when your property is active."
       redirect_to edit_room_url(room.id)
     rescue ActiveRecord::RecordNotUnique => e
-      flash[:errors] = "Please submit all the values in the respective sections"
+      flash[:errors] = "The data you submitted, already exists"
       redirect_to root_url
     end
   end
@@ -659,7 +660,7 @@ class HomeController < ApplicationController
         '<table cellspacing="0" width="100%" cellpadding="0" align="center" style="text-align: left; font-size:14px;">'\
           '<tbody>'\
             '<tr>'\
-              '<td style="font-weight: bold; font-size: 17px;" colspan="4">Total Price for this reservation: '"#{@currency}" + "#{amount}" + ' (taxes not included) </td>'\
+              '<td style="font-weight: bold; font-size: 17px;" colspan="4">Total Price for this reservation: '"#{@currency}" + ' ' + "#{view_context.number_with_precision(amount, precision: 2, separator: '.')}" + ' (taxes not included) </td>'\
             '</tr>'\
             '<tr style="height:95px;"><td></td></tr>'\
             '<tr>'\

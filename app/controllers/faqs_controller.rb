@@ -27,6 +27,7 @@ class FaqsController < ApplicationController
   # GET /faqs/new.json
   def new
     @faq = Faq.new
+    @faq_categories = FaqCategory.all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -37,6 +38,7 @@ class FaqsController < ApplicationController
   # GET /faqs/1/edit
   def edit
     @faq = Faq.find(params[:id])
+    @faq_categories = FaqCategory.all
   end
 
   # POST /faqs
@@ -46,7 +48,7 @@ class FaqsController < ApplicationController
 
     respond_to do |format|
       if @faq.save
-        format.html { redirect_to @faq, notice: 'Faq was successfully created.' }
+        format.html { redirect_to faq_path(@faq), success: 'Faq was successfully created.' }
         format.json { render json: @faq, status: :created, location: @faq }
       else
         format.html { render action: "new" }

@@ -1,6 +1,8 @@
 Bestnights::Application.routes.draw do
   
 
+  resources :faq_categories
+
   resources :faqs
 
   resources :site_contacts
@@ -68,7 +70,7 @@ Bestnights::Application.routes.draw do
   get '/home/subregion_options' => 'home#subregion_options'
   get '/hotels/subregion_options' => 'home#subregion_options'
   get '/users/subregion_options' => 'home#subregion_options'
-  match 'faq' => 'home#faq', :as => :faq
+  match 'site_faq' => 'home#faq', :as => :site_faq
   get '/home/autocomplete_hotel_name' => 'home#autocomplete_hotel_name'
   match 'arrivals' => 'dashboard#arrivals', :as => 'arrivals'  
   match 'bookings' => 'dashboard#bookings', :as => 'bookings'  
