@@ -2,6 +2,10 @@
 <h1 class="prop-title">Contact</h1> 
 <table class="admintablelist">
   <tr>
+    <th>Phone</th>
+    <th>Fax</th>
+    <th>Email</th>
+    <th>Address</th>
     <th></th>
     <th></th>
     <th></th>
@@ -10,7 +14,10 @@
 
 <% @site_contacts.each do |site_contact| %>
   <tr>
-    <td><%= term.content.html_safe unless term.content.nil? %></td>
+    <td><%= site_contact.phone_number unless site_contact.phone_number.nil? %></td>
+    <td><%= site_contact.fax unless site_contact.fax.nil? %></td>
+    <td><%= site_contact.email unless site_contact.email.nil? %></td>
+    <td><%= site_contact.address unless site_contact.address.nil? %></td>
     <td><%= link_to 'Show', site_contact %></td>
     <td><%= link_to 'Edit', edit_site_contact_path(site_contact) %></td>
     <td><%= link_to 'Destroy', site_contact, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -19,7 +26,7 @@
 </table>
 
 <br />
-<% if @terms.blank? %>
+<% if @site_contacts.blank? %>
   <%= link_to 'Add Contact', new_site_contact_path %>
 <% end %>
 </div>
