@@ -69,15 +69,7 @@
 		<% else %>
 			<%= link_to "Manage Contact", edit_site_contact_path(SiteContact.first) %>
 		<% end %>
-		<% if FaqCategory.first.blank? %>
 			<%= link_to "Manage FAQ Category", new_faq_category_path %>
-		<% else %>
-			<%= link_to "Manage FAQ Category", edit_faq_category_path(FaqCategory.first) %>
-		<% end %>
-		<%# if Faq.first.blank? %>
 			<%= link_to "Manage FAQ", new_faq_path %>
-		<%# else %>
-			<%#= link_to "Manage FAQ", edit_faq_path(Faq.first) %>
-		<%# end %>
 	<% end %>	
 </nav>
