@@ -91,14 +91,14 @@ function next2ClickValidate(){
 		<li><label for="client_address1">Address*</label><input id="client_address1" name="hotel[address1]" size="30" type="text"></li>
 		<li><label for="client_city">City*</label><input id="client_city" name="hotel[city]" size="30" type="text"></li>
 		<li class="country">
-			<label for="traveler_country_id">Country</label>
-			<%= country_select_tag :country_id, priority: %w(US CA), prompt: 'Please select a country' %>
+			<label for="hotel_country_id">Country</label>
+			<%= country_select( :hotel, :country_id ) %>
 		</li>
-		<li><label for="client_zip">Zip/Postal Code*</label><input id="client_zip" name="hotel[zip]" size="30" type="text"></li>
 		<li class="state">
-			<label for="State/Province">State/Province</label>
-			<input id="client_state" name="state_id" size="30" type="text">
-		</li>
+			  	<label for="State/Province" style="float:left">State/Province</label>
+				<%= render partial: '/hotels/test', locals: {parent_region: 'country_id'} %>
+			  </li>
+		<li><label for="client_zip">Zip/Postal Code*</label><input id="client_zip" name="hotel[zip]" size="30" type="text"></li>
 		<li>
 			<label for="client_comm">Preferred Communication</label>
 			<select id="client_comm" name="hotel[email_or_fax]">

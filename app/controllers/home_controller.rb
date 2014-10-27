@@ -50,6 +50,8 @@ class HomeController < ApplicationController
       
       p params[:hotel]
       @hotel = Hotel.new(params[:hotel])
+      @hotel.country_id = params[:hotel][:country_id]
+      @hotel.state_id = params[:traveler][:state_id]
       @hotel.user_id = user.id
       @hotel.save(:validate => false)
       @hotel = @hotel.reload
@@ -80,7 +82,7 @@ class HomeController < ApplicationController
       flash[:success] = "Kindest Regards for adding your property. Your account is now pending. You will be notified by email when your property is active."
       redirect_to edit_room_url(room.id)
     rescue ActiveRecord::RecordNotUnique => e
-      flash[:errors] = "The data you submitted, already exists"
+      flash[:errors] = " Please do not enter any duplicate name of hotels"
       redirect_to root_url
     end
   end
