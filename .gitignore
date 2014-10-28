@@ -28,6 +28,8 @@ capybara-*.html
 /db/*.sqlite3
 /public/system/*
 /coverage/
+/config/database.yml
+/public/fax_content.html
 /spec/tmp/*
 **.orig
 rerun.txt

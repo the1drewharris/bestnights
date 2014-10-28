@@ -59,9 +59,9 @@
 			  		<%= f.select :user_id, options_for_select(User.all.map{|s|[s.email, s.id]}, @hotel.user.id) %>
 			  	</li>
 			  <% end %>
-			  <li>
+			  <li>  
 		  		<%= f.label :commission %>
-		  			<%= text_field_tag :commission,  @hotel.commission_rate.blank?  ? "" : @hotel.commission_rate.amount %>
+		  			<%= text_field_tag :commission,  @hotel.commission_rate.blank?  ? "" : number_with_precision(@hotel.commission_rate.amount, :precision => 2, :separator => '.') %>
 		  	</li>
 		  </ul>
 		</fieldset>	
