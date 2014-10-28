@@ -12,8 +12,10 @@ class DashboardController < ApplicationController
     @hotel = Hotel.find(session[:hotel_id])
     session[:hotel_name] = @hotel.name
     @hotel_view = HotelView.new
-    @hotel_view.hotel_id = @hotel.id
-    @hotel_view.save
+    if @hotel.status == "active" 
+      @hotel_view.hotel_id = @hotel.id
+      @hotel_view.save
+    end
     # Hotel View
     @hotel_day_wise = HotelView.where("created_at >= ? AND hotel_id=?", Date.today, session[:hotel_id])
     @hotel_week_wise = HotelView.where("created_at > DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND hotel_id=?",session[:hotel_id])

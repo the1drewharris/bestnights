@@ -1,15 +1,19 @@
 class TravelersController < ApplicationController
   before_filter :authenticate_user!, only: [:index]
+  layout :resolve_layout
   #before_filter :authenticate_traveler!, only: [:booking_history, :edit_traveler, :change_password]  
-  layout "admin_basic", only: [:index, :new, :edit, :show_traveler]
-  layout "traveler_basic", only: [:booking_history, :edit_traveler, :show, :change_password]
+
   def index
     @travelers = Traveler.search(params[:search])
   end
   
   def show
-    unless current_traveler
-      @traveler = Traveler.find_by_id(session[:traveler_id])
+    unless current_traveler      
+      unless session[:traveler_id]
+        @traveler = Traveler.find(params[:id])
+      else
+        @traveler = Traveler.find_by_id(session[:traveler_id])
+      end
     else
       @traveler = current_traveler
     end
@@ -153,6 +157,25 @@ class TravelersController < ApplicationController
         flash[:notice] = "Hotel not canceled due wrong params"
         redirect_to request.referer
       end
+    end
+  end
+
+  private 
+
+  def resolve_layout
+    case action_name
+    when "index", "new", "edit", "show_traveler"
+      "admin_basic"
+    when "booking_history", "edit_traveler", "change_password"
+      "traveler_basic"
+    when "show"
+      if current_traveler || session[:traveler_id]
+        "traveler_basic"
+      else
+        "admin_basic"
+      end
+    else
+      "application"
     end
   end
 end

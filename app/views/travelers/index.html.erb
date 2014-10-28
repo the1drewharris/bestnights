@@ -26,7 +26,7 @@
 				<td><%= traveler.city.capitalize %></td>
 				<td><%= traveler.state.state_province.capitalize unless traveler.state.nil? %></td>
 				<% if can? :show, traveler %>
-					<td><%= link_to "Show", show_traveler_path(:id => traveler.id) %></td>
+					<td><%= link_to "Show", traveler_path(:id => traveler.id) %></td>
 				<% end %>
 				<% if can? :edit, traveler %>
 					<td><%= link_to "Edit", edit_traveler_path(traveler) %></td>

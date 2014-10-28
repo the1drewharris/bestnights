@@ -14,7 +14,7 @@
 			<div id="eyebrow">
 						<span class="logob"><%= link_to image_tag("/assets/logo.png"), root_path %></span>
 					<nav id="phone" class="rt-phn">
-					<% if current_traveler %>
+					<% if current_traveler || session[:traveler_id] %>
 						<%= link_to "Logout" , destroy_user_session_path, :method => :delete %>
 					<% else %>
 						<% if controller.controller_name == "home" && controller.action_name == "index" %>

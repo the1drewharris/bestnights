@@ -59,6 +59,10 @@
 			  		<%= f.select :user_id, options_for_select(User.all.map{|s|[s.email, s.id]}, @hotel.user.id) %>
 			  	</li>
 			  <% end %>
+			  <li>
+		  		<%= f.label :commission %>
+		  			<%= text_field_tag :commission,  @hotel.commission_rate.blank?  ? "" : @hotel.commission_rate.amount %>
+		  	</li>
 		  </ul>
 		</fieldset>	
 		<fieldset>

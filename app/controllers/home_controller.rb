@@ -82,7 +82,7 @@ class HomeController < ApplicationController
       flash[:success] = "Kindest Regards for adding your property. Your account is now pending. You will be notified by email when your property is active."
       redirect_to edit_room_url(room.id)
     rescue ActiveRecord::RecordNotUnique => e
-      flash[:errors] = " Please do not enter any duplicate name of hotels"
+      flash[:errors] = "Email/Property already exists. Use a new email or contact Bestnights to resolve"
       redirect_to root_url
     end
   end

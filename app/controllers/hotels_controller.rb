@@ -34,8 +34,10 @@ class HotelsController < ApplicationController
   def show
       @hotel = Hotel.find(params[:id])
       @hotel_view = HotelView.new
-      @hotel_view.hotel_id = @hotel.id
-      @hotel_view.save
+      if @hotel.status == "active"
+        @hotel_view.hotel_id = @hotel.id
+        @hotel_view.save
+      end
       @hotel_photos = @hotel.hotel_photos
       @hotel_attributes = @hotel.hotel_attributes.order('attr')
   end
@@ -112,6 +114,13 @@ class HotelsController < ApplicationController
           end
         end
       end
+      @commission_rate = CommissionRate.find_by_hotel_id(hotel.id)
+      unless @commission_rate
+        @commission_rate = CommissionRate.new
+      end
+      @commission_rate.amount = params[:commission]
+      @commission_rate.hotel_id = hotel.id
+      @commission_rate.save
       
       #flash[:success] = "The hotel updated successfully!"
       respond_to do |format|

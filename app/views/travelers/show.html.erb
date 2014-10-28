@@ -3,8 +3,11 @@
  <div id="wrapper" class="register">
  	<div id="container-main">
  		<h1 class="prop-title">Traveler Information</h1> 
- 		<div class="link-sec"><%= link_to "Book History", booking_history_path(@traveler) %> <%= link_to "Edit Profile", edit_traveler_traveler_path(@traveler) %> <%= link_to "Payment Information", book_hotel_path(@traveler) %>
- 			<%= link_to "Change Password", change_password_traveler_path(@traveler) %> 
+ 		<div class="link-sec">
+ 			<% if current_traveler || session[:traveler_id] %>
+ 				<%= link_to "Book History", booking_history_path(@traveler) %> <%= link_to "Edit Profile", edit_traveler_traveler_path(@traveler) %> <%= link_to "Payment Information", book_hotel_path(@traveler) %>
+ 				<%= link_to "Change Password", change_password_traveler_path(@traveler) %> 
+ 			<% end %>
  		</div>
  		<div class="info blockinfo">
  			<ul>
@@ -30,9 +33,11 @@
 				</li>
 			</ul>
 		</div>
-		<ul class="searchDestinyButt">
-			<li><%= link_to "Search Your Destination", root_path  %></li>
-		</ul>
+		<% if current_traveler || session[:traveler_id] %>
+			<ul class="searchDestinyButt">
+				<li><%= link_to "Search Your Destination", root_path  %></li>
+			</ul>
+		<% end %>
  	</div>
  </div>
 
