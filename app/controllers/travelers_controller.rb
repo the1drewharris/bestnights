@@ -20,7 +20,9 @@ class TravelersController < ApplicationController
     if @traveler.blank?
       redirect_to new_traveler_session_path
     end
-      #@traveler = Traveler.find(current_traveler)
+      if session[:checkout_mode]
+        redirect_to book_hotel_path(:traveler_id => @traveler.id)
+      end
   end
 
   def show_traveler
@@ -45,7 +47,11 @@ class TravelersController < ApplicationController
     session[:traveler] = @traveler
     if @traveler and @traveler.valid_password?(params[:password])
       session[:traveler_id] = @traveler.id
-      redirect_to traveler_path(@traveler.id)
+      unless session[:checkout_mode]
+        redirect_to traveler_path(@traveler.id)
+      else
+        redirect_to book_hotel_path(:traveler_id => @traveler.id)
+      end
     else
       flash[:success] = "Wrong Credential"
       redirect_to travelers_login_path
@@ -96,6 +102,7 @@ class TravelersController < ApplicationController
   def destroy
     Traveler.find(params[:id]).destroy
     session[:room_type_id] = nil
+    session[:checkout_mode] = nil
     redirect_to travelers_path
   end
 

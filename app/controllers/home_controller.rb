@@ -259,6 +259,7 @@ class HomeController < ApplicationController
     @checkout_flag = 0
     @traveler = Traveler.new
     @hotel = Hotel.find(params[:hotel_id])
+    session[:checkout_mode] = 1
     session[:booking_rooms] = params
     gon.group = session[:group] # passing rails variable to js object variable
      #@rooms = RoomAvailable.find_by_room_type_id_and_hotel_id(params[:room_type_id],params[:hotel_id])
@@ -510,6 +511,7 @@ class HomeController < ApplicationController
         end
         cookies.delete :guests
         cookies.delete :additionaladult
+        session[:checkout_mode] = nil
     else
       flash[:errors] = ["Your booking failed!"]
       return redirect_to checkout_path

@@ -64,7 +64,11 @@
       </tr>
       <tr style="line-height: 22px;">
         <td style="width: 176px;">Address</td>
-        <td>:  <%#= @hotel.name.capitalize %> #<%= @hotel.city.capitalize %>,<%= @subregion.name %> ,<%= @hotel.zip %></td>
+          <% @country = Carmen::Country.coded(@hotel.country_id ) %>
+          <% unless @country.blank? %>
+            <% @subregion = @country.subregions.coded(@hotel.state_id) %>
+          <% end %>
+        <td>:<%= @hotel.city.capitalize %>, <%= @subregion.name %>, <%= @country.name %>, <%= @hotel.zip %></td>
       </tr>
       <tr style="line-height: 22px;">
         <td style="width: 176px;">Phone</td>
