@@ -167,4 +167,12 @@ class HotelsController < ApplicationController
   def edit_commission_rate
     @commission_rate = CommissionRate.find_by_hotel_id(params[:hotel_id])
   end
+
+  def notify
+    #s.every '1s' do
+      #Rails.logger.info "hello, it's #{Time.now}"
+      #HotelsController.notify
+      puts "helloooooooooooooooooooooooooooooooo"
+    #end
+  end
 end

@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>E-mail Template</title>
+  </head>
+  <body>
+    <table width="604" border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="#fff">
+      <tr>
+        <td bgcolor="#272727" width="302">
+          <a href="http://23.253.149.108">
+            <img src="http://23.253.149.108/assets/e-mail-logo.jpg" alt="" title="" style="border: 0;">
+          </a>
+        </td>
+        <td bgcolor="#272727" width="302">
+          <h2 style="font-size: 14px ; color: #ef807f; margin:0; line-height: 17px; font-style: italic; padding-top: 5px; padding-left: 120px">1-888-494-BEST (2378) <br />
+          info@bestnights.com
+          </h2>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="#FFFFFF" style="font-family:Arial, Helvetica, sans-serif; border-width: 5px; border-color: #008000; border-bottom-width:0; border-style: solid; padding: 20px; font-size: 12px; color: #565656; font-weight: bold;">
+            <tr>
+              <td colspan="2" style="font-family:Arial, Helvetica, sans-serif; font-size:15px; line-height:21px; color:#000000; font-weight:normal;">
+                #4 - 715 Evans Ct , Kelowna, BC V1X 6G4<br />
+                Toll Free: 1-800-494-BEST(2378)<br />
+                Email: <a href="JavaScript:void(0);" style="color:#000000; text-decoration:none; cursor:text;">info@bestnights.com</a>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <h2 style="font-size: 22px ; color: #e73d3d; margin-top: 10px; margin-bottom: 20px;">Dear <%= @hotel.name.titleize %>,</h2>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" style="font-size: 12px ; margin-top: 10px; margin-bottom: 20px;">Kindest Regards for choosing Bestnights.com, It is our pleasure to send you last month's bookings as follows.</td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="#FFFFFF" style="font-family:Arial, Helvetica, sans-serif; border-width: 5px; border-color: #008000; border-style: solid; font-size: 12px; color: #565656; font-weight: bold;">
+            <thead>
+              <tr>
+                <td align="center" valign="middle" style="border-bottom: #008000 1px solid; padding: 5px;">Reservation No</td>
+                <td align="center" valign="middle" style="border-left: #008000 1px solid; border-bottom: #008000 1px solid; padding: 5px;">Book Date</td>
+                <td align="center" valign="middle" style="border-left: #008000 1px solid; border-bottom: #008000 1px solid; padding: 5px;">Arrival</td>
+                <td align="center" valign="middle" style="border-left: #008000 1px solid; border-bottom: #008000 1px solid; padding: 5px;">Departure</td>
+                <td align="center" valign="middle" style="border-left: #008000 1px solid; border-bottom: #008000 1px solid; padding: 5px;">Status</td>
+                <td align="center" valign="middle" style="border-left: #008000 1px solid; border-bottom: #008000 1px solid; padding: 5px;">Total Stay</td>
+                <td align="left" valign="middle" style="border-left: #008000 1px solid; border-bottom: #008000 1px solid; padding: 5px;">Booker Name</td>
+                <td align="left" valign="middle" style="border-left: #008000 1px solid; border-bottom: #008000 1px solid; padding: 5px;">Contact Info</td>
+              </tr>
+            </thead>
+            <tbody>
+              <% if !@bookings.blank? %>
+                <% @bookings.each do |book| %>
+                  <tr>
+                    <td align="center" valign="middle" style="border-bottom: #008000 1px solid; padding: 5px;"><%= book.id %></td>
+                    <td align="center" valign="middle" style="border-left: #008000 1px solid; border-bottom: #008000 1px solid; padding: 5px;"><%= book.created_at.strftime("%Y-%m-%d") %></td>
+                    <td align="center" valign="middle" style="border-left: #008000 1px solid; border-bottom: #008000 1px solid; padding: 5px;"><%= book.from_date  %></td>
+                    <td align="center" valign="middle" style="border-left: #008000 1px solid; border-bottom: #008000 1px solid; padding: 5px;"><%= book.to_date %></td>
+                    <td align="center" valign="middle" style="border-left: #008000 1px solid; border-bottom: #008000 1px solid; padding: 5px;">
+                      <% if book.is_cancel == false %>
+                        OK
+                      <% elsif book.is_cancel == true %>
+                        Cancel
+                      <% end %>
+                    </td>
+                    <td align="center" valign="middle" style="border-left: #008000 1px solid; border-bottom: #008000 1px solid; padding: 5px;">
+                      <% @country = Carmen::Country.coded(@hotel.country_id ) %>
+                      <% if !@country.blank? && @country.name == "Canada" %>
+                        CAD
+                      <% else %>
+                        USD 
+                      <% end %>   
+                      <%= number_with_precision(book.price, precision: 2) %>
+                    </td>
+                    <td align="left" valign="middle" style="border-left: #008000 1px solid; border-bottom: #008000 1px solid; padding: 5px;">
+                      <%= book.traveler.blank? ? "" : book.traveler.firstname.capitalize %>&nbsp;<%= book.traveler.blank? ? "" : book.traveler.lastname.capitalize %>
+                    </td>
+                    <td align="center" valign="middle" style="border-left: #008000 1px solid; border-bottom: #008000 1px solid; padding: 5px;">
+                      <%= book.traveler.blank? ? "" : book.traveler.phone_number %>
+                    </td>
+                  </tr>
+                <% end %>
+              <% end %>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <table cellspacing="0" cellpadding="0" align="center" style="background: #e5e5e5 ; margin-top: 20px; width: 594px; margin-left: -20px; margin-right: -20px; margin-bottom:-20px; padding-left: 20px; padding-right: 20px; padding-top: 15px; padding-bottom: 15px;">
+            <tr>
+              <td colspan="2">
+                <h4 style="font-size: 12px ; color: #707070; margin-top: 0; margin-bottom: 0;">
+                  Thank you,
+                  <br>
+                  The BestNights Team
+                </h4>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

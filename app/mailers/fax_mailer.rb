@@ -55,4 +55,12 @@ class FaxMailer < ActionMailer::Base
     subject = "Bestnights Booking Cancelation"
     mail(:subject => subject, :to => [@hotel.email, "info@bestnights.com"])
   end
+
+  def cron_mailer(bookings, hotel)
+    @bookings = bookings
+    @hotel = hotel
+    subject = "Monthly Booking Status"
+    mail(:subject => subject, :to => ["ujjal.bhattacharya@indusnet.co.in"])
+    puts "Hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii"
+  end
 end

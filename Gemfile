@@ -34,6 +34,8 @@ gem "wicked_pdf"
 gem "wkhtmltopdf-binary"
 gem 'therubyracer', '~> 0.12.1'
 gem 'ckeditor_rails', '~> 4.4.3'
+gem 'rufus-scheduler', '~> 3.0.9'
+#gem 'whenever', :require => false
 # gem 'fullcalendar-rails'
 
 # Deploy with Capistrano
