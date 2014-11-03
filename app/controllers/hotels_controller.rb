@@ -131,7 +131,7 @@ class HotelsController < ApplicationController
       #redirect_to hotels_path
     else
       flash[:errors] = hotel.errors.full_messages
-      redirect_to :back  
+      render :action => "edit" 
     end
   end
   

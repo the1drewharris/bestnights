@@ -58,11 +58,11 @@
 			  		<%= f.label "Manager*" %>
 			  		<%= f.select :user_id, options_for_select(User.all.map{|s|[s.email, s.id]}, @hotel.user.id) %>
 			  	</li>
-			  <% end %>
-			  <li>  
+			  	<li>  
 		  		<%= f.label :commission %>
 		  			<%= text_field_tag :commission,  @hotel.commission_rate.blank?  ? "" : number_with_precision(@hotel.commission_rate.amount, :precision => 2, :separator => '.') %>
 		  	</li>
+			  <% end %>			  
 		  </ul>
 		</fieldset>	
 		<fieldset>
@@ -222,11 +222,13 @@
 			},
 			init: function () {
 				console.log('step2');
+				<% if !@photos.blank? %>
 				<% @photos.each do |photo| %>
 					var mockFile = {id: "<%= photo.id %>", name: "<%= photo.picture_file_name %>", size: "<%= photo.picture_file_size %>", type: "<%= photo.picture_content_type %>" };
 					this.options.addedfile.call(this, mockFile);
 					this.options.thumbnail.call(this, mockFile, "<%= photo.picture.url %>");
-				<% end %>    
+				<% end %> 
+				<% end %>   
       },
       removedfile: function(file) {
 				$.ajax({

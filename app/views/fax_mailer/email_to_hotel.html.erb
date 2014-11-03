@@ -101,7 +101,13 @@
   <% end %>
   <tr style="line-height: 22px;">
       <td style="width: 176px;">total Price:</td>
-      <td>$<%= number_with_precision(@amount, :precision => 2, :separator => '.') %></td>
+      <% @country = Carmen::Country.coded(@hotel.country_id ) %>
+      <% if !@country.blank? && @country.name == "Canada" %>
+        <% @currency = "CAD" %>
+      <% else %>
+        <% @currency = "USD" %>
+      <% end %>  
+      <td><%= @currency %><%= number_with_precision(@amount, :precision => 2, :separator => '.') %></td>
     </tr>
   <tr style="line-height: 22px;">
     <td style="width: 176px;">RATE INFORMATION: </td>
@@ -155,7 +161,7 @@
   </tr>
   <tr style="line-height: 22px;">
     <td style="width: 176px;">Total Stay Cost:</td>
-    <td><%= number_with_precision(@amount, :precision => 2, :separator => '.') %></td>
+    <td><%= @currency %><%= number_with_precision(@amount, :precision => 2, :separator => '.') %></td>
   </tr>
   <td colspan="2">
       <h3 style="font-size: 16px ; color: #008000; margin-top: 20px; margin-bottom: 12px;">CANCELLATION POLICY:</h3>

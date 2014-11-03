@@ -152,7 +152,14 @@
           <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="#FFFFFF" style="font-family:Arial, Helvetica, sans-serif; border-width: 5px; border-color: #008000; border-top-width:0; border-style: solid; padding: 20px; font-size: 12px; color: #565656; font-weight: bold;">
         <tr>
         <td colspan="2">
-          <h2 style="font-size: 16px ; color: #272727; margin-top: 10px; margin-bottom: 25px;">Total Price : <span style="color: #cf4a4a;">$<%= number_with_precision(@amount, :precision => 2, :separator => '.') %></span></h2>
+          <h2 style="font-size: 16px ; color: #272727; margin-top: 10px; margin-bottom: 25px;">Total Price : <span style="color: #cf4a4a;">
+            <% @country = Carmen::Country.coded(@hotel.country_id ) %>
+            <% if !@country.blank? && @country.name == "Canada" %>
+              <% @currency = "CAD" %>
+            <% else %>
+              <% @currency = "USD" %>
+            <% end %> 
+            <%= @currency %><%= number_with_precision(@amount, :precision => 2, :separator => '.') %></span></h2>
           <h2 style="font-size: 14px ; color: #272727; margin-top: 0; margin-bottom: 0;">
             Room 1 - <%= @room.room_type.room_type %>
             <br />
