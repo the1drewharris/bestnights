@@ -30,9 +30,8 @@ s = Rufus::Scheduler.new
 
 # Awesome recurrent task...
 #
-s.cron '32 19 3 * *' do
+s.cron '45 2 4 * *' do
   Hotel.notify
-  puts "helloooooooooooooooooooooooooooooooo"
 end
 
 

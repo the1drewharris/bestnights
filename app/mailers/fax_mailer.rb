@@ -60,7 +60,8 @@ class FaxMailer < ActionMailer::Base
     @bookings = bookings
     @hotel = hotel
     subject = "Monthly Booking Status"
-    mail(:subject => subject, :to => ["ujjal.bhattacharya@indusnet.co.in"])
-    puts "Hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii"
+    unless @hotel.email.blank?
+      mail(:subject => subject, :to => [@hotel.email])
+    end
   end
 end

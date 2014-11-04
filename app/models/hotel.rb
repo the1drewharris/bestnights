@@ -95,12 +95,8 @@ class Hotel < ActiveRecord::Base
   end
 
   def self.notify
-    #Rails.logger.debug '===========whenever is working================'
     @hotels = Hotel.where("status=?", "active")
-    i=0
     @hotels.each do |hotel|
-      puts"=========#{@hotels.count}=========="
-      puts"@@@@@@@@@@@#{i=i+1}@@@@@@@@"
       @bookings = Booking.where("hotel_id=? AND created_at BETWEEN CURDATE() - INTERVAL 1 MONTH AND CURDATE()", hotel.id)
       FaxMailer.cron_mailer(@bookings, hotel).deliver
     end

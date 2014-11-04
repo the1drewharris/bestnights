@@ -150,6 +150,8 @@ GEM
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rubyntlm (0.3.4)
+    rufus-scheduler (3.0.9)
+      tzinfo
     sass (3.2.14)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -192,7 +194,7 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    tzinfo (0.3.38)
+    tzinfo (0.3.42)
     uglifier (2.4.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
@@ -235,6 +237,7 @@ DEPENDENCIES
   rails (= 3.2.8)
   rails3-jquery-autocomplete (~> 1.0.14)
   rest-client (~> 1.6.7)
+  rufus-scheduler (~> 3.0.9)
   sass-rails (~> 3.2.3)
   savon (~> 2.5.0)
   simple_form
