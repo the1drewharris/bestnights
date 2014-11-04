@@ -32,6 +32,9 @@
 $(document).ready(function() {
 
 
+	$(".ckeditor").ckeditor({
+		enterMode : CKEDITOR.ENTER_BR
+	})
 	$(".status-label").tooltip();
 
 	$("#from_date").datepicker({
