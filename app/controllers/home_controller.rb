@@ -692,7 +692,7 @@ class HomeController < ApplicationController
                 '<td>Booked By:</td>'\
                 '<td style="font-weight: bold;">' + "#{traveler.name.titleize}" + '</td>'\
                 '<td>Zip Code:</td>'\
-                '<td style="font-weight: bold;">' + "#{traveler.zip.titleize}" + '</td>'\
+                '<td style="font-weight: bold;">' + "#{traveler.zip.upcase}" + '</td>'\
               '</tr>'\
               '<tr>'\
                 '<td>Address:</td>'\

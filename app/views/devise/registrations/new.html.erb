@@ -64,11 +64,11 @@
 						</li>
 						<li>
 							<label for="ccnumber">Credit Card Number</label>
-							<%= f.text_field :credit_card_number,:size => "30", id: 'ccnumber', required: true%>
+							<%= f.text_field :credit_card_number,:size => "30", id: 'ccnumber' %>
 						</li>
 						<li>
 							<label for="ccv">CCV</label>
-							<%= f.text_field :ccv,:maxlength => "3", :size=>"3" , required: true%>
+							<%= f.text_field :ccv,:maxlength => "3", :size=>"3" %>
 						</li>
 						<li>
 								<label for="ccexpiry">Credit Card Expiration Date</label>
@@ -78,7 +78,7 @@
                        :discard_day => true,
                        :date_separator => '/',
                        :order => [:month,:year],
-                       :html=>{:class => "date-select"} , required: true) %>
+                       :html=>{:class => "date-select"}) %>
 					</span>			
 							</li>
 				  <% end %>
