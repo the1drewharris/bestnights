@@ -53,11 +53,39 @@
 						<label for="State/Province" style="float:left">State/Province</label>
 						<%= render partial: 'users/test', locals: {parent_region: f.object.country_id} %>
 					</li>				
-				  
+				  <% if resource_name == :traveler %>
+				  	<li>
+				  		<%= f.label 'Phone Number*' %>
+				  		<%= f.text_field :phone_number %>
+				  	</li>
+				  	<li>
+							<label for="cardtype">Credit Card Type</label>
+							<%= f.select :credit_card_type, options_for_select([['Visa','visa'],['Mastercard','mc'],['Diners Club','diners'],['American Express','amex'],['Discover','discover']]),{},{id: 'cardtype',required: true} %>
+						</li>
+						<li>
+							<label for="ccnumber">Credit Card Number</label>
+							<%= f.text_field :credit_card_number,:size => "30", id: 'ccnumber', required: true%>
+						</li>
+						<li>
+							<label for="ccv">CCV</label>
+							<%= f.text_field :ccv,:maxlength => "3", :size=>"3" , required: true%>
+						</li>
+						<li>
+								<label for="ccexpiry">Credit Card Expiration Date</label>
+								<span class="date-select">
+								<%= f.date_select("credit_card_expiry_date", :start_year => Time.now.year,
+                       :use_month_numbers => true,
+                       :discard_day => true,
+                       :date_separator => '/',
+                       :order => [:month,:year],
+                       :html=>{:class => "date-select"} , required: true) %>
+					</span>			
+							</li>
+				  <% end %>
 			  </ul>
 		  </fieldset>
 		  <fieldset class="formactions">
-		  	<%= f.submit 'Sign Up' %>
+		  	<%= f.submit 'Sign Up', class: "submit" %>
 		  </fieldset>
 		<% end %>
 		

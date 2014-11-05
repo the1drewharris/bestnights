@@ -179,4 +179,14 @@ $(document).ready(function() {
       }
     })
 	})
+	$(".submit").click(function(){
+		ccnum = $("#ccnumber").val();
+		cardtype= $("#cardtype").val();
+		 if ((ccnum.match("^4[0-9]{12}(?:[0-9]{3})?$") && ccnum.length == 16 && cardtype == "visa") || (ccnum.match("^5[1-5][0-9]{14}$") && ccnum.length == 16 && cardtype == "mc") || (ccnum.match("^3[47][0-9]{13}$") && ccnum.length == 15 && cardtype == "amex") || (ccnum.match("^6(?:011|5[0-9]{2})[0-9]{12}$") && ccnum.length == 16 && cardtype == "discover") || (ccnum.match("^3(?:0[0-5]|[68][0-9])[0-9]{11}$") && ccnum.length == 14 && cardtype == "diners")) {
+     }
+     else {
+     		alert("Please enter a valid card number and card type");
+        return false;
+     }
+	})
 });
