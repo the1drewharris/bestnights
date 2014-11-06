@@ -743,7 +743,7 @@ class HomeController < ApplicationController
    unless @fax_result["SendCharFaxResult"].include? "-"
     TravelerPayment.create(amount: amount, traveler_id: traveler.id)
    else
-    flash[:notice] = "Hotel not booked due wrong params"
+    flash[:success] = "Hotel not booked due wrong params"
     redirect_to root_path
    end
   end

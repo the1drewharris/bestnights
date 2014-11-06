@@ -4922,5 +4922,41 @@ a.landing-form-submit:hover{
 #cke_16, #cke_34, #cke_66, #cke_70, #cke_80, #cke_83, #cke_86{
 	display: none;
 }
+.Tpaymnet{
+	float: left; padding-left: 20px;
+	width: 706px;
+}
+.spacer{
+	padding: 0;
+	margin: 0;
+	line-height: 0;
+	display:block;
+	clear:both;
+}
+.conwrap.travelerBlock {
+	width: 684px;
+	margin: 0 auto;
+}
+.width50{
+	width:50px;
+}
+.travelerText{
+	font-size: 16px;
+	text-transform: none;
+	font-weight: bold;
+	text-align: center;
+	padding-top: 20px;
+}
+.editTraveler li.last select{
+	width: 50px!important;
+	margin-right: 6px;
+}
+.editTraveler li.last span{
+	margin-left: 6px;
+}
+.editTraveler li.last span select{
+	width: 80px!important;
+	margin-left: 6px;
+}
 /* End */
 

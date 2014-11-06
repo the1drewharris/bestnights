@@ -4,33 +4,15 @@
  	<div id="container-main">
  		<h1 class="prop-title">Traveler Information</h1> 
  		<%= render partial: "/common/navigation_tab"%>
- 		<div class="info blockinfo">
- 			<ul>
- 				<li>
-	 				<label>Name:</label>
-	 				<%= @traveler.firstname.capitalize %>&nbsp;<%= @traveler.lastname.capitalize %>
- 				</li>
- 				<li>
-	 				<label>Address:</label>
-					<%= @traveler.address1.titleize %>
-				</li>
-				<li>
-					<label>City:</label>
-					<%= @traveler.city.capitalize %>
-				</li>
-				<li>
-					<label>State/Province:</label>
-					<%= @traveler.state_id %>
-				</li>
-				<li>
-					<label>Phone Number:</label>
-					<%= @traveler.phone_number %>
-				</li>
-			</ul>
+ 		<div class="Tpaymnet">
+	 				<h2 class="travelerText"> Welcome, <%= @traveler.firstname.capitalize %>&nbsp;<%= @traveler.lastname.capitalize %> ! 	<br />
+	 				From here you can access your <br /> booking history and profile.<br/><br/>
+	 				or
+	 			</h2>
 		</div>
 		<% if current_traveler || session[:traveler_id] %>
 			<ul class="searchDestinyButt">
-				<li><%= link_to "Search Your Destination", root_path  %></li>
+				<li><%= link_to "Search a New Destination!", root_path  %></li>
 			</ul>
 		<% end %>
  	</div>

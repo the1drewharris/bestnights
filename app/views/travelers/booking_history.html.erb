@@ -1,7 +1,9 @@
+<div id="wrapper" class="register">
 <div id="container-main">
 <h1 class="prop-title">Booking History</h1> 
 <%= render partial: "/common/navigation_tab"%>
-<div class="conwrap">
+<div class="Tpaymnet">
+<div class="conwrap travelerBlock">
 <div class="bookings blocks">
 <div class="scroll">
   <table class="bookconf" width="100%" border="0">
@@ -53,6 +55,9 @@
 <%= will_paginate @booking_histories %>
 </div>
 </div>
+</div>
 <div class="row back-link bking"><%= link_to "Back", traveler_path(params[:id]) , class: "link" %></div>
+<br class="spacer" />
+</div>
 </div>
 

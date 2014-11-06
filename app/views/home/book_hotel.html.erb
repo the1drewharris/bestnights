@@ -2,6 +2,7 @@
  	<div id="container-main">
  		<h1 class="prop-title">Traveler Payment Information</h1> 
  		<%= render partial: "/common/navigation_tab"%>
+ 		<div class="Tpaymnet">
  		<form id="checkout" name="checkout" method="post" action="/checkout_confirm" accept-charset="UTF-8" >
 	 		<div class="info blockinfo">
 	 			<ul>
@@ -28,9 +29,7 @@
 						<label>Credit Card Expiration Date:</label>
 						<%= @traveler.credit_card_expiry_date.strftime('%m/%y') if @traveler && @traveler.credit_card_expiry_date %>
 					</li>
-				</ul>
-
-				
+				</ul>				
 			</div>
 			<div class="link-sec">
 				<% if !session[:room_type_id].blank? %>
@@ -40,6 +39,9 @@
 				<div class="row back-link bking"><%= link_to "Back", traveler_path(@traveler.id) , class: "link" %></div>
 			</div>
 		</form>
+	</div>
+	</div>
+	<br class="spacer" />
 			<%= render :partial => "common/home_footer" %>
  	</div>
 

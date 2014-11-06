@@ -30,7 +30,7 @@
         <li><%= link_to "Additional Properties", new_hotel_path, class: "link8" %></li>
       <% end %>
       <% end %>
-    <% elsif current_traveler %>
+    <% elsif current_traveler || session[:traveler] %>
       <li>
         <%= link_to "Book History", booking_history_path(@traveler), class: "link9" %>
       </li>
