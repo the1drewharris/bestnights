@@ -29,8 +29,8 @@
 		$("#month_reserve").change(function(){
 			$.cookie("month_reserve",$("#month_reserve").val());
 		})
-		$("#sidebarmenu1 > li > a").click(function(){
-			$.cookie("link",$(this).attr("class"))
+		$("#sidebarmenu1").children("li").children("a").click(function(){
+			$.cookie("link",$(this).attr("class"), { path: '/' })
 		})
 		var flag = 0
 		if(window.location.pathname != "/dashboard" || window.location.pathname != "/contact_people/new"){

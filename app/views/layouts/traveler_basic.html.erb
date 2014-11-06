@@ -28,12 +28,13 @@
 
 			<%= render :partial => "common/notifications" %>								
 		  <%= yield %>		  
-			<footer>
+			<!-- <footer>
 				<div>
 					<p id="copyright"><small>&copy; Copyright BestNights.com 2014. All Rights Reserved.</small></p>
 					<nav></nav>
 				</div>
-			</footer>
+			</footer> -->
+			<%= render :partial => "common/home_footer" %>
 		</div>		
 		<%= javascript_include_tag "functions" %>	
 		<%= render :partial => "common/google_analytics" %>	

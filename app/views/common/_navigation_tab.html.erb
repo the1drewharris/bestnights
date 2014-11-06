@@ -1,6 +1,6 @@
 <div class="sidebarmenu">
   <ul id="sidebarmenu1">
-    <% if current_user.admin? || current_user.manager?  %>
+    <% if current_user && (current_user.admin? || current_user.manager?)  %>
       <li><%= link_to "Arrivals", arrivals_path, class: "link1" %>
       </li>
       <li><%= link_to "Bookings", bookings_path, class: "link2" %></li>
@@ -26,10 +26,23 @@
       <% @hotels = current_user.hotels %>
       <% if !@hotels.blank? %>
       <% if @hotels.count < 2 %>
-        <li><%= link_to "Edit Hotel", edit_hotel_path(id: session[:hotel_id]) %></li>
-        <li><%= link_to "Additional Properties", new_hotel_path %></li>
+        <li><%= link_to "Edit Hotel", edit_hotel_path(id: session[:hotel_id]), class: "link7" %></li>
+        <li><%= link_to "Additional Properties", new_hotel_path, class: "link8" %></li>
       <% end %>
       <% end %>
+    <% elsif current_traveler %>
+      <li>
+        <%= link_to "Book History", booking_history_path(@traveler), class: "link9" %>
+      </li>
+      <li>
+        <%= link_to "Edit Profile", edit_traveler_traveler_path(@traveler), class: "link10" %>
+      </li>
+      <li>
+        <%= link_to "Payment Information", book_hotel_path(@traveler), class: "link11" %>
+      </li>
+      <li>
+        <%= link_to "Change Password", change_password_traveler_path(@traveler), class: "link12" %>
+      </li>
     <% end %>
   </ul>
 </div>
